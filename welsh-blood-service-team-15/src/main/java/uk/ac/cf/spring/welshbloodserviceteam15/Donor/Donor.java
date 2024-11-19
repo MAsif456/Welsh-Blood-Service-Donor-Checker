@@ -1,9 +1,11 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.List;
-import uk.ac.cf.spring.welshbloodserviceteam15.DonorTravelledToCountry.DonorTravelledToCountry;
 
 @Entity
+@Table(name = "donor")
 public class Donor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,55 +13,61 @@ public class Donor {
 
     private String firstName;
     private String lastName;
-    private String donorDob; // You can use LocalDate for date handling
+    private LocalDate donorDob; // You can use LocalDate for date handling
     private String donorRisk;
     private String donorDecision;
     private String donorNote;
-
-    @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "donor", fetch = FetchType.LAZY)
     private List<DonorTravelledToCountry> travelHistory;
 
-    private Integer getDonorId() {
+    public Integer getDonorId() {
         return donorId;
     }
-    private void setDonorId(Integer donorId) {
+    public void setDonorId(Integer donorId) {
         this.donorId = donorId;
     }
-    private String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
-    private void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    private String getLastName() {
+    public String getLastName() {
         return lastName;
     }
-    private void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    private String getDonorDob() {
+    public LocalDate getDonorDob() {
         return donorDob;
     }
-    private void setDonorDob(String donorDob) {
+    public void setDonorDob(LocalDate donorDob) {
         this.donorDob = donorDob;
     }
-    private String getDonorRisk() {
+    public String getDonorRisk() {
         return donorRisk;
     }
-    private void setDonorRisk(String donorRisk) {
+    public void setDonorRisk(String donorRisk) {
         this.donorRisk = donorRisk;
     }
-    private String getDonorDecision() {
+    public String getDonorDecision() {
         return donorDecision;
     }
-    private void setDonorDecision(String donorDecision) {
+    public void setDonorDecision(String donorDecision) {
         this.donorDecision = donorDecision;
     }
-    private String getDonorNote() {
+    public String getDonorNote() {
         return donorNote;
     }
-    private void setDonorNote(String donorNote) {
+    public void setDonorNote(String donorNote) {
         this.donorNote = donorNote;
+    }
+
+    public List<DonorTravelledToCountry> getTravelHistory() {
+        return travelHistory;
+    }
+    public void setTravelHistory(List<DonorTravelledToCountry> travelHistory) {
+        this.travelHistory = travelHistory;
     }
 
 

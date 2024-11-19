@@ -1,10 +1,12 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.CountryDisease;
+package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 
 @Entity
+@Table(name = "country_disease")
+
 public class CountryDisease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,30 +23,30 @@ public class CountryDisease {
     private String note;
 
 
-    private Integer getId() {
+    public Integer getId() {
         return id;
     }
-    private void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    private Country getCountry() {
+    public Country getCountry() {
         return country;
     }
-    private void setCountry(Country country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
-    private Disease getDisease() {
+    public Disease getDisease() {
         return disease;
     }
-    private void setDisease(Disease disease) {
+    public void setDisease(Disease disease) {
         this.disease = disease;
     }
-    private String getNote() {
+    public String getNote() {
         return note;
     }
-    private void setNote(String note) {
+    public void setNote(String note) {
         this.note = note;
     }
 

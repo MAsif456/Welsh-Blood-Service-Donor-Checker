@@ -1,11 +1,12 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Disease;
 
 import jakarta.persistence.*;
-import uk.ac.cf.spring.welshbloodserviceteam15.CountryDisease.CountryDisease;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
 
 import java.util.List;
 
 @Entity
+@Table(name = "diseases")
 public class Disease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,26 +14,19 @@ public class Disease {
 
     private String diseaseName;
 
-    @OneToMany(mappedBy = "disease", cascade = CascadeType.ALL)
-    private List<CountryDisease> affectedCountries;
 
-    private Integer getDiseaseId() {
+    public Integer getDiseaseId() {
         return diseaseId;
     }
-    private void setDiseaseId(Integer diseaseId) {
+    public void setDiseaseId(Integer diseaseId) {
         this.diseaseId = diseaseId;
     }
-    private String getDiseaseName() {
+    public String getDiseaseName() {
         return diseaseName;
     }
-    private void setDiseaseName(String diseaseName) {
+    public void setDiseaseName(String diseaseName) {
         this.diseaseName = diseaseName;
     }
-    private List<CountryDisease> getAffectedCountries() {
-        return affectedCountries;
-    }
-    private void setAffectedCountries(List<CountryDisease> affectedCountries) {
-        this.affectedCountries = affectedCountries;
+
     }
 
-}

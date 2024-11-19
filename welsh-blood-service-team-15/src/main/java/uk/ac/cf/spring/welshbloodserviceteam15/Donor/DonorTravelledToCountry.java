@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.DonorTravelledToCountry;
+package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import jakarta.persistence.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
@@ -7,6 +7,8 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "donor_travelled_to_country")
+
 public class DonorTravelledToCountry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,34 +25,36 @@ public class DonorTravelledToCountry {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private Integer getId() {
+
+    public Integer getId() {
         return id;
     }
-    private void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-    private Donor getDonor() {
+
+    public Donor getDonor() {
         return donor;
     }
-    private void setDonor(Donor donor) {
+    public void setDonor(Donor donor) {
         this.donor = donor;
     }
-    private Country getCountry() {
+    public Country getCountry() {
         return country;
     }
-    private void setCountry(Country country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
-    private LocalDate getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
-    private void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-    private LocalDate getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    private void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

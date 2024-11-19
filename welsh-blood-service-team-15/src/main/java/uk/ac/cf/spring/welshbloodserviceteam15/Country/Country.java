@@ -1,12 +1,12 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
-import uk.ac.cf.spring.welshbloodserviceteam15.CountryDisease.CountryDisease;
-import uk.ac.cf.spring.welshbloodserviceteam15.DonorTravelledToCountry.DonorTravelledToCountry;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
 
 import java.util.List;
 
 @Entity
+@Table(name = "countries")
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,36 +14,17 @@ public class Country {
 
     private String countryName;
 
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<CountryDisease> diseases;
-
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<DonorTravelledToCountry> donorVisits;
-
-    // Gteters and settirs below
-    private Integer getCountryId() {
+    public Integer getCountryId() {
         return countryId;
     }
-    private void setCountryId(Integer countryId) {
+    public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
-    private String getCountryName() {
+    public String getCountryName() {
         return countryName;
     }
-    private void setCountryName(String countryName) {
+    public void setCountryName(String countryName) {
         this.countryName = countryName;
-    }
-    private List<CountryDisease> getDiseases() {
-        return diseases;
-    }
-    private void setDiseases(List<CountryDisease> diseases) {
-        this.diseases = diseases;
-    }
-    private List<DonorTravelledToCountry> getDonorVisits() {
-        return donorVisits;
-    }
-    private void setDonorVisits(List<DonorTravelledToCountry> donorVisits) {
-        this.donorVisits = donorVisits;
     }
 
 

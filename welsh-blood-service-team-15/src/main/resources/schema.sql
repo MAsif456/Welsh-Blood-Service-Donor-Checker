@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS diseases;
 
-create schema welshblood;
 CREATE TABLE IF NOT EXISTS donor
 (
     donor_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,11 +29,13 @@ CREATE TABLE IF NOT EXISTS diseases
 
 CREATE TABLE IF NOT EXISTS donor_travelled_to_country
 (
+    id INT AUTO_INCREMENT,
     donor_id INT,
     country_id INT,
     start_date DATE,
     end_date DATE,
     PRIMARY KEY(donor_id, country_id),
+    UNIQUE(id),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(country_id) REFERENCES countries(country_id)
 );
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS country_disease
 (
     country_id INT,
     disease_id INT,
-    note VARCHAR(50),
+    note VARCHAR(200),
     PRIMARY KEY(country_id, disease_id),
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
