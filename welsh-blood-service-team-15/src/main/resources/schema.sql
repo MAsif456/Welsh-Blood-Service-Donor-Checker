@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS diseases;
 
+create schema welshblood;
 CREATE TABLE IF NOT EXISTS donor
 (
     donor_id INT AUTO_INCREMENT PRIMARY KEY,
