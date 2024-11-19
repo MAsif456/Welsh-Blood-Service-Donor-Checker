@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS donor_travelled_to_country
 (
     donor_id INT,
     country_id INT,
+    start_date DATE,
+    end_date DATE,
     PRIMARY KEY(donor_id, country_id),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(country_id) REFERENCES countries(country_id)
