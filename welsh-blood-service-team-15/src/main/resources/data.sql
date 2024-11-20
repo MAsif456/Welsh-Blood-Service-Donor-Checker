@@ -81,3 +81,23 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_da
 
 
 
+
+INSERT INTO questions (question) VALUES
+('Have you travelled to a country within the last 12 months?'),
+('Where have you travelled in the last 12 months?'),
+('When did you go to this country?'),
+('When did you return from this country?'),
+('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
+('Have you lived  abroad for more than 6 months'),
+('Where have you lived abroad?'),
+('When did you go abroad?'),
+('When did you return from abroad?'),
+('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
+('Have you travelled through multiple countries whilst travelling abroad?'),
+('Which countries have you travelled through?'),
+('When did you go to these countries?'),
+('When did you return from these countries?'),
+('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?');
+
+
+

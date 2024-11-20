@@ -19,8 +19,8 @@
         <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to <span th:text="${travel.endDate}"></span></p>
     </li>
 </ul>
-<h2>Disease Risk</h2>
 
+<h2>Disease Risk</h2>
 <ul>
     <li th:each="disease : ${diseases}">
         <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
