@@ -15,8 +15,8 @@ public class DonorController {
     @Autowired
     private DonorService donorService;
 
-    @GetMapping("/donor/summary/{donorId}")
-    public String getDonorSummary(@PathVariable Integer donorId, Model model) {
+    @GetMapping("/donor/summary-risks/{donorId}")
+    public String getDonorSummaryWithRisks(@PathVariable Integer donorId, Model model) {
         Donor donor = donorService.getDonorSummary(donorId);
         List<CountryDisease> diseases = donorService.getDiseasesForDonorTravel(donorId);
 
@@ -24,5 +24,12 @@ public class DonorController {
         model.addAttribute("diseases", diseases);
 
         return "Donor/donorSummaryAndRisks";
+    }
+
+    @GetMapping("/donor/summary/{donorId}")
+    public String getDonorSummary(@PathVariable Integer donorId, Model model) {
+        Donor donor = donorService.getDonorSummary(donorId);
+        model.addAttribute("donor", donor);
+        return "Donor/donorSummary";
     }
 }
