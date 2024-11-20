@@ -28,6 +28,7 @@ public class DonorController {
 
     @GetMapping("/donor/summary/{donorId}")
     public String getDonorSummary(@PathVariable Integer donorId, Model model) {
+        // Get the donor summary
         Donor donor = donorService.getDonorSummary(donorId);
         model.addAttribute("donor", donor);
         return "Donor/donorSummary";
