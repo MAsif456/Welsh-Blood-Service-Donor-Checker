@@ -13,7 +13,7 @@ public class Donor {
 
     private String firstName;
     private String lastName;
-    private LocalDate donorDob; // You can use LocalDate for date handling
+    private LocalDate donorDob;
     private String donorRisk;
     private String donorDecision;
     private String donorNote;

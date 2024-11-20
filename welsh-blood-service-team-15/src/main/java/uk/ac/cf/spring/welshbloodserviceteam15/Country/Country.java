@@ -1,9 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
-import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
-
-import java.util.List;
 
 @Entity
 @Table(name = "countries")

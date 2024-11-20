@@ -1,7 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 
 @Entity
@@ -49,7 +48,5 @@ public class CountryDisease {
     public void setNote(String note) {
         this.note = note;
     }
-
-
 
 }

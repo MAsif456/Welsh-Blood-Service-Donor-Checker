@@ -47,7 +47,7 @@ INSERT INTO country_disease (country_id, disease_id, note) VALUES
                                                                -- Dengue Fever occurrences
                                                                (2, 2, 'Coastal areas affected 2015-2018'),  -- Bangladesh
                                                                (4, 2, 'Northern areas faced Dengue Fever outbreaks 2015-2020'),  -- Cameroon
-                                                               (11, 2, 'Dengue Fever cases in urban areas 2016-2019'),  -- India
+                                                               (11, 2, 'Dengue Fever cases in urban areas 2016-2019'),  -- Honduras
 
                                                                -- Zika Virus occurrences
                                                                (5, 3, 'Zika virus outbreak in rural areas 2015-2017'),  -- Chad
@@ -58,6 +58,9 @@ INSERT INTO country_disease (country_id, disease_id, note) VALUES
                                                                (3, 4, 'Chikungunya cases in urban regions 2015-2017'),  -- Bolivia
                                                                (9, 4, 'Chikungunya outbreaks in southern areas 2010-2015'),  -- Guinea
                                                                (10, 4, 'Chikungunya reported in the capital city 2012-2015');  -- Guatemala
+
+
+    select * from countries where country_name = 'Honduras' ;
 
 -- Inserting donor_travelled_to_country records (using correct donor_id and country_id)
 

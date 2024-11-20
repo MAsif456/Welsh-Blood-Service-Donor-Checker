@@ -1,9 +1,7 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Disease;
 
 import jakarta.persistence.*;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
 
-import java.util.List;
 
 @Entity
 @Table(name = "diseases")
