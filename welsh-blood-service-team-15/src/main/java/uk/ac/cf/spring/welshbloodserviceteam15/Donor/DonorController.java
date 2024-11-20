@@ -23,6 +23,6 @@ public class DonorController {
         model.addAttribute("donor", donor);
         model.addAttribute("diseases", diseases);
 
-        return "Donor/donorSummary";
+        return "Donor/donorSummaryAndRisks";
     }
 }
