@@ -1,8 +1,10 @@
 DROP TABLE IF EXISTS donor_travelled_to_country;
 DROP TABLE IF EXISTS country_disease;
-DROP TABLE IF EXISTS donor;
+DROP TABLE IF EXISTS travel_questionnaire;
+DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS diseases;
+DROP TABLE IF EXISTS donor;
 
 CREATE TABLE IF NOT EXISTS donor
 (
@@ -47,3 +49,22 @@ CREATE TABLE IF NOT EXISTS country_disease
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
 );
+
+CREATE TABLE IF NOT EXISTS questions
+(
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS travel_questionnaire
+(
+    questionnaire_id INT AUTO_INCREMENT PRIMARY KEY,
+    donor_id INT,
+    question_id INT,
+    answer VARCHAR(50),
+    FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
+    FOREIGN KEY(question_id) REFERENCES questions(question_id)
+
+);
+
+
