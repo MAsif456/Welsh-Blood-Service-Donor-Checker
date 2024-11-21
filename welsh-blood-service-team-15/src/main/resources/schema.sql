@@ -31,21 +31,21 @@ CREATE TABLE IF NOT EXISTS diseases
 
 CREATE TABLE IF NOT EXISTS donor_travelled_to_country
 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     donor_id INT,
     country_id INT,
     start_date DATE,
     end_date DATE,
-    PRIMARY KEY(donor_id, country_id),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(country_id) REFERENCES countries(country_id)
 );
 
 CREATE TABLE IF NOT EXISTS country_disease
 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     country_id INT,
     disease_id INT,
-    note VARCHAR(50),
-    PRIMARY KEY(country_id, disease_id),
+    note VARCHAR(256),
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
 );
@@ -64,7 +64,6 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
     answer VARCHAR(50),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
-
 );
 
 

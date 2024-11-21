@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Donor Summary</title>
@@ -8,7 +7,7 @@
 <body>
 <div class="donor-summary">
     <h1>Donor Summary</h1>
-    <p><strong>Name:</strong> <span th:text="|${donor.firstName} ${donor.lastName}|"></span></p>
+    <p><strong>Name:</strong> <span th:text="${donor.firstName} + ' ' + ${donor.lastName}"></span></p>
     <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
     <p><strong>Risk Level:</strong>
         <span th:classappend="${donor.donorRisk == 'High' ? 'risk-high' :
@@ -16,28 +15,41 @@
               th:text="${donor.donorRisk}"></span>
     </p>
 
-
     <h2>Travel History</h2>
     <div class="travel-history">
+        <!-- Check if donor.travelHistory is not empty -->
+        <div>
+            <ul>
+                <li th:each="travel : ${donor.travelHistory}">
+                    <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                    <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
+                        <span th:text="${travel.endDate}"></span></p>
+                </li>
+            </ul>
+        </div>
+        <!-- If donor.travelHistory is empty or null, show a message -->
+    </div>
+
+    <h2>Questionnaire Answers</h2>
+    <div class="questionnaire-answers">
         <ul>
-            <li th:each="travel : ${donor.travelHistory}">
-                <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
-                    <span th:text="${travel.endDate}"></span></p>
+            <li th:each="answer : ${donorsAnswers}">
+                <p>
+                    <strong>Question: </strong>
+                </p>
+                <p><strong>Answer:</strong> <span th:text="${answer.answer}"></span></p>
             </li>
         </ul>
     </div>
 
-    <h2>Questionnaire Answers</h2>
-    <div class="travel-history">
+    <h2>Additional Details</h2>
+    <div class="additional-details">
         <ul>
             <li><p>Donor travelled through Germany on 11-09-2020</p></li>
             <li><p>Donor lived in France from 06-2015 to 08-2020</p></li>
             <li><p>Is in a relationship with someone who moved from China on 04-2024</p></li>
         </ul>
     </div>
-
 </div>
 </body>
-
 </html>
