@@ -9,7 +9,6 @@
 <p><strong>Last Name:</strong> <span th:text="${donor.lastName}"></span></p>
 <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
 <p><strong>Risk Level:</strong> <span th:text="${donor.donorRisk}"></span></p>
-<p><strong>Decision:</strong> <span th:text="${donor.donorDecision}"></span></p>
 <p><strong>Notes:</strong> <span th:text="${donor.donorNote}"></span></p>
 
 <h2>Travel History</h2>
@@ -25,7 +24,7 @@
     <li th:each="disease : ${diseases}">
         <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
         <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
-        <p><strong>Note:</strong> <span th:text="${disease.note}"></span></p>
+        <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
     </li>
 </ul>
 </body>
