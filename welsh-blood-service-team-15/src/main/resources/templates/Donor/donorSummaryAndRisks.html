@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donor Summary</title>
+</head>
+<body>
+<h1>Donor Summary</h1>
+<p><strong>First Name:</strong> <span th:text="${donor.firstName}"></span></p>
+<p><strong>Last Name:</strong> <span th:text="${donor.lastName}"></span></p>
+<p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
+<p><strong>Risk Level:</strong> <span th:text="${donor.donorRisk}"></span></p>
+<p><strong>Decision:</strong> <span th:text="${donor.donorDecision}"></span></p>
+<p><strong>Notes:</strong> <span th:text="${donor.donorNote}"></span></p>
+
+<h2>Travel History</h2>
+<ul>
+    <li th:each="travel : ${donor.travelHistory}">
+        <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+        <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to <span th:text="${travel.endDate}"></span></p>
+    </li>
+</ul>
+<h2>Disease Risk</h2>
+
+<ul>
+    <li th:each="disease : ${diseases}">
+        <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
+        <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
+        <p><strong>Note:</strong> <span th:text="${disease.note}"></span></p>
+    </li>
+</ul>
+</body>
+</html>
