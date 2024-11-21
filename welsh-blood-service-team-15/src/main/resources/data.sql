@@ -230,22 +230,22 @@ INSERT INTO country_disease (country_id, disease_id, note) VALUES
 
 
 
-INSERT INTO questions (question) VALUES
-('Have you travelled to a country within the last 12 months?'),
-('Where have you travelled in the last 12 months?'),
-('When did you go to this country?'),
-('When did you return from this country?'),
-('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
-('Have you lived  abroad for more than 6 months'),
-('Where have you lived abroad?'),
-('When did you go abroad?'),
-('When did you return from abroad?'),
-('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
-('Have you travelled through multiple countries whilst travelling abroad?'),
-('Which countries have you travelled through?'),
-('When did you go to these countries?'),
-('When did you return from these countries?'),
-('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?');
+INSERT INTO questions (question, no_risk_response) VALUES
+('Have you travelled to a country within the last 12 months?', 'No'),
+('Where have you travelled in the last 12 months?', '0'),
+('When did you go to this country?', '0'),
+('When did you return from this country?', '0'),
+('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
+('Have you lived  abroad for more than 6 months', 'No'),
+('Where have you lived abroad?', '0'),
+('When did you go abroad?', '0'),
+('When did you return from abroad?', '0'),
+('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
+('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
+('Which countries have you travelled through?', '0'),
+('When did you go to these countries?', '0'),
+('When did you return from these countries?', '0'),
+('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No');
 
 -- Dummy Data
 -- Inserting donors (donor_id will be auto-incremented)
