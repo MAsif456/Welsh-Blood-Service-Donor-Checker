@@ -39,7 +39,7 @@ public class DonorController {
 
         return "Donor/donorSummaryAndRisks";
     }
-
+// EDIT THE INSERTS TO HAVE MORE TESTS HARDCODED TO UNDERSTAND
 
     @GetMapping("/donor/summary/{donorId}")
     public String getDonorSummary(@PathVariable Integer donorId, Model model) {

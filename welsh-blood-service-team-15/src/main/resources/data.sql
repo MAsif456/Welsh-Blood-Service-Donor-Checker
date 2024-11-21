@@ -1,4 +1,11 @@
 -- Inserting all countries
+-- Inserting donors (donor_id will be auto-incremented)
+INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
+                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', null, 'No known health risks'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', null, 'Recent travel to malaria-endemic areas'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', null, 'Clear of any diseases');
+
+
 INSERT INTO countries (country_name) VALUES
                                          ('Afghanistan'),
                                          ('Albania'),
