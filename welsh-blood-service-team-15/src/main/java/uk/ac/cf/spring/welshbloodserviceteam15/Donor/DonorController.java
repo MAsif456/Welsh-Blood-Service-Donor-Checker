@@ -53,8 +53,16 @@ public class DonorController {
 
         // Get the list of all questions
         List<Questions> questions = questionService.getQuestions();
-        Map<Integer, Questions> questionMap = questions.stream()
-                .collect(Collectors.toMap(Questions::getQuestion_id, Function.identity()));
+
+        // Map question ID to question text for easy lookup in Thymeleaf
+        Map<Integer, String> questionMap = questions.stream()
+                .collect(Collectors.toMap(Questions::getQuestion_id, Questions::getQuestion));
+
+        // Map question ID to noRiskResponse for easy lookup in Thymeleaf
+        Map<Integer, String> noRiskResponseMap = questions.stream()
+                .collect(Collectors.toMap(Questions::getQuestion_id, question -> question.getNoRiskResponse()));
+
+        model.addAttribute("noRiskResponseMap", noRiskResponseMap);
         model.addAttribute("questionMap", questionMap);
 
         return "Donor/donorSummary";

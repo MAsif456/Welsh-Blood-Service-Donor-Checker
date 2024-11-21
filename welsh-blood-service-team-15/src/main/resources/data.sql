@@ -277,6 +277,23 @@ INSERT INTO questions (question) VALUES
 ('When did you return from these countries?'),
 ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?');
 
+INSERT INTO questions (question, no_risk_response) VALUES
+('Have you travelled to a country within the last 12 months?', 'No'),
+('Where have you travelled in the last 12 months?', '0'),
+('When did you go to this country?', '0'),
+('When did you return from this country?', '0'),
+('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
+('Have you lived  abroad for more than 6 months', 'No'),
+('Where have you lived abroad?', '0'),
+('When did you go abroad?', '0'),
+('When did you return from abroad?', '0'),
+('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
+('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
+('Which countries have you travelled through?', '0'),
+('When did you go to these countries?', '0'),
+('When did you return from these countries?', '0'),
+('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No');
+
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
 VALUES
