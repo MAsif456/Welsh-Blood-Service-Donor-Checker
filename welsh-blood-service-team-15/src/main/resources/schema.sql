@@ -50,6 +50,8 @@ CREATE TABLE IF NOT EXISTS country_disease
     disease_id INT,
     note VARCHAR(200),
    -- PRIMARY KEY(country_id, disease_id),
+    start_date DATE,
+    end_date DATE,
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
 );

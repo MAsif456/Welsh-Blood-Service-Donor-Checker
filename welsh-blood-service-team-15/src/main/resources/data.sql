@@ -37,27 +37,32 @@ INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision,
                                                                                                  ('Mary', 'Johnson', '1978-04-09', 'High', null, 'Clear of any diseases');
 
 -- Inserting country_disease occurrences (ensuring correct country_id and disease_id)
-INSERT INTO country_disease (country_id, disease_id, note) VALUES
+INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
                                                                -- Malaria occurrences
-                                                               (1, 1, 'High rates of malaria from 2000-2010'),  -- Afghanistan
-                                                               (2, 1, 'Malaria widespread in rural areas from 2005-2015'),  -- Bangladesh
-                                                               (6, 1, 'Malaria present during rainy season from 2006-2010'),  -- Cameroon
-                                                               (7, 1, 'Malaria outbreaks during 2008-2015'),  -- Colombia
+                                                               (1, 1, 'High rates of malaria from 2001-04-04 2001-04-05','2001-04-04', '2001,04,05'),  -- Afghanistan
+                                                               (2, 1, 'Malaria widespread in rural areas from 2005-2015','2001-04-04', '2001,04,05'),  -- Bangladesh
+                                                               (6, 1, 'Malaria present during rainy season from 2006-2010', '2017-02-01', '2017-02-10'),  -- Cameroon
+                                                               (7, 1, 'Malaria outbreaks during 2008-2015', '2019-03-15', '2019-04-01'),  -- Colombia
 
                                                                -- Dengue Fever occurrences
-                                                               (2, 2, 'Coastal areas affected 2015-2018'),  -- Bangladesh
-                                                               (4, 2, 'Northern areas faced Dengue Fever outbreaks 2015-2020'),  -- Cameroon
-                                                               (11, 2, 'Dengue Fever cases in urban areas 2016-2019'),  -- Honduras
+                                                               (2, 2, 'Coastal areas affected 2015-2018','2001-04-04', '2001,04,05'),  -- Bangladesh
+                                                               (4, 2, 'Northern areas faced Dengue Fever outbreaks 2015-2020','2001-04-04', '2001,04,05'),  -- Cameroon
+                                                               (11, 2, 'Dengue Fever cases in urban areas 2016-2019','2001-04-04', '2001,04,05'),  -- Honduras
 
                                                                -- Zika Virus occurrences
-                                                               (5, 3, 'Zika virus outbreak in rural areas 2015-2017'),  -- Chad
-                                                               (6, 3, 'Zika virus detected in urban areas 2017-2018'),  -- Cameroon
-                                                               (8, 3, 'Zika virus outbreaks in coastal regions 2016-2017'),  -- Ethiopia
+                                                               (5, 3, 'Zika virus outbreak in rural areas 2015-2017','2001-04-04', '2001,04,05'),  -- Chad
+                                                               (6, 3, 'Zika virus detected in urban areas 2017-2018','2001-04-04', '2001,04,05'),  -- Cameroon
+                                                               (8, 3, 'Zika virus outbreaks in coastal regions 2016-2017','2001-04-04', '2001,04,05'),  -- Ethiopia
 
                                                                -- Chikungunya occurrences
-                                                               (3, 4, 'Chikungunya cases in urban regions 2015-2017'),  -- Bolivia
-                                                               (9, 4, 'Chikungunya outbreaks in southern areas 2010-2015'),  -- Guinea
-                                                               (10, 4, 'Chikungunya reported in the capital city 2012-2015');  -- Guatemala
+                                                               (3, 4, 'Chikungunya cases in urban regions 2015-2017', '2001-04-04', '2001,04,05'),  -- Bolivia
+                                                               (9, 4, 'Chikungunya outbreaks in southern areas 2010-2015','2001-04-04', '2001,04,05'),  -- Guinea
+                                                               (10, 4, 'Chikungunya reported in the capital city 2012-2015','2020-01-01', '2020-01-15'),  -- Guatemala
+                                                               -- insert for india
+                                                               (12, 1, 'High rates of malaria from 2000-2010', '2017-08-01', '2017-08-20'),  -- India
+                                                               -- inserts for myanamar
+                                                                (15, 1, 'High rates of malaria from 2000-2010', '1991-05-15', '1992-06-15');  -- Myanmar
+
 
 
     select * from countries where country_name = 'Honduras' ;
@@ -78,8 +83,12 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_da
                                                                                         (3, 15, '2018-05-15', '2018-06-15'),  -- Mary traveled to Myanmar
                                                                                         (3, 10, '2020-01-01', '2020-01-15'),  -- Mary traveled to Guatemala
                                                                                         (3, 12, '2017-08-01', '2017-08-20');  -- Mary traveled to India
-
-
+SELECT cd.*
+FROM country_disease cd
+         JOIN donor_travelled_to_country dtc ON cd.country_id = dtc.country_id
+WHERE dtc.donor_id = 3-- Replace 1 with the actual donor ID
+  AND dtc.start_date <= cd.end_date
+  AND dtc.end_date >= cd.start_date;
 
 
 INSERT INTO questions (question) VALUES

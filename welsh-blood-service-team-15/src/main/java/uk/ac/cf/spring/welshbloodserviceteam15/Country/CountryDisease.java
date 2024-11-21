@@ -3,6 +3,9 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 import jakarta.persistence.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 @Table(name = "country_disease")
 
@@ -20,6 +23,10 @@ public class CountryDisease {
     private Disease disease;
 
     private String note;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
 
 
     public Integer getId() {
@@ -47,6 +54,18 @@ public class CountryDisease {
     }
     public void setNote(String note) {
         this.note = note;
+    }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
 }
