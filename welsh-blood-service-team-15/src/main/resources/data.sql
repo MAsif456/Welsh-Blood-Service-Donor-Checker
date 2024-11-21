@@ -82,4 +82,33 @@ INSERT INTO questions (question) VALUES
 ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?');
 
 
+INSERT INTO travel_questionnaire (donor_id, question_id, answer)
+VALUES
+    (1, 1, 'Yes'),  -- Donor 1 travelled in the last 12 months.
+    (1, 5, 'No'),   -- Donor 1 has not been in contact with recent travellers.
+    (1, 6, 'Yes'),  -- Donor 1 lived abroad for more than 6 months.
+    (1, 7, 'India'), -- Donor 1 lived in India.
+    (1, 8, '2019-01-01'), -- Donor 1 went to India on 1st January 2019.
+    (1, 9, '2020-01-01'), -- Donor 1 returned from India on 1st January 2020.
+    (1, 10, 'Yes'), -- Donor 1 has been in contact with someone who lived abroad for more than 6 months.
+    (1, 11, 'Yes'), -- Donor 1 travelled through multiple countries.
+    (1, 15, 'Yes'), -- Donor 1 has been in contact with someone who travelled through multiple countries.
+    (2, 1, 'No'),   -- Donor 2 did not travel in the last 12 months.
+    (2, 5, 'Yes'),  -- Donor 2 has been in contact with recent travellers.
+    (2, 6, 'No'),   -- Donor 2 has not lived abroad for more than 6 months.
+    (2, 11, 'No'),  -- Donor 2 did not travel through multiple countries.
+    (2, 15, 'No'),  -- Donor 2 has not been in contact with someone who travelled through multiple countries.
+    (3, 1, 'Yes'),  -- Donor 3 travelled in the last 12 months.
+    (3, 5, 'No'),   -- Donor 3 has not been in contact with recent travellers.
+    (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
+    (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
+    (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
+
+
+;
+
+
+
+
+
 
