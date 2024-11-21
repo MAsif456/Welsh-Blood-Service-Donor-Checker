@@ -149,3 +149,41 @@ h1 {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.hidden {
+    display: none;
+}
+
+#toggle-questionnaire {
+    display: block; /* Block-level element for centering */
+    margin: 1.5rem auto; /* Centers horizontally and adds spacing */
+    padding: 0.7rem 2rem; /* Larger padding for a bold look */
+    font-size: 1.1rem; /* Slightly larger font size */
+    font-weight: bold; /* Bold text */
+    color: #ffffff; /* White text for contrast */
+    background-color: #0077cc; /* Bright blue */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Subtle rounded corners */
+    cursor: pointer; /* Pointer cursor for interaction */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    text-align: center; /* Center the text inside the button */
+}
+
+#toggle-questionnaire:hover {
+    background-color: #005fa3; /* Darker blue on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+#toggle-questionnaire:active {
+    background-color: #00497a; /* Even darker blue when pressed */
+    transform: translateY(1px); /* Pressed-down effect */
+}
+
+#toggle-questionnaire:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.4); /* Accessible focus ring */
+}
+
+
+

@@ -3,6 +3,7 @@
 <head>
     <title>Donor Summary</title>
     <link rel="stylesheet" th:href="@{/css/donor/summary.css}" />
+    <script th:src="@{/js/donor/summary.js}" defer></script>
 </head>
 <body>
 <div class="donor-summary">
@@ -11,7 +12,7 @@
     <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
     <p><strong>Risk Level:</strong>
         <span th:class="${donor.donorRisk == 'High' ? 'risk high' : (donor.donorRisk == 'Moderate' ? 'risk moderate' : 'risk low')}"
-              th:text="${donor.donorRisk}"></span>
+              th:text="${donor.donorRisk + ' risk'}"></span>
     </p>
 
     <h2>Travel History</h2>
@@ -27,7 +28,8 @@
     </div>
 
     <h2>Questionnaire Answers</h2>
-    <div class="questionnaire-answers">
+    <button id="toggle-questionnaire">Show Questionnaire Answers</button>
+    <div class="questionnaire-answers hidden">
         <ul>
             <li th:each="answer : ${donorsAnswers}">
                 <p>
@@ -42,7 +44,6 @@
             </li>
         </ul>
     </div>
-
 </div>
 </body>
 </html>
