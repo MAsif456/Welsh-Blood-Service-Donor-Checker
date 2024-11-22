@@ -3,6 +3,8 @@
 <head>
     <title>Donor Summary</title>
     <link rel="stylesheet" th:href="@{/css/donor/summary.css}" />
+    <script th:src="@{/js/donor/summary.js}" defer></script>
+
 </head>
 <body>
 <div class="donor-summary">
@@ -17,96 +19,38 @@
 
     <h2>Travel History</h2>
     <div class="travel-history">
-        <!-- Check if donor.travelHistory is not empty -->
-        <div>
-            <ul>
-                <li th:each="travel : ${donor.travelHistory}">
-                    <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                    <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
-                        <span th:text="${travel.endDate}"></span></p>
-                </li>
-            </ul>
-        </div>
-        <!-- If donor.travelHistory is empty or null, show a message -->
+        <ul>
+            <li th:each="travel : ${donor.travelHistory}">
+                <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
+                    <span th:text="${travel.endDate}"></span></p>
+            </li>
+        </ul>
+        <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
     </div>
 
+
     <h2>Questionnaire Answers</h2>
-    <div class="questionnaire-answers">
+    <button id="toggle-questionnaire">Show Questionnaire Answers</button>
+    <div class="questionnaire-answers hidden">
         <ul>
             <li th:each="answer : ${donorsAnswers}">
                 <p>
-                    <strong>Question: </strong>
+                    <strong>Question:</strong>
+                    <span th:text="${questionMap[answer.questionId]}"></span>
                 </p>
-                <p><strong>Answer:</strong> <span th:text="${answer.answer}"></span></p>
+                <p>
+                    <strong>Answer:</strong>
+                    <span th:text="${answer.answer}"
+                          th:classappend="${noRiskResponseMap[answer.questionId] == '0' ? '' : (answer.answer == noRiskResponseMap[answer.questionId] ? 'answer green' : 'answer yellow')}"></span>
+                </p>
             </li>
         </ul>
     </div>
 
-    <h2>Additional Details</h2>
-    <div class="additional-details">
-        <ul>
-            <li><p>Donor travelled through Germany on 11-09-2020</p></li>
-            <li><p>Donor lived in France from 06-2015 to 08-2020</p></li>
-            <li><p>Is in a relationship with someone who moved from China on 04-2024</p></li>
-        </ul>
-    </div>
+
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<div >
-<h1>Donor Summary</h1>
-<p><strong>First Name:</strong> <span th:text="${donor.firstName}"></span></p>
-<p><strong>Last Name:</strong> <span th:text="${donor.lastName}"></span></p>
-<p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
-<p><strong>Risk Level:</strong> <span th:text="${donor.donorRisk}"></span></p>
-<p><strong>Notes:</strong> <span th:text="${donor.donorNote}"></span></p>
-</div>
-<h2>Travel History</h2>
-<ul>
-    <li th:each="travel : ${donor.travelHistory}">
-        <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-        <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to <span th:text="${travel.endDate}"></span></p>
-    </li>
-</ul>
--->
 <h2>Disease Risk</h2>
 <ul>
     <li th:each="disease : ${diseases}">
@@ -115,6 +59,7 @@
         <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
     </li>
 </ul>
+<p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to a country at the time of any disease outbreak.</p>
 
 </body>
 </html>

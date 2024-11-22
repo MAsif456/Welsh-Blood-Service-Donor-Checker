@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
+package uk.ac.cf.spring.welshbloodserviceteam15.DonorTests;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

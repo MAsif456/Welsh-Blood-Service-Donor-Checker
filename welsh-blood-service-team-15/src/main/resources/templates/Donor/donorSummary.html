@@ -44,6 +44,18 @@
             </li>
         </ul>
     </div>
+
+    <div th:if="${showRisks}">
+        <h2>Disease Risk</h2>
+        <ul>
+            <li th:each="disease : ${diseases}">
+                <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
+                <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
+                <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
+            </li>
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>
