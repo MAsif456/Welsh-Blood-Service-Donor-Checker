@@ -7,28 +7,33 @@
 </head>
 <body>
 <form th:action="@{/submit-decisions}" method="post">
+    <input type="hidden" name="donorId" th:value="${donorId}"/>
 <div class="container">
-    <label for="donor-name">Donor Name:</label>
-    <input type="text" id="donor-name" value="" readonly>
+    <label for="donorDetails-name">Donor Name:</label>
+    <input type="text" id="donorDetails-name" th:value="${donor.firstName + ' ' + donor.lastName}" readonly>
 </div>
 
 <div class="decision-container">
     <h3>Decisions</h3>
     <label>
-        <input type="checkbox" class="radio" value="1" name="decision-one" />Eligible to donate today</label>
+        <input type="radio" class="radio" value="Eligible to donate today" name="decision" />Eligible to donate today</label>
     <label>
-        <input type="checkbox" class="radio" value="1" name="decision-two" />Eligible to donate but further testing needed</label>
+        <input type="radio" class="radio" value="Eligible to donate but further testing needed" name="decision" />Eligible to donate but further testing needed</label>
     <label>
-        <input type="checkbox" class="radio" value="1" name="decision-three" />Eligible to donate but must wait 6 months</label>
+        <input type="radio" class="radio" value="Eligible to donate but must wait 6 months" name="decision" />Eligible to donate but must wait 6 months</label>
     <label>
-        <input type="checkbox" class="radio" value="1" name="decision-four" />Not Eligible to donate at all</label>
+        <input type="radio" class="radio" value="Not Eligible to donate at all" name="decision" />Not Eligible to donate at all</label>
 </div>
 
 <div class="notes-container">
     <h3>Notes</h3>
-    <textarea id="notes" rows="4" cols="50" style="height: 332px; resize: none;">Enter notes here</textarea>
+    <textarea id="notes" name = "notes" placeholder="Enter notes here" rows="4" cols="50" style="height: 332px; resize: none;"></textarea>
 </div>
-<button type="button" class="btn btn-primary">Submit</button>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
 </form>
 </body>
 </html>

@@ -63,3 +63,12 @@ INSERT INTO country_disease (country_id, disease_id, note) VALUES
 (21, 4, 'Rural Nile Delta 2010-2013'),
 (22, 4, 'Eastern provinces 2014-2018');
 
+
+INSERT INTO donorDetails (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note)
+VALUES
+    ('John', 'Doe', '1985-04-12', 'Low',NULL, NULL),
+    ('Alice', 'Smith', '1990-07-25', 'High', NULL, NULL),
+    ('Bob', 'Johnson', '1978-11-30', 'Moderate', NULL, NULL);
+
+SELECT * FROM donorDetails;
+SELECT * FROM donorDetails WHERE donor_id = 1;
