@@ -2,7 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Donor Summary</title>
+<<<<<<< HEAD
     <link rel="stylesheet" th:href="@{/css/donor/summary.css}" />
+=======
+    <link rel="stylesheet" th:href="@{/css/donor/donor-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/donor/disease-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/donor/summary-layout.css}" />
+>>>>>>> 94ed0024c1404f7e92f29d1aaa9a91ffe6940db0
     <script th:src="@{/js/donor/summary.js}" defer></script>
 
 </head>
@@ -12,9 +18,8 @@
     <p><strong>Name:</strong> <span th:text="${donor.firstName} + ' ' + ${donor.lastName}"></span></p>
     <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
     <p><strong>Risk Level:</strong>
-        <span th:classappend="${donor.donorRisk == 'High' ? 'risk-high' :
-                          (donor.donorRisk == 'Moderate' ? 'risk-moderate' : 'risk-low')}"
-              th:text="${donor.donorRisk}"></span>
+        <span th:class="${donor.donorRisk == 'High' ? 'risk high' : (donor.donorRisk == 'Moderate' ? 'risk moderate' : 'risk low')}"
+              th:text="${donor.donorRisk + ' risk'}"></span>
     </p>
 
     <h2>Travel History</h2>
@@ -47,6 +52,7 @@
             </li>
         </ul>
     </div>
+<<<<<<< HEAD
 
 
 </div>
@@ -60,6 +66,20 @@
     </li>
 </ul>
 <p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to a country at the time of any disease outbreak.</p>
+=======
+</div>
+
+<div class="disease-risk-summary">
+    <h2>Disease Risk</h2>
+    <ul>
+        <li th:each="disease : ${diseases}">
+            <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
+            <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
+            <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
+        </li>
+    </ul>
+</div>
+>>>>>>> 94ed0024c1404f7e92f29d1aaa9a91ffe6940db0
 
 </body>
 </html>

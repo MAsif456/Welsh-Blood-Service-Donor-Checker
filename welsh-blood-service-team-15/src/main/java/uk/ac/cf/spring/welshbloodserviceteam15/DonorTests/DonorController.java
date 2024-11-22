@@ -35,6 +35,24 @@ public class DonorController {
         model.addAttribute("donor", donor);
         model.addAttribute("diseases", diseases);
 
+        // Get the donor's answers
+        List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
+        model.addAttribute("donorsAnswers", donorsAnswers);
+
+        // Get the list of all questions
+        List<Questions> questions = questionService.getQuestions();
+
+        // Map question ID to question text for easy lookup in Thymeleaf
+        Map<Integer, String> questionMap = questions.stream()
+                .collect(Collectors.toMap(Questions::getQuestion_id, Questions::getQuestion));
+
+        // Map question ID to noRiskResponse for easy lookup in Thymeleaf
+        Map<Integer, String> noRiskResponseMap = questions.stream()
+                .collect(Collectors.toMap(Questions::getQuestion_id, question -> question.getNoRiskResponse()));
+
+        model.addAttribute("noRiskResponseMap", noRiskResponseMap);
+        model.addAttribute("questionMap", questionMap);
+
         return "Donor/donorSummaryAndRisks";
     }
 // EDIT THE INSERTS TO HAVE MORE TESTS HARDCODED TO UNDERSTAND
