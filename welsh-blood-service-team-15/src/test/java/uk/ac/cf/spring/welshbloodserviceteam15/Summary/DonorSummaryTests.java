@@ -27,8 +27,5 @@ public class DonorSummaryTests {
     @Test
     public void shouldGetDonorInfo() throws Exception {
 
-        Donor donor1 = new Donor(100L, "John", "Doe", "1990-01-01", "Low", "Yes", "Good");
-
-
     }
 }

@@ -20,9 +20,6 @@ public class Donor {
     @OneToMany(mappedBy = "donor", fetch = FetchType.LAZY)
     private List<DonorTravelledToCountry> travelHistory;
 
-    public Donor(long id, String john, String doe, String date, String low, String yes, String good) {
-    }
-
     public Integer getDonorId() {
         return donorId;
     }
