@@ -56,7 +56,8 @@ CREATE TABLE IF NOT EXISTS country_disease
 CREATE TABLE IF NOT EXISTS questions
 (
     question_id INT AUTO_INCREMENT PRIMARY KEY,
-    question VARCHAR(255)
+    question VARCHAR(255),
+    no_risk_response VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS travel_questionnaire
