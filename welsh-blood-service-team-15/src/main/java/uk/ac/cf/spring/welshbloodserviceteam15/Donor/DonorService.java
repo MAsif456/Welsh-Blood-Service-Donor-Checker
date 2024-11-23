@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.DonorTests;
+package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

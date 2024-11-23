@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.DonorTests;
+package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import jakarta.persistence.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
