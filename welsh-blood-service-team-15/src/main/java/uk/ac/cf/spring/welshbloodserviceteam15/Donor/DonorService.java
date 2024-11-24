@@ -17,8 +17,6 @@ public class DonorService {
     private CountryDiseaseRepository countryDiseaseRepository;
 
     public Donor getDonorSummary(Integer donorId) {
-        System.out.println("Hello from DonorService");
-
         return donorRepository.findByDonorId(donorId);
     }
     public List<CountryDisease> getRelevantDiseasesForDonor(Integer donorId) {
