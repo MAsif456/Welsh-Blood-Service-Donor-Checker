@@ -129,7 +129,4 @@ VALUES
     (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
-;
-
-
-select * from donor where donor_id=1;
+    ;

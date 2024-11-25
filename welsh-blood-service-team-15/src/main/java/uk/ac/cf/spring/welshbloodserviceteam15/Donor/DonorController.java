@@ -11,7 +11,6 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -55,7 +54,6 @@ public class DonorController {
 
         return "Donor/donorSummaryAndRisks";
     }
-// EDIT THE INSERTS TO HAVE MORE TESTS HARDCODED TO UNDERSTAND
 
     @GetMapping("/donor/summary/{donorId}")
     public String getDonorSummary(@PathVariable Integer donorId, Model model) {

@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import java.time.LocalDate;
-import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,13 +24,18 @@ public class DonorControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private DonorRepository donorRepository;
+    @MockBean
+    private DonorService donorService;
+
+    @MockBean
+    private QuestionnaireService questionnaireService;
+
+    @MockBean
+    private QuestionService questionService;
 
     /**
-     * This method performs a test to get donor information with no risks.
-     *
-     * @throws Exception if an error occurs during the test execution
+     * This method tests getting a donor with no travel history and no relevant diseases.
+     * @throws Exception if the test fails
      */
 
     @Test
@@ -36,21 +43,28 @@ public class DonorControllerTest {
         // Create a donor with no travel history
         Donor donor = new Donor();
         donor.setDonorId(1);
-        donor.setFirstName("Jane");
+        donor.setFirstName("John");
         donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1992, 2, 2));
+        donor.setDonorDob(LocalDate.of(1985, 6, 15));
 
-        // Mock the repository to return the donor
-        when(donorRepository.findById(1)).thenReturn(Optional.of(donor));
+        // Mock the donor repository to return the donor
+        when(donorService.getDonorSummary(1)).thenReturn(donor);
 
-        // Perform the request and assert the expected text is present
+        // Mock the donor service to return no relevant diseases
+        when(donorService.getRelevantDiseasesForDonor(1)).thenReturn(Collections.emptyList());
+
+        // Mock the questionnaire service to return donor's answers
+        when(questionnaireService.getDonorsAnswers(1)).thenReturn(Collections.emptyList());
+
+        // Mock the question service to return questions
+        when(questionService.getQuestions()).thenReturn(Collections.emptyList());
+
         MvcResult result = mvc.perform(get("/donor/summary-risks/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("This donor has not travelled to a country at the time of any disease outbreak."));
-        assertFalse(content.contains("Unexpected content"));
+        assertTrue(content.contains("John Doe"));
     }
-
 }
