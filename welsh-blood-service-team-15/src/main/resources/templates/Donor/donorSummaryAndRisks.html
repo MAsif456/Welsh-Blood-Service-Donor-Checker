@@ -51,6 +51,8 @@
 
 <div class="disease-risk-summary">
     <h2>Disease Risk</h2>
+    <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
+
     <ul>
         <li th:each="disease : ${diseases}">
             <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
