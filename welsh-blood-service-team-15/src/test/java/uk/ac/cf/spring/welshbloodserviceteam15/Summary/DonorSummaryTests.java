@@ -33,15 +33,33 @@ public class DonorSummaryTests {
     @MockBean
     private DonorRepository donorRepository;
 
-    @Test
-    public void shouldGetDonorInfo() throws Exception {
-        // Given
+    private Donor makeMockDonor() {
         Donor donor = new Donor();
         donor.setDonorId(1);
         donor.setFirstName("John");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1990, 1, 1));
         donor.setDonorRisk("Low");
+        return donor;
+    }
+
+    private DonorTravelledToCountry makeMockTravel(Donor donor) {
+        DonorTravelledToCountry travel = new DonorTravelledToCountry();
+        Country country = new Country();
+        country.setCountryId(1);
+        country.setCountryName("Spain");
+        travel.setDonor(donor);
+        travel.setCountry(country);
+        travel.setStartDate(LocalDate.of(2024, 11, 14));
+        travel.setEndDate(LocalDate.of(2024, 11, 19));
+        return travel;
+    }
+
+
+    @Test
+    public void shouldGetDonorInfo() throws Exception {
+        // Given
+        Donor donor = makeMockDonor();
 
         // Mock repository behavior
         when(donorRepository.findByDonorId(1)).thenReturn(donor);
@@ -64,12 +82,7 @@ public class DonorSummaryTests {
     @Test
     public void shouldGetNoTravelData () throws Exception {
         // Given
-        Donor donor = new Donor();
-        donor.setDonorId(1);
-        donor.setFirstName("John");
-        donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        donor.setDonorRisk("Low");
+        Donor donor = makeMockDonor();
 
         // Mock repository behavior
         when(donorRepository.findByDonorId(1)).thenReturn(donor);
@@ -90,21 +103,9 @@ public class DonorSummaryTests {
     @Test
     public void shouldGetTravelData () throws Exception {
         // Given
-        Donor donor = new Donor();
-        donor.setDonorId(1);
-        donor.setFirstName("John");
-        donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        donor.setDonorRisk("Low");
+        Donor donor = makeMockDonor();
 
-        DonorTravelledToCountry travel = new DonorTravelledToCountry();
-        Country country = new Country();
-        country.setCountryId(1);
-        country.setCountryName("Spain");
-        travel.setDonor(donor);
-        travel.setCountry(country);
-        travel.setStartDate(LocalDate.now().minusDays(10));
-        travel.setEndDate(LocalDate.now().minusDays(5));
+        DonorTravelledToCountry travel = makeMockTravel(donor);
 
         donor.setTravelHistory(List.of(travel));
 

@@ -14,7 +14,8 @@ body {
 }
 
 .donor-summary,
-.disease-risk-summary {
+.disease-risk-summary,
+.redirect-button-tile{
     max-width: 500px;
     width: 45%; /* Adjust width for side-by-side alignment */
     margin: 0; /* Remove any margins since flexbox handles spacing */
