@@ -1,8 +1,21 @@
 -- Inserting countries
 INSERT INTO countries (country_name) VALUES
                                          ('Afghanistan'),
+                                         ('Albania'),
+                                         ('Algeria'),
+                                         ('Andorra'),
+                                         ('Angola'),
+                                         ('Argentina'),  -- Country ID 6
+                                         ('Armenia'),
+                                         ('Australia'),  -- Region Check needed when implemented
+                                         ('Austria'),
+                                         ('Bahamas'),
+                                         ('Bahrain'),
                                          ('Bangladesh'),
                                          ('Bolivia'),
+                                         ('Belarus'),
+                                         ('Belgium'),
+                                        
                                          ('Cameroon'),
                                          ('Chad'),
                                          ('Colombia'),
@@ -25,10 +38,15 @@ INSERT INTO countries (country_name) VALUES
 
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
-                                        ('Malaria'),
-                                        ('Dengue Fever'),
-                                        ('Zika Virus'),
-                                        ('Chikungunya');
+                                        ('Malaria'),  -- Disease ID 1
+                                        ('Trypanosoma Cruzi Risk'),  -- Disease ID 2
+                                        ('West Nile Virus Risk'),  -- Disease ID 3
+                                        ('Dengue Virus'),  -- Disease ID 4
+                                        ('Zika Virus'),  -- Disease ID 5
+                                        ('Chikungunya'),  -- Disease ID 6
+                                        ('Yellow Fever');  -- Disease ID 7
+
+
 
 -- Inserting donors (donor_id will be auto-incremented)
 INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
@@ -39,28 +57,51 @@ INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision,
 -- Inserting country_disease occurrences (ensuring correct country_id and disease_id)
 INSERT INTO country_disease (country_id, disease_id, note) VALUES
                                                                -- Malaria occurrences
-                                                               (1, 1, 'High rates of malaria from 2000-2010'),  -- Afghanistan
-                                                               (2, 1, 'Malaria widespread in rural areas from 2005-2015'),  -- Bangladesh
-                                                               (6, 1, 'Malaria present during rainy season from 2006-2010'),  -- Cameroon
+                                                               (1, 1, 'Yes all year whole country until Feb 1996'),  -- Afghanistan
+                                                               (3, 1, 'All year round until February 1996'),  -- Algeria
+                                                               (5, 1, 'All year in the country'), -- Angola
+                                                               (6, 1, 'Until February 1996'),  -- Argentina
                                                                (7, 1, 'Malaria outbreaks during 2008-2015'),  -- Colombia
 
-                                                               -- Dengue Fever occurrences
+
+                                                               -- Trypanosoma Cruzi Risk occurrences
+                                                               (6, 2, 'N/A'),  -- Argentina
+
+
+
+                                                               -- West Nile Virus Risk occurrences
+                                                               (2, 3, 'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.'), -- Albania
+                                                               (3, 3, 'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.'), -- Algeria
+                                                               (7, 3, 'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.'), -- Armenia
+                                                               (9, 3, 'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.'), -- Austria
+
+                                                               -- Dengue Virus occurrences
+                                                               (1, 4, 'N/A'), -- Afghanistan
+                                                               (5, 4, 'N/A'), -- Angola
+                                                               (6, 4, 'N/A'),  -- Argentina
                                                                (2, 2, 'Coastal areas affected 2015-2018'),  -- Bangladesh
                                                                (4, 2, 'Northern areas faced Dengue Fever outbreaks 2015-2020'),  -- Cameroon
                                                                (11, 2, 'Dengue Fever cases in urban areas 2016-2019'),  -- Honduras
 
                                                                -- Zika Virus occurrences
-                                                               (5, 3, 'Zika virus outbreak in rural areas 2015-2017'),  -- Chad
+                                                               (5, 5, 'N/A'), -- Angola
+                                                               (6, 5, 'N/A'),  -- Argentina
                                                                (6, 3, 'Zika virus detected in urban areas 2017-2018'),  -- Cameroon
                                                                (8, 3, 'Zika virus outbreaks in coastal regions 2016-2017'),  -- Ethiopia
 
                                                                -- Chikungunya occurrences
+                                                               (6, 6, 'N/A'),  -- Argentina
                                                                (3, 4, 'Chikungunya cases in urban regions 2015-2017'),  -- Bolivia
                                                                (9, 4, 'Chikungunya outbreaks in southern areas 2010-2015'),  -- Guinea
-                                                               (10, 4, 'Chikungunya reported in the capital city 2012-2015');  -- Guatemala
+                                                               (10, 4, 'Chikungunya reported in the capital city 2012-2015'),  -- Guatemala
 
 
-    select * from countries where country_name = 'Honduras' ;
+                                                               -- Yellow Fever occurrences
+                                                                (5, 7, 'N/A'), -- Angola
+                                                                (6, 2, 'N/A');  -- Argentina
+
+
+    select * from country_disease;
 
 -- Inserting donor_travelled_to_country records (using correct donor_id and country_id)
 
