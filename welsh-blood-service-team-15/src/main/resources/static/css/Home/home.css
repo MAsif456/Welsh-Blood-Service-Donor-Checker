@@ -1,0 +1,70 @@
+/* Base Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffebee; /* Soft red background */
+    height: 100vh; /* Ensures the grid takes up the full viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    gap: 1rem;
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    padding: 2rem;
+    background-color: #b71c1c; /* Dark red background */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Drop shadow for depth */
+}
+
+/* Grid Items Styling */
+.grid-item {
+    background-color: #ff5252; /* Bright red for items */
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.grid-item h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.grid-item p {
+    font-size: 1.2rem;
+}
+
+.grid-item:hover {
+    background-color: #d32f2f; /* Slightly darker red on hover */
+    transform: scale(1.05); /* Subtle zoom effect */
+    cursor: pointer;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Single column layout */
+        grid-template-rows: auto; /* Auto rows for content height */
+    }
+
+    .grid-item {
+        font-size: 1rem;
+    }
+}
