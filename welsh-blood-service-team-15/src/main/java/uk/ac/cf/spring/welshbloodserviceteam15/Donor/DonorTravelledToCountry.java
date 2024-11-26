@@ -2,7 +2,6 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import jakarta.persistence.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
-import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
 
 import java.time.LocalDate;
 

@@ -1,27 +1,207 @@
--- Inserting countries
+
+-- Inserting donors (donor_id will be auto-incremented)
+INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
+                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', null, 'No known health risks'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', null, 'Recent travel to malaria-endemic areas'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', null, 'Clear of any diseases');
+
+
+-- Inserting all countries
 INSERT INTO countries (country_name) VALUES
                                          ('Afghanistan'),
+                                         ('Albania'),
+                                         ('Algeria'),
+                                         ('Andorra'),
+                                         ('Angola'),
+                                         ('Antigua and Barbuda'),
+                                         ('Argentina'),
+                                         ('Armenia'),
+                                         ('Australia'),
+                                         ('Austria'),
+                                         ('Azerbaijan'),
+                                         ('Bahamas'),
+                                         ('Bahrain'),
                                          ('Bangladesh'),
+                                         ('Barbados'),
+                                         ('Belarus'),
+                                         ('Belgium'),
+                                         ('Belize'),
+                                         ('Benin'),
+                                         ('Bhutan'),
                                          ('Bolivia'),
+                                         ('Bosnia and Herzegovina'),
+                                         ('Botswana'),
+                                         ('Brazil'),
+                                         ('Brunei'),
+                                         ('Bulgaria'),
+                                         ('Burkina Faso'),
+                                         ('Burundi'),
+                                         ('Cabo Verde'),
+                                         ('Cambodia'),
                                          ('Cameroon'),
+                                         ('Canada'),
+                                         ('Central African Republic'),
                                          ('Chad'),
+                                         ('Chile'),
+                                         ('China'),
                                          ('Colombia'),
-                                         ('Congo'),
-                                         ('Ethiopia'),
-                                         ('Ghana'),
-                                         ('Guatemala'),
-                                         ('Honduras'),
-                                         ('India'),
-                                         ('Kenya'),
-                                         ('Liberia'),
-                                         ('Myanmar'),
-                                         ('Nicaragua'),
-                                         ('Nigeria'),
-                                         ('Pakistan'),
-                                         ('Sudan'),
-                                         ('Uganda'),
+                                         ('Comoros'),
+                                         ('Congo (Congo-Brazzaville)'),
+                                         ('Costa Rica'),
+                                         ('Croatia'),
+                                         ('Cuba'),
+                                         ('Cyprus'),
+                                         ('Czechia (Czech Republic)'),
+                                         ('Denmark'),
+                                         ('Djibouti'),
+                                         ('Dominica'),
+                                         ('Dominican Republic'),
+                                         ('Ecuador'),
                                          ('Egypt'),
-                                         ('China');
+                                         ('El Salvador'),
+                                         ('Equatorial Guinea'),
+                                         ('Eritrea'),
+                                         ('Estonia'),
+                                         ('Eswatini (fmr. "Swaziland")'),
+                                         ('Ethiopia'),
+                                         ('Fiji'),
+                                         ('Finland'),
+                                         ('France'),
+                                         ('Gabon'),
+                                         ('Gambia'),
+                                         ('Georgia'),
+                                         ('Germany'),
+                                         ('Ghana'),
+                                         ('Greece'),
+                                         ('Grenada'),
+                                         ('Guatemala'),
+                                         ('Guinea'),
+                                         ('Guinea-Bissau'),
+                                         ('Guyana'),
+                                         ('Haiti'),
+                                         ('Holy See'),
+                                         ('Honduras'),
+                                         ('Hungary'),
+                                         ('Iceland'),
+                                         ('India'),
+                                         ('Indonesia'),
+                                         ('Iran'),
+                                         ('Iraq'),
+                                         ('Ireland'),
+                                         ('Israel'),
+                                         ('Italy'),
+                                         ('Jamaica'),
+                                         ('Japan'),
+                                         ('Jordan'),
+                                         ('Kazakhstan'),
+                                         ('Kenya'),
+                                         ('Kiribati'),
+                                         ('Korea (North)'),
+                                         ('Korea (South)'),
+                                         ('Kosovo'),
+                                         ('Kuwait'),
+                                         ('Kyrgyzstan'),
+                                         ('Laos'),
+                                         ('Latvia'),
+                                         ('Lebanon'),
+                                         ('Lesotho'),
+                                         ('Liberia'),
+                                         ('Libya'),
+                                         ('Liechtenstein'),
+                                         ('Lithuania'),
+                                         ('Luxembourg'),
+                                         ('Madagascar'),
+                                         ('Malawi'),
+                                         ('Malaysia'),
+                                         ('Maldives'),
+                                         ('Mali'),
+                                         ('Malta'),
+                                         ('Marshall Islands'),
+                                         ('Mauritania'),
+                                         ('Mauritius'),
+                                         ('Mexico'),
+                                         ('Micronesia'),
+                                         ('Moldova'),
+                                         ('Monaco'),
+                                         ('Mongolia'),
+                                         ('Montenegro'),
+                                         ('Morocco'),
+                                         ('Mozambique'),
+                                         ('Myanmar (Burma)'),
+                                         ('Namibia'),
+                                         ('Nauru'),
+                                         ('Nepal'),
+                                         ('Netherlands'),
+                                         ('New Zealand'),
+                                         ('Nicaragua'),
+                                         ('Niger'),
+                                         ('Nigeria'),
+                                         ('North Macedonia (formerly Macedonia)'),
+                                         ('Norway'),
+                                         ('Oman'),
+                                         ('Pakistan'),
+                                         ('Palau'),
+                                         ('Palestine State'),
+                                         ('Panama'),
+                                         ('Papua New Guinea'),
+                                         ('Paraguay'),
+                                         ('Peru'),
+                                         ('Philippines'),
+                                         ('Poland'),
+                                         ('Portugal'),
+                                         ('Qatar'),
+                                         ('Romania'),
+                                         ('Russia'),
+                                         ('Rwanda'),
+                                         ('Saint Kitts and Nevis'),
+                                         ('Saint Lucia'),
+                                         ('Saint Vincent and the Grenadines'),
+                                         ('Samoa'),
+                                         ('San Marino'),
+                                         ('Sao Tome and Principe'),
+                                         ('Saudi Arabia'),
+                                         ('Senegal'),
+                                         ('Serbia'),
+                                         ('Seychelles'),
+                                         ('Sierra Leone'),
+                                         ('Singapore'),
+                                         ('Slovakia'),
+                                         ('Slovenia'),
+                                         ('Solomon Islands'),
+                                         ('Somalia'),
+                                         ('South Africa'),
+                                         ('South Sudan'),
+                                         ('Spain'),
+                                         ('Sri Lanka'),
+                                         ('Sudan'),
+                                         ('Suriname'),
+                                         ('Sweden'),
+                                         ('Switzerland'),
+                                         ('Syria'),
+                                         ('Tajikistan'),
+                                         ('Tanzania'),
+                                         ('Thailand'),
+                                         ('Timor-Leste'),
+                                         ('Togo'),
+                                         ('Tonga'),
+                                         ('Trinidad and Tobago'),
+                                         ('Tunisia'),
+                                         ('Turkey'),
+                                         ('Turkmenistan'),
+                                         ('Tuvalu'),
+                                         ('Uganda'),
+                                         ('Ukraine'),
+                                         ('United Arab Emirates'),
+                                         ('United Kingdom'),
+                                         ('United States of America'),
+                                         ('Uruguay'),
+                                         ('Uzbekistan'),
+                                         ('Vanuatu'),
+                                         ('Venezuela'),
+                                         ('Vietnam'),
+                                         ('Yemen'),
+                                         ('Zambia'),
+                                         ('Zimbabwe');
 
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
@@ -30,37 +210,38 @@ INSERT INTO diseases (disease_name) VALUES
                                         ('Zika Virus'),
                                         ('Chikungunya');
 
--- Inserting donors (donor_id will be auto-incremented)
-INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
-                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', null, 'No known health risks'),
-                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', null, 'Recent travel to malaria-endemic areas'),
-                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', null, 'Clear of any diseases');
 
--- Inserting country_disease occurrences (ensuring correct country_id and disease_id)
-INSERT INTO country_disease (country_id, disease_id, note) VALUES
+
+
+INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
+
                                                                -- Malaria occurrences
-                                                               (1, 1, 'High rates of malaria from 2000-2010'),  -- Afghanistan
-                                                               (2, 1, 'Malaria widespread in rural areas from 2005-2015'),  -- Bangladesh
-                                                               (6, 1, 'Malaria present during rainy season from 2006-2010'),  -- Cameroon
-                                                               (7, 1, 'Malaria outbreaks during 2008-2015'),  -- Colombia
+                                                               (1, 1, 'High rates of malaria from 2001-04-04 2001-04-05','2001-04-04', '2001,04,05'),  -- Afghanistan
+                                                               (2, 1, 'Malaria widespread in rural areas from 2005-2015','2001-04-04', '2001,04,05'),  -- Bangladesh
+                                                               (6, 1, 'Malaria present during rainy season from 2006-2010', '2017-02-01', '2017-02-10'),  -- Cameroon
+                                                               (7, 1, 'Malaria outbreaks during 2008-2015', '2019-03-15', '2019-04-01'),  -- Colombia
 
                                                                -- Dengue Fever occurrences
-                                                               (2, 2, 'Coastal areas affected 2015-2018'),  -- Bangladesh
-                                                               (4, 2, 'Northern areas faced Dengue Fever outbreaks 2015-2020'),  -- Cameroon
-                                                               (11, 2, 'Dengue Fever cases in urban areas 2016-2019'),  -- Honduras
+                                                               (2, 2, 'Coastal areas affected 2015-2018','2001-04-04', '2001,04,05'),  -- Bangladesh
+                                                               (4, 2, 'Northern areas faced Dengue Fever outbreaks 2015-2020','2001-04-04', '2001,04,05'),  -- Cameroon
+                                                               (11, 2, 'Dengue Fever cases in urban areas 2016-2019','2001-04-04', '2001,04,05'),  -- Honduras
 
                                                                -- Zika Virus occurrences
-                                                               (5, 3, 'Zika virus outbreak in rural areas 2015-2017'),  -- Chad
-                                                               (6, 3, 'Zika virus detected in urban areas 2017-2018'),  -- Cameroon
-                                                               (8, 3, 'Zika virus outbreaks in coastal regions 2016-2017'),  -- Ethiopia
+                                                               (5, 3, 'Zika virus outbreak in rural areas 2015-2017','2001-04-04', '2001,04,05'),  -- Chad
+                                                               (6, 3, 'Zika virus detected in urban areas 2017-2018','2001-04-04', '2001,04,05'),  -- Cameroon
+                                                               (8, 3, 'Zika virus outbreaks in coastal regions 2016-2017','2001-04-04', '2001,04,05'),  -- Ethiopia
 
                                                                -- Chikungunya occurrences
-                                                               (3, 4, 'Chikungunya cases in urban regions 2015-2017'),  -- Bolivia
-                                                               (9, 4, 'Chikungunya outbreaks in southern areas 2010-2015'),  -- Guinea
-                                                               (10, 4, 'Chikungunya reported in the capital city 2012-2015');  -- Guatemala
+                                                               (3, 4, 'Chikungunya cases in urban regions 2015-2017', '2001-04-04', '2001,04,05'),  -- Bolivia
+                                                               (9, 4, 'Chikungunya outbreaks in southern areas 2010-2015','2001-04-04', '2001,04,05'),  -- Guinea
+                                                               (10, 4, 'Chikungunya reported in the capital city 2012-2015','2020-01-01', '2020-01-15'),  -- Guatemala
+                                                               -- insert for india
+                                                               (12, 1, 'High rates of malaria from 2000-2010', '2017-08-01', '2017-08-20'),  -- India
+                                                               -- inserts for myanamar
+                                                                (15, 1, 'High rates of malaria from 2000-2010', '1991-05-15', '1992-06-15');  -- Myanmar
 
 
-    select * from countries where country_name = 'Honduras' ;
+
 
 -- Inserting donor_travelled_to_country records (using correct donor_id and country_id)
 
@@ -80,24 +261,22 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_da
                                                                                         (3, 12, '2017-08-01', '2017-08-20');  -- Mary traveled to India
 
 
-
-
-INSERT INTO questions (question) VALUES
-('Have you travelled to a country within the last 12 months?'),
-('Where have you travelled in the last 12 months?'),
-('When did you go to this country?'),
-('When did you return from this country?'),
-('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
-('Have you lived  abroad for more than 6 months'),
-('Where have you lived abroad?'),
-('When did you go abroad?'),
-('When did you return from abroad?'),
-('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
-('Have you travelled through multiple countries whilst travelling abroad?'),
-('Which countries have you travelled through?'),
-('When did you go to these countries?'),
-('When did you return from these countries?'),
-('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?');
+INSERT INTO questions (question, no_risk_response) VALUES
+('Have you travelled to a country within the last 12 months?', 'No'),
+('Where have you travelled in the last 12 months?', '0'),
+('When did you go to this country?', '0'),
+('When did you return from this country?', '0'),
+('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
+('Have you lived  abroad for more than 6 months', 'No'),
+('Where have you lived abroad?', '0'),
+('When did you go abroad?', '0'),
+('When did you return from abroad?', '0'),
+('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
+('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
+('Which countries have you travelled through?', '0'),
+('When did you go to these countries?', '0'),
+('When did you return from these countries?', '0'),
+('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No');
 
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
@@ -121,12 +300,4 @@ VALUES
     (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
-
-
 ;
-
-
-
-
-
-

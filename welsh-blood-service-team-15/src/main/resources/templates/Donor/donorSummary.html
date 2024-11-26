@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donor Summary</title>
+    <link rel="stylesheet" th:href="@{/css/donor/donor-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/donor/summary-layout.css}" />
+    <script th:src="@{/js/donor/summary.js}" defer></script>
+</head>
+<body>
+<div class="donor-summary">
+    <h1>Donor Summary</h1>
+    <p><strong>Name:</strong> <span th:text="${donor.firstName + ' ' + donor.lastName}"></span></p>
+    <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
+    <p><strong>Risk Level:</strong>
+        <span th:class="${donor.donorRisk == 'High' ? 'risk high' : (donor.donorRisk == 'Moderate' ? 'risk moderate' : 'risk low')}"
+              th:text="${donor.donorRisk + ' risk'}"></span>
+    </p>
+
+    <h2>Travel History</h2>
+    <div class="travel-history">
+        <ul>
+            <li th:each="travel : ${donor.travelHistory}">
+                <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
+                    <span th:text="${travel.endDate}"></span></p>
+            </li>
+        </ul>
+        <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
+    </div>
+
+    <h2>Questionnaire Answers</h2>
+    <button id="toggle-questionnaire">Show Questionnaire Answers</button>
+    <div class="questionnaire-answers hidden">
+        <ul>
+            <li th:each="answer : ${donorsAnswers}">
+                <p>
+                    <strong>Question:</strong>
+                    <span th:text="${questionMap[answer.questionId]}"></span>
+                </p>
+                <p>
+                    <strong>Answer:</strong>
+                    <span th:text="${answer.answer}"
+                          th:classappend="${noRiskResponseMap[answer.questionId] == '0' ? '' : (answer.answer == noRiskResponseMap[answer.questionId] ? 'answer green' : 'answer yellow')}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="redirect-button-tile">
+    <a th:href="@{/donor/summary-risks/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Show Risks</a></div>
+</body>
+</html>

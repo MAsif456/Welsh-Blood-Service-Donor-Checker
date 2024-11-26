@@ -1,0 +1,28 @@
+/* General body styling */
+/* Layout for summaries */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex; /* Use flexbox for side-by-side layout */
+    justify-content: center; /* Center summaries horizontally */
+    align-items: flex-start; /* Align summaries to the top */
+    gap: 20px; /* Add spacing between summaries */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    height: 100%; /* Ensure body fills the viewport */
+}
+
+.donor-summary,
+.disease-risk-summary,
+.redirect-button-tile{
+    max-width: 500px;
+    width: 45%; /* Adjust width for side-by-side alignment */
+    margin: 0; /* Remove any margins since flexbox handles spacing */
+}
+
+
+/* Page Title */
+h1 {
+    text-align: center;
+}
