@@ -44,7 +44,6 @@ public class DonorController {
         model.addAttribute("diseases", diseases);
         model.addAttribute("visitorRisks", visitorRisks);
 
-
         // Get the donor's answers
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
         model.addAttribute("donorsAnswers", donorsAnswers);
