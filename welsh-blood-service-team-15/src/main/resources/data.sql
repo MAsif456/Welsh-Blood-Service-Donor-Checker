@@ -130,3 +130,4 @@ VALUES
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
     ;
+

@@ -6,8 +6,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 90%;
-    margin: 0 auto; /* Center horizontally */
-    display: block; /* Block-level element */
+    margin: 0 auto;
+    display: block;
 }
 
 .donor-summary p {
@@ -157,3 +157,48 @@
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.4);
 }
+
+.redirect-button-tile {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+}
+
+.redirect-button {
+    display: inline-block;
+    margin: 1.5rem auto;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #0056b3;
+    border: 2px solid #004494;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    text-decoration: none;
+}
+
+.redirect-button:hover {
+    background-color: #004494;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.redirect-button:active {
+    background-color: #003366;
+    transform: translateY(1px);
+}
+
+.redirect-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.4);
+}
+

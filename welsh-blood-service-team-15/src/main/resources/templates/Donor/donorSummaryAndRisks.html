@@ -54,8 +54,11 @@
 </div>
 
 <div class="disease-risk-summary">
+
 <h2>Relevant Disease Risk</h2>
-<ul>
+    <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
+
+    <ul>
     <li th:each="disease : ${diseases}">
         <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
         <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
@@ -63,6 +66,8 @@
     </li>
 </ul>
 <p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to a country at the time of any disease outbreak.</p>
+
+
 </div>
 
 <!--NEED TO RETURN NO RISK FOR INDIVIDUAL COUNTRU, NOT JUST IF THEY HAVE NO RISK AT ALL-->
