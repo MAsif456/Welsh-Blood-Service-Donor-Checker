@@ -1,9 +1,11 @@
 
 -- Inserting donors (donor_id will be auto-incremented)
 INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
-                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', null, 'No known health risks'),
-                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', null, 'Recent travel to malaria-endemic areas'),
-                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', null, 'Clear of any diseases');
+                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', 'nul', 'No known health risks'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', 'nul', 'Recent travel to malaria-endemic areas'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', 'nul', 'Clear of any diseases'),
+                                                                                                ('Tom', 'Brown', '1980-01-01', 'Low', 'nul', 'No known health risks'),
+                                                                                                ('Alice', 'Williams', '1995-03-30', 'Moderate', 'nul', 'Recent travel to malaria-endemic areas');
 
 
 -- Inserting all countries
@@ -15,7 +17,7 @@ INSERT INTO countries (country_name) VALUES
                                          ('Angola'),
                                          ('Argentina'),  -- Country ID 6
                                          ('Armenia'),
-                                         ('Australia'),  -- Region Check needed when implemented
+                                         ('Australia'),  -- Region Check needed when implemented, Country ID 8
                                          ('Austria'),
                                          ('Azerbaijan'),
                                          ('Bahamas'),  -- Country ID 11
@@ -29,24 +31,24 @@ INSERT INTO countries (country_name) VALUES
                                          ('Brazil'),
                                          ('Brunei'),
                                          ('Bulgaria'),  -- Country ID 21
-                                         ('Burkina Faso'),  -- Not done
+                                         ('Burkina Faso'),  -- Not done, Country ID 22
                                          ('Burundi'),
                                          ('Cabo Verde'),
                                          ('Cambodia'), -- Country ID 25
                                          ('Cameroon'),
-                                         ('Canada'),
-                                         ('Central African Republic'),
                                          ('Chad'),
                                          ('Chile'),
                                          ('China'),
+                                         ('Clipperton Island'), -- Not done, Country ID 30
+                                         ('Cocos Island'), -- Not done, Country ID 31
                                          ('Colombia'), -- Country ID 32
-                                         ('Comoros'),-- Not done
-                                         ('Congo'), -- Not done
+                                         ('Comoros'), -- Not done, Country ID 33
+                                         ('Congo'), -- Not done, Country ID 34
                                          ('Costa Rica'),
-                                         ('Croatia'), -- Not done
-                                         ('Cuba'),-- Not done
-                                         ('Cyprus'),-- Not done
-                                         ('Czechia (Czech Republic)'),-- Not done
+                                         ('Croatia'), -- Not done, Country ID 36
+                                         ('Cuba'), -- Not done, Country ID 37
+                                         ('Cyprus'), -- Not done, Country ID 38
+                                         ('Czechia (Czech Republic)'), -- Not done, Country ID 39
                                          ('Denmark'),
                                          ('Djibouti'),
                                          ('Dominica'),
@@ -58,53 +60,51 @@ INSERT INTO countries (country_name) VALUES
                                          ('Eritrea'),
                                          ('Estonia'),
                                          ('Eswatini (fmr. "Swaziland")'),
-                                         ('Ethiopia'), -- Country Id 51
+                                         ('Ethiopia'), -- Country ID 51
                                          ('Fiji'),
                                          ('Finland'),
-                                         ('France'),  -- Region Check needed when implemented
+                                         ('France'),  -- Region Check needed when implemented, Country ID 54
                                          ('Gabon'), -- Country ID 55
                                          ('Gambia'),
                                          ('Georgia'),
                                          ('Germany'),
                                          ('Ghana'),
-                                         ('Greece'),
-                                         ('Grenada'),
                                          ('Guatemala'),
                                          ('Guinea'),
-                                         ('Guinea-Bissau'), -- Not done
-                                         ('Guyana'),  -- Not done
+                                         ('Guinea-Bissau'), -- Not done, Country ID 62
+                                         ('Guyana'),  -- Not done, Country ID 63
                                          ('Haiti'),  -- Country ID 66
-                                         ('Holy See'),  -- Not done
+                                         ('Holy See'),  -- Not done, Country ID 67
                                          ('Honduras'),
                                          ('Hungary'),
                                          ('Iceland'),  -- Country ID 70
                                          ('India'),
                                          ('Indonesia'),
-                                         ('Iran'),  -- Region check needed when implemented
-                                         ('Iraq'),  -- Region check needed when implemented
+                                         ('Iran'),  -- Region check needed when implemented, Country ID 73
+                                         ('Iraq'),  -- Region check needed when implemented, Country ID 74
                                          ('Ireland'),
-                                         ('Italy'),  -- Region check needed when implemented
+                                         ('Italy'),  -- Region check needed when implemented, Country ID 76
                                          ('Jamaica'), -- Country ID 77
                                          ('Japan'),
                                          ('Jordan'),
                                          ('Kazakhstan'),
-                                         ('Kenya'), -- Region check needed when implemented
+                                         ('Kenya'), -- Region check needed when implemented, Country ID 81
                                          ('Kiribati'),  -- Country ID 82
                                          ('Kosovo'),
                                          ('Kuwait'),
                                          ('Kyrgyzstan'),
-                                         ('Laos'),  -- Region check needed when implemented
+                                         ('Laos'),  -- Region check needed when implemented, Country ID 86
                                          ('Latvia'),
                                          ('Lebanon'),
                                          ('Lesotho'),  -- Country ID 89
                                          ('Liberia'),
-                                         ('Libya'), -- Region Check needed when implemented
+                                         ('Libya'), -- Region Check needed when implemented, Country ID 91
                                          ('Liechtenstein'),
                                          ('Lithuania'),
                                          ('Luxembourg'),
                                          ('Madagascar'),
                                          ('Malawi'),
-                                         ('Malaysia'), -- Region check needed when implemented
+                                         ('Malaysia'), -- Region check needed when implemented, Country ID 97
                                          ('Maldives'),
                                          ('Mali'),
                                          ('Malta'), -- Country ID 100
@@ -112,21 +112,20 @@ INSERT INTO countries (country_name) VALUES
                                          ('Martinique'),
                                          ('Mauritania'),
                                          ('Mauritius'),
-                                         ('Mexico'),  -- Region Check needed when implemented
+                                         ('Mexico'),  -- Region Check needed when implemented, Country ID 105
                                          ('Moldova'),
                                          ('Monaco'),
                                          ('Mongolia'),
                                          ('Montenegro'),
-                                         ('Morocco'),  -- Region Check needed when implemented
+                                         ('Morocco'),  -- Region Check needed when implemented, Country ID 110
                                          ('Mozambique'),
                                          ('Myanmar'),
-                                         ('Namibia'),  -- Region Check needed when implemented
+                                         ('Namibia'),  -- Region Check needed when implemented, Country ID 113
                                          ('Nauru'), -- Country ID 114
-                                         ('Nepal'),  -- Region Check need when implemented
+                                         ('Nepal'),  -- Region Check needed when implemented, Country ID 115
                                          ('Netherlands'),
                                          ('New Zealand'),
                                          ('Nicaragua'),
-                                         ('Niger'),
                                          ('Nigeria'),
                                          ('North Korea'),
                                          ('North Macedonia (formerly Macedonia)'),
@@ -135,60 +134,60 @@ INSERT INTO countries (country_name) VALUES
                                          ('Pakistan'),
                                          ('Palau'),  -- Country ID 126
                                          ('Palestine'),
-                                         ('Panama'),  -- Region Check needed when implemented
+                                         ('Panama'),  -- Region Check needed when implemented, Country ID 128
                                          ('Papua New Guinea'),
-                                         ('Paraguay'),  -- Region check needed when implemented
-                                         ('Peru'),  -- Region check needed when implemented
-                                         ('Philippines'), -- Region Check needed when implemented
+                                         ('Paraguay'),  -- Region check needed when implemented, Country ID 130
+                                         ('Peru'),  -- Region check needed when implemented, Country ID 131
+                                         ('Philippines'), -- Region Check needed when implemented, Country ID 132
                                          ('Poland'),
                                          ('Portugal'),
                                          ('Qatar'),
                                          ('Romania'),
                                          ('Russia'),
-                                         ('Rwanda'),
-                                         ('Saint Kitts and Nevis'), -- Country Id 139
-                                         ('Saint Lucia'),  -- Not done
-                                         ('Saint Vincent and the Grenadines'),  -- Not done
-                                         ('Samoa'), -- Not done
-                                         ('San Marino'),  -- Not done
-                                         ('Sao Tome and Principe'),  -- Not done
-                                         ('Saudi Arabia'), -- Country Id 145 + Region Check needed when Implemented
+                                         ('Rwanda'), -- Country ID 138
+                                         ('Saint Kitts and Nevis'), -- Country ID 139
+                                         ('Saint Lucia'),  -- Not done, Country ID 140
+                                         ('Saint Vincent and the Grenadines'),  -- Not done, Country ID 141
+                                         ('Samoa'), -- Not done, Country ID 142
+                                         ('San Marino'),  -- Not done, Country ID 143
+                                         ('Sao Tome and Principe'),  -- Not done, Country ID 144
+                                         ('Saudi Arabia'), -- Country ID 145 + Region Check needed when implemented
                                          ('Senegal'),
                                          ('Serbia'),
                                          ('Seychelles'),
                                          ('Sierra Leone'),
-                                         ('Singapore'), -- Country Id 150
+                                         ('Singapore'), -- Country ID 150
                                          ('Slovakia'),
                                          ('Slovenia'),
                                          ('Solomon Islands'),
                                          ('Somalia'),
-                                         ('South Africa'),  -- Region Check needed when implemented
+                                         ('South Africa'),  -- Region Check needed when implemented, Country ID 155
                                          ('South Korea'),
-                                         ('South Sudan'), -- Country Id 157
-                                         ('Spain'), -- Region Check needed when implemented
+                                         ('South Sudan'), -- Country ID 157
+                                         ('Spain'), -- Region Check needed when implemented, Country ID 158
                                          ('Sri Lanka'),
                                          ('Sudan'), -- Country ID 160
-                                         ('Suriname'),  -- Region Checks needed when implemented
+                                         ('Suriname'),  -- Region Checks needed when implemented, Country ID 161
                                          ('Sweden'),
                                          ('Switzerland'),
                                          ('Syria'),
                                          ('Tajikistan'),
                                          ('Tanzania'),
-                                         ('Thailand'), -- Region Check needed when implemented
-                                         ('Timor-Leste'),  -- Country Id 168
+                                         ('Thailand'), -- Region Check needed when implemented, Country ID 167
+                                         ('Timor-Leste'),  -- Country ID 168
                                          ('Togo'),
                                          ('Tonga'),
                                          ('Trinidad and Tobago'),
                                          ('Tunisia'),
-                                         ('Turkey'),  -- Region Check needed when implemented
-                                         ('Turkmenistan'),  -- Region Check needed when implemented
+                                         ('Turkey'),  -- Region Check needed when implemented, Country ID 173
+                                         ('Turkmenistan'),  -- Region Check needed when implemented, Country ID 174
                                          ('Tuvalu'),
                                          ('Uganda'),
                                          ('Ukraine'),
-                                         ('United Arab Emirates'), -- Country Id 178 + Region Check needed when implemented
+                                         ('United Arab Emirates'), -- Country ID 178 + Region Check needed when implemented
                                          ('United Kingdom'),
-                                         ('United States of America'),-- Region Check needed when implemented
-                                         ('Uruguay'),  -- Country Id 181
+                                         ('United States of America'), -- Region Check needed when implemented, Country ID 180
+                                         ('Uruguay'),  -- Country ID 181
                                          ('Uzbekistan'),
                                          ('Vanuatu'),
                                          ('Venezuela'),
@@ -196,6 +195,7 @@ INSERT INTO countries (country_name) VALUES
                                          ('Yemen'),
                                          ('Zambia'),
                                          ('Zimbabwe');
+
 
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
@@ -589,22 +589,20 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
 
 SELECT * FROM country_disease;
 
--- Inserting donor_travelled_to_country records (using correct donor_id and country_id)
 
 INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_date) VALUES
                                                                                         (1, 4, '2017-02-01', '2017-02-10'),  -- John traveled to Cameroon
-                                                                                        (1, 3, '2018-07-01', '2018-07-15');  -- John traveled to Bolivia
-
--- Jane traveled to Chad, Colombia, and Bangladesh
-INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_date) VALUES
+                                                                                        (1, 3, '2018-07-01', '2018-07-15'),  -- John traveled to Bolivia
                                                                                         (2, 5, '2016-05-01', '2016-06-01'),  -- Jane traveled to Chad
-                                                                                        (2, 7, '2019-03-15', '2019-04-01');  -- Jane traveled to Colombia
-
--- Mary traveled to Myanmar, Guatemala, and India
-INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_date) VALUES
+                                                                                        (2, 7, '2019-03-15', '2019-04-01'),  -- Jane traveled to Colombia
                                                                                         (3, 15, '2018-05-15', '2018-06-15'),  -- Mary traveled to Myanmar
                                                                                         (3, 10, '2020-01-01', '2020-01-15'),  -- Mary traveled to Guatemala
-                                                                                        (3, 12, '2017-08-01', '2017-08-20');  -- Mary traveled to India
+                                                                                        (3, 12, '2017-07-30', '2017-07-31'), -- Mary traveled to India
+                                                                                        -- inserts for donor 5 alice
+                                                                                        (5, 8, '2014-05-09', '2015-05-08'), -- Alice went to ethiopia
+                                                                                        (5, 11, '2001-04-05', '2002-01-23'); -- alice went to honduras
+
+
 
 
 INSERT INTO questions (question, no_risk_response) VALUES
@@ -627,15 +625,15 @@ INSERT INTO questions (question, no_risk_response) VALUES
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
 VALUES
-    (1, 1, 'Yes'),  -- Donor 1 travelled in the last 12 months.
-    (1, 5, 'No'),   -- Donor 1 has not been in contact with recent travellers.
-    (1, 6, 'Yes'),  -- Donor 1 lived abroad for more than 6 months.
-    (1, 7, 'India'), -- Donor 1 lived in India.
-    (1, 8, '2019-01-01'), -- Donor 1 went to India on 1st January 2019.
-    (1, 9, '2020-01-01'), -- Donor 1 returned from India on 1st January 2020.
-    (1, 10, 'Yes'), -- Donor 1 has been in contact with someone who lived abroad for more than 6 months.
-    (1, 11, 'Yes'), -- Donor 1 travelled through multiple countries.
-    (1, 15, 'Yes'), -- Donor 1 has been in contact with someone who travelled through multiple countries.
+    (5, 1, 'Yes'),  -- Donor 1 travelled in the last 12 months.
+    (5, 5, 'No'),   -- Donor 1 has not been in contact with recent travellers.
+    (5, 6, 'Yes'),  -- Donor 1 lived abroad for more than 6 months.
+    (5, 7, 'India'), -- Donor 1 lived in India.
+    (5, 8, '2019-01-01'), -- Donor 1 went to India on 1st January 2019.
+    (5, 9, '2020-01-01'), -- Donor 1 returned from India on 1st January 2020.
+    (5, 10, 'Yes'), -- Donor 1 has been in contact with someone who lived abroad for more than 6 months.
+    (5, 11, 'Yes'), -- Donor 1 travelled through multiple countries.
+    (5, 15, 'Yes'), -- Donor 1 has been in contact with someone who travelled through multiple countries.
     (2, 1, 'No'),   -- Donor 2 did not travel in the last 12 months.
     (2, 5, 'Yes'),  -- Donor 2 has been in contact with recent travellers.
     (2, 6, 'No'),   -- Donor 2 has not lived abroad for more than 6 months.
@@ -646,4 +644,5 @@ VALUES
     (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
-;
+    ;
+
