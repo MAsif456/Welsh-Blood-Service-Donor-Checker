@@ -14,7 +14,6 @@ public class DecisionAndNotesController {
     private DecisionAndNotesService decisionAndNotesService;
 
 
-
     @GetMapping("/decisionAndNotes/{donorId}")
     public ModelAndView decisionAndNotes(@PathVariable int donorId) {
         ModelAndView modelAndView = new ModelAndView("decisionAndNotesPage");
