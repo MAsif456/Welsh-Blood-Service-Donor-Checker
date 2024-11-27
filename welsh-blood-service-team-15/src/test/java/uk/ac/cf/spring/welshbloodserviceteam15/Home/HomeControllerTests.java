@@ -22,6 +22,7 @@ public class HomeControllerTests {
 
     @Test
     public void shouldRedirectToHome() throws Exception {
+        // Given
         // When
         MvcResult result = mvc.perform(get("/"))
                 .andDo(print())
@@ -36,6 +37,7 @@ public class HomeControllerTests {
 
     @Test
     public void shouldGetHome() throws Exception {
+        // Given
         // When
         MvcResult result = mvc.perform(get("/home"))
                 .andDo(print())
