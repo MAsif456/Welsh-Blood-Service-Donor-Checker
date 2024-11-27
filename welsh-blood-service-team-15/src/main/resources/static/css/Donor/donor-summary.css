@@ -202,8 +202,8 @@
     box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.4);
 }
 
-/* Decision and Notes Button */
-.decision-notes-button {
+/* Navigation Button */
+.navigation-button {
     display: inline-block;
     margin: 1.5rem auto;
     padding: 0.8rem 2.5rem;
@@ -220,18 +220,18 @@
     text-decoration: none;
 }
 
-.decision-notes-button:hover {
+.navigation-button:hover {
     background-color: #004494;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
-.decision-notes-button:active {
+.navigation-button:active {
     background-color: #003366;
     transform: translateY(1px);
 }
 
-.decision-notes-button:focus {
+.navigation-button:focus {
     outline: none;
     box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.4);
 }
