@@ -1,32 +1,83 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Donor Summary</title>
+    <link rel="stylesheet" th:href="@{/css/donor/summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/donor/donor-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/donor/disease-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/donor/summary-layout.css}" />
+    <script th:src="@{/js/donor/summary.js}" defer></script>
+
 </head>
 <body>
-<h1>Donor Summary</h1>
-<p><strong>First Name:</strong> <span th:text="${donor.firstName}"></span></p>
-<p><strong>Last Name:</strong> <span th:text="${donor.lastName}"></span></p>
-<p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
-<p><strong>Risk Level:</strong> <span th:text="${donor.donorRisk}"></span></p>
-<p><strong>Decision:</strong> <span th:text="${donor.donorDecision}"></span></p>
-<p><strong>Notes:</strong> <span th:text="${donor.donorNote}"></span></p>
+<div class="donor-summary">
+    <h1>Donor Summary</h1>
+    <p><strong>Name:</strong> <span th:text="${donor.firstName} + ' ' + ${donor.lastName}"></span></p>
+    <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
+    <p><strong>Risk Level:</strong>
+        <span th:class="${donor.donorRisk == 'High' ? 'risk high' : (donor.donorRisk == 'Moderate' ? 'risk moderate' : 'risk low')}"
+              th:text="${donor.donorRisk + ' risk'}"></span></p>
 
-<h2>Travel History</h2>
-<ul>
-    <li th:each="travel : ${donor.travelHistory}">
-        <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-        <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to <span th:text="${travel.endDate}"></span></p>
-    </li>
-</ul>
-<h2>Disease Risk</h2>
+    <h2>Travel History</h2>
+    <div class="travel-history">
+        <ul>
+            <li th:each="travel : ${donor.travelHistory}">
+                <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
+                    <span th:text="${travel.endDate}"></span></p>
+            </li>
+        </ul>
+        <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
+    </div>
 
-<ul>
+
+    <h2>Questionnaire Answers</h2>
+    <button id="toggle-questionnaire">Show Questionnaire Answers</button>
+    <div class="questionnaire-answers hidden">
+        <ul>
+            <li th:each="answer : ${donorsAnswers}">
+                <p>
+                    <strong>Question:</strong>
+                    <span th:text="${questionMap[answer.questionId]}"></span>
+                </p>
+                <p>
+                    <strong>Answer:</strong>
+                    <span th:text="${answer.answer}"
+                          th:classappend="${noRiskResponseMap[answer.questionId] == '0' ? '' : (answer.answer == noRiskResponseMap[answer.questionId] ? 'answer green' : 'answer yellow')}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+
+
+</div>
+
+<div class="disease-risk-summary">
+
+<h2>Relevant Disease Risk</h2>
+    <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
+
+    <ul>
     <li th:each="disease : ${diseases}">
         <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
         <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
-        <p><strong>Note:</strong> <span th:text="${disease.note}"></span></p>
+        <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
     </li>
 </ul>
+<p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to a country at the time of any disease outbreak.</p>
+
+    <h2>Visitor-Related Disease Risks</h2>
+    <ul>
+        <li th:each="risk : ${visitorRisks}">
+            <p><strong>Country:</strong> <span th:text="${risk.country.countryName}"></span></p>
+            <p><strong>Disease Name:</strong> <span th:text="${risk.disease.diseaseName}"></span></p>
+            <p><strong>Relevant Notes:</strong> <span th:text="${risk.note}"></span></p>
+        </li>
+    </ul>
+    <p th:if="${#lists.isEmpty(visitorRisks)}">No visitor-related disease risks found.</p>
+</div>
+
+<!--NEED TO RETURN NO RISK FOR INDIVIDUAL COUNTRU, NOT JUST IF THEY HAVE NO RISK AT ALL-->
 </body>
 </html>

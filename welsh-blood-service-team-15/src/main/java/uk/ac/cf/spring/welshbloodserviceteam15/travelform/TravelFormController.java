@@ -24,7 +24,7 @@ public class TravelFormController {
     private DonorTravelledToCountryService donorTravelledToCountryService;
 
     @Autowired
-    private CountryService countryService; // Assuming you have a CountryService to fetch countries
+    private CountryService countryService;
 
     @GetMapping("/travel-form")
     public String showTravelForm(Model model) {
