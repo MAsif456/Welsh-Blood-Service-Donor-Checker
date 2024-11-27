@@ -50,20 +50,17 @@ public class DonorServiceTest {
      * This method tests whether diseases are returned if its active dates do not overlap with the
      * donors visit dates.
      */
-
     @Test
     public void testDonorTravelWithoutOverlap() {
-        // Create and save a country
+        // Given: A country, a disease active during a specific period, and a donor who traveled to the country outside the disease's active dates
         Country country = new Country();
         country.setCountryName("TestCountry");
         countryRepository.save(country);
 
-        // Create and save a disease
         Disease disease = new Disease();
         disease.setDiseaseName("TestDisease");
         diseaseRepository.save(disease);
 
-        // Create and save a country disease
         CountryDisease countryDisease = new CountryDisease();
         countryDisease.setCountry(country);
         countryDisease.setDisease(disease);
@@ -71,14 +68,12 @@ public class DonorServiceTest {
         countryDisease.setEndDate(LocalDate.of(2022, 1, 31));
         countryDiseaseRepository.save(countryDisease);
 
-        // Create and save a donor
         Donor donor = new Donor();
         donor.setFirstName("John");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1990, 1, 1));
         donorRepository.save(donor);
 
-        // Create and save a donor travel record without overlap
         DonorTravelledToCountry travel = new DonorTravelledToCountry();
         travel.setDonor(donor);
         travel.setCountry(country);
@@ -86,8 +81,10 @@ public class DonorServiceTest {
         travel.setEndDate(LocalDate.of(2021, 12, 31));
         donorTravelledToCountryRepository.save(travel);
 
-        // Test for no overlap
+        // When: Checking for relevant diseases for the donor
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+
+        // Then: No diseases should be returned
         assertTrue(diseases.isEmpty());
     }
 
@@ -96,7 +93,6 @@ public class DonorServiceTest {
      * This method tests whether diseases are returned if its active dates overlap with the
      * donors visit dates.
      */
-
     @Test
     public void testDonorTravelWithOverlap() {
         // Create and save a country
@@ -143,15 +139,17 @@ public class DonorServiceTest {
      */
     @Test
     public void testDonorWithNoTravelHistory() {
-        // Create and save a donor with no travel history
+        // Given: A donor who has no travel history
         Donor donor = new Donor();
         donor.setFirstName("Jane");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1992, 2, 2));
         donorRepository.save(donor);
 
-        // Test for no travel history
+        // When: Checking for relevant diseases for the donor
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+
+        // Then: No diseases should be returned
         assertTrue(diseases.isEmpty());
     }
 
@@ -162,19 +160,17 @@ public class DonorServiceTest {
      */
     @Test
     public void testDonorWithNoDiseaseRisk() {
-        // Create and save a country
+        // Given: A country with no active diseases during a donor's travel period
         Country country = new Country();
         country.setCountryName("SafeCountry");
         countryRepository.save(country);
 
-        // Create and save a donor
         Donor donor = new Donor();
         donor.setFirstName("Alice");
         donor.setLastName("Johnson");
         donor.setDonorDob(LocalDate.of(1985, 5, 5));
         donorRepository.save(donor);
 
-        // Create and save a donor travel record
         DonorTravelledToCountry travel = new DonorTravelledToCountry();
         travel.setDonor(donor);
         travel.setCountry(country);
@@ -182,8 +178,10 @@ public class DonorServiceTest {
         travel.setEndDate(LocalDate.of(2021, 12, 31));
         donorTravelledToCountryRepository.save(travel);
 
-        // Test for no disease risk
+        // When: Checking for relevant diseases for the donor
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+
+        // Then: No diseases should be returned
         assertTrue(diseases.isEmpty());
     }
 
@@ -193,7 +191,7 @@ public class DonorServiceTest {
      */
     @Test
     public void testDonorWithMultipleDiseaseRisks() {
-        // Create and save countries
+        // Given: A donor travels to multiple countries with overlapping active diseases
         Country country1 = new Country();
         country1.setCountryName("Country1");
         countryRepository.save(country1);
@@ -202,7 +200,6 @@ public class DonorServiceTest {
         country2.setCountryName("Country2");
         countryRepository.save(country2);
 
-        // Create and save diseases
         Disease disease1 = new Disease();
         disease1.setDiseaseName("Disease1");
         diseaseRepository.save(disease1);
@@ -211,7 +208,6 @@ public class DonorServiceTest {
         disease2.setDiseaseName("Disease2");
         diseaseRepository.save(disease2);
 
-        // Create and save country diseases
         CountryDisease countryDisease1 = new CountryDisease();
         countryDisease1.setCountry(country1);
         countryDisease1.setDisease(disease1);
@@ -226,14 +222,12 @@ public class DonorServiceTest {
         countryDisease2.setEndDate(LocalDate.of(2022, 2, 28));
         countryDiseaseRepository.save(countryDisease2);
 
-        // Create and save a donor
         Donor donor = new Donor();
         donor.setFirstName("Bob");
         donor.setLastName("Brown");
         donor.setDonorDob(LocalDate.of(1980, 3, 3));
         donorRepository.save(donor);
 
-        // Create and save multiple donor travel records
         DonorTravelledToCountry travel1 = new DonorTravelledToCountry();
         travel1.setDonor(donor);
         travel1.setCountry(country1);
@@ -248,8 +242,10 @@ public class DonorServiceTest {
         travel2.setEndDate(LocalDate.of(2022, 2, 20));
         donorTravelledToCountryRepository.save(travel2);
 
-        // Test for multiple disease risks
+        // When: Checking for relevant diseases for the donor
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+
+        // Then: Multiple diseases should be returned
         assertFalse(diseases.isEmpty());
         assertEquals(2, diseases.size());
     }
@@ -259,14 +255,13 @@ public class DonorServiceTest {
      */
     @Test
     public void testQuestionnaireAnswers() {
-        // Create and save a donor
+        // Given: A donor answers multiple questions in a questionnaire
         Donor donor = new Donor();
         donor.setFirstName("Charlie");
         donor.setLastName("Davis");
         donor.setDonorDob(LocalDate.of(1995, 4, 4));
         donorRepository.save(donor);
 
-        // Create and save questionnaire answers
         Questionnaire answer1 = new Questionnaire();
         answer1.setDonorId(donor.getDonorId());
         answer1.setQuestionId(1);
@@ -279,9 +274,11 @@ public class DonorServiceTest {
         answer2.setAnswer("No");
         questionnaireRepository.save(answer2);
 
-        // Test for questionnaire answers
+        // When: Retrieving questionnaire answers for the donor
         List<Questionnaire> answers = questionnaireService.getDonorsAnswers(donor.getDonorId());
+
+        // Then: All stored answers should be retrieved
         assertFalse(answers.isEmpty());
         assertEquals(2, answers.size());
-    }
-}
+
+}}

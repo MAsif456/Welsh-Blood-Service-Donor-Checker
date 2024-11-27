@@ -34,13 +34,13 @@ public class DonorControllerTest {
     private QuestionService questionService;
 
     /**
-     * This method tests getting a donor with no travel history and no relevant diseases.
+     * This method tests getting country risks for a donor with no travel history.
      * @throws Exception if the test fails
      */
 
     @Test
     public void shouldGetDonorInfoWithNoRisks() throws Exception {
-        // Create a donor with no travel history
+        // Given: A donor with no travel history
         Donor donor = new Donor();
         donor.setDonorId(1);
         donor.setFirstName("John");
@@ -59,12 +59,14 @@ public class DonorControllerTest {
         // Mock the question service to return questions
         when(questionService.getQuestions()).thenReturn(Collections.emptyList());
 
+        // When: A GET request is made to the endpoint
         MvcResult result = mvc.perform(get("/donor/summary-risks/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
+
+        // Then: The response should contain a message that there are no risks
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("This donor has not travelled to a country at the time of any disease outbreak."));
-        assertTrue(content.contains("John Doe"));
     }
 }

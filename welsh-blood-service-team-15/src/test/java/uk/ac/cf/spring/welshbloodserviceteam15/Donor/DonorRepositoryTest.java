@@ -20,23 +20,22 @@ public class DonorRepositoryTest {
      */
     @Test
     public void testSaveAndFindDonor() {
-        // Create a new donor
+        // Given: A new donor is created
         Donor donor = new Donor();
         donor.setDonorId(1);
         donor.setFirstName("Jane");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1992, 2, 2));
 
-        // Save the donor to the repository
+        // When: The donor is saved to the repository and retrieved
         donorRepository.save(donor);
-
-        // Retrieve the donor from the repository
         Optional<Donor> retrievedDonor = donorRepository.findById(1);
 
-        // Assert that the donor was found and the details are correct
-        assertTrue(retrievedDonor.isPresent());
-        assertEquals("Jane", retrievedDonor.get().getFirstName());
-        assertEquals("Doe", retrievedDonor.get().getLastName());
-        assertEquals(LocalDate.of(1992, 2, 2), retrievedDonor.get().getDonorDob());
+        // Then: The retrieved donor should match the saved donor details
+        assertTrue(retrievedDonor.isPresent(), "The donor should be found in the repository");
+        assertEquals("Jane", retrievedDonor.get().getFirstName(), "The donor's first name should match");
+        assertEquals("Doe", retrievedDonor.get().getLastName(), "The donor's last name should match");
+        assertEquals(LocalDate.of(1992, 2, 2), retrievedDonor.get().getDonorDob(), "The donor's date of birth should match");
     }
+
 }

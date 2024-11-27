@@ -8,11 +8,7 @@ DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
 
-<<<<<<< HEAD
-CREATE DATABASE IF NOT EXISTS WelshBlood;
-USE WelshBlood;
-=======
->>>>>>> e8a98a8a674df1e7440b0f3994effccbe65ceb42
+
 
 CREATE TABLE IF NOT EXISTS donor
 (
