@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Donor</title>
+</head>
+<body>
+<h1>Create Donor</h1>
+<form action="#" th:action="@{/donor-form}" th:object="${donorForm}" method="post">
+    <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" th:field="*{firstName}" />
+    </div>
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" th:field="*{lastName}" />
+    </div>
+    <div>
+        <label for="donorDob">Date of Birth:</label>
+        <input type="date" id="donorDob" th:field="*{donorDob}" />
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>
