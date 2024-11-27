@@ -194,7 +194,13 @@ INSERT INTO countries (country_name) VALUES
                                          ('Vietnam'),
                                          ('Yemen'),
                                          ('Zambia'),
-                                         ('Zimbabwe');
+                                         ('Zimbabwe'),
+                                            ('Antigua and Barbuda'),  -- Not done, Country ID 196
+                                            ('Belize'),  -- Not done, Country ID 197
+                                            ('Benin');  -- Not done, Country ID 198
+
+
+
 
 
 -- Inserting diseases
