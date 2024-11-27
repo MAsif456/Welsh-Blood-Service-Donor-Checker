@@ -194,7 +194,14 @@ INSERT INTO countries (country_name) VALUES
                                          ('Vietnam'),
                                          ('Yemen'),
                                          ('Zambia'),
-                                         ('Zimbabwe');
+                                         ('Zimbabwe'),
+                                         ('Af'),
+                                         ('Adf'),
+                                         ('Afsf');
+
+
+
+;
 
 
 -- Inserting diseases

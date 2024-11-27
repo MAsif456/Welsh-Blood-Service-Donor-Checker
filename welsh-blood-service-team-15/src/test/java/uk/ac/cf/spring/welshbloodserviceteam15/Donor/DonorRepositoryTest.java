@@ -20,7 +20,7 @@ public class DonorRepositoryTest {
      */
     @Test
     public void testSaveAndFindDonor() {
-        // Given: A new donor is created
+        // Given: A new donor record is created
         Donor donor = new Donor();
         donor.setDonorId(1);
         donor.setFirstName("Jane");

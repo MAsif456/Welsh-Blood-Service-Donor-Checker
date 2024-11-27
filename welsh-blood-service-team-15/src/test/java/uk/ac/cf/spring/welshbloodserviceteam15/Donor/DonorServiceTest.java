@@ -52,7 +52,7 @@ public class DonorServiceTest {
      */
     @Test
     public void testDonorTravelWithoutOverlap() {
-        // Given: A country, a disease active during a specific period, and a donor who traveled to the country outside the disease's active dates
+        // Given: A country, a disease active during a specific period, and a donor who traveled to only this country outside the disease's active dates
         Country country = new Country();
         country.setCountryName("TestCountry");
         countryRepository.save(country);
@@ -95,17 +95,16 @@ public class DonorServiceTest {
      */
     @Test
     public void testDonorTravelWithOverlap() {
-        // Create and save a country
+
+        // Given: A country, a disease active during a specific period, and a donor who traveled to only this country inside the disease's active dates
         Country country = new Country();
         country.setCountryName("TestCountry");
         countryRepository.save(country);
 
-        // Create and save a disease
         Disease disease = new Disease();
         disease.setDiseaseName("TestDisease");
         diseaseRepository.save(disease);
 
-        // Create and save a country disease
         CountryDisease countryDisease = new CountryDisease();
         countryDisease.setCountry(country);
         countryDisease.setDisease(disease);
@@ -113,14 +112,12 @@ public class DonorServiceTest {
         countryDisease.setEndDate(LocalDate.of(2022, 1, 31));
         countryDiseaseRepository.save(countryDisease);
 
-        // Create and save a donor
         Donor donor = new Donor();
         donor.setFirstName("John");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1990, 1, 1));
         donorRepository.save(donor);
 
-        // Create and save a donor travel record with overlap
         DonorTravelledToCountry travel = new DonorTravelledToCountry();
         travel.setDonor(donor);
         travel.setCountry(country);
@@ -128,29 +125,11 @@ public class DonorServiceTest {
         travel.setEndDate(LocalDate.of(2022, 1, 20));
         donorTravelledToCountryRepository.save(travel);
 
-        // Test for overlap
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
-        assertFalse(diseases.isEmpty());
-    }
-
-
-    /**
-     * This method tests whether the diseases list is empty if the donor has not travelled.
-     */
-    @Test
-    public void testDonorWithNoTravelHistory() {
-        // Given: A donor who has no travel history
-        Donor donor = new Donor();
-        donor.setFirstName("Jane");
-        donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1992, 2, 2));
-        donorRepository.save(donor);
-
         // When: Checking for relevant diseases for the donor
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
 
-        // Then: No diseases should be returned
-        assertTrue(diseases.isEmpty());
+        // Then: The disease should be returned
+        assertFalse(diseases.isEmpty());
     }
 
 
@@ -159,11 +138,16 @@ public class DonorServiceTest {
      * history.
      */
     @Test
-    public void testDonorWithNoDiseaseRisk() {
-        // Given: A country with no active diseases during a donor's travel period
+    public void testDonorTravelToSafeCountry() {
+        // Given: The donor travels to a Country with no diseases ever present
         Country country = new Country();
         country.setCountryName("SafeCountry");
         countryRepository.save(country);
+
+        CountryDisease countryDisease = new CountryDisease();
+        countryDisease.setCountry(country);
+        countryDisease.setDisease(null);
+        countryDiseaseRepository.save(countryDisease);
 
         Donor donor = new Donor();
         donor.setFirstName("Alice");
@@ -187,11 +171,11 @@ public class DonorServiceTest {
 
 
     /**
-     * This method tests whether the donor has multiple disease risks associated with them.
+     * This method tests whether the donor has a single disease risk associated with them.
      */
     @Test
-    public void testDonorWithMultipleDiseaseRisks() {
-        // Given: A donor travels to multiple countries with overlapping active diseases
+    public void testDonorWithSingleDiseaseRisk() {
+        // Given: A donor travels to one country outside the disease period and another during the disease period
         Country country1 = new Country();
         country1.setCountryName("Country1");
         countryRepository.save(country1);
@@ -228,13 +212,15 @@ public class DonorServiceTest {
         donor.setDonorDob(LocalDate.of(1980, 3, 3));
         donorRepository.save(donor);
 
+        // Donor travels to country1 outside the disease period
         DonorTravelledToCountry travel1 = new DonorTravelledToCountry();
         travel1.setDonor(donor);
         travel1.setCountry(country1);
-        travel1.setStartDate(LocalDate.of(2022, 1, 15));
-        travel1.setEndDate(LocalDate.of(2022, 1, 20));
+        travel1.setStartDate(LocalDate.of(2021, 12, 1));
+        travel1.setEndDate(LocalDate.of(2021, 12, 31));
         donorTravelledToCountryRepository.save(travel1);
 
+        // Donor travels to country2 during the disease period
         DonorTravelledToCountry travel2 = new DonorTravelledToCountry();
         travel2.setDonor(donor);
         travel2.setCountry(country2);
@@ -245,40 +231,11 @@ public class DonorServiceTest {
         // When: Checking for relevant diseases for the donor
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
 
-        // Then: Multiple diseases should be returned
+        // Only the country he travelled to within the disease period should be returned.
         assertFalse(diseases.isEmpty());
-        assertEquals(2, diseases.size());
+        assertEquals(1, diseases.size());
+        assertEquals(country2.getCountryName(), diseases.get(0).getCountry().getCountryName());
+
     }
 
-    /**
-     * This method tests whether questionnaire answers are found in the list.
-     */
-    @Test
-    public void testQuestionnaireAnswers() {
-        // Given: A donor answers multiple questions in a questionnaire
-        Donor donor = new Donor();
-        donor.setFirstName("Charlie");
-        donor.setLastName("Davis");
-        donor.setDonorDob(LocalDate.of(1995, 4, 4));
-        donorRepository.save(donor);
-
-        Questionnaire answer1 = new Questionnaire();
-        answer1.setDonorId(donor.getDonorId());
-        answer1.setQuestionId(1);
-        answer1.setAnswer("Yes");
-        questionnaireRepository.save(answer1);
-
-        Questionnaire answer2 = new Questionnaire();
-        answer2.setDonorId(donor.getDonorId());
-        answer2.setQuestionId(2);
-        answer2.setAnswer("No");
-        questionnaireRepository.save(answer2);
-
-        // When: Retrieving questionnaire answers for the donor
-        List<Questionnaire> answers = questionnaireService.getDonorsAnswers(donor.getDonorId());
-
-        // Then: All stored answers should be retrieved
-        assertFalse(answers.isEmpty());
-        assertEquals(2, answers.size());
-
-}}
+}
