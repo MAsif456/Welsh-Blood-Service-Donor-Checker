@@ -1,14 +1,19 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
+import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorTravelledToCountry;
+import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorTravelledToCountryService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,8 +31,13 @@ public class TravelFormController {
     @Autowired
     private CountryService countryService;
 
-    @GetMapping("/travel-form")
-    public String showTravelForm(Model model) {
+    @Autowired
+    private VisitorTravelledToCountryService visitorTravelledToCountryService;
+
+    private static final Logger logger = LoggerFactory.getLogger(TravelFormController.class);
+
+    @GetMapping("/travel-form/{donorId}")
+    public String showTravelForm(@PathVariable Long donorId, Model model) {
         List<String> questions = List.of(
                 "Have you travelled to a country within the last 12 months?",
                 "Where have you travelled in the last 12 months?",
@@ -60,17 +70,18 @@ public class TravelFormController {
         model.addAttribute("questions", questions);
         model.addAttribute("countries", countries);
         model.addAttribute("formData", new FormData());
+        model.addAttribute("donorId", donorId);
         return "travelform/travelForm";
     }
 
     @PostMapping("/submit-travel-form")
-    public String submitTravelForm(@RequestParam Map<String, String> formData, @RequestParam(required = false) Long donorId) {
-        if (donorId == null) {
-            donorId = 2L; // Default to 2 or any valid donor_id
-        }
+    public String submitTravelForm(@RequestParam Map<String, String> formData, @RequestParam Long donorId) {
 
         // List of general question IDs
         List<Long> generalQuestionIds = List.of(1L, 5L, 9L, 13L, 17L, 21L);
+
+        // List of visitor travel question IDs
+        List<Long> visitorTravelQuestionIds = List.of(6L, 7L, 8L, 14L, 15L, 16L, 22L, 23L, 24L);
 
         // Save general answers to travel_questionnaire
         for (Map.Entry<String, String> entry : formData.entrySet()) {
@@ -100,6 +111,9 @@ public class TravelFormController {
             saveDonorTravel(formData, donorId, "question18", "question19", "question20");
         }
 
+        // Save visitor travel answers to visitor_travelled_to_country
+        saveVisitorTravel(formData, donorId, visitorTravelQuestionIds);
+
         return "travelform/submission-success";
     }
 
@@ -123,4 +137,45 @@ public class TravelFormController {
             throw new IllegalArgumentException("Missing required fields for donor travel");
         }
     }
+
+    private void saveVisitorTravel(Map<String, String> formData, Long donorId, List<Long> visitorTravelQuestionIds) {
+        for (Long questionId : visitorTravelQuestionIds) {
+            String countryKey = "question" + questionId;
+            String startDateKey = "question" + (questionId + 1);
+            String endDateKey = "question" + (questionId + 2);
+
+            String countryIdStr = formData.get(countryKey);
+            String startDateStr = formData.get(startDateKey);
+            String endDateStr = formData.get(endDateKey);
+
+            logger.debug("Processing questionId: {}, countryIdStr: {}, startDateStr: {}, endDateStr: {}", questionId, countryIdStr, startDateStr, endDateStr);
+
+            if (countryIdStr != null && startDateStr != null && endDateStr != null) {
+                try {
+                    // Validate that countryIdStr is a valid integer
+                    if (!countryIdStr.matches("\\d+")) {
+                        logger.error("Invalid country ID: {}", countryIdStr);
+                        continue;
+                    }
+                    int countryId = Integer.parseInt(countryIdStr);
+                    VisitorTravelledToCountry visitorTravel = new VisitorTravelledToCountry();
+                    Donor donor = new Donor();
+                    donor.setDonorId(donorId.intValue()); // Convert Long to Integer
+                    visitorTravel.setDonor(donor);
+                    Country country = new Country();
+                    country.setCountryId(countryId);
+                    visitorTravel.setCountry(country);
+                    visitorTravel.setStartDate(LocalDate.parse(startDateStr)); // Parse date string to LocalDate
+                    visitorTravel.setEndDate(LocalDate.parse(endDateStr)); // Parse date string to LocalDate
+                    visitorTravelledToCountryService.saveVisitorTravel(visitorTravel);
+                } catch (NumberFormatException e) {
+                    logger.error("Error parsing countryIdStr: {}", countryIdStr, e);
+                }
+            } else {
+                logger.warn("Missing required fields for visitor travel: countryIdStr: {}, startDateStr: {}, endDateStr: {}", countryIdStr, startDateStr, endDateStr);
+            }
+        }
+    }
 }
+
+

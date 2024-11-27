@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
@@ -32,6 +33,9 @@ public class DonorController {
 
     @Autowired
     private VisitorService visitorService;
+
+    @Autowired
+    private DonorRepository donorRepository;
 
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
@@ -95,5 +99,20 @@ public class DonorController {
         }
 
         return "Donor/donorSummary";
+    }
+    @GetMapping("/donor-form")
+    public String showDonorForm(Model model) {
+        model.addAttribute("donorForm", new DonorForm());
+        return "Donor/donor-form";
+    }
+
+    @PostMapping("/donor-form")
+    public String submitDonorForm(DonorForm donorForm) {
+        Donor donor = new Donor();
+        donor.setFirstName(donorForm.getFirstName());
+        donor.setLastName(donorForm.getLastName());
+        donor.setDonorDob(donorForm.getDonorDob());
+        donorRepository.save(donor);
+        return "redirect:/travel-form/" + donor.getDonorId();
     }
 }

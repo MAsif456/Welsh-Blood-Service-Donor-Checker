@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
 
 import java.util.List;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountryRepository;
 
 @Service
 public class DonorTravelledToCountryServiceImpl implements DonorTravelledToCountryService {

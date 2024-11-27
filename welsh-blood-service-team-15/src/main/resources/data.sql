@@ -100,30 +100,30 @@ VALUES
 
 
 INSERT INTO questions (question, no_risk_response) VALUES
-('Have you travelled to a country within the last 12 months?', 'No'),
-('Where have you travelled in the last 12 months?', '0'),
-('When did you go to this country?', '0'),
-('When did you return from this country?', '0'),
-('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
-('Where did they travel to?'),
-('When did they go to this country?'),
-('When did they return from this country?'),
-('Have you lived  abroad for more than 6 months', 'No'),
-('Where have you lived abroad?', '0'),
-('When did you go abroad?', '0'),
-('When did you return from abroad?', '0'),
-('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
-('Where did they live abroad?'),
-('When did they live abroad?'),
-('When did they return from abroad?'),
-('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
-('Which countries have you travelled through?', '0'),
-('When did you go to these countries?', '0'),
-('When did you return from these countries?', '0'),
-('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No'),
-('Which countries did they travel through?'),
-('When did they go to these countries?'),
-('When did they return from these countries?');
+                                                       ('Have you travelled to a country within the last 12 months?', 'No'),
+                                                       ('Where have you travelled in the last 12 months?', '0'),
+                                                       ('When did you go to this country?', '0'),
+                                                       ('When did you return from this country?', '0'),
+                                                       ('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
+                                                       ('Where did they travel to?', '0'),
+                                                       ('When did they go to this country?', '0'),
+                                                       ('When did they return from this country?', '0'),
+                                                       ('Have you lived abroad for more than 6 months?', 'No'),
+                                                       ('Where have you lived abroad?', '0'),
+                                                       ('When did you go abroad?', '0'),
+                                                       ('When did you return from abroad?', '0'),
+                                                       ('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
+                                                       ('Where did they live abroad?', '0'),
+                                                       ('When did they live abroad?', '0'),
+                                                       ('When did they return from abroad?', '0'),
+                                                       ('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
+                                                       ('Which countries have you travelled through?', '0'),
+                                                       ('When did you go to these countries?', '0'),
+                                                       ('When did you return from these countries?', '0'),
+                                                       ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No'),
+                                                       ('Which countries did they travel through?', '0'),
+                                                       ('When did they go to these countries?', '0'),
+                                                       ('When did they return from these countries?', '0');
 
 
 
@@ -149,4 +149,5 @@ VALUES
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
 ;
+
 

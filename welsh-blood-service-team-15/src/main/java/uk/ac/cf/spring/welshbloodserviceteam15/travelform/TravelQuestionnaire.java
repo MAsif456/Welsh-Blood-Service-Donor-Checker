@@ -1,18 +1,24 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "travel_questionnaire")
 public class TravelQuestionnaire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "questionnaire_id")
     private Long questionnaireId;
+
+    @Column(name = "donor_id")
     private Long donorId;
+
+    @Column(name = "question_id")
     private Long questionId;
+
+    @Column(name = "answer")
     private String answer;
 
     // Getters and Setters

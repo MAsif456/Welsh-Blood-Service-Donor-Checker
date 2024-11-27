@@ -2,4 +2,8 @@ package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TravelQuestionnaireRepository extends JpaRepository<TravelQuestionnaire, Long> {}
+import java.util.Optional;
+
+public interface TravelQuestionnaireRepository extends JpaRepository<TravelQuestionnaire, Long> {
+    Optional<TravelQuestionnaire> findByDonorIdAndQuestionId(Long donorId, Long questionId);
+}
