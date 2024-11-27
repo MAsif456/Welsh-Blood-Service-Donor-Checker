@@ -72,9 +72,8 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
 
 );
 
-SELECT * FROM questions;
-SELECT * FROM travel_questionnaire;
-SELECT * FROM donor_travelled_to_country;
+
+
 
 
 

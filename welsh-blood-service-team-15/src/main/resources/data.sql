@@ -88,16 +88,25 @@ INSERT INTO questions (question) VALUES
 ('When did you go to this country?'),
 ('When did you return from this country?'),
 ('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
+('Where did they travel to?'),
+('When did they go to this country?'),
+('When did they return from this country?'),
 ('Have you lived  abroad for more than 6 months'),
 ('Where have you lived abroad?'),
 ('When did you go abroad?'),
 ('When did you return from abroad?'),
 ('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
+('Where did they live abroad?'),
+('When did they live abroad?'),
+('When did they return from abroad?'),
 ('Have you travelled through multiple countries whilst travelling abroad?'),
 ('Which countries have you travelled through?'),
 ('When did you go to these countries?'),
 ('When did you return from these countries?'),
-('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?');
+('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?'),
+('Which countries did they travel through?'),
+('When did they go to these countries?'),
+('When did they return from these countries?');
 
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
@@ -124,7 +133,6 @@ VALUES
 
 
 ;
-
 
 
 
