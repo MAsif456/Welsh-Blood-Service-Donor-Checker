@@ -1,13 +1,13 @@
+USE WelshBlood;
 DROP TABLE IF EXISTS donor_travelled_to_country;
 DROP TABLE IF EXISTS visitor_travelled_to_country;
 DROP TABLE IF EXISTS country_disease;
 DROP TABLE IF EXISTS travel_questionnaire;
 DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
+DROP TABLE IF EXISTS countries;
 
-USE WelshBlood;
 
 CREATE TABLE IF NOT EXISTS donor
 (
@@ -39,8 +39,6 @@ CREATE TABLE IF NOT EXISTS donor_travelled_to_country
     country_id INT,
     start_date DATE,
     end_date DATE,
-    -- FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
-    -- PRIMARY KEY(donor_id, country_id),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(country_id) REFERENCES countries(country_id)
 );
