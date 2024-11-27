@@ -68,6 +68,10 @@
 <!--NEED TO RETURN NO RISK FOR INDIVIDUAL COUNTRU, NOT JUST IF THEY HAVE NO RISK AT ALL-->
 
 
+<form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
+    <input type="hidden" name="donorId" th:value="${donor.donorId}" />
+    <button type="submit" class="decision-notes-button">View Decision and Notes</button>
+</form>
 
 
 
