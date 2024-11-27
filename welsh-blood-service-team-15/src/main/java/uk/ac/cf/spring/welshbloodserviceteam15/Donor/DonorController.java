@@ -13,8 +13,6 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireServic
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
 import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorService;
-import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorTravelledToCountry;
-import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorTravelledToCountryRepository;
 
 import java.util.List;
 import java.util.Map;
