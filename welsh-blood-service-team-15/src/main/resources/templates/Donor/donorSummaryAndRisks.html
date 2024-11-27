@@ -2,10 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Donor Summary</title>
-    <link rel="stylesheet" th:href="@{/css/donor/summary.css}" />
-    <link rel="stylesheet" th:href="@{/css/donor/donor-summary.css}" />
-    <link rel="stylesheet" th:href="@{/css/donor/disease-summary.css}" />
-    <link rel="stylesheet" th:href="@{/css/donor/summary-layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/donor-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/disease-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/summary-layout.css}" />
     <script th:src="@{/js/donor/summary.js}" defer></script>
 
 </head>
@@ -30,7 +29,6 @@
         <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
     </div>
 
-
     <h2>Questionnaire Answers</h2>
     <button id="toggle-questionnaire">Show Questionnaire Answers</button>
     <div class="questionnaire-answers hidden">
@@ -48,9 +46,6 @@
             </li>
         </ul>
     </div>
-
-
-
 </div>
 
 <div class="disease-risk-summary">
