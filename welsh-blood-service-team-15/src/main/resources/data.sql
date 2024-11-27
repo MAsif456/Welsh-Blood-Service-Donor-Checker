@@ -226,7 +226,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (28,1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Central African Republic
                                                                (29,1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Chad
                                                                (31,1, 'Was at previous risk in multiple provinces ', '1996-02-01', '2021-06-30'), -- China
-                                                               (32,1,'Yes all year whole country until Feb 2015','2015-01-01','2015-02-30'), -- Colombia
+                                                               (32,1,'Yes all year whole country until Feb 2015','2015-01-01','2015-02-28'), -- Colombia
                                                                (35,1,'All year in whole country','1976-11-26','2024-11-26'), -- Costa Rica
                                                                (41,1,'All year in whole country','1976-11-26','2024-11-26'), -- Djibouti
                                                                (43,1,'All year in whole country','1976-11-26','2024-11-26'), -- Dominican Republic
@@ -247,8 +247,8 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (68,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Honduras
                                                                (71,1,'All year in the whole country until May 2012','2012-01-01','2012-05-30'), -- India
                                                                (72,1,'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
-                                                               (73,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-30'), -- Iran
-                                                               (74,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-30'), -- Iraq
+                                                               (73,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
+                                                               (74,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iraq
                                                                (77,1,'In the whole country during Dec 2006 - May 2012','2006-12-01','2012-05-30'),  -- Jamaica
                                                                (81,1,'All year in most of the country','1976-11-01','2024-11-26'), -- Kenya
                                                                (85,1,'All year in the whole country up until December 2016','2016-01-01','2016-12-31'), -- Kyrgyzstan
@@ -257,7 +257,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (91,1,'South-West of the country during February 1996 up until September 2006','1996-02-01','2006-09-30'), -- Libya,
                                                                (95,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Madagascar
                                                                (96,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Malawi
-                                                               (97,1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)', -- Malaysia
+                                                               (97,1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
                                                                (98,1,'All years in whole country up until October 2009','1976-10-01', '2009-10-31'), -- Maldives
                                                                (99,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Mali
                                                                (103,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Mauritania
@@ -272,20 +272,20 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (119,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Niger
                                                                (120,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Nigeria
                                                                (121,1,'All year in in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)','1976-11-26','2024-11-26'), -- North Korea
-                                                               (124,1,'All year in the whole country up until September 2006', '2006-01-01', '2006-09-31'), -- Oman
+                                                               (124,1,'All year in the whole country up until September 2006', '2006-01-01', '2006-09-30'), -- Oman
                                                                (125,1,'All year in the whole country', '1976-11-26', '2024-11-26'), -- Pakistan
                                                                (128,1,'Yes all year whole country until Dec 2011', '2011-01-01', '2011-12-31'), -- Panama
                                                                (129,1,'All year in the whole country', '1976-11-26', '2024-11-26'), -- Papua New Guinea
-                                                               (130,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-30'), -- Paraguay
-                                                               (131,1,'All year in the country up until February 1996','1996-02-01','1996-02-30'), -- Peru
-                                                               (132,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-30'), -- Philippines
+                                                               (130,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-28'), -- Paraguay
+                                                               (131,1,'All year in the country up until February 1996','1996-02-01','1996-02-28'), -- Peru
+                                                               (132,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-28'), -- Philippines
                                                                (138,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Rwanda
                                                                (145,1,'Yes all year whole country (except urban Jeddah, Mecca, Medina and Taif) until Sept 2006','2006-01-01','2006-09-30'), -- Saudi Arabia
                                                                (146,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Senegal
                                                                (149,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Sierra Leone
                                                                (153,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Solomon Islands
                                                                (154,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Somalia
-                                                               (155,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-30'), -- South Africa
+                                                               (155,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-28'), -- South Africa
                                                                (156,1,'All year in in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)','1976-11-26','2024-11-26'), -- South Korea
                                                                (157,1,'All year in the whole country','1976-11-26','2024-11-26'), -- South Sudan
                                                                (159,1,'Yes all year whole country until Dec 2011','2011-01-01','2011-12-31'), -- Sri Lanka
@@ -295,7 +295,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (166,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Tanzania
                                                                (167,1,'All year in the whole country up until May 2012','2012-01-01','2012-05-30'), -- Thailand
                                                                (169,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Togo
-                                                               (173,1,'Yes all year whole country until Feb 1996','1996-02-01','1996-02-30'), -- Turkey
+                                                               (173,1,'Yes all year whole country until Feb 1996','1996-02-01','1996-02-28'), -- Turkey
                                                                (174,1,'Yes Jun – Oct in South Eastern border regions until Sept 2015','2015-06-01','2015-09-30'), -- Turkmenistan
                                                                (176,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Uganda
                                                                (178,1,'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain','1976-11-26','2024-11-26'), -- United Arab Emirates
@@ -587,15 +587,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                 (176,7, 'N/A','1976-11-26','2024-11-26'), -- Uganda
                                                                 (184,7, 'N/A','1976-11-26','2024-11-26'); -- Venezuela
 
-
-
-
-
-
-
-
-
-
+SELECT * FROM country_disease;
 
 -- Inserting donor_travelled_to_country records (using correct donor_id and country_id)
 
