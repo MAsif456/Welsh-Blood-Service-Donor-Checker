@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Donor</title>
+    <title>New Donor</title>
+    <link rel="stylesheet" th:href="@{/css/Donor/donor-form.css}" />
 </head>
 <body>
 <h1>Create Donor</h1>
@@ -19,7 +20,11 @@
         <input type="date" id="donorDob" th:field="*{donorDob}" />
     </div>
     <div>
+        <input type="hidden" th:field="*{donorId}" />
+    </div>
+    <div>
         <button type="submit">Submit</button>
+
     </div>
 </form>
 </body>

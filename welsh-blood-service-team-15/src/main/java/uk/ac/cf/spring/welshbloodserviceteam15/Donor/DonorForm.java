@@ -8,6 +8,8 @@ public class DonorForm {
 
     private LocalDate donorDob;
 
+    private int donorId;
+
     // Getters and Setters
     public String getFirstName() {
         return firstName;
@@ -32,4 +34,6 @@ public class DonorForm {
     public void setDonorDob(LocalDate donorDob) {
         this.donorDob = donorDob;
     }
+    public int getDonorId() {return donorId;}
+    public void setDonorId(int donorId) {this.donorId = donorId;}
 }

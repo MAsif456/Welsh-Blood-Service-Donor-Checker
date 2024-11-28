@@ -75,7 +75,7 @@ public class TravelFormController {
     }
 
     @PostMapping("/submit-travel-form")
-    public String submitTravelForm(@RequestParam Map<String, String> formData, @RequestParam Long donorId) {
+    public String submitTravelForm(@RequestParam Map<String, String> formData, @RequestParam Long donorId, Model model) {
 
         // List of general question IDs
         List<Long> generalQuestionIds = List.of(1L, 5L, 9L, 13L, 17L, 21L);
@@ -113,8 +113,9 @@ public class TravelFormController {
 
         // Save visitor travel answers to visitor_travelled_to_country
         saveVisitorTravel(formData, donorId, visitorTravelQuestionIds);
+        model.addAttribute("donorId", donorId);
 
-        return "travelform/submission-success";
+        return "redirect:/donor/summary/" + donorId;
     }
 
     private void saveDonorTravel(Map<String, String> formData, Long donorId, String countryKey, String startDateKey, String endDateKey) {

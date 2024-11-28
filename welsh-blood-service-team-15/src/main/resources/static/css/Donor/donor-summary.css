@@ -202,3 +202,37 @@
     box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.4);
 }
 
+/* Navigation Button */
+.navigation-button {
+    display: inline-block;
+    margin: 1.5rem auto;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #0056b3;
+    border: 2px solid #004494;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    text-decoration: none;
+}
+
+.navigation-button:hover {
+    background-color: #004494;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.navigation-button:active {
+    background-color: #003366;
+    transform: translateY(1px);
+}
+
+.navigation-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.4);
+}
+

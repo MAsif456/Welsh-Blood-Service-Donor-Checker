@@ -201,6 +201,7 @@ INSERT INTO countries (country_name) VALUES
 
 
 
+
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
                                         ('Malaria'),  -- Disease ID 1
