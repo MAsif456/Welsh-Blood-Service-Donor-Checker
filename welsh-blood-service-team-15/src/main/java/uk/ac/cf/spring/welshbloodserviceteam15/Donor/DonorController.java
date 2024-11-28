@@ -12,7 +12,6 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
-import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorService;
 
 import java.util.List;
 import java.util.Map;
@@ -29,8 +28,6 @@ public class DonorController {
     @Autowired
     private QuestionService questionService;
 
-    @Autowired
-    private VisitorService visitorService;
 
     @Autowired
     private DonorRepository donorRepository;
@@ -39,12 +36,10 @@ public class DonorController {
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
         Donor donor = donorService.getDonorSummary(donorId);
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donorId);
-        List<CountryDisease> visitorRisks = visitorService.getVisitorRisks(donorId);
 
 
         model.addAttribute("donor", donor);
         model.addAttribute("diseases", diseases);
-        model.addAttribute("visitorRisks", visitorRisks);
 
         // Get the donor's answers
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);

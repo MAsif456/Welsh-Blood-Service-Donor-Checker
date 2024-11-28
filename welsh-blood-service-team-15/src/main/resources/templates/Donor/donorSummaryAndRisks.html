@@ -62,15 +62,6 @@
 </ul>
 <p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to a country at the time of any disease outbreak.</p>
 
-    <h2>Visitor-Related Disease Risks</h2>
-    <ul>
-        <li th:each="risk : ${visitorRisks}">
-            <p><strong>Country:</strong> <span th:text="${risk.country.countryName}"></span></p>
-            <p><strong>Disease Name:</strong> <span th:text="${risk.disease.diseaseName}"></span></p>
-            <p><strong>Relevant Notes:</strong> <span th:text="${risk.note}"></span></p>
-        </li>
-    </ul>
-    <p th:if="${#lists.isEmpty(visitorRisks)}">No visitor-related disease risks found.</p>
 </div>
 
 

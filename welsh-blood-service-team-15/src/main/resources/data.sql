@@ -609,13 +609,6 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, start_date, end_da
 
 
 
-INSERT INTO visitor_travelled_to_country (donor_id, country_id, start_date, end_date)
-VALUES
-    (1, 10, '2024-01-01', '2024-02-01'), -- guatamala
-    (2, 15, '1992-05-01', '2023-06-15'), -- myanmar
-    (3, 12, '2016-07-30', '2017-08-17'); -- india
-
-
 
 
 
