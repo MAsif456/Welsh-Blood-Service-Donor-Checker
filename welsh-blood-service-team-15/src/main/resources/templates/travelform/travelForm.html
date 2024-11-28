@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Travel Form</title>
+    <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
+    <script>
+        function toggleConditionalQuestions() {
+            const formData = document.forms['travelForm'];
+            const question1 = formData['question1'].value;
+            const question5 = formData['question5'].value;
+            const question9 = formData['question9'].value;
+            const question13 = formData['question13'].value;
+            const question17 = formData['question17'].value;
+            const question21 = formData['question21'].value;
+
+            document.getElementById('conditional1').style.display = question1 === 'Yes' ? 'block' : 'none';
+            document.getElementById('conditional2').style.display = question5 === 'Yes' ? 'block' : 'none';
+            document.getElementById('conditional3').style.display = question9 === 'Yes' ? 'block' : 'none';
+            document.getElementById('conditional4').style.display = question13 === 'Yes' ? 'block' : 'none';
+            document.getElementById('conditional5').style.display = question17 === 'Yes' ? 'block' : 'none';
+            document.getElementById('conditional6').style.display = question21 === 'Yes' ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+<h1>Travel Form</h1>
+<form name="travelForm" th:action="@{/submit-travel-form}" th:object="${formData}" method="post" oninput="toggleConditionalQuestions()">
+    <input type="hidden" th:name="donorId" th:value="${donorId}" />
+    <div class="form-section">
+        <label for="question1">Have you travelled to a country within the last 12 months?</label>
+        <select id="question1" name="question1" th:value="${formData.question1}">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <div id="conditional1" class="form-section conditional">
+        <div>
+            <label for="question2">Where have you travelled in the last 12 months?</label>
+            <select id="question2" name="question2" th:value="${formData.question2}">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div>
+            <label for="question3">When did you go to this country?</label>
+            <input type="date" id="question3" name="question3" th:value="${formData.question3}" />
+        </div>
+        <div>
+            <label for="question4">When did you return from this country?</label>
+            <input type="date" id="question4" name="question4" th:value="${formData.question4}" />
+        </div>
+    </div>
+    <div class="form-section">
+        <label for="question5">Have you been in contact with anyone who has travelled to a country within the last 12 months?</label>
+        <select id="question5" name="question5" th:value="${formData.question5}">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <div id="conditional2" class="form-section conditional">
+        <div>
+            <label for="question6">Where did they travel to?</label>
+            <select id="question6" name="question6" th:value="${formData.question6}">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div>
+            <label for="question7">When did they go to this country?</label>
+            <input type="date" id="question7" name="question7" th:value="${formData.question7}" />
+        </div>
+        <div>
+            <label for="question8">When did they return from this country?</label>
+            <input type="date" id="question8" name="question8" th:value="${formData.question8}" />
+        </div>
+    </div>
+    <div class="form-section">
+        <label for="question9">Have you lived abroad for more than 6 months?</label>
+        <select id="question9" name="question9" th:value="${formData.question9}">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <div id="conditional3" class="form-section conditional">
+        <div>
+            <label for="question10">Where have you lived abroad?</label>
+            <select id="question10" name="question10" th:value="${formData.question10}">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div>
+            <label for="question11">When did you go abroad?</label>
+            <input type="date" id="question11" name="question11" th:value="${formData.question11}" />
+        </div>
+        <div>
+            <label for="question12">When did you return from abroad?</label>
+            <input type="date" id="question12" name="question12" th:value="${formData.question12}" />
+        </div>
+    </div>
+    <div class="form-section">
+        <label for="question13">Have you been in contact with anyone who has lived abroad for more than 6 months?</label>
+        <select id="question13" name="question13" th:value="${formData.question13}">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <div id="conditional4" class="form-section conditional">
+        <div>
+            <label for="question14">Where did they live abroad?</label>
+            <select id="question14" name="question14" th:value="${formData.question14}">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div>
+            <label for="question15">When did they live abroad?</label>
+            <input type="date" id="question15" name="question15" th:value="${formData.question15}" />
+        </div>
+        <div>
+            <label for="question16">When did they return from abroad?</label>
+            <input type="date" id="question16" name="question16" th:value="${formData.question16}" />
+        </div>
+    </div>
+    <div class="form-section">
+        <label for="question17">Have you travelled through multiple countries whilst travelling abroad?</label>
+        <select id="question17" name="question17" th:value="${formData.question17}">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <div id="conditional5" class="form-section conditional">
+        <div>
+            <label for="question18">Which countries have you travelled through?</label>
+            <select id="question18" name="question18" th:value="${formData.question18}">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div>
+            <label for="question19">When did you go to these countries?</label>
+            <input type="date" id="question19" name="question19" th:value="${formData.question19}" />
+        </div>
+        <div>
+            <label for="question20">When did you return from these countries?</label>
+            <input type="date" id="question20" name="question20" th:value="${formData.question20}" />
+        </div>
+    </div>
+    <div class="form-section">
+        <label for="question21">Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?</label>
+        <select id="question21" name="question21" th:value="${formData.question21}">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <div id="conditional6" class="form-section conditional">
+        <div>
+            <label for="question22">Which countries did they travel through?</label>
+            <select id="question22" name="question22" th:value="${formData.question22}">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div>
+            <label for="question23">When did they go to these countries?</label>
+            <input type="date" id="question23" name="question23" th:value="${formData.question23}" />
+        </div>
+        <div>
+            <label for="question24">When did they return from these countries?</label>
+            <input type="date" id="question24" name="question24" th:value="${formData.question24}" />
+        </div>
+    </div>
+    <div class="form-section">
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+
+</body>
+</html>

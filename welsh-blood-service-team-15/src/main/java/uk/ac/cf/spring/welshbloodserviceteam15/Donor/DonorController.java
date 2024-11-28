@@ -6,11 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
+import uk.ac.cf.spring.welshbloodserviceteam15.Visitor.VisitorService;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,13 +29,22 @@ public class DonorController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private VisitorService visitorService;
+
+    @Autowired
+    private DonorRepository donorRepository;
+
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
         Donor donor = donorService.getDonorSummary(donorId);
         List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donorId);
+        List<CountryDisease> visitorRisks = visitorService.getVisitorRisks(donorId);
+
 
         model.addAttribute("donor", donor);
         model.addAttribute("diseases", diseases);
+        model.addAttribute("visitorRisks", visitorRisks);
 
         // Get the donor's answers
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
@@ -85,5 +97,21 @@ public class DonorController {
         }
 
         return "Donor/donorSummary";
+    }
+    @GetMapping("/donor-form")
+    public String showDonorForm(Model model) {
+        model.addAttribute("donorForm", new DonorForm());
+        return "Donor/donor-form";
+    }
+
+    @PostMapping("/donor-form")
+    public String submitDonorForm(DonorForm donorForm) {
+        Donor donor = new Donor();
+        donor.setFirstName(donorForm.getFirstName());
+        donor.setLastName(donorForm.getLastName());
+        donor.setDonorDob(donorForm.getDonorDob());
+        donorRepository.save(donor);
+        int donorId = donor.getDonorId();
+        return "redirect:/travel-form/" + donorId;
     }
 }
