@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
 
 
-
 CREATE TABLE IF NOT EXISTS donor
 (
     donor_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,6 +73,7 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
 );
 
+
 CREATE TABLE IF NOT EXISTS visitor_travelled_to_country
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -84,4 +84,5 @@ CREATE TABLE IF NOT EXISTS visitor_travelled_to_country
     FOREIGN KEY (donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY (country_id) REFERENCES countries(country_id)
 );
+
 

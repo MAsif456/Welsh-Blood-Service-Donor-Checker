@@ -195,13 +195,9 @@ INSERT INTO countries (country_name) VALUES
                                          ('Yemen'),
                                          ('Zambia'),
                                          ('Zimbabwe'),
-                                         ('Af'),
-                                         ('Adf'),
-                                         ('Afsf');
-
-
-
-;
+                                         ('Antigua and Barbuda'),  -- Not done, Country ID 189
+                                         ('Belize'),  -- Not done, Country ID 190
+                                         ('Benin');  -- Not done, Country ID 191
 
 
 -- Inserting diseases
@@ -619,22 +615,34 @@ VALUES
 
 
 
+
+
 INSERT INTO questions (question, no_risk_response) VALUES
-('Have you travelled to a country within the last 12 months?', 'No'),
-('Where have you travelled in the last 12 months?', '0'),
-('When did you go to this country?', '0'),
-('When did you return from this country?', '0'),
-('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
-('Have you lived  abroad for more than 6 months', 'No'),
-('Where have you lived abroad?', '0'),
-('When did you go abroad?', '0'),
-('When did you return from abroad?', '0'),
-('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
-('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
-('Which countries have you travelled through?', '0'),
-('When did you go to these countries?', '0'),
-('When did you return from these countries?', '0'),
-('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No');
+                                                       ('Have you travelled to a country within the last 12 months?', 'No'),
+                                                       ('Where have you travelled in the last 12 months?', '0'),
+                                                       ('When did you go to this country?', '0'),
+                                                       ('When did you return from this country?', '0'),
+                                                       ('Have you been in contact with anyone who has travelled to a country within the last 12 months?', 'No'),
+                                                       ('Where did they travel to?', '0'),
+                                                       ('When did they go to this country?', '0'),
+                                                       ('When did they return from this country?', '0'),
+                                                       ('Have you lived abroad for more than 6 months?', 'No'),
+                                                       ('Where have you lived abroad?', '0'),
+                                                       ('When did you go abroad?', '0'),
+                                                       ('When did you return from abroad?', '0'),
+                                                       ('Have you been in contact with anyone who has lived abroad for more than 6 months?', 'No'),
+                                                       ('Where did they live abroad?', '0'),
+                                                       ('When did they live abroad?', '0'),
+                                                       ('When did they return from abroad?', '0'),
+                                                       ('Have you travelled through multiple countries whilst travelling abroad?', 'No'),
+                                                       ('Which countries have you travelled through?', '0'),
+                                                       ('When did you go to these countries?', '0'),
+                                                       ('When did you return from these countries?', '0'),
+                                                       ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?', 'No'),
+                                                       ('Which countries did they travel through?', '0'),
+                                                       ('When did they go to these countries?', '0'),
+                                                       ('When did they return from these countries?', '0');
+
 
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
@@ -658,5 +666,5 @@ VALUES
     (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
-    ;
+;
 
