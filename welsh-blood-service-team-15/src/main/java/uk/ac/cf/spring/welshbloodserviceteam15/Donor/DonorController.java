@@ -105,8 +105,7 @@ public class DonorController {
         donor.setFirstName(donorForm.getFirstName());
         donor.setLastName(donorForm.getLastName());
         donor.setDonorDob(donorForm.getDonorDob());
-        donorRepository.save(donor);
-        int donorId = donor.getDonorId();
-        return "redirect:/travel-form/" + donorId;
+        Donor savedDonor = donorRepository.save(donor);
+        return "redirect:/travel-form/" + savedDonor.getDonorId();
     }
 }

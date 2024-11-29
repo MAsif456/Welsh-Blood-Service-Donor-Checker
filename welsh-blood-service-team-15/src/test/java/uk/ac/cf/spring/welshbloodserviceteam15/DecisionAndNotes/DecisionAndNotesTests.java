@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15;
+package uk.ac.cf.spring.welshbloodserviceteam15.DecisionAndNotes;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -79,7 +79,9 @@ public class DecisionAndNotesTests {
                             .param("decision", "Eligible to donate today")
                             .param("notes", "Donor has been cleared for donation"))
                     .andExpect(status().is3xxRedirection())
-                    .andExpect(redirectedUrl("/confirmation"));
+
+                    // Assert: Verify the response to be redirected to the confirmation page
+                    .andExpect(redirectedUrl("/confirmation?donorId="+mockDonor.getDonorId()));
 
             // Assert: Verify that the service method was called with correct parameters
             Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(1, "Eligible to donate today", "Donor has been cleared for donation");
