@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryRepository;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
@@ -82,12 +79,11 @@ public class DonorServiceTest {
         DonorTravelledToCountry travel = new DonorTravelledToCountry();
         travel.setDonor(donor);
         travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2021, 12, 1));
         travel.setEndDate(LocalDate.of(2021, 12, 31));
         donorTravelledToCountryRepository.save(travel);
 
         // Test for no overlap
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
         assertTrue(diseases.isEmpty());
     }
 
@@ -128,12 +124,11 @@ public class DonorServiceTest {
         DonorTravelledToCountry travel = new DonorTravelledToCountry();
         travel.setDonor(donor);
         travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2022, 1, 15));
         travel.setEndDate(LocalDate.of(2022, 1, 20));
         donorTravelledToCountryRepository.save(travel);
 
         // Test for overlap
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
         assertFalse(diseases.isEmpty());
     }
 
@@ -151,7 +146,7 @@ public class DonorServiceTest {
         donorRepository.save(donor);
 
         // Test for no travel history
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
         assertTrue(diseases.isEmpty());
     }
 
@@ -178,12 +173,11 @@ public class DonorServiceTest {
         DonorTravelledToCountry travel = new DonorTravelledToCountry();
         travel.setDonor(donor);
         travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2021, 12, 1));
         travel.setEndDate(LocalDate.of(2021, 12, 31));
         donorTravelledToCountryRepository.save(travel);
 
         // Test for no disease risk
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
         assertTrue(diseases.isEmpty());
     }
 
@@ -237,19 +231,17 @@ public class DonorServiceTest {
         DonorTravelledToCountry travel1 = new DonorTravelledToCountry();
         travel1.setDonor(donor);
         travel1.setCountry(country1);
-        travel1.setStartDate(LocalDate.of(2022, 1, 15));
         travel1.setEndDate(LocalDate.of(2022, 1, 20));
         donorTravelledToCountryRepository.save(travel1);
 
         DonorTravelledToCountry travel2 = new DonorTravelledToCountry();
         travel2.setDonor(donor);
         travel2.setCountry(country2);
-        travel2.setStartDate(LocalDate.of(2022, 2, 15));
         travel2.setEndDate(LocalDate.of(2022, 2, 20));
         donorTravelledToCountryRepository.save(travel2);
 
         // Test for multiple disease risks
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
         assertFalse(diseases.isEmpty());
         assertEquals(2, diseases.size());
     }

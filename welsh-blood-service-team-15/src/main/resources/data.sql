@@ -674,35 +674,3 @@ VALUES
     (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
     (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
 ;
-
-SELECT
-    c.country_name,
-    d.disease_name,
-    cd.start_date AS disease_start,
-    cd.end_date AS disease_end,
-    cd.note AS disease_note,
-    dtc.end_date AS donor_return_date,
-    CASE
-        WHEN dtc.end_date < cd.start_date THEN 'No risk for donor'
-        ELSE NULL
-        END AS risk_message
-FROM
-    donor_travelled_to_country dtc
-        JOIN
-    countries c
-    ON
-        dtc.country_id = c.country_id
-        LEFT JOIN
-    country_disease cd
-    ON
-        dtc.country_id = cd.country_id
-        LEFT JOIN
-    diseases d
-    ON
-        cd.disease_id = d.disease_id
-WHERE
-    dtc.donor_id = :donorId
-  AND
-    dtc.end_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
-
-

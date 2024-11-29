@@ -123,7 +123,6 @@ public class TravelFormController {
             Country country = new Country();
             country.setCountryId(Integer.parseInt(countryIdStr));
             donorTravel.setCountry(country);
-            donorTravel.setStartDate(LocalDate.parse(startDateStr));
             donorTravel.setEndDate(LocalDate.parse(endDateStr));
             donorTravelledToCountryService.saveDonorTravel(donorTravel);
         } else {
