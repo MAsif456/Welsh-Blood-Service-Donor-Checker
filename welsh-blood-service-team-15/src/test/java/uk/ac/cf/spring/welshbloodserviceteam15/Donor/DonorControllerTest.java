@@ -37,7 +37,6 @@ public class DonorControllerTest {
      * This method tests getting a donor with no travel history and no relevant diseases.
      * @throws Exception if the test fails
      */
-
     @Test
     public void shouldGetDonorInfoWithNoRisks() throws Exception {
         // Create a donor with no travel history
@@ -64,7 +63,7 @@ public class DonorControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         String content = result.getResponse().getContentAsString();
-        assertTrue(content.contains("This donor has not travelled to a country at the time of any disease outbreak."));
+        assertTrue(content.contains("This donor has not travelled to any country in the last 12 months."));
         assertTrue(content.contains("John Doe"));
     }
 }

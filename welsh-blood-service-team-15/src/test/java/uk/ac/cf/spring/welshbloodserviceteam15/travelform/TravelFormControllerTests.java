@@ -58,21 +58,18 @@ public class TravelFormControllerTests {
         Country country = new Country();
         country.setCountryId(1); // Assuming the country with ID 1 exists in the database
 
-        LocalDate startDate = LocalDate.of(2023, 1, 1);
         LocalDate endDate = LocalDate.of(2023, 1, 10);
 
         // Simulate form submission by saving data directly to the repository
         DonorTravelledToCountry donorTravel = new DonorTravelledToCountry();
         donorTravel.setDonor(donor);
         donorTravel.setCountry(country);
-        donorTravel.setStartDate(startDate);
         donorTravel.setEndDate(endDate);
         donorTravelledToCountryRepository.save(donorTravel);
 
         // Then
         Optional<DonorTravelledToCountry> savedData = donorTravelledToCountryRepository.findById(donorTravel.getId());
         assertThat(savedData).isPresent();
-        assertThat(savedData.get().getStartDate()).isEqualTo(startDate);
         assertThat(savedData.get().getEndDate()).isEqualTo(endDate);
     }
 }
