@@ -119,4 +119,14 @@ public class DonorController {
             return modelAndView;
         }
     }
+
+    @GetMapping("/donor-records")
+    public ModelAndView showDonorRecords() {
+        List<Donor> donors = donorService.getAllDonors();
+        ModelAndView modelAndView = new ModelAndView("Donor/donorRecords");
+        modelAndView.addObject("donors", donors);
+        return modelAndView;
+    }
+
+
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donor Records</title>
+    <link rel="stylesheet" th:href="@{/css/Donor/donor-records.css}" />
+</head>
+<body>
+<h1>Donor Records</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Donor ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>View Summary</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="donor : ${donors}">
+        <td th:text="${donor.getDonorId()}">Donor ID</td>
+        <td th:text="${donor.getFirstName()}">First Name</td>
+        <td th:text="${donor.getLastName()}">Last Name</td>
+        <td th:text="${donor.getDonorDob()}">Date of Birth</td>
+        <td><a th:href="@{/donor/summary/{donorId}(donorId=${donor.getDonorId()})}">View Summary</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

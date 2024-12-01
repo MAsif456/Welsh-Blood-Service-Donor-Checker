@@ -1,11 +1,11 @@
 
 -- Inserting donors (donor_id will be auto-incremented)
 INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
-                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', 'nul', 'No known health risks'),
-                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', 'nul', 'Recent travel to malaria-endemic areas'),
-                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', 'nul', 'Clear of any diseases'),
-                                                                                                ('Tom', 'Brown', '1980-01-01', 'Low', 'nul', 'No known health risks'),
-                                                                                                ('Alice', 'Williams', '1995-03-30', 'Moderate', 'nul', 'Recent travel to malaria-endemic areas');
+                                                                                                 ('John', 'Doe', '1985-06-15', 'No', 'Eligible to donate today', 'No known health risks'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Yes', 'Eligible to donate but further testing needed', 'Recent travel to malaria-endemic areas'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'No', 'Eligible to donate but must wait 6 months', 'Clear of any diseases'),
+                                                                                                 ('Tom', 'Brown', '1980-01-01', 'Yes', 'Not Eligible to donate at all', 'No known health risks'),
+                                                                                                 ('Alice', 'Williams', '1995-03-30', 'NO', 'Eligible to donate today', 'Recent travel to malaria-endemic areas');
 
 
 -- Inserting all countries

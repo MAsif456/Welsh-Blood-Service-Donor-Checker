@@ -21,4 +21,7 @@ public class DonorService {
     public List<CountryDisease> getRelevantDiseasesForDonor(Integer donorId) {
         return countryDiseaseRepository.findRelevantDiseasesForDonor(donorId);
     }
+    public List<Donor> getAllDonors() {
+        return donorRepository.findAll();
+    }
 }
