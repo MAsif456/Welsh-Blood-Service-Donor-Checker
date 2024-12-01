@@ -9,5 +9,4 @@ public class WelshBloodServiceTeam15Application {
 	public static void main(String[] args) {
 		SpringApplication.run(WelshBloodServiceTeam15Application.class, args);
 	}
-
 }
