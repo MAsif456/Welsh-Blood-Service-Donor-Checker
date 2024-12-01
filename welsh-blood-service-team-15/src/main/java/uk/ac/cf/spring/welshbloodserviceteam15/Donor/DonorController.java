@@ -1,12 +1,15 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
@@ -100,12 +103,20 @@ public class DonorController {
     }
 
     @PostMapping("/donor-form")
-    public String submitDonorForm(DonorForm donorForm) {
-        Donor donor = new Donor();
-        donor.setFirstName(donorForm.getFirstName());
-        donor.setLastName(donorForm.getLastName());
-        donor.setDonorDob(donorForm.getDonorDob());
-        Donor savedDonor = donorRepository.save(donor);
-        return "redirect:/travel-form/" + savedDonor.getDonorId();
+    public ModelAndView submitDonorForm(@Valid DonorForm donorForm, BindingResult bindingResult, Model model) {
+        ModelAndView modelAndView;
+        if (bindingResult.hasErrors()) {
+            modelAndView = new ModelAndView("Donor/donor-form",model.asMap());
+            return modelAndView;
+        }
+        else {
+            Donor donor = new Donor();
+            donor.setFirstName(donorForm.getFirstName());
+            donor.setLastName(donorForm.getLastName());
+            donor.setDonorDob(donorForm.getDonorDob());
+            Donor savedDonor = donorRepository.save(donor);
+            modelAndView = new ModelAndView("redirect:/travel-form/" + savedDonor.getDonorId());
+            return modelAndView;
+        }
     }
 }
