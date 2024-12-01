@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, Integer> {
-    List<CountryDisease> findByCountryIn(List<Country> countries);
 
     @Query("""
     SELECT new uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO(
@@ -27,5 +26,7 @@ public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, 
     WHERE dtc.donor.donorId = :donorId AND dtc.endDate > :oneYearAgo""")
     List<CountryDiseaseDTO> findRelevantDiseasesForDonor(@Param("donorId") Integer donorId, @Param("oneYearAgo") LocalDate oneYearAgo);
 
+    // find all basic method
+    List<CountryDisease> findAll();
 
 }
