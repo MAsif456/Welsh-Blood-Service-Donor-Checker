@@ -10,6 +10,10 @@ INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note)
 
 -- Inserting all countries
 INSERT INTO countries (country_name) VALUES
+#                                          ibby fix this bit
+                                         (''),
+                                         (''),
+                                         (''),
                                          ('Afghanistan'),
                                          ('Albania'),
                                          ('Algeria'),
@@ -720,11 +724,11 @@ VALUES
     ('De-militarized zone between North and South Korea (Kyunggi-do)', 156),
     ('De-militarized zone between North and South Korea (Gangwon-do)', 156),
     ('South Eastern border regions', 174),
-    ('East of country (no risk in Abu Dhabi)', 178),
-    ('East of country (no risk in Dubai)', 178),
-    ('East of country (no risk in Sharjah)', 178),
-    ('East of country (no risk in Ajman)', 178),
-    ('East of country (no risk in Umm al Qaiwain)', 178),
+    ('East of country', 178),
+    ('Abu Dhabi', 178),
+    ('Dubai', 178),
+    ('Sharjah', 178),
+    ('Ajman', 178),
     ('Hawaii', 180),
     ('US Virgin Islands (St Choix)', 180),
     ('US Virgin Islands (St John)', 180),
