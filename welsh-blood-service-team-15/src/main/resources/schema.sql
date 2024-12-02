@@ -2,6 +2,7 @@ USE WelshBlood;
 DROP TABLE IF EXISTS donor_travelled_to_country;
 DROP TABLE IF EXISTS country_disease;
 DROP TABLE IF EXISTS travel_questionnaire;
+DROP TABLE IF EXISTS regions;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
@@ -69,6 +70,12 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
 );
 
 
-
+CREATE TABLE IF NOT EXISTS regions
+(
+    region_id INT AUTO_INCREMENT PRIMARY KEY,
+    region_name VARCHAR(200),
+    country_id INT,
+    FOREIGN KEY(country_id) REFERENCES countries(country_id)
+);
 
 
