@@ -50,7 +50,6 @@ public class DonorSummaryTests {
         country.setCountryName("Spain");
         travel.setDonor(donor);
         travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2024, 11, 14));
         travel.setEndDate(LocalDate.of(2024, 11, 19));
         return travel;
     }

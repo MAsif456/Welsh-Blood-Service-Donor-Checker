@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
@@ -38,7 +39,7 @@ public class DonorController {
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
         Donor donor = donorService.getDonorSummary(donorId);
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donorId);
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donorId);
 
 
         model.addAttribute("donor", donor);
