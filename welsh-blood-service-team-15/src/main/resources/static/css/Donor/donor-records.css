@@ -1,44 +1,85 @@
-/* Donor Records Table */
-.donor-records {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
-    width: 90%;
-    margin: 20px auto;
-    display: block;
-    text-align: center; /* Center the table */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-.donor-records h1 {
+h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-.donor-records table {
-    width: 100%;
+/* Form Styles */
+form {
+    text-align: center;
+    margin: 20px 0;
+}
+
+form input[type="number"] {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Error Message Styles */
+/* Error Message Styles */
+.error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Table Styles */
+table.Donor-Table {
+    width: 80%;
+    margin: 20px auto;
     border-collapse: collapse;
-    margin: 0 auto; /* Center the table */
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.donor-records th, .donor-records td {
+table.Donor-Table th, table.Donor-Table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-.donor-records th {
+table.Donor-Table th {
     background-color: #f8f9fa;
     color: #333;
     font-weight: bold;
 }
 
-.donor-records td {
+table.Donor-Table td {
     color: #555;
 }
 
-.donor-records tr:hover {
+table.Donor-Table tr:hover {
     background-color: #f1f1f1;
+}
+
+.no-records-found {
+    text-align: center;
+    color: #555;
+    font-style: italic;
 }
