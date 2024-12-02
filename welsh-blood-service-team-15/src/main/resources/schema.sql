@@ -44,9 +44,11 @@ CREATE TABLE IF NOT EXISTS donor_travelled_to_country
     id INT AUTO_INCREMENT PRIMARY KEY,
     donor_id INT,
     country_id INT,
+    region_id INT,
     end_date DATE,
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
-    FOREIGN KEY(country_id) REFERENCES countries(country_id)
+    FOREIGN KEY(country_id) REFERENCES countries(country_id),
+    FOREIGN KEY(region_id) REFERENCES regions(region_id)
 );
 
 CREATE TABLE IF NOT EXISTS country_disease

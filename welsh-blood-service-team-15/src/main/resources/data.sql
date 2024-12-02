@@ -10,9 +10,6 @@ INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note)
 
 -- Inserting all countries
 INSERT INTO countries (country_name) VALUES
-                                         (''),
-                                         (''),
-                                         (''),
                                          ('Afghanistan'),
                                          ('Albania'),
                                          ('Algeria'),
@@ -34,7 +31,7 @@ INSERT INTO countries (country_name) VALUES
                                          ('Brazil'),
                                          ('Brunei'),
                                          ('Bulgaria'),  -- Country ID 21
-                                         ('Burkina Faso'),  -- Not done, Country ID 22
+                                         ('Burkina Faso'),  -- Country ID 22
                                          ('Burundi'),
                                          ('Cabo Verde'),
                                          ('Cambodia'), -- Country ID 25
@@ -42,22 +39,22 @@ INSERT INTO countries (country_name) VALUES
                                          ('Chad'),
                                          ('Chile'),
                                          ('China'),
-                                         ('Clipperton Island'), -- Not done, Country ID 30
-                                         ('Cocos Island'), -- Not done, Country ID 31
+                                         ('Clipperton Island'), -- Country ID 30
+                                         ('Cocos Island'), -- Country ID 31
                                          ('Colombia'), -- Country ID 32
-                                         ('Comoros'), -- Not done, Country ID 33
-                                         ('Congo'), -- Not done, Country ID 34
+                                         ('Comoros'), -- Country ID 33
+                                         ('Congo'), --  Country ID 34
                                          ('Costa Rica'),
-                                         ('Croatia'), -- Not done, Country ID 36
-                                         ('Cuba'), -- Not done, Country ID 37
-                                         ('Cyprus'), -- Not done, Country ID 38
-                                         ('Czechia (Czech Republic)'), -- Not done, Country ID 39
+                                         ('Croatia'), -- Country ID 36
+                                         ('Cuba'), -- Country ID 37
+                                         ('Cyprus'), -- Country ID 38
+                                         ('Czechia (Czech Republic)'), -- Country ID 39
                                          ('Denmark'),
                                          ('Djibouti'),
                                          ('Dominica'),
                                          ('Dominican Republic'),
                                          ('Ecuador'),
-                                         ('Egypt'),
+                                         ('Egypt'), -- Country ID 45
                                          ('El Salvador'),
                                          ('Equatorial Guinea'),
                                          ('Eritrea'),
@@ -74,123 +71,126 @@ INSERT INTO countries (country_name) VALUES
                                          ('Ghana'),
                                          ('Guatemala'),
                                          ('Guinea'),
-                                         ('Guinea-Bissau'), -- Not done, Country ID 62
-                                         ('Guyana'),  -- Not done, Country ID 63
-                                         ('Haiti'),  -- Country ID 64
-                                         ('Holy See'),  -- Not done, Country ID 65
+                                         ('Guinea-Bissau'), -- Country ID 62
+                                         ('Guyana'),  -- Country ID 63
+                                         ('Guernsey'),
+                                         ('Heard Island and McDonald Islands'),
+                                         ('Haiti'),  -- Country ID 66
+                                         ('Holy See'),  -- Country ID 67
                                          ('Honduras'),
                                          ('Hungary'),
-                                         ('Iceland'),  -- Country ID 68
+                                         ('Iceland'),  -- Country ID 70
                                          ('India'),
                                          ('Indonesia'),
-                                         ('Iran'),  -- Region check needed when implemented, Country ID 71
-                                         ('Iraq'),  -- Region check needed when implemented, Country ID 72
+                                         ('Iran'),  -- Region check needed when implemented, Country ID 73
+                                         ('Iraq'),  -- Region check needed when implemented, Country ID 74
                                          ('Ireland'),
-                                         ('Italy'),  -- Region check needed when implemented, Country ID 74
-                                         ('Jamaica'), -- Country ID 75
+                                         ('Italy'),  -- Region check needed when implemented, Country ID 76
+                                         ('Jamaica'), -- Country ID 77
                                          ('Japan'),
                                          ('Jordan'),
                                          ('Kazakhstan'),
-                                         ('Kenya'), -- Region check needed when implemented, Country ID 79
-                                         ('Kiribati'),  -- Country ID 80
+                                         ('Kenya'), -- Region check needed when implemented, Country ID 81
+                                         ('Kiribati'),  -- Country ID 82
                                          ('Kosovo'),
                                          ('Kuwait'),
                                          ('Kyrgyzstan'),
-                                         ('Laos'),  -- Region check needed when implemented, Country ID 84
+                                         ('Laos'),  -- Region check needed when implemented, Country ID 86
                                          ('Latvia'),
                                          ('Lebanon'),
-                                         ('Lesotho'),  -- Country ID 87
+                                         ('Lesotho'),  -- Country ID 89
                                          ('Liberia'),
-                                         ('Libya'), -- Region Check needed when implemented, Country ID 89
+                                         ('Libya'), -- Region Check needed when implemented, Country ID 91
                                          ('Liechtenstein'),
                                          ('Lithuania'),
                                          ('Luxembourg'),
                                          ('Madagascar'),
                                          ('Malawi'),
-                                         ('Malaysia'), -- Region check needed when implemented, Country ID 95
+                                         ('Malaysia'), -- Region check needed when implemented, Country ID 97
                                          ('Maldives'),
                                          ('Mali'),
-                                         ('Malta'), -- Country ID 98
+                                         ('Malta'), -- Country ID 100
                                          ('Marshall Islands'),
                                          ('Martinique'),
                                          ('Mauritania'),
                                          ('Mauritius'),
-                                         ('Mexico'),  -- Region Check needed when implemented, Country ID 103
+                                         ('Mexico'),  -- Region Check needed when implemented, Country ID 105
                                          ('Moldova'),
                                          ('Monaco'),
                                          ('Mongolia'),
                                          ('Montenegro'),
-                                         ('Morocco'),  -- Region Check needed when implemented, Country ID 118
+                                         ('Morocco'),  -- Region Check needed when implemented, Country ID 110
                                          ('Mozambique'),
                                          ('Myanmar'),
-                                         ('Namibia'),  -- Region Check needed when implemented, Country ID 111
-                                         ('Nauru'), -- Country ID 112
-                                         ('Nepal'),  -- Region Check needed when implemented, Country ID 113
+                                         ('Namibia'),  -- Region Check needed when implemented, Country ID 113
+                                         ('Nauru'), -- Country ID 114
+                                         ('Nepal'),  -- Region Check needed when implemented, Country ID 115
                                          ('Netherlands'),
                                          ('New Zealand'),
                                          ('Nicaragua'),
+                                         ('Niger'),
                                          ('Nigeria'),
                                          ('North Korea'),
                                          ('North Macedonia (formerly Macedonia)'),
                                          ('Norway'),
                                          ('Oman'),
                                          ('Pakistan'),
-                                         ('Palau'),  -- Country ID 124
+                                         ('Palau'),  -- Country ID 126
                                          ('Palestine'),
-                                         ('Panama'),  -- Region Check needed when implemented, Country ID 126
+                                         ('Panama'),  -- Region Check needed when implemented, Country ID 128
                                          ('Papua New Guinea'),
-                                         ('Paraguay'),  -- Region check needed when implemented, Country ID 138
-                                         ('Peru'),  -- Region check needed when implemented, Country ID 129
-                                         ('Philippines'), -- Region Check needed when implemented, Country ID 130
+                                         ('Paraguay'),  -- Region check needed when implemented, Country ID 130
+                                         ('Peru'),  -- Region check needed when implemented, Country ID 131
+                                         ('Philippines'), -- Region Check needed when implemented, Country ID 132
                                          ('Poland'),
                                          ('Portugal'),
                                          ('Qatar'),
                                          ('Romania'),
                                          ('Russia'),
-                                         ('Rwanda'), -- Country ID 136
-                                         ('Saint Kitts and Nevis'), -- Country ID 137
-                                         ('Saint Lucia'),  -- Not done, Country ID 138
-                                         ('Saint Vincent and the Grenadines'),  -- Not done, Country ID 139
-                                         ('Samoa'), -- Not done, Country ID 140
-                                         ('San Marino'),  -- Not done, Country ID 141
-                                         ('Sao Tome and Principe'),  -- Not done, Country ID 142
-                                         ('Saudi Arabia'), -- Country ID 143 + Region Check needed when implemented
+                                         ('Rwanda'), -- Country ID 138
+                                         ('Saint Kitts and Nevis'), -- Country ID 139
+                                         ('Saint Lucia'),  -- Country ID 140
+                                         ('Saint Vincent and the Grenadines'),  -- Country ID 141
+                                         ('Samoa'), -- Country ID 142
+                                         ('San Martin'),  -- Country ID 143
+                                         ('Sao Tome and Principe'),  -- Country ID 144
+                                         ('Saudi Arabia'), -- Country ID 145 + Region Check needed when implemented
                                          ('Senegal'),
                                          ('Serbia'),
                                          ('Seychelles'),
                                          ('Sierra Leone'),
-                                         ('Singapore'), -- Country ID 148
+                                         ('Singapore'), -- Country ID 150
                                          ('Slovakia'),
                                          ('Slovenia'),
                                          ('Solomon Islands'),
                                          ('Somalia'),
-                                         ('South Africa'),  -- Region Check needed when implemented, Country ID 153
+                                         ('South Africa'),  -- Region Check needed when implemented, Country ID 155
                                          ('South Korea'),
-                                         ('South Sudan'), -- Country ID 155
-                                         ('Spain'), -- Region Check needed when implemented, Country ID 156
+                                         ('South Sudan'), -- Country ID 157
+                                         ('Spain'), -- Region Check needed when implemented, Country ID 158
                                          ('Sri Lanka'),
-                                         ('Sudan'), -- Country ID 158
-                                         ('Suriname'),  -- Region Checks needed when implemented, Country ID 159
+                                         ('Sudan'), -- Country ID 160
+                                         ('Suriname'),  -- Region Checks needed when implemented, Country ID 161
                                          ('Sweden'),
                                          ('Switzerland'),
                                          ('Syria'),
                                          ('Tajikistan'),
                                          ('Tanzania'),
-                                         ('Thailand'), -- Region Check needed when implemented, Country ID 165
-                                         ('Timor-Leste'),  -- Country ID 166
+                                         ('Thailand'), -- Region Check needed when implemented, Country ID 167
+                                         ('Timor-Leste'),  -- Country ID 168
                                          ('Togo'),
                                          ('Tonga'),
                                          ('Trinidad and Tobago'),
                                          ('Tunisia'),
-                                         ('Turkey'),  -- Region Check needed when implemented, Country ID 171
-                                         ('Turkmenistan'),  -- Region Check needed when implemented, Country ID 172
+                                         ('Turkey'),  -- Region Check needed when implemented, Country ID 173
+                                         ('Turkmenistan'),  -- Region Check needed when implemented, Country ID 174
                                          ('Tuvalu'),
                                          ('Uganda'),
                                          ('Ukraine'),
-                                         ('United Arab Emirates'), -- Country ID 176 + Region Check needed when implemented
+                                         ('United Arab Emirates'), -- Country ID 178 + Region Check needed when implemented
                                          ('United Kingdom'),
-                                         ('United States of America'), -- Region Check needed when implemented, Country ID 178
-                                         ('Uruguay'),  -- Country ID 179
+                                         ('United States of America'), -- Region Check needed when implemented, Country ID 180
+                                         ('Uruguay'),  -- Country ID 181
                                          ('Uzbekistan'),
                                          ('Vanuatu'),
                                          ('Venezuela'),
@@ -198,12 +198,64 @@ INSERT INTO countries (country_name) VALUES
                                          ('Yemen'),
                                          ('Zambia'),
                                          ('Zimbabwe'),
-                                         ('Antigua and Barbuda'),  -- Not done, Country ID 187
-                                         ('Belize'),  -- Not done, Country ID 188
-                                         ('Benin');  -- Not done, Country ID 189
+                                         ('Antigua and Barbuda'),  -- Country ID 189
+                                         ('Belize'),  -- Country ID 190
+                                         ('Benin');  -- Country ID 191
 
 
-
+-- Original data split into multiple records for 3NF
+INSERT INTO regions (region_name, country_id)
+VALUES
+    ('Ihrir (Illizi Department)', 3),
+    ('Rural Areas', 6),
+    ('Great Exuma Island', 11),
+    ('Northen Parts', 18),
+    ('Amazonia urban areas (eg Manaus)', 19),
+    ('Phnom Penh', 25),
+    ('Siem Reap', 25),
+    ('Angkor Wat', 25),
+    ('Multiple provinces', 31),
+    ('Guayaquil', 44),
+    ('Quito', 44),
+    ('Other cities in the inter-Andean region', 44),
+    ('Galapagos Islands', 44),
+    ('El Faiyum region', 45),
+    ('Airport of Manzine', 50),
+    ('Western half of country', 50),
+    ('South-East Of the Country', 57),
+    ('Bali', 72),
+    ('Java', 72),
+    ('City of Jakarta', 72),
+    ('All year in most of the country', 81),
+    ('Vientiane', 86),
+    ('Bokeo', 86),
+    ('Houaphanh', 86),
+    ('South-West of the country', 91),
+    ('Central Peninsular Malaysia', 97),
+    ('Taman Negara National Park', 97),
+    ('Sabah', 97),
+    ('Sarawak', 97),
+    ('Widespread (Except Cancun)', 105),
+    ('Al Hoceima', 110),
+    ('Taounate', 110),
+    ('Taza', 110),
+    ('Northern regions', 113),
+    ('Managua', 118),
+    ('De-militarized zone between North and South Korea (Kyunggi-do)', 121),
+    ('De-militarized zone between North and South Korea (Gangwon-do)', 121),
+    ('All year in the country up until February 1996', 131),
+    ('De-militarized zone between North and South Korea (Kyunggi-do)', 156),
+    ('De-militarized zone between North and South Korea (Gangwon-do)', 156),
+    ('South Eastern border regions', 174),
+    ('East of country', 178),
+    ('Abu Dhabi', 178),
+    ('Dubai', 178),
+    ('Sharjah', 178),
+    ('Ajman', 178),
+    ('Hawaii', 180),
+    ('US Virgin Islands (St Choix)', 180),
+    ('US Virgin Islands (St John)', 180),
+    ('US Virgin Islands (St Thomas)', 180);
 
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
@@ -221,15 +273,15 @@ INSERT INTO diseases (disease_name) VALUES
 
 INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
                                                                (1, null, 1, 'Yes whole country below 2000m (May-Nov) until Sept 2015','1996-02-01','2015-09-30'),  -- Afghanistan
-                                                               (3, null, 1, 'From March 1996 to May 2019: desert oasis of Ihrir (Illizi Department) only','1996-03-01','2019-05-30'),  -- Algeria
+                                                               (3, 1, 1, 'From March 1996 to May 2019: desert oasis of Ihrir (Illizi Department) only','1996-03-01','2019-05-30'),  -- Algeria
                                                                (5, null, 1, 'All year in the country','1974-11-01','2024-11-26'), -- Angola
-                                                               (6, null, 1, 'Until February 1996, All year in rural areas','1996-02-01','2024-11-24'),  -- Argentina
-                                                               (11, null, 1, 'Yes Great Exuma Island only Jul-Oct 2006 and Sept 2007- Sept 2015','2006-07-01','2015-09-30'),  -- Bahamas
+                                                               (6, 2, 1, 'Until February 1996, All year in rural areas','1996-02-01','2024-11-24'),  -- Argentina
+                                                               (11, 3, 1, 'Yes Great Exuma Island only Jul-Oct 2006 and Sept 2007- Sept 2015','2006-07-01','2015-09-30'),  -- Bahamas
                                                                (13, null, 1,'Yes all year whole country until Sept 2015','1976-09-01','2015-11-30'),  -- Bangladesh
-                                                               (18, null, 1,'Risk exists throughout the year but especially from November to June in the northern parts of the country','1996-02-01','2024-11-26'),  -- Botswana
-                                                               (19, null, 1, 'All year in Amazonia, urban areas (e.g., Manaus), Amazon cruises, rural areas near Iguaçu Falls.', '1996-02-01', '2024-11-26'), -- Brazil
+                                                               (18, 4, 1,'Risk exists throughout the year but especially from November to June in the northern parts of the country','1996-02-01','2024-11-26'),  -- Botswana
+                                                               (19, 5, 1, 'All year in Amazonia, urban areas (e.g., Manaus), Amazon cruises, rural areas near Iguaçu Falls.', '1996-02-01', '2024-11-26'), -- Brazil
                                                                (20, null, 1, 'All year round','1976-11-01','2024-11-26'), -- Brunei
-                                                               (25, null, 1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '1996-02-01', '2024-11-26'), -- Cambodia
+                                                               (25, 6, 1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '1996-02-01', '2024-11-26'), -- Cambodia
                                                                (26, null, 1, 'all year round', '1976-11-26', '2024-11-26'), -- Cameroon
                                                                (28, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Central African Republic
                                                                (29, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Chad
@@ -238,16 +290,22 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (35, null, 1,'All year in whole country','1976-11-26','2024-11-26'), -- Costa Rica
                                                                (41, null, 1,'All year in whole country','1976-11-26','2024-11-26'), -- Djibouti
                                                                (43, null, 1,'All year in whole country','1976-11-26','2024-11-26'), -- Dominican Republic
-                                                               (44, null, 1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
-                                                               (45, null, 1,'During the months Jun-Oct, in El Faiyum region until May 2012','1996-02-001','2012-05-30'), -- Egypt
+                                                               (44, 10, 1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
+                                                               (44, 11, 1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
+                                                               (44, 12, 1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
+                                                               (44, 13, 1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
+
+                                                               (45, 14, 1,'During the months Jun-Oct, in El Faiyum region until May 2012','1996-02-001','2012-05-30'), -- Egypt
                                                                (46, null, 1,'All Year whole country up until September 2006','2006-01-01','2006-09-30'), -- El Salvador
                                                                (47, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
                                                                (48, null, 1, 'all year in the whole country, Only accept visitors from Asmara and the central highlands', '1976-11-26', '2024-11-26'), -- Eritrea
-                                                               (50, null, 1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
+                                                               (50, 15, 1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
+                                                               (50, 16, 1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
+
                                                                (51, null, 1,'All year in whole country. Visitors to city of Addis Ababa only accept','1976-11-26','2024-11-26'), -- Ethiopia
                                                                (55, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gabon
                                                                (56, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gambia
-                                                               (57, null, 1,'June - October in the South-East Of the Country','2024-06-01','2024-10-30'), -- Georgia
+                                                               (57, 17, 1,'June - October in the South-East Of the Country','2024-06-01','2024-10-30'), -- Georgia
                                                                (59, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Ghana
                                                                (62, null, 1, 'All year in the whole country up until December 2011','2011-01-01','2011-12-31'), -- Guatemala
                                                                (63, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Guinea
@@ -256,18 +314,28 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (68, null, 1, 'All year in the whole country','2024-10-26', '2024-11-26'), -- Iceland
 
                                                                (71, null, 1, 'All year in the whole country until May 2012','2012-01-01','2012-05-30'), -- India
-                                                               (72, NULL, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
+                                                               (72, 18, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
+                                                               (72, 19, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
+                                                               (72, 20, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
+
                                                                (73, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
                                                                (74, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iraq
                                                                (77, NULL, 1, 'In the whole country during Dec 2006 - May 2012','2006-12-01','2012-05-30'), -- Jamaica
                                                                (81, NULL, 1, 'All year in most of the country','1976-11-01','2024-11-26'), -- Kenya
                                                                (85, NULL, 1, 'All year in the whole country up until December 2016','2016-01-01','2016-12-31'), -- Kyrgyzstan
-                                                               (86, NULL, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
+                                                               (86, 22, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
+                                                               (86, 23, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
+                                                               (86, 24, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
+
                                                                (90, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Liberia
-                                                               (91, NULL, 1, 'South-West of the country during February 1996 up until September 2006','1996-02-01','2006-09-30'), -- Libya,
+                                                               (91, 25, 1, 'South-West of the country during February 1996 up until September 2006','1996-02-01','2006-09-30'), -- Libya,
                                                                (95, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Madagascar
                                                                (96, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Malawi
-                                                               (97, NULL, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
+                                                               (97, 26, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
+                                                               (97, 27, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
+                                                               (97, 28, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
+                                                               (97, 29, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
+
                                                                (98, NULL, 1, 'All years in whole country up until October 2009','1976-10-01', '2009-10-31'), -- Maldives
                                                                (99, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'); -- Mali
 
@@ -276,15 +344,21 @@ VALUES
     (103, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Mauritania
     (104, NULL, 1, 'All year in the whole country up until September 2006', '2006-01-01', '2006-09-30'), -- Mauritius
     (105, NULL, 1, 'Yes widespread (Except Cancun) up until December 2011', '2011-01-01', '2011-12-31'), -- Mexico
-    (110, NULL, 1, 'Yes May-Oct in provinces of Al Hoceima, Taounate, and Taza until Dec 2011', '2011-05-01', '2011-12-31'), -- Morocco
+    (110, 31, 1, 'Yes May-Oct in provinces of Al Hoceima, Taounate, and Taza until Dec 2011', '2011-05-01', '2011-12-31'), -- Morocco
+    (110, 32, 1, 'Yes May-Oct in provinces of Al Hoceima, Taounate, and Taza until Dec 2011', '2011-05-01', '2011-12-31'), -- Morocco
+    (110, 33, 1, 'Yes May-Oct in provinces of Al Hoceima, Taounate, and Taza until Dec 2011', '2011-05-01', '2011-12-31'), -- Morocco
+
     (111, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Mozambique
     (112, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Myanmar
-    (113, NULL, 1, 'Yes all year northern regions until May 2015', '2015-01-01', '2015-05-31'), -- Namibia
+    (113, 34, 1, 'Yes all year northern regions until May 2015', '2015-01-01', '2015-05-31'), -- Namibia
     (115, NULL, 1, 'Yes all year whole country until Sept 2006', '2006-01-01', '2006-09-30'), -- Nepal
     (118, NULL, 1, 'All year in most of the country, visitors to Managua only excepted', '1976-11-26', '2024-11-26'), -- Nicaragua
+
     (119, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Niger
     (120, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Nigeria
-    (121, NULL, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- North Korea
+    (121, 36, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- North Korea
+    (121, 37, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- North Korea
+
     (124, NULL, 1, 'All year in the whole country up until September 2006', '2006-01-01', '2006-09-30'), -- Oman
     (125, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Pakistan
     (128, NULL, 1, 'Yes all year whole country until Dec 2011', '2011-01-01', '2011-12-31'), -- Panama
@@ -299,7 +373,9 @@ VALUES
     (153, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Solomon Islands
     (154, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Somalia
     (155, NULL, 1, 'All year in the whole country up until February 1996', '1996-02-01', '1996-02-28'), -- South Africa
-    (156, NULL, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- South Korea
+    (156, 39, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- South Korea
+    (156, 40, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- South Korea
+
     (157, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- South Sudan
     (159, NULL, 1, 'Yes all year whole country until Dec 2011', '2011-01-01', '2011-12-31'), -- Sri Lanka
     (160, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Sudan
@@ -309,9 +385,9 @@ VALUES
     (167, NULL, 1, 'All year in the whole country up until May 2012', '2012-01-01', '2012-05-30'), -- Thailand
     (169, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Togo
     (173, NULL, 1, 'Yes all year whole country until Feb 1996', '1996-02-01', '1996-02-28'), -- Turkey
-    (174, NULL, 1, 'Yes Jun – Oct in South Eastern border regions until Sept 2015', '2015-06-01', '2015-09-30'), -- Turkmenistan
+    (174, 41, 1, 'Yes Jun – Oct in South Eastern border regions until Sept 2015', '2015-06-01', '2015-09-30'), -- Turkmenistan
     (176, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Uganda
-    (178, NULL, 1, 'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain', '1976-11-26', '2024-11-26'), -- United Arab Emirates
+    (178, 43, 1, 'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain', '1976-11-26', '2024-11-26'), -- United Arab Emirates
     (183, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Vanuatu
     (184, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Venezuela
     (185, NULL, 1, 'Yes all year whole country until May 2012', '2012-01-01', '2012-05-30'), -- Vietnam
@@ -433,7 +509,7 @@ INSERT INTO country_disease (country_id, region_id,  disease_id, note, start_dat
         (170, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Tonga
         (171, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
         (178, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- United Arab Emirates
-        (180, NULL, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
+        (180, 47, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
         (181, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Uruguay
         (183, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
         (184, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
@@ -493,7 +569,10 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
         (170, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Tonga
         (171, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
         (176, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-        (180, NULL, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
+        (180, 48, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
+        (180, 49, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
+        (180, 50, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
+
         (183, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
         (184, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
         (185, NULL, 5, 'N/A','1976-11-26','2024-11-26'); -- Vietnam
@@ -567,7 +646,10 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                                                 (166, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
                                                                                                 (170, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tonga
                                                                                                 (176, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-                                                                                                (180, NULL, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+                                                                                                (180, 48, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+                                                                                                (180, 49, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+                                                                                                (180, 50, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+
                                                                                                 (184, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
                                                                                                 (185, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
                                                                                                 (186, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Yemen
@@ -608,17 +690,17 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
         (184, NULL, 7, 'N/A','1976-11-26','2024-11-26'); -- Venezuela
 
 
-INSERT INTO donor_travelled_to_country (donor_id, country_id, end_date) VALUES
-                                                                                        (1, 4,  '2017-02-10'),  -- John traveled to Cameroon
-                                                                                        (1, 3,  '2018-07-15'),  -- John traveled to Bolivia
-                                                                                        (2, 5,  '2016-06-01'),  -- Jane traveled to Chad
-                                                                                        (2, 7,  '2019-04-01'),  -- Jane traveled to Colombia
-                                                                                        (3, 15,  '2018-06-15'),  -- Mary traveled to Myanmar
-                                                                                        (3, 10,  '2020-01-15'),  -- Mary traveled to Guatemala
-                                                                                        (3, 12,  '2017-07-31'), -- Mary traveled to India
+INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_date) VALUES
+                                                                                        (1, 4, null,  '2017-02-10'),  -- John traveled to Cameroon
+                                                                                        (1, 3, null, '2018-07-15'),  -- John traveled to Bolivia
+                                                                                        (2, 5, null, '2016-06-01'),  -- Jane traveled to Chad
+                                                                                        (2, 7, null, '2019-04-01'),  -- Jane traveled to Colombia
+                                                                                        (3, 15, null,  '2018-06-15'),  -- Mary traveled to Myanmar
+                                                                                        (3, 10, null, '2020-01-15'),  -- Mary traveled to Guatemala
+                                                                                        (3, 12, null, '2017-07-31'), -- Mary traveled to India
                                                                                         -- inserts for donor 5 alice
-                                                                                        (5, 51,  '2024-03-08'), -- Alice went to ethiopia
-                                                                                        (5, 68,  '2024-09-26'); -- alice went to iceland
+                                                                                        (5, 51, null, '2024-03-08'), -- Alice went to ethiopia
+                                                                                        (5, 68, null, '2024-09-26'); -- alice went to iceland
 
 
 
@@ -677,56 +759,4 @@ VALUES
 ;
 
 
--- Original data split into multiple records for 3NF
-INSERT INTO regions (region_name, country_id)
-VALUES
-    ('Ihrir (Illizi Department)', 3),
-    ('Rural Areas', 6),
-    ('Great Exuma Island', 11),
-    ('Northen Parts', 18),
-    ('Amazonia urban areas (eg Manaus)', 19),
-    ('Phnom Penh', 25),
-    ('Siem Reap', 25),
-    ('Angkor Wat', 25),
-    ('Multiple provinces', 31),
-    ('Guayaquil', 44),
-    ('Quito', 44),
-    ('Other cities in the inter-Andean region', 44),
-    ('Galapagos Islands', 44),
-    ('El Faiyum region', 45),
-    ('Airport of Manzine', 50),
-    ('Western half of country', 50),
-    ('South-East Of the Country', 57),
-    ('Bali', 72),
-    ('Java', 72),
-    ('City of Jakarta', 72),
-    ('All year in most of the country', 81),
-    ('Vientiane', 86),
-    ('Bokeo', 86),
-    ('Houaphanh', 86),
-    ('South-West of the country', 91),
-    ('Central Peninsular Malaysia', 97),
-    ('Taman Negara National Park', 97),
-    ('Sabah', 97),
-    ('Sarawak', 97),
-    ('Widespread (Except Cancun)', 105),
-    ('Al Hoceima', 110),
-    ('Taounate', 110),
-    ('Taza', 110),
-    ('Northern regions', 113),
-    ('Managua', 118),
-    ('De-militarized zone between North and South Korea (Kyunggi-do)', 121),
-    ('De-militarized zone between North and South Korea (Gangwon-do)', 121),
-    ('All year in the country up until February 1996', 131),
-    ('De-militarized zone between North and South Korea (Kyunggi-do)', 156),
-    ('De-militarized zone between North and South Korea (Gangwon-do)', 156),
-    ('South Eastern border regions', 174),
-    ('East of country', 178),
-    ('Abu Dhabi', 178),
-    ('Dubai', 178),
-    ('Sharjah', 178),
-    ('Ajman', 178),
-    ('Hawaii', 180),
-    ('US Virgin Islands (St Choix)', 180),
-    ('US Virgin Islands (St John)', 180),
-    ('US Virgin Islands (St Thomas)', 180);
+
