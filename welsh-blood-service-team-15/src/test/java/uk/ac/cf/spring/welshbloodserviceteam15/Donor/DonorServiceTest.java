@@ -1,13 +1,12 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryRepository;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
@@ -27,261 +26,316 @@ public class DonorServiceTest {
     @Autowired
     private DonorRepository donorRepository;
 
-    @Autowired
+    @MockBean
     private CountryDiseaseRepository countryDiseaseRepository;
 
-    @Autowired
-    private CountryRepository countryRepository;
-
-    @Autowired
-    private DiseaseRepository diseaseRepository;
-
-    @Autowired
+    @MockBean
     private DonorTravelledToCountryRepository donorTravelledToCountryRepository;
 
-    @Autowired
-    private QuestionnaireRepository questionnaireRepository;
 
-    @Autowired
-    private QuestionnaireService questionnaireService;
 
 
     /**
-     * This method tests whether diseases are returned if its active dates do not overlap with the
-     * donors visit dates.
+     * This method tests whether the risks for a country are correctly returned
+     * when a donor who has traveled abroad in the last 12 months and returned from
+     * a country after a disease has been active.
      */
-
     @Test
-    public void testDonorTravelWithoutOverlap() {
-        // Create and save a country
+    public void testGetRelevantDiseasesForDonor() {
+        // Given a donor has travelled abroad in the last 12 months,
+        // and they return from a country after a disease has been active,
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+        LocalDate diseaseStartDate = LocalDate.now().minusMonths(6);
+        LocalDate diseaseEndDate = LocalDate.now().minusMonths(3);
+        LocalDate travelEndDate = LocalDate.now().minusMonths(2);
+
         Country country = new Country();
-        country.setCountryName("TestCountry");
-        countryRepository.save(country);
+        country.setCountryName("Test Country");
 
-        // Create and save a disease
         Disease disease = new Disease();
-        disease.setDiseaseName("TestDisease");
-        diseaseRepository.save(disease);
+        disease.setDiseaseName("Test Disease");
 
-        // Create and save a country disease
         CountryDisease countryDisease = new CountryDisease();
         countryDisease.setCountry(country);
         countryDisease.setDisease(disease);
-        countryDisease.setStartDate(LocalDate.of(2022, 1, 1));
-        countryDisease.setEndDate(LocalDate.of(2022, 1, 31));
-        countryDiseaseRepository.save(countryDisease);
+        countryDisease.setStartDate(diseaseStartDate);
+        countryDisease.setEndDate(diseaseEndDate);
+        countryDisease.setNote("Test Note");
 
-        // Create and save a donor
-        Donor donor = new Donor();
-        donor.setFirstName("John");
-        donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        donorRepository.save(donor);
+        DonorTravelledToCountry donorTravelledToCountry = new DonorTravelledToCountry();
+        donorTravelledToCountry.setCountry(country);
+        donorTravelledToCountry.setEndDate(travelEndDate);
 
-        // Create and save a donor travel record without overlap
-        DonorTravelledToCountry travel = new DonorTravelledToCountry();
-        travel.setDonor(donor);
-        travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2021, 12, 1));
-        travel.setEndDate(LocalDate.of(2021, 12, 31));
-        donorTravelledToCountryRepository.save(travel);
+        List<CountryDiseaseDTO> expectedDiseases = List.of(new CountryDiseaseDTO(
+                country.getCountryName(),
+                disease.getDiseaseName(),
+                countryDisease.getNote(),
+                countryDisease.getStartDate(),
+                countryDisease.getEndDate(),
+                null
+        ));
 
-        // Test for no overlap
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
-        assertTrue(diseases.isEmpty());
+        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
+                .thenReturn(expectedDiseases);
+
+        // When checking for relevant risks for the donor,
+        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
+
+        // Then the risks for that country should be returned.
+        assertEquals(expectedDiseases, actualDiseases);
     }
 
 
+
     /**
-     * This method tests whether diseases are returned if its active dates overlap with the
-     * donors visit dates.
+     * This method tests whether the country is returned with a message
+     * displaying no risks when a donor has traveled abroad in the last
+     * 12 months and returned from a country before a disease has been active.
      */
 
     @Test
-    public void testDonorTravelWithOverlap() {
-        // Create and save a country
+    public void testDonorTravelBeforeDiseaseActive() {
+        // Given a donor has travelled abroad in the last 12 months,
+        // and they return from a country before a disease has been active,
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+        LocalDate diseaseStartDate = LocalDate.now().minusMonths(3);
+        LocalDate travelEndDate = LocalDate.now().minusMonths(6);
+
         Country country = new Country();
-        country.setCountryName("TestCountry");
-        countryRepository.save(country);
+        country.setCountryName("Test Country");
 
-        // Create and save a disease
         Disease disease = new Disease();
-        disease.setDiseaseName("TestDisease");
-        diseaseRepository.save(disease);
+        disease.setDiseaseName("Test Disease");
 
-        // Create and save a country disease
         CountryDisease countryDisease = new CountryDisease();
         countryDisease.setCountry(country);
         countryDisease.setDisease(disease);
-        countryDisease.setStartDate(LocalDate.of(2022, 1, 1));
-        countryDisease.setEndDate(LocalDate.of(2022, 1, 31));
-        countryDiseaseRepository.save(countryDisease);
+        countryDisease.setStartDate(diseaseStartDate);
+        countryDisease.setEndDate(diseaseStartDate.plusMonths(1));
+        countryDisease.setNote("Test Note");
 
-        // Create and save a donor
-        Donor donor = new Donor();
-        donor.setFirstName("John");
-        donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        donorRepository.save(donor);
+        DonorTravelledToCountry donorTravelledToCountry = new DonorTravelledToCountry();
+        donorTravelledToCountry.setCountry(country);
+        donorTravelledToCountry.setEndDate(travelEndDate);
 
-        // Create and save a donor travel record with overlap
-        DonorTravelledToCountry travel = new DonorTravelledToCountry();
-        travel.setDonor(donor);
-        travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2022, 1, 15));
-        travel.setEndDate(LocalDate.of(2022, 1, 20));
-        donorTravelledToCountryRepository.save(travel);
+        List<CountryDiseaseDTO> expectedDiseases = List.of(new CountryDiseaseDTO(
+                country.getCountryName(),
+                disease.getDiseaseName(),
+                countryDisease.getNote(),
+                countryDisease.getStartDate(),
+                countryDisease.getEndDate(),
+                "No risk for donor"
+        ));
 
-        // Test for overlap
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
-        assertFalse(diseases.isEmpty());
+        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
+                .thenReturn(expectedDiseases);
+
+        // When checking for relevant risks for the donor,
+        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
+
+        // Then that country should be returned with a message displaying no risks.
+        assertEquals(expectedDiseases, actualDiseases);
     }
 
 
     /**
-     * This method tests whether the diseases list is empty if the donor has not travelled.
+     * This method tests whether multiple countries are returned with a message
+     * displaying a risk message, after the donor has returned from multiple countries,
+     * after the active disease dates.
      */
+
     @Test
-    public void testDonorWithNoTravelHistory() {
-        // Create and save a donor with no travel history
-        Donor donor = new Donor();
-        donor.setFirstName("Jane");
-        donor.setLastName("Doe");
-        donor.setDonorDob(LocalDate.of(1992, 2, 2));
-        donorRepository.save(donor);
+    public void testDonorWithMultipleTravelAndReturnAfterActiveDiseases() {
+        // Given a donor has travelled to 2 countries in the last 12 months
+        // and returned after the active dates of the diseases in both countries
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
 
-        // Test for no travel history
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
-        assertTrue(diseases.isEmpty());
-    }
+        // Disease and travel dates for Country 1
+        LocalDate diseaseStartDate1 = LocalDate.now().minusMonths(6);
+        LocalDate diseaseEndDate1 = LocalDate.now().minusMonths(3);
+        LocalDate travelEndDate1 = LocalDate.now().minusMonths(2);
 
+        LocalDate diseaseStartDate2 = LocalDate.now().minusMonths(8);
+        LocalDate diseaseEndDate2 = LocalDate.now().minusMonths(4);
+        LocalDate travelEndDate2 = LocalDate.now().minusMonths(1);
 
-    /**
-     * This method tests whether any disease risks are returned if the donor has a safe travel
-     * history.
-     */
-    @Test
-    public void testDonorWithNoDiseaseRisk() {
-        // Create and save a country
-        Country country = new Country();
-        country.setCountryName("SafeCountry");
-        countryRepository.save(country);
-
-        // Create and save a donor
-        Donor donor = new Donor();
-        donor.setFirstName("Alice");
-        donor.setLastName("Johnson");
-        donor.setDonorDob(LocalDate.of(1985, 5, 5));
-        donorRepository.save(donor);
-
-        // Create and save a donor travel record
-        DonorTravelledToCountry travel = new DonorTravelledToCountry();
-        travel.setDonor(donor);
-        travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2021, 12, 1));
-        travel.setEndDate(LocalDate.of(2021, 12, 31));
-        donorTravelledToCountryRepository.save(travel);
-
-        // Test for no disease risk
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
-        assertTrue(diseases.isEmpty());
-    }
-
-
-    /**
-     * This method tests whether the donor has multiple disease risks associated with them.
-     */
-    @Test
-    public void testDonorWithMultipleDiseaseRisks() {
-        // Create and save countries
         Country country1 = new Country();
         country1.setCountryName("Country1");
-        countryRepository.save(country1);
 
         Country country2 = new Country();
         country2.setCountryName("Country2");
-        countryRepository.save(country2);
 
-        // Create and save diseases
         Disease disease1 = new Disease();
         disease1.setDiseaseName("Disease1");
-        diseaseRepository.save(disease1);
 
         Disease disease2 = new Disease();
         disease2.setDiseaseName("Disease2");
-        diseaseRepository.save(disease2);
 
-        // Create and save country diseases
         CountryDisease countryDisease1 = new CountryDisease();
         countryDisease1.setCountry(country1);
         countryDisease1.setDisease(disease1);
-        countryDisease1.setStartDate(LocalDate.of(2022, 1, 1));
-        countryDisease1.setEndDate(LocalDate.of(2022, 1, 31));
-        countryDiseaseRepository.save(countryDisease1);
+        countryDisease1.setStartDate(diseaseStartDate1);
+        countryDisease1.setEndDate(diseaseEndDate1);
+        countryDisease1.setNote("Note1");
 
         CountryDisease countryDisease2 = new CountryDisease();
         countryDisease2.setCountry(country2);
         countryDisease2.setDisease(disease2);
-        countryDisease2.setStartDate(LocalDate.of(2022, 2, 1));
-        countryDisease2.setEndDate(LocalDate.of(2022, 2, 28));
-        countryDiseaseRepository.save(countryDisease2);
+        countryDisease2.setStartDate(diseaseStartDate2);
+        countryDisease2.setEndDate(diseaseEndDate2);
+        countryDisease2.setNote("Note2");
 
-        // Create and save a donor
-        Donor donor = new Donor();
-        donor.setFirstName("Bob");
-        donor.setLastName("Brown");
-        donor.setDonorDob(LocalDate.of(1980, 3, 3));
-        donorRepository.save(donor);
+        DonorTravelledToCountry donorTravel1 = new DonorTravelledToCountry();
+        donorTravel1.setCountry(country1);
+        donorTravel1.setEndDate(travelEndDate1);
 
-        // Create and save multiple donor travel records
-        DonorTravelledToCountry travel1 = new DonorTravelledToCountry();
-        travel1.setDonor(donor);
-        travel1.setCountry(country1);
-        travel1.setStartDate(LocalDate.of(2022, 1, 15));
-        travel1.setEndDate(LocalDate.of(2022, 1, 20));
-        donorTravelledToCountryRepository.save(travel1);
+        DonorTravelledToCountry donorTravel2 = new DonorTravelledToCountry();
+        donorTravel2.setCountry(country2);
+        donorTravel2.setEndDate(travelEndDate2);
 
-        DonorTravelledToCountry travel2 = new DonorTravelledToCountry();
-        travel2.setDonor(donor);
-        travel2.setCountry(country2);
-        travel2.setStartDate(LocalDate.of(2022, 2, 15));
-        travel2.setEndDate(LocalDate.of(2022, 2, 20));
-        donorTravelledToCountryRepository.save(travel2);
+        List<CountryDiseaseDTO> expectedDiseases = List.of(
+                new CountryDiseaseDTO(
+                        country1.getCountryName(),
+                        disease1.getDiseaseName(),
+                        countryDisease1.getNote(),
+                        countryDisease1.getStartDate(),
+                        countryDisease1.getEndDate(),
+                        null
+                ),
+                new CountryDiseaseDTO(
+                        country2.getCountryName(),
+                        disease2.getDiseaseName(),
+                        countryDisease2.getNote(),
+                        countryDisease2.getStartDate(),
+                        countryDisease2.getEndDate(),
+                        null
+                )
+        );
 
-        // Test for multiple disease risks
-        List<CountryDisease> diseases = donorService.getRelevantDiseasesForDonor(donor.getDonorId());
-        assertFalse(diseases.isEmpty());
-        assertEquals(2, diseases.size());
+        Mockito.when(donorTravelledToCountryRepository.findAll())
+                .thenReturn(List.of(donorTravel1, donorTravel2));
+
+        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
+                .thenReturn(expectedDiseases);
+
+        // When checking for relevant risks for the donor
+        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
+
+        // Then country risks for both countries should be returned.
+        assertEquals(2, actualDiseases.size());
+
+        CountryDiseaseDTO actualCountry1 = actualDiseases.get(0);
+        assertEquals("Country1", actualCountry1.countryName());
+        assertNull(actualCountry1.riskMessage());
+
+        CountryDiseaseDTO actualCountry2 = actualDiseases.get(1);
+        assertEquals("Country2", actualCountry2.countryName());
+        assertNull(actualCountry2.riskMessage());
     }
 
-    /**
-     * This method tests whether questionnaire answers are found in the list.
-     */
+
+     /**
+       * This test verifies the behavior when a donor has travelled to two countries in the last 12 months,
+       * with one country's travel ending before the active dates of the disease and the other country's
+       * travel overlapping with the active dates of the disease.
+      */
+
     @Test
-    public void testQuestionnaireAnswers() {
-        // Create and save a donor
-        Donor donor = new Donor();
-        donor.setFirstName("Charlie");
-        donor.setLastName("Davis");
-        donor.setDonorDob(LocalDate.of(1995, 4, 4));
-        donorRepository.save(donor);
+    public void testDonorWithTwoCountriesTravelAndMixedDiseaseActiveDates() {
+        // Given a donor has travelled to 2 countries in the last 12 months,
+        // and he has returned from the first country before the active dates
+        // of  disease, and he has returned from the second country after the
+        // active dates of the disease
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+        LocalDate diseaseStartDate1 = LocalDate.now().minusMonths(6);
 
-        // Create and save questionnaire answers
-        Questionnaire answer1 = new Questionnaire();
-        answer1.setDonorId(donor.getDonorId());
-        answer1.setQuestionId(1);
-        answer1.setAnswer("Yes");
-        questionnaireRepository.save(answer1);
+        // Before disease active dates
+        LocalDate diseaseEndDate1 = LocalDate.now().minusMonths(3);
+        LocalDate travelEndDate1 = LocalDate.now().minusMonths(7);
 
-        Questionnaire answer2 = new Questionnaire();
-        answer2.setDonorId(donor.getDonorId());
-        answer2.setQuestionId(2);
-        answer2.setAnswer("No");
-        questionnaireRepository.save(answer2);
+        LocalDate diseaseStartDate2 = LocalDate.now().minusMonths(8);
 
-        // Test for questionnaire answers
-        List<Questionnaire> answers = questionnaireService.getDonorsAnswers(donor.getDonorId());
-        assertFalse(answers.isEmpty());
-        assertEquals(2, answers.size());
+        // After disease active dates
+        LocalDate diseaseEndDate2 = LocalDate.now().minusMonths(4);
+        LocalDate travelEndDate2 = LocalDate.now().minusMonths(2);
+
+        Country country1 = new Country();
+        country1.setCountryName("Country1");
+
+        Country country2 = new Country();
+        country2.setCountryName("Country2");
+
+        Disease disease1 = new Disease();
+        disease1.setDiseaseName("Disease1");
+
+        Disease disease2 = new Disease();
+        disease2.setDiseaseName("Disease2");
+
+        CountryDisease countryDisease1 = new CountryDisease();
+        countryDisease1.setCountry(country1);
+        countryDisease1.setDisease(disease1);
+        countryDisease1.setStartDate(diseaseStartDate1);
+        countryDisease1.setEndDate(diseaseEndDate1);
+        countryDisease1.setNote("Note1");
+
+        CountryDisease countryDisease2 = new CountryDisease();
+        countryDisease2.setCountry(country2);
+        countryDisease2.setDisease(disease2);
+        countryDisease2.setStartDate(diseaseStartDate2);
+        countryDisease2.setEndDate(diseaseEndDate2);
+        countryDisease2.setNote("Note2");
+
+        DonorTravelledToCountry donorTravel1 = new DonorTravelledToCountry();
+        donorTravel1.setCountry(country1);
+        donorTravel1.setEndDate(travelEndDate1);
+
+        DonorTravelledToCountry donorTravel2 = new DonorTravelledToCountry();
+        donorTravel2.setCountry(country2);
+        donorTravel2.setEndDate(travelEndDate2);
+
+        List<CountryDiseaseDTO> expectedDiseases = List.of(
+                new CountryDiseaseDTO(
+                        country1.getCountryName(),
+                        disease1.getDiseaseName(),
+                        countryDisease1.getNote(),
+                        countryDisease1.getStartDate(),
+                        countryDisease1.getEndDate(),
+                        "No risk for donor"
+                ),
+                new CountryDiseaseDTO(
+                        country2.getCountryName(),
+                        disease2.getDiseaseName(),
+                        countryDisease2.getNote(),
+                        countryDisease2.getStartDate(),
+                        countryDisease2.getEndDate(),
+                        null
+                )
+        );
+
+        Mockito.when(donorTravelledToCountryRepository.findAll())
+                .thenReturn(List.of(donorTravel1, donorTravel2));
+
+        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
+                .thenReturn(expectedDiseases);
+
+        // When checking for relevant risks for the donor
+        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
+
+        // Then for one country should return its country risk, and the other country should return the country with no risks
+        assertEquals(2, actualDiseases.size());
+
+        // Assertions for first country (No risk case)
+        CountryDiseaseDTO actualCountry1 = actualDiseases.get(0);
+        assertEquals("Country1", actualCountry1.countryName());
+        assertEquals("No risk for donor", actualCountry1.riskMessage());
+
+        // Assertions for second country (True risk case)
+        CountryDiseaseDTO actualCountry2 = actualDiseases.get(1);
+        assertEquals("Country2", actualCountry2.countryName());
+        assertNull(actualCountry2.riskMessage());
     }
 }

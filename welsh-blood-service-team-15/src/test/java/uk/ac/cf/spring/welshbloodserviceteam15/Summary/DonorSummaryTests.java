@@ -39,7 +39,7 @@ public class DonorSummaryTests {
         donor.setFirstName("John");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        donor.setDonorRisk("Low");
+        donor.setDonorDecision("Yes");
         return donor;
     }
 
@@ -50,7 +50,6 @@ public class DonorSummaryTests {
         country.setCountryName("Spain");
         travel.setDonor(donor);
         travel.setCountry(country);
-        travel.setStartDate(LocalDate.of(2024, 11, 14));
         travel.setEndDate(LocalDate.of(2024, 11, 19));
         return travel;
     }
@@ -76,7 +75,9 @@ public class DonorSummaryTests {
         // Then
         assertTrue(content.contains("<span>John Doe</span>"));
         assertTrue(content.contains("<span>1990-01-01</span>"));
-        assertTrue(content.contains("<span class=\"risk low\">Low risk</span>"));
+        assertTrue(content.contains("    <p><strong>Decision:</strong>\n" +
+                "        <span class=\"decision\">Yes</span>\n" +
+                "    </p>"));
     }
 
     @Test
@@ -123,7 +124,6 @@ public class DonorSummaryTests {
 
         // Then
          assertTrue(content.contains("<p><strong>Country:</strong> <span>Spain</span></p>"));
-         assertTrue(content.contains("<p><strong>Visit Dates:</strong> <span>2024-11-14</span> to\n" +
-                 "                    <span>2024-11-19</span></p>"));
+         assertTrue(content.contains("<p><strong>Return Date:</strong> <span>2024-11-19</span>"));
     }
 }
