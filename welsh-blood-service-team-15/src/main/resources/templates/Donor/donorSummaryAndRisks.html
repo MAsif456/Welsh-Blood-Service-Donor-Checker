@@ -22,8 +22,8 @@
         <ul>
             <li th:each="travel : ${donor.travelHistory}">
                 <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
-                    <span th:text="${travel.endDate}"></span></p>
+                <!-- No more start date -->
+                <p><strong>Return Date:</strong> <span th:text="${travel.getEndDate}"></span>
             </li>
         </ul>
         <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
@@ -49,19 +49,23 @@
 </div>
 
 <div class="disease-risk-summary">
-
-<h2>Relevant Disease Risk</h2>
+    <h2>Relevant Disease Risk</h2>
     <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
 
     <ul>
-    <li th:each="disease : ${diseases}">
-        <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
-        <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
-        <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
-    </li>
-</ul>
-<p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to a country at the time of any disease outbreak.</p>
-
+        <li th:each="disease : ${diseases}">
+            <p><strong>Country:</strong> <span th:text="${disease.countryName}"></span></p>
+            <p th:if="${disease.riskMessage == 'No risk for donor'}"><strong>Message:</strong> <span th:text="${disease.riskMessage}"></span></p>
+            <div th:if="${disease.riskMessage != 'No risk for donor'}">
+                <p><strong>Disease Name:</strong> <span th:text="${disease.diseaseName}"></span></p>
+                <p><strong>Relevant Notes:</strong> <span th:text="${disease.diseaseNote}"></span></p>
+                <p><strong>Disease Active Period:</strong> <span th:text="${disease.diseaseStart}"></span> to
+                    <span th:text="${disease.diseaseEnd}"></span></p>
+                <!--<p><strong>Donor Return Date:</strong> <span th:text="${disease.donorReturnDate}"></span></p>-->
+            </div>
+        </li>
+    </ul>
+    <p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to any country in the last 12 months.</p>
 </div>
 
 

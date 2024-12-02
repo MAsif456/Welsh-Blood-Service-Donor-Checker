@@ -21,7 +21,7 @@ public class DonorTravelledToCountry {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    private LocalDate startDate;
+
     private LocalDate endDate;
 
 
@@ -44,12 +44,7 @@ public class DonorTravelledToCountry {
     public void setCountry(Country country) {
         this.country = country;
     }
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+
     public LocalDate getEndDate() {
         return endDate;
     }

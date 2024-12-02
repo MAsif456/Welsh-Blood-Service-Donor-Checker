@@ -21,8 +21,8 @@
         <ul>
             <li th:each="travel : ${donor.travelHistory}">
                 <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                <p><strong>Visit Dates:</strong> <span th:text="${travel.startDate}"></span> to
-                    <span th:text="${travel.endDate}"></span></p>
+                <!--No more start date-->
+                <p><strong>Return Date:</strong> <span th:text="${travel.endDate}"></span>
             </li>
         </ul>
         <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
