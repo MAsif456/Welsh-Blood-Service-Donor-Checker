@@ -153,7 +153,6 @@ public class NavigationTests {
                     Questions question = new Questions();
                     question.setQuestion_id(questionId.intValue());
                     question.setQuestion("Question " + questionId);
-                    question.setNoRiskResponse("No");
                     return question;
                 })
                 .collect(Collectors.toList());
@@ -233,7 +232,6 @@ public class NavigationTests {
                     Questions question = new Questions();
                     question.setQuestion_id(questionId.intValue());
                     question.setQuestion("Question " + questionId);
-                    question.setNoRiskResponse("No");
                     return question;
                 })
                 .collect(Collectors.toList());

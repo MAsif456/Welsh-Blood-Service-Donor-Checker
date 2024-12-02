@@ -13,10 +13,16 @@
     <h1>Donor Summary</h1>
     <p><strong>Name:</strong> <span th:text="${donor.firstName} + ' ' + ${donor.lastName}"></span></p>
     <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
-    <p><strong>Risk Level:</strong>
-        <span th:class="${donor.donorRisk == 'High' ? 'risk high' : (donor.donorRisk == 'Moderate' ? 'risk moderate' : 'risk low')}"
-              th:text="${donor.donorRisk + ' risk'}"></span></p>
-
+    <p><strong>Decision:</strong>
+        <span class="decision"
+              th:classappend="
+              ${donor.donorDecision == 'Eligible to donate today'} ? 'today' :
+              (${donor.donorDecision == 'Eligible to donate but further testing needed'} ? 'today-test' :
+              (${donor.donorDecision == 'Eligible to donate but must wait 6 months'} ? 'wait' :
+              (${donor.donorDecision == 'Not Eligible to donate at all'} ? 'never' : '')))"
+              th:text="${donor.donorDecision != null ? donor.donorDecision : 'Awaiting decision'}">
+    </span>
+    </p>
     <h2>Travel History</h2>
     <div class="travel-history">
         <ul>
@@ -40,8 +46,7 @@
                 </p>
                 <p>
                     <strong>Answer:</strong>
-                    <span th:text="${answer.answer}"
-                          th:classappend="${noRiskResponseMap[answer.questionId] == '0' ? '' : (answer.answer == noRiskResponseMap[answer.questionId] ? 'answer green' : 'answer yellow')}"></span>
+                    <span th:text="${answer.answer}"></span>
                 </p>
             </li>
         </ul>

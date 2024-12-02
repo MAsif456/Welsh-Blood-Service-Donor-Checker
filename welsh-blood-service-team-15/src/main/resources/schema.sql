@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS donor
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     donor_dob DATE,
-    donor_risk VARCHAR(50),
     donor_decision VARCHAR(50),
     donor_note VARCHAR(50)
 );
@@ -56,8 +55,7 @@ CREATE TABLE IF NOT EXISTS country_disease
 CREATE TABLE IF NOT EXISTS questions
 (
     question_id INT AUTO_INCREMENT PRIMARY KEY,
-    question VARCHAR(255),
-    no_risk_response VARCHAR(50)
+    question VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS travel_questionnaire
