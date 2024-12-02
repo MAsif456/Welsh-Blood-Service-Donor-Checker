@@ -10,7 +10,6 @@ INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note)
 
 -- Inserting all countries
 INSERT INTO countries (country_name) VALUES
-#                                          ibby fix this bit
                                          (''),
                                          (''),
                                          (''),
@@ -220,395 +219,393 @@ INSERT INTO diseases (disease_name) VALUES
 
 
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
-                                                               (1,1, 'Yes whole country below 2000m (May-Nov) until Sept 2015','1996-02-01','2015-09-30'),  -- Afghanistan
-                                                               (3,1, 'From March 1996 to May 2019: desert oasis of Ihrir (Illizi Department) only','1996-03-01','2019-05-30'),  -- Algeria
-                                                               (5,1, 'All year in the country','1974-11-01','2024-11-26'), -- Angola
-                                                               (6,1, 'Until February 1996, All year in rural areas','1996-02-01','2024-11-24'),  -- Argentina
-                                                               (11,1, 'Yes Great Exuma Island only Jul-Oct 2006 and Sept 2007- Sept 2015','2006-07-01','2015-09-30'),  -- Bahamas
-                                                               (13,1,'Yes all year whole country until Sept 2015','1976-09-01','2015-11-30'),  -- Bangladesh
-                                                               (18,1,'Risk exists throughout the year but especially from November to June in the northern parts of the country','1996-02-01','2024-11-26'),  -- Botswana
-                                                               (19,1, 'All year in Amazonia, urban areas (e.g., Manaus), Amazon cruises, rural areas near Iguaçu Falls.', '1996-02-01', '2024-11-26'), -- Brazil
-                                                               (20,1, 'All year round','1976-11-01','2024-11-26'), -- Brunei
-                                                               (25,1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '1996-02-01', '2024-11-26'), -- Cambodia
-                                                               (26,1, 'all year round', '1976-11-26', '2024-11-26'), -- Cameroon
-                                                               (28,1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Central African Republic
-                                                               (29,1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Chad
-                                                               (31,1, 'Was at previous risk in multiple provinces ', '1996-02-01', '2021-06-30'), -- China
-                                                               (32,1,'Yes all year whole country until Feb 2015','2015-01-01','2015-02-28'), -- Colombia
-                                                               (35,1,'All year in whole country','1976-11-26','2024-11-26'), -- Costa Rica
-                                                               (41,1,'All year in whole country','1976-11-26','2024-11-26'), -- Djibouti
-                                                               (43,1,'All year in whole country','1976-11-26','2024-11-26'), -- Dominican Republic
-                                                               (44,1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
-                                                               (45,1,'During the months Jun-Oct, in El Faiyum region until May 2012','1996-02-001','2012-05-30'), -- Egypt
-                                                               (46,1,'All Year whole country up until September 2006','2006-01-01','2006-09-30'), -- El Salvador
-                                                               (47,1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
-                                                               (48,1, 'all year in the whole country, Only accept visitors from Asmara and the central highlands', '1976-11-26', '2024-11-26'), -- Eritrea
-                                                               (50,1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
-                                                               (51,1,'All year in whole country. Visitors to city of Addis Ababa only accept','1976-11-26','2024-11-26'), -- Ethiopia
-                                                               (55,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gabon
-                                                               (56,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gambia
-                                                               (57,1,'June - October in the South-East Of the Country','2024-06-01','2024-10-30'), -- Georgia
-                                                               (59,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Ghana
-                                                               (62,1, 'All year in the whole country up until December 2011','2011-01-01','2011-12-31'), -- Guatemala
-                                                               (63,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Guinea
-                                                               (66,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Haiti
-
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
+                                                               (1, null, 1, 'Yes whole country below 2000m (May-Nov) until Sept 2015','1996-02-01','2015-09-30'),  -- Afghanistan
+                                                               (3, null, 1, 'From March 1996 to May 2019: desert oasis of Ihrir (Illizi Department) only','1996-03-01','2019-05-30'),  -- Algeria
+                                                               (5, null, 1, 'All year in the country','1974-11-01','2024-11-26'), -- Angola
+                                                               (6, null, 1, 'Until February 1996, All year in rural areas','1996-02-01','2024-11-24'),  -- Argentina
+                                                               (11, null, 1, 'Yes Great Exuma Island only Jul-Oct 2006 and Sept 2007- Sept 2015','2006-07-01','2015-09-30'),  -- Bahamas
+                                                               (13, null, 1,'Yes all year whole country until Sept 2015','1976-09-01','2015-11-30'),  -- Bangladesh
+                                                               (18, null, 1,'Risk exists throughout the year but especially from November to June in the northern parts of the country','1996-02-01','2024-11-26'),  -- Botswana
+                                                               (19, null, 1, 'All year in Amazonia, urban areas (e.g., Manaus), Amazon cruises, rural areas near Iguaçu Falls.', '1996-02-01', '2024-11-26'), -- Brazil
+                                                               (20, null, 1, 'All year round','1976-11-01','2024-11-26'), -- Brunei
+                                                               (25, null, 1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '1996-02-01', '2024-11-26'), -- Cambodia
+                                                               (26, null, 1, 'all year round', '1976-11-26', '2024-11-26'), -- Cameroon
+                                                               (28, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Central African Republic
+                                                               (29, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Chad
+                                                               (31, null, 1, 'Was at previous risk in multiple provinces ', '1996-02-01', '2021-06-30'), -- China
+                                                               (32, null, 1,'Yes all year whole country until Feb 2015','2015-01-01','2015-02-28'), -- Colombia
+                                                               (35, null, 1,'All year in whole country','1976-11-26','2024-11-26'), -- Costa Rica
+                                                               (41, null, 1,'All year in whole country','1976-11-26','2024-11-26'), -- Djibouti
+                                                               (43, null, 1,'All year in whole country','1976-11-26','2024-11-26'), -- Dominican Republic
+                                                               (44, null, 1, 'All year in most of the country. Visitors to Guayaquil, Quito, and other cities in the inter-Andean region and the Galapagos Islands, accept.', '1976-11-26', '2024-11-26'), -- Ecuador
+                                                               (45, null, 1,'During the months Jun-Oct, in El Faiyum region until May 2012','1996-02-001','2012-05-30'), -- Egypt
+                                                               (46, null, 1,'All Year whole country up until September 2006','2006-01-01','2006-09-30'), -- El Salvador
+                                                               (47, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
+                                                               (48, null, 1, 'all year in the whole country, Only accept visitors from Asmara and the central highlands', '1976-11-26', '2024-11-26'), -- Eritrea
+                                                               (50, null, 1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
+                                                               (51, null, 1,'All year in whole country. Visitors to city of Addis Ababa only accept','1976-11-26','2024-11-26'), -- Ethiopia
+                                                               (55, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gabon
+                                                               (56, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gambia
+                                                               (57, null, 1,'June - October in the South-East Of the Country','2024-06-01','2024-10-30'), -- Georgia
+                                                               (59, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Ghana
+                                                               (62, null, 1, 'All year in the whole country up until December 2011','2011-01-01','2011-12-31'), -- Guatemala
+                                                               (63, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Guinea
+                                                               (66, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Haiti
                                                                -- TEST
-                                                               (68,1,'All year in the whole country','2024-10-26', '2024-11-26'), -- Iceland
+                                                               (68, null, 1, 'All year in the whole country','2024-10-26', '2024-11-26'), -- Iceland
 
-                                                               (71,1,'All year in the whole country until May 2012','2012-01-01','2012-05-30'), -- India
-                                                               (72,1,'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
-                                                               (73,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
-                                                               (74,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iraq
-                                                               (77,1,'In the whole country during Dec 2006 - May 2012','2006-12-01','2012-05-30'),  -- Jamaica
-                                                               (81,1,'All year in most of the country','1976-11-01','2024-11-26'), -- Kenya
-                                                               (85,1,'All year in the whole country up until December 2016','2016-01-01','2016-12-31'), -- Kyrgyzstan
-                                                               (86,1,'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
-                                                               (90,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Liberia
-                                                               (91,1,'South-West of the country during February 1996 up until September 2006','1996-02-01','2006-09-30'), -- Libya,
-                                                               (95,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Madagascar
-                                                               (96,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Malawi
-                                                               (97,1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
-                                                               (98,1,'All years in whole country up until October 2009','1976-10-01', '2009-10-31'), -- Maldives
-                                                               (99,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Mali
-                                                               (103,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Mauritania
-                                                               (104,1,'All year in the whole country up until September 2006','2006-01-01','2006-09-30'), -- Mauritius
-                                                               (105,1,'Yes widespread (Except Cancun) up until December 2011','2011-01-01','2011-12-31'), -- Mexico
-                                                               (110,1,'Yes May-Oct in provinces of Al Hoceima, Taounate, and Taza until Dec 2011','2011-05-01','2011-12-31'), -- Morocco
-                                                               (111,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Mozambique
-                                                               (112,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Myanmar
-                                                               (113,1,'Yes all year northern regions until May 2015','2015-01-01','2015-05-31'), -- Namibia
-                                                               (115,1,'Yes all year whole country until Sept 2006','2006-01-01','2006-09-30'), -- Nepal
-                                                               (118,1,'All year in most of the country, visitors to Managua only accept','1976-11-26','2024-11-26'), -- Nicaragua
-                                                               (119,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Niger
-                                                               (120,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Nigeria
-                                                               (121,1,'All year in in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)','1976-11-26','2024-11-26'), -- North Korea
-                                                               (124,1,'All year in the whole country up until September 2006', '2006-01-01', '2006-09-30'), -- Oman
-                                                               (125,1,'All year in the whole country', '1976-11-26', '2024-11-26'), -- Pakistan
-                                                               (128,1,'Yes all year whole country until Dec 2011', '2011-01-01', '2011-12-31'), -- Panama
-                                                               (129,1,'All year in the whole country', '1976-11-26', '2024-11-26'), -- Papua New Guinea
-                                                               (130,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-28'), -- Paraguay
-                                                               (131,1,'All year in the country up until February 1996','1996-02-01','1996-02-28'), -- Peru
-                                                               (132,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-28'), -- Philippines
-                                                               (138,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Rwanda
-                                                               (145,1,'Yes all year whole country (except urban Jeddah, Mecca, Medina and Taif) until Sept 2006','2006-01-01','2006-09-30'), -- Saudi Arabia
-                                                               (146,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Senegal
-                                                               (149,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Sierra Leone
-                                                               (153,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Solomon Islands
-                                                               (154,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Somalia
-                                                               (155,1,'All year in the whole country up until February 1996','1996-02-01','1996-02-28'), -- South Africa
-                                                               (156,1,'All year in in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)','1976-11-26','2024-11-26'), -- South Korea
-                                                               (157,1,'All year in the whole country','1976-11-26','2024-11-26'), -- South Sudan
-                                                               (159,1,'Yes all year whole country until Dec 2011','2011-01-01','2011-12-31'), -- Sri Lanka
-                                                               (160,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Sudan
-                                                               (161,1,'All year in the whole country up until December 2011','2011-01-01','2011-12-31'), -- Suriname
-                                                               (164,1,'Must be considered to be all year in whole country in view of current situation.','1976-11-26','2024-11-26'), -- Syria
-                                                               (166,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Tanzania
-                                                               (167,1,'All year in the whole country up until May 2012','2012-01-01','2012-05-30'), -- Thailand
-                                                               (169,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Togo
-                                                               (173,1,'Yes all year whole country until Feb 1996','1996-02-01','1996-02-28'), -- Turkey
-                                                               (174,1,'Yes Jun – Oct in South Eastern border regions until Sept 2015','2015-06-01','2015-09-30'), -- Turkmenistan
-                                                               (176,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Uganda
-                                                               (178,1,'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain','1976-11-26','2024-11-26'), -- United Arab Emirates
-                                                               (183,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Vanuatu
-                                                               (184,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Venezuela
-                                                               (185,1,'Yes all year whole country until May 2012','2012-01-01','2012-05-30'), -- Vietnam
-                                                               (186,1,'Yes all year whole country until May 2012','2012-01-01','2012-05-30'); -- Yemen
+                                                               (71, null, 1, 'All year in the whole country until May 2012','2012-01-01','2012-05-30'), -- India
+                                                               (72, NULL, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
+                                                               (73, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
+                                                               (74, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iraq
+                                                               (77, NULL, 1, 'In the whole country during Dec 2006 - May 2012','2006-12-01','2012-05-30'), -- Jamaica
+                                                               (81, NULL, 1, 'All year in most of the country','1976-11-01','2024-11-26'), -- Kenya
+                                                               (85, NULL, 1, 'All year in the whole country up until December 2016','2016-01-01','2016-12-31'), -- Kyrgyzstan
+                                                               (86, NULL, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
+                                                               (90, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Liberia
+                                                               (91, NULL, 1, 'South-West of the country during February 1996 up until September 2006','1996-02-01','2006-09-30'), -- Libya,
+                                                               (95, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Madagascar
+                                                               (96, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Malawi
+                                                               (97, NULL, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
+                                                               (98, NULL, 1, 'All years in whole country up until October 2009','1976-10-01', '2009-10-31'), -- Maldives
+                                                               (99, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'); -- Mali
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date)
+VALUES
+    (103, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Mauritania
+    (104, NULL, 1, 'All year in the whole country up until September 2006', '2006-01-01', '2006-09-30'), -- Mauritius
+    (105, NULL, 1, 'Yes widespread (Except Cancun) up until December 2011', '2011-01-01', '2011-12-31'), -- Mexico
+    (110, NULL, 1, 'Yes May-Oct in provinces of Al Hoceima, Taounate, and Taza until Dec 2011', '2011-05-01', '2011-12-31'), -- Morocco
+    (111, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Mozambique
+    (112, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Myanmar
+    (113, NULL, 1, 'Yes all year northern regions until May 2015', '2015-01-01', '2015-05-31'), -- Namibia
+    (115, NULL, 1, 'Yes all year whole country until Sept 2006', '2006-01-01', '2006-09-30'), -- Nepal
+    (118, NULL, 1, 'All year in most of the country, visitors to Managua only excepted', '1976-11-26', '2024-11-26'), -- Nicaragua
+    (119, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Niger
+    (120, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Nigeria
+    (121, NULL, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- North Korea
+    (124, NULL, 1, 'All year in the whole country up until September 2006', '2006-01-01', '2006-09-30'), -- Oman
+    (125, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Pakistan
+    (128, NULL, 1, 'Yes all year whole country until Dec 2011', '2011-01-01', '2011-12-31'), -- Panama
+    (129, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Papua New Guinea
+    (130, NULL, 1, 'All year in the whole country up until February 1996', '1996-02-01', '1996-02-28'), -- Paraguay
+    (131, NULL, 1, 'All year in the country up until February 1996', '1996-02-01', '1996-02-28'), -- Peru
+    (132, NULL, 1, 'All year in the whole country up until February 1996', '1996-02-01', '1996-02-28'), -- Philippines
+    (138, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Rwanda
+    (145, NULL, 1, 'Yes all year whole country (except urban Jeddah, Mecca, Medina and Taif) until Sept 2006', '2006-01-01', '2006-09-30'), -- Saudi Arabia
+    (146, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Senegal
+    (149, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Sierra Leone
+    (153, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Solomon Islands
+    (154, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Somalia
+    (155, NULL, 1, 'All year in the whole country up until February 1996', '1996-02-01', '1996-02-28'), -- South Africa
+    (156, NULL, 1, 'All year in the de-militarized zone between North and South Korea (Kyunggi-do and Gangwon-do provinces)', '1976-11-26', '2024-11-26'), -- South Korea
+    (157, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- South Sudan
+    (159, NULL, 1, 'Yes all year whole country until Dec 2011', '2011-01-01', '2011-12-31'), -- Sri Lanka
+    (160, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Sudan
+    (161, NULL, 1, 'All year in the whole country up until December 2011', '2011-01-01', '2011-12-31'), -- Suriname
+    (164, NULL, 1, 'Must be considered to be all year in whole country in view of current situation.', '1976-11-26', '2024-11-26'), -- Syria
+    (166, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Tanzania
+    (167, NULL, 1, 'All year in the whole country up until May 2012', '2012-01-01', '2012-05-30'), -- Thailand
+    (169, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Togo
+    (173, NULL, 1, 'Yes all year whole country until Feb 1996', '1996-02-01', '1996-02-28'), -- Turkey
+    (174, NULL, 1, 'Yes Jun – Oct in South Eastern border regions until Sept 2015', '2015-06-01', '2015-09-30'), -- Turkmenistan
+    (176, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Uganda
+    (178, NULL, 1, 'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain', '1976-11-26', '2024-11-26'), -- United Arab Emirates
+    (183, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Vanuatu
+    (184, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Venezuela
+    (185, NULL, 1, 'Yes all year whole country until May 2012', '2012-01-01', '2012-05-30'), -- Vietnam
+    (186, NULL, 1, 'Yes all year whole country until May 2012', '2012-01-01', '2012-05-30'); -- Yemen
+
+
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
                                                                 -- Trypanosoma Cruzi Risk occurrences
-                                                                (6, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Argentina
-                                                                (11, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Bahamas
-                                                                (19, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Brazil
-                                                                (30, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Chile
-                                                                (32, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
-                                                                (46, 2, 'N/A', '1976-11-26','2024-11-26'), -- El Salvador
-                                                                (68, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Honduras
-                                                                (118, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Nicaragua
-                                                                (130, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Paraguay
-                                                                (131, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Peru
-                                                                (172, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Tunisia
-                                                                (181, 2, 'N/A', '1976-11-26', '2024-11-26'); -- Uruguay
+                                                                (6, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Argentina
+                                                                (11, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Bahamas
+                                                                (19, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Brazil
+                                                                (30, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Chile
+                                                                (32, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
+                                                                (46, null, 2, 'N/A', '1976-11-26','2024-11-26'), -- El Salvador
+                                                                (68, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Honduras
+                                                                (118, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Nicaragua
+                                                                (130, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Paraguay
+                                                                (131, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Peru
+                                                                (172, null, 2, 'N/A', '1976-11-26', '2024-11-26'), -- Tunisia
+                                                                (181, null, 2, 'N/A', '1976-11-26', '2024-11-26'); -- Uruguay
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
                                                                 -- West Nile Virus Risk occurrences
-                                                                (2, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Albania
-                                                                (3, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Algeria
-                                                                (7, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Armenia
-                                                                (9, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Austria
-                                                                (17, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Bosnia and Herzegovina
-                                                                (21, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Bulgaria
-                                                                (27, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Canada
-                                                                (54, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- France
-                                                                (58, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Germany
-                                                                (60, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Greece
-                                                                (69, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Hungary
-                                                                (76, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.', '2024-05-01', '2024-11-30'), -- Italy
-                                                                (83, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Italy
-                                                                (107,3,'N/A','1976-11-26','2024-11-26'), -- Monaco
-                                                                (109,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Montenegro
-                                                                (122,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- North Macedonia (formerly Macedonia)
-                                                                (136,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Romania
-                                                                (137,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Russia
-                                                                (147,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Serbia
-                                                                (152,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Slovenia
-                                                                (158,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Spain
-                                                                (173,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Turkey
-                                                                (177,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Ukraine
-                                                                (180,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'); -- United States of America
+                                                                (2, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Albania
+                                                                (3, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Algeria
+                                                                (7, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Armenia
+                                                                (9, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Austria
+                                                                (17, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Bosnia and Herzegovina
+                                                                (21, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Bulgaria
+                                                                (27, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Canada
+                                                                (54, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- France
+                                                                (58, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Germany
+                                                                (60, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Greece
+                                                                (69, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Hungary
+                                                                (76, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.', '2024-05-01', '2024-11-30'), -- Italy
+                                                                (83, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Italy
+                                                                (107, null, 3,'N/A','1976-11-26','2024-11-26'), -- Monaco
+                                                                (109, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Montenegro
+                                                                (122, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- North Macedonia (formerly Macedonia)
+                                                                (136, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Romania
+                                                                (137, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Russia
+                                                                (147, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Serbia
+                                                                (152, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Slovenia
+                                                                (158, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Spain
+                                                                (173, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Turkey
+                                                                (177, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Ukraine
+                                                                (180, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'); -- United States of America
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
-                                                                -- Dengue Virus occurrences
-                                                                (1, 4, 'N/A', '1976-11-26','2024-11-26'), -- Afghanistan
-                                                                (5, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Angola
-                                                                (6, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Argentina
-                                                                (13, 4, 'N/A', '1976-11-26','2024-11-26'), -- Bangladesh
-                                                                (14, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Barbados
-                                                                (25, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
-                                                                (29, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
-                                                                (31, 4, 'N/A', '1976-11-26', '2024-11-26'), -- China
-                                                                (32, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
-                                                                (35, 4, 'N/A', '1976-11-26','2024-11-26'), -- Costa Rica
-                                                                (41, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Djibouti
-                                                                (42, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Dominica
-                                                                (43, 4, 'N/A', '1976-11-26','2024-11-26'), -- Dominican Republic
-                                                                (45, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Egypt
-                                                                (46, 4, 'N/A', '1976-11-26','2024-11-26'), -- El Salvador
-                                                                (48, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Eritrea
-                                                                (50, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Eswatini
-                                                                (51, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Ethiopia
-                                                                (52, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Fiji
-                                                                (54, 4, 'N/A', '1976-11-26', '2024-11-26'), -- France
-                                                                (55, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Gabon
-                                                                (56, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Gambia
-                                                                (59, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Ghana
-                                                                (61, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Grenada
-                                                                (62, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Guatemala
-                                                                (63, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Guinea
-                                                                (68, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Honduras
-                                                                (71, 4, 'N/A', '1976-11-26', '2024-11-26'), -- India
-                                                                (72, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Indonesia
-                                                                (73, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Iran
-                                                                (76, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Italy
-                                                                (77, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Jamaica
-                                                                (81, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Kenya
-                                                                (82, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Kiribati
-                                                                (86, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Laos
-                                                                (97, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Malaysia
-                                                                (98, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Maldives
-                                                                (99, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Mali
-                                                                (101, 4, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
-                                                                (102, 4, 'N/A','1976-11-26','2024-11-26'), -- Martinique
-                                                                (103, 4, 'N/A','1976-11-26','2024-11-26'), -- Mauritania
-                                                                (104, 4, 'N/A','1976-11-26','2024-11-26'), -- Mauritius
-                                                                (105, 4, 'N/A','1976-11-26','2024-11-26'), -- Mexico)
-                                                                (107, 4, 'N/A','1976-11-26','2024-11-26'), -- Monaco
-                                                                (110, 4, 'N/A','1976-11-26','2024-11-26'), -- Mozambique
-                                                                (111, 4, 'N/A','1976-11-26','2024-11-26'), -- Myanmar
-                                                                (115, 4, 'N/A','1976-11-26','2024-11-26'), -- Nepal
-                                                                (118, 4, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
-                                                                (119, 4, 'N/A','1976-11-26','2024-11-26'), -- Niger
-                                                                (120, 4, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
-                                                                (124, 4, 'N/A','1976-11-26','2024-11-26'), -- Oman
-                                                                (125, 4, 'N/A','1976-11-26','2024-11-26'), -- Pakistan
-                                                                (128, 4, 'N/A','1976-11-26','2024-11-26'), -- Panama
-                                                                (130, 4, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
-                                                                (131, 4, 'N/A','1976-11-26','2024-11-26'), -- Peru
-                                                                (132, 4, 'N/A','1976-11-26','2024-11-26'), -- Philippines
-                                                                (138, 4, 'N/A','1976-11-26','2024-11-26'), -- Rwanda
-                                                                (140, 4, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
-                                                                (145, 4,'N/A','1976-11-26','2024-11-26'), -- Saudi Arabia
-                                                                (146, 4, 'N/A','1976-11-26','2024-11-26'), -- Senegal)
-                                                                (148, 4, 'N/A','1976-11-26','2024-11-26'), -- Seychelles
-                                                                (150, 4, 'N/A','1976-11-26','2024-11-26'), -- Singapore
-                                                                (153, 4, 'N/A','1976-11-26','2024-11-26'), -- Solomon Islands
-                                                                (154, 4, 'N/A','1976-11-26','2024-11-26'), -- Somalia
-                                                                (159, 4, 'N/A','1976-11-26','2024-11-26'), -- Sri Lanka
-                                                                (160, 4, 'N/A','1976-11-26','2024-11-26'), -- Sudan
-                                                                (166, 4, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
-                                                                (169, 4, 'N/A','1976-11-26','2024-11-26'), -- Togo
-                                                                (170, 4, 'N/A','1976-11-26','2024-11-26'), -- Tonga
-                                                                (171, 4, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
-                                                                (178, 4, 'N/A','1976-11-26','2024-11-26'), -- United Arab Emirates
-                                                                (180, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
-                                                                (181, 4, 'N/A','1976-11-26','2024-11-26'), -- Uruguay
-                                                                (183, 4, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
-                                                                (184, 4, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
-                                                                (185, 4, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
-                                                                (186, 4, 'N/A','1976-11-26','2024-11-26'), -- Yemen
-                                                                (187, 4, 'N/A','1976-11-26','2024-11-26'); -- Zambia
+INSERT INTO country_disease (country_id, region_id,  disease_id, note, start_date, end_date) VALUES
+        -- Dengue Virus occurrences
+        (1, NULL, 4, 'N/A', '1976-11-26','2024-11-26'), -- Afghanistan
+        (5, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Angola
+        (6, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Argentina
+        (13, NULL, 4, 'N/A', '1976-11-26','2024-11-26'), -- Bangladesh
+        (14, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Barbados
+        (25, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
+        (29, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
+        (31, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- China
+        (32, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
+        (35, NULL, 4, 'N/A', '1976-11-26','2024-11-26'), -- Costa Rica
+        (41, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Djibouti
+        (42, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Dominica
+        (43, NULL, 4, 'N/A', '1976-11-26','2024-11-26'), -- Dominican Republic
+        (45, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Egypt
+        (46, NULL, 4, 'N/A', '1976-11-26','2024-11-26'), -- El Salvador
+        (48, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Eritrea
+        (50, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Eswatini
+        (51, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Ethiopia
+        (52, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Fiji
+        (54, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- France
+        (55, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Gabon
+        (56, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Gambia
+        (59, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Ghana
+        (61, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Grenada
+        (62, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Guatemala
+        (63, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Guinea
+        (68, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Honduras
+        (71, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- India
+        (72, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Indonesia
+        (73, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Iran
+        (76, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Italy
+        (77, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Jamaica
+        (81, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Kenya
+        (82, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Kiribati
+        (86, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Laos
+        (97, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Malaysia
+        (98, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Maldives
+        (99, NULL, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Mali
+        (101, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
+        (102, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Martinique
+        (103, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Mauritania
+        (104, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Mauritius
+        (105, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Mexico
+        (107, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Monaco
+        (110, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Mozambique
+        (111, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Myanmar
+        (115, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Nepal
+        (118, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
+        (119, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Niger
+        (120, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
+        (124, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Oman
+        (125, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Pakistan
+        (128, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Panama
+        (130, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
+        (131, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Peru
+        (132, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Philippines
+        (138, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Rwanda
+        (140, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+        (145, NULL, 4,'N/A','1976-11-26','2024-11-26'), -- Saudi Arabia
+        (146, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Senegal
+        (148, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Seychelles
+        (150, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Singapore
+        (153, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Solomon Islands
+        (154, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Somalia
+        (159, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Sri Lanka
+        (160, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Sudan
+        (166, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
+        (169, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Togo
+        (170, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Tonga
+        (171, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
+        (178, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- United Arab Emirates
+        (180, NULL, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
+        (181, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Uruguay
+        (183, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
+        (184, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
+        (185, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
+        (186, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Yemen
+        (187, NULL, 4, 'N/A','1976-11-26','2024-11-26'); -- Zambia
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
-                                                               -- Zika Virus occurrences
-                                                               (5,  5, 'N/A', '1976-11-26','2024-11-26'), -- Angola
-                                                               (6,  5, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
-                                                               (11, 5, 'N/A','1976-11-26','2024-11-26'),  -- Bahamas
-                                                               (13, 5, 'N/A','1976-11-26','2024-11-26'),  -- Bangladesh
-                                                               (14, 5, 'N/A','1976-11-26','2024-11-26'),  -- Barbados
-                                                               (20, 5, 'N/A','1976-11-26','2024-11-26'),  -- Brunei
-                                                               (25, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
-                                                               (26, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
-                                                               (28, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
-                                                               (30, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Chile
-                                                               (32, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
-                                                               (35, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Costa Rica
-                                                               (42, 5, 'N/A','1976-11-26','2024-11-26'), -- Dominica
-                                                               (43, 5, 'N/A','1976-11-26','2024-11-26'), -- Dominican Republic
-                                                               (46, 5, 'N/A','1976-11-26','2024-11-26'), -- El Salvador
-                                                               (50, 5, 'N/A','1976-11-26','2024-11-26'), -- Eswatini
-                                                               (52, 5, 'N/A','1976-11-26','2024-11-26'), -- Fiji
-                                                               (55, 5, 'N/A','1976-11-26', '2024-11-26'), -- Gabon
-                                                               (61, 5, 'N/A','1976-11-26', '2024-11-26'), -- Grenada
-                                                               (62, 5, 'N/A','1976-11-26', '2024-11-26'), -- Guatemala
-                                                               (66, 5, 'N/A','1976-11-26', '2024-11-26'), -- Haiti
-                                                               (68, 5, 'N/A','1976-11-26', '2024-11-26'), -- Honduras
-                                                               (71, 5, 'N/A','1976-11-26', '2024-11-26'), -- India
-                                                               (72, 5, 'N/A','1976-11-26', '2024-11-26'), -- Indonesia
-                                                               (77, 5, 'N/A','1976-11-26', '2024-11-26'), -- Jamaica
-                                                               (81, 5, 'N/A','1976-11-26', '2024-11-26'), -- Kenya
-                                                               (86, 5,'N/A','1976-11-26', '2024-11-26'), -- Laos
-                                                               (97, 5,'N/A','1976-11-26', '2024-11-26'), -- Malaysia
-                                                               (98, 5,'N/A','1976-11-26', '2024-11-26'), -- Maldives
-                                                               (99, 5,'N/A','1976-11-26', '2024-11-26'), -- Mali
-                                                               (101, 5, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
-                                                               (102, 5, 'N/A','1976-11-26','2024-11-26'), -- Martinique
-                                                               (105, 5, 'N/A','1976-11-26','2024-11-26'), -- Mexico
-                                                               (118, 5, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
-                                                               (120, 5, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
-                                                               (126, 5, 'N/A','1976-11-26','2024-11-26'), -- Palau
-                                                               (128, 5, 'N/A','1976-11-26','2024-11-26'), -- Panama
-                                                               (129, 5, 'N/A','1976-11-26','2024-11-26'), -- Papua New Guinea
-                                                               (130, 5, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
-                                                               (131, 5, 'N/A','1976-11-26','2024-11-26'), -- Peru
-                                                               (132, 5, 'N/A','1976-11-26','2024-11-26'), -- Philippines
-                                                               (139, 5, 'N/A','1976-11-26','2024-11-26'), -- Saint Kitts and Nevis
-                                                               (140, 5, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
-                                                               (146, 5, 'N/A','1976-11-26','2024-11-26'), -- Senegal
-                                                               (150, 5, 'N/A','1976-11-26','2024-11-26'), -- Singapore
-                                                               (153, 5, 'N/A','1976-11-26','2024-11-26'), -- Solomon Islands
-                                                               (161, 5, 'N/A','1976-11-26','2024-11-26'), -- Suriname
-                                                               (170, 5, 'N/A','1976-11-26','2024-11-26'), -- Tonga
-                                                               (171, 5, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
-                                                               (176, 5, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-                                                               (180, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
-                                                               (183, 5, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
-                                                               (184, 5, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
-                                                               (185, 5, 'N/A','1976-11-26','2024-11-26'); -- Vietnam
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
+        -- Zika Virus occurrences
+        (5,  NULL, 5, 'N/A', '1976-11-26','2024-11-26'), -- Angola
+        (6,  NULL, 5, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
+        (11, NULL, 5, 'N/A','1976-11-26','2024-11-26'),  -- Bahamas
+        (13, NULL, 5, 'N/A','1976-11-26','2024-11-26'),  -- Bangladesh
+        (14, NULL, 5, 'N/A','1976-11-26','2024-11-26'),  -- Barbados
+        (20, NULL, 5, 'N/A','1976-11-26','2024-11-26'),  -- Brunei
+        (25, NULL, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
+        (26, NULL, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
+        (28, NULL, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
+        (30, NULL, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Chile
+        (32, NULL, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
+        (35, NULL, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Costa Rica
+        (42, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Dominica
+        (43, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Dominican Republic
+        (46, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- El Salvador
+        (50, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Eswatini
+        (52, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Fiji
+        (55, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Gabon
+        (61, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Grenada
+        (62, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Guatemala
+        (66, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Haiti
+        (68, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Honduras
+        (71, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- India
+        (72, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Indonesia
+        (77, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Jamaica
+        (81, NULL, 5, 'N/A','1976-11-26', '2024-11-26'), -- Kenya
+        (86, NULL, 5,'N/A','1976-11-26', '2024-11-26'), -- Laos
+        (97, NULL, 5,'N/A','1976-11-26', '2024-11-26'), -- Malaysia
+        (98, NULL, 5,'N/A','1976-11-26', '2024-11-26'), -- Maldives
+        (99, NULL, 5,'N/A','1976-11-26', '2024-11-26'), -- Mali
+        (101, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
+        (102, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Martinique
+        (105, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Mexico
+        (118, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
+        (120, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
+        (126, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Palau
+        (128, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Panama
+        (129, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Papua New Guinea
+        (130, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
+        (131, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Peru
+        (132, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Philippines
+        (139, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Saint Kitts and Nevis
+        (140, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+        (146, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Senegal
+        (150, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Singapore
+        (153, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Solomon Islands
+        (161, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Suriname
+        (170, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Tonga
+        (171, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
+        (176, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Uganda
+        (180, NULL, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
+        (183, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
+        (184, NULL, 5, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
+        (185, NULL, 5, 'N/A','1976-11-26','2024-11-26'); -- Vietnam
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
-                                                                -- Chikungunya occurrences
-                                                               (6, 6, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
-                                                               (13, 6, 'N/A','1976-11-26','2024-11-26'),  -- Bangladesh
-                                                               (25, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
-                                                               (26, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
-                                                               (28, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
-                                                               (29, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
-                                                               (31, 6, 'N/A', '1976-11-26', '2024-11-26'), -- China
-                                                               (32, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
-                                                               (35, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Costa Rica
-                                                               (42, 6,'N/A','1976-11-26','2024-11-26'), -- Dominica
-                                                               (43, 6,'N/A','1976-11-26','2024-11-26'), -- Dominican Republic
-                                                               (46, 6, 'N/A','1976-11-26','2024-11-26'), -- El Salvador
-                                                               (47, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
-                                                               (50, 6,'N/A','1976-11-26','2024-11-26'), -- Eswatini
-                                                               (51, 6,'N/A','1976-11-26','2024-11-26'), -- Ethiopia
-                                                               (52, 6,'N/A','1976-11-26','2024-11-26'), -- Fiji
-                                                               (55, 6,'N/A','1976-11-26', '2024-11-26'), -- Gabon
-                                                               (56, 6,'N/A','1976-11-26', '2024-11-26'), -- Gambia
-                                                               (61, 6, 'N/A','1976-11-26', '2024-11-26'), -- Grenada
-                                                               (62, 6, 'N/A','1976-11-26', '2024-11-26'), -- Guatemala
-                                                               (63, 6,'N/A','1976-11-26', '2024-11-26'), -- Guinea
-                                                               (66, 6, 'N/A','1976-11-26', '2024-11-26'), -- Haiti
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
+                                                                                                -- Chikungunya occurrences
+                                                                                                (6, NULL, 6, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
+                                                                                                (13, NULL, 6, 'N/A','1976-11-26','2024-11-26'),  -- Bangladesh
+                                                                                                (25, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
+                                                                                                (26, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
+                                                                                                (28, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
+                                                                                                (29, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
+                                                                                                (31, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- China
+                                                                                                (32, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
+                                                                                                (35, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Costa Rica
+                                                                                                (42, NULL, 6,'N/A','1976-11-26','2024-11-26'), -- Dominica
+                                                                                                (43, NULL, 6,'N/A','1976-11-26','2024-11-26'), -- Dominican Republic
+                                                                                                (46, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- El Salvador
+                                                                                                (47, NULL, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
+                                                                                                (50, NULL, 6,'N/A','1976-11-26','2024-11-26'), -- Eswatini
+                                                                                                (51, NULL, 6,'N/A','1976-11-26','2024-11-26'), -- Ethiopia
+                                                                                                (52, NULL, 6,'N/A','1976-11-26','2024-11-26'), -- Fiji
+                                                                                                (55, NULL, 6,'N/A','1976-11-26', '2024-11-26'), -- Gabon
+                                                                                                (56, NULL, 6,'N/A','1976-11-26', '2024-11-26'), -- Gambia
+                                                                                                (61, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Grenada
+                                                                                                (62, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Guatemala
+                                                                                                (63, NULL, 6,'N/A','1976-11-26', '2024-11-26'), -- Guinea
+                                                                                                (66, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Haiti
 
+-- TEST
+                                                                                                (68, NULL, 6, 'N/A','2024-07-26', '2024-8-26'), -- Honduras
 
-                                                               -- TEST
-                                                               (68, 6, 'N/A','2024-07-26', '2024-8-26'), -- Honduras
+                                                                                                (71, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- India
+                                                                                                (72, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Indonesia
+                                                                                                (77, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Jamaica
+                                                                                                (81, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Kenya
+                                                                                                (82, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Kiribati
+                                                                                                (86, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Laos
+                                                                                                (90, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Liberia
+                                                                                                (95, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Madagascar
+                                                                                                (96, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Malawi
+                                                                                                (97, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Malaysia
+                                                                                                (98, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Maldives
+                                                                                                (99, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Mali
+                                                                                                (101, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
+                                                                                                (102, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Martinique
+                                                                                                (104, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Mauritius
+                                                                                                (105, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Mexico
+                                                                                                (112, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Myanmar
+                                                                                                (114, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Naura
+                                                                                                (118, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
+                                                                                                (120, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
+                                                                                                (125, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Pakistan
+                                                                                                (126, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Palau
+                                                                                                (128, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Panama
+                                                                                                (130, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
+                                                                                                (131, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Peru
+                                                                                                (132, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Philippines
+                                                                                                (139, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Saint Kitts and Nevis
+                                                                                                (139, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+                                                                                                (146, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Senegal
+                                                                                                (148, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Seychelles
+                                                                                                (149, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Sierra Leone
+                                                                                                (150, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Singapore
+                                                                                                (154, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Somalia
+                                                                                                (155, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- South Africa
+                                                                                                (157, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- South Sudan
+                                                                                                (159, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Sri Lanka
+                                                                                                (160, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Sudan
+                                                                                                (161, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Suriname
+                                                                                                (166, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
+                                                                                                (170, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tonga
+                                                                                                (176, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Uganda
+                                                                                                (180, NULL, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+                                                                                                (184, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
+                                                                                                (185, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
+                                                                                                (186, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Yemen
+                                                                                                (187, NULL, 6, 'N/A','1976-11-26','2024-11-26'); -- Zambia
 
+INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
+        -- Yellow Fever occurrences
+        (5,  NULL, 7, 'N/A', '1976-11-26','2024-11-26'), -- Angola
+        (6,  NULL, 7, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
+        (26, NULL, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
+        (27, NULL, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
+        (29, NULL, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
+        (32, NULL, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
+        (47, NULL, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
 
-                                                               (71, 6, 'N/A','1976-11-26', '2024-11-26'), -- India
-                                                               (72, 6, 'N/A','1976-11-26', '2024-11-26'), -- Indonesia
-                                                               (77, 6, 'N/A','1976-11-26', '2024-11-26'), -- Jamaica
-                                                               (81, 6, 'N/A','1976-11-26', '2024-11-26'), -- Kenya
-                                                               (82, 6, 'N/A','1976-11-26', '2024-11-26'), -- Kiribati
-                                                               (86, 6, 'N/A','1976-11-26', '2024-11-26'), -- Laos
-                                                               (90, 6, 'N/A','1976-11-26','2024-11-26'), -- Liberia
-                                                               (95, 6, 'N/A','1976-11-26','2024-11-26'), -- Madagascar
-                                                               (96, 6, 'N/A','1976-11-26','2024-11-26'), -- Malawi
-                                                               (97, 6, 'N/A','1976-11-26','2024-11-26'), -- Malaysia
-                                                               (98, 6, 'N/A','1976-11-26','2024-11-26'), -- Maldives
-                                                               (99, 6, 'N/A','1976-11-26','2024-11-26'), -- Mali
-                                                               (101, 6, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
-                                                               (102, 6, 'N/A','1976-11-26','2024-11-26'), -- Martinique
-                                                               (104, 6, 'N/A','1976-11-26','2024-11-26'), -- Mauritius
-                                                               (105, 6, 'N/A','1976-11-26','2024-11-26'), -- Mexico
-                                                               (112, 6, 'N/A','1976-11-26','2024-11-26'), -- Myanmar
-                                                               (114, 6, 'N/A','1976-11-26','2024-11-26'), -- Naura
-                                                               (118, 6, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
-                                                               (120, 6, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
-                                                               (125, 6, 'N/A','1976-11-26','2024-11-26'), -- Pakistan
-                                                               (126, 6, 'N/A','1976-11-26','2024-11-26'), -- Palau
-                                                               (128, 6, 'N/A','1976-11-26','2024-11-26'), -- Panama
-                                                               (130, 6, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
-                                                               (131, 6, 'N/A','1976-11-26','2024-11-26'), -- Peru
-                                                               (132, 6, 'N/A','1976-11-26','2024-11-26'), -- Philippines
-                                                               (139 ,6, 'N/A','1976-11-26','2024-11-26'), -- Saint Kitts and Nevis
-                                                               (139 ,6, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
-                                                               (146, 6, 'N/A','1976-11-26','2024-11-26'), -- Senegal
-                                                               (148, 6, 'N/A','1976-11-26','2024-11-26'), -- Seychelles
-                                                               (149, 6, 'N/A','1976-11-26','2024-11-26'), -- Sierra Leone
-                                                               (150, 6, 'N/A','1976-11-26','2024-11-26'), -- Singapore
-                                                               (154, 6, 'N/A','1976-11-26','2024-11-26'), -- Somalia
-                                                               (155, 6, 'N/A','1976-11-26','2024-11-26'), -- South Africa
-                                                               (157, 6, 'N/A','1976-11-26','2024-11-26'), -- South Sudan
-                                                               (159, 6, 'N/A','1976-11-26','2024-11-26'), -- Sri Lanka
-                                                               (160, 6, 'N/A','1976-11-26','2024-11-26'), -- Sudan
-                                                               (161, 6, 'N/A','1976-11-26','2024-11-26'), -- Suriname
-                                                               (166, 6, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
-                                                               (170, 6, 'N/A','1976-11-26','2024-11-26'), -- Tonga
-                                                               (176, 6, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-                                                               (180, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
-                                                               (184, 6, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
-                                                               (185, 6, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
-                                                               (186, 6, 'N/A','1976-11-26','2024-11-26'), -- Yemen
-                                                               (187, 6, 'N/A','1976-11-26','2024-11-26'); -- Zambia
+        -- TEST
+        (51, NULL, 7, 'N/A', '2024-01-04', '2024-02-26'), -- Ethiopia
 
-INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
-                                                                -- Yellow Fever occurrences
-                                                                (5,  7, 'N/A', '1976-11-26','2024-11-26'), -- Angola
-                                                                (6,  7, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
-                                                                (26, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
-                                                                (27, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
-                                                                (29, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
-                                                                (32, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
-                                                                (47, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Equatorial Guinea
-
-                                                                -- TEST
-                                                                (51, 7, 'N/A', '2024-01-04', '2024-02-26'), -- Ethiopia
-
-
-                                                                (55, 7, 'N/A','1976-11-26', '2024-11-26'), -- Gabon
-                                                                (56, 7, 'N/A','1976-11-26', '2024-11-26'), -- Gambia
-                                                                (59, 7, 'N/A','1976-11-26', '2024-11-26'), -- Ghana
-                                                                (63, 7, 'N/A','1976-11-26', '2024-11-26'), -- Guinea
-                                                                (90, 7, 'N/A','1976-11-26','2024-11-26'), -- Liberia
-                                                                (103, 7,'N/A','1976-11-26','2024-11-26'), -- Mauritania
-                                                                (119, 7,'N/A','1976-11-26','2024-11-26'), -- Niger
-                                                                (120, 7,'N/A','1976-11-26','2024-11-26'), -- Nigeria
-                                                                (128, 7,'N/A','1976-11-26','2024-11-26'), -- Panama
-                                                                (130, 7,'N/A','1976-11-26','2024-11-26'), -- Paraguay
-                                                                (131, 7,'N/A','1976-11-26','2024-11-26'), -- Peru
-                                                                (146, 7, 'N/A','1976-11-26','2024-11-26'), -- Senegal
-                                                                (149, 7,'N/A','1976-11-26','2024-11-26'), -- Sierra Leone
-                                                                (157, 7,'N/A','1976-11-26','2024-11-26'), -- South Sudan
-                                                                (160,7,'N/A','1976-11-26','2024-11-26'), -- Sudan
-                                                                (161, 7, 'N/A','1976-11-26','2024-11-26'), -- Suriname
-                                                                (169,7, 'N/A','1976-11-26','2024-11-26'), -- Togo
-                                                                (171,7, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
-                                                                (176,7, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-                                                                (184,7, 'N/A','1976-11-26','2024-11-26'); -- Venezuela
-
-SELECT * FROM country_disease;
+        (55, NULL, 7, 'N/A','1976-11-26', '2024-11-26'), -- Gabon
+        (56, NULL, 7, 'N/A','1976-11-26', '2024-11-26'), -- Gambia
+        (59, NULL, 7, 'N/A','1976-11-26', '2024-11-26'), -- Ghana
+        (63, NULL, 7, 'N/A','1976-11-26', '2024-11-26'), -- Guinea
+        (90, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Liberia
+        (103, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Mauritania
+        (119, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Niger
+        (120, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Nigeria
+        (128, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Panama
+        (130, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Paraguay
+        (131, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Peru
+        (146, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Senegal
+        (149, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Sierra Leone
+        (157, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- South Sudan
+        (160, NULL, 7,'N/A','1976-11-26','2024-11-26'), -- Sudan
+        (161, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Suriname
+        (169, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Togo
+        (171, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
+        (176, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Uganda
+        (184, NULL, 7, 'N/A','1976-11-26','2024-11-26'); -- Venezuela
 
 
 INSERT INTO donor_travelled_to_country (donor_id, country_id, end_date) VALUES

@@ -25,6 +25,14 @@ CREATE TABLE IF NOT EXISTS countries
     country_name VARCHAR(50)
 );
 
+CREATE TABLE IF NOT EXISTS regions
+(
+    region_id INT AUTO_INCREMENT PRIMARY KEY,
+    region_name VARCHAR(200),
+    country_id INT,
+    FOREIGN KEY(country_id) REFERENCES countries(country_id)
+);
+
 CREATE TABLE IF NOT EXISTS diseases
 (
     disease_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,11 +53,13 @@ CREATE TABLE IF NOT EXISTS country_disease
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
     country_id INT,
+    region_id INT,
     disease_id INT,
     note VARCHAR(200),
     start_date DATE,
     end_date DATE,
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
+    FOREIGN KEY(region_id) REFERENCES regions(region_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
 );
 
@@ -70,12 +80,6 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
 );
 
 
-CREATE TABLE IF NOT EXISTS regions
-(
-    region_id INT AUTO_INCREMENT PRIMARY KEY,
-    region_name VARCHAR(200),
-    country_id INT,
-    FOREIGN KEY(country_id) REFERENCES countries(country_id)
-);
+
 
 
