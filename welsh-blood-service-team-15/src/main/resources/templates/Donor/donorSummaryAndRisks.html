@@ -20,7 +20,7 @@
               (${donor.donorDecision == 'Eligible to donate but further testing needed'} ? 'today-test' :
               (${donor.donorDecision == 'Eligible to donate but must wait 6 months'} ? 'wait' :
               (${donor.donorDecision == 'Not Eligible to donate at all'} ? 'never' : '')))"
-              th:text="${donor.donorDecision != null ? donor.donorDecision : 'No decision available'}">
+              th:text="${donor.donorDecision != null ? donor.donorDecision : 'Awaiting decision'}">
     </span>
     </p>
     <h2>Travel History</h2>
