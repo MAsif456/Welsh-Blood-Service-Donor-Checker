@@ -65,3 +65,19 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
+/* Error message styling */
+.alert {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 0.75rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}

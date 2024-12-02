@@ -15,7 +15,6 @@ public class Questions {
     private Integer question_id;
 
     private String question;
-    private String noRiskResponse;
 
     public Integer getQuestion_id() {
         return question_id;
@@ -31,14 +30,6 @@ public class Questions {
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public String getNoRiskResponse() {
-        return noRiskResponse;
-    }
-
-    public void setNoRiskResponse(String noRiskResponse) {
-        this.noRiskResponse = noRiskResponse;
     }
 }
 
