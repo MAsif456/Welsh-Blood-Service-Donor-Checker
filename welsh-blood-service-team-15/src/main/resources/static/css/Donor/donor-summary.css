@@ -29,24 +29,25 @@
     margin-bottom: 10px;
 }
 
+/*this can be changed in future if needed*/
 .decision.today {
-    color: white;
-    background-color: #28a745;
+    color: black;
+    background-color: whitesmoke;
 }
 
 .decision.today-test {
     color: black;
-    background-color: #ffc107;
+    background-color: whitesmoke;
 }
 
 .decision.wait {
-    color: white;
-    background-color: #ffc107;
+    color: black;
+    background-color: whitesmoke;
 }
 
 .decision.never {
-    color: white;
-    background-color: #ff4d4d;
+    color: black;
+    background-color: whitesmoke;
 }
 
 /* Hidden Element */
