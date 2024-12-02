@@ -16,8 +16,8 @@
     color: #333;
 }
 
-/* Risk Indicator */
-.risk {
+/* Decision Indicator */
+.decision {
     display: block;
     padding: 10px 20px;
     border-radius: 50px;
@@ -29,19 +29,24 @@
     margin-bottom: 10px;
 }
 
-.risk.high {
+.decision.today {
     color: white;
-    background-color: #ff4d4d; /* Bright red for high risk */
+    background-color: #28a745;
 }
 
-.risk.moderate {
+.decision.today-test {
     color: black;
-    background-color: #ffc107; /* Yellow for moderate risk */
+    background-color: #ffc107;
 }
 
-.risk.low {
+.decision.wait {
     color: white;
-    background-color: #28a745; /* Green for low risk */
+    background-color: #ffc107;
+}
+
+.decision.never {
+    color: white;
+    background-color: #ff4d4d;
 }
 
 /* Hidden Element */

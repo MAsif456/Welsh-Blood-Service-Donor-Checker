@@ -58,7 +58,6 @@ public class DecisionAndNotesRepoImpl implements DecisionAndNotesRepository {
             donorDetails.setFirstName(rs.getString("first_name"));
             donorDetails.setLastName(rs.getString("last_name"));
             donorDetails.setDonorDob(rs.getDate("donor_dob").toLocalDate());
-            donorDetails.setDonorRisk(rs.getString("donor_risk"));
             donorDetails.setDonorDecision(rs.getString("donor_decision"));
             donorDetails.setDonorNote(rs.getString("donor_note"));
             return donorDetails;

@@ -14,7 +14,6 @@ public class Donor {
     private String firstName;
     private String lastName;
     private LocalDate donorDob;
-    private String donorRisk;
     private String donorDecision;
     private String donorNote;
     @OneToMany(mappedBy = "donor", fetch = FetchType.LAZY)
@@ -43,12 +42,6 @@ public class Donor {
     }
     public void setDonorDob(LocalDate donorDob) {
         this.donorDob = donorDob;
-    }
-    public String getDonorRisk() {
-        return donorRisk;
-    }
-    public void setDonorRisk(String donorRisk) {
-        this.donorRisk = donorRisk;
     }
     public String getDonorDecision() {
         return donorDecision;
