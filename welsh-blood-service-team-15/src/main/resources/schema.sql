@@ -74,11 +74,9 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
 );
 
 
-/*
-select * from travel_questionnaire;
-select * from donor_travelled_to_country;
-select * from donor;
- */
+
+
+
 
 
 

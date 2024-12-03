@@ -7,31 +7,70 @@
         function toggleConditionalQuestions() {
             const formData = document.forms['travelForm'];
             const question1 = formData['question1'].value;
-            const question4 = formData['question4'].value;
-
             document.getElementById('conditional1').style.display = question1 === 'Yes' ? 'block' : 'none';
+
+            const question4 = formData['question4'].value;
             document.getElementById('conditional2').style.display = question4 === 'Yes' ? 'block' : 'none';
         }
 
-        function validateQuestion3() {
+        function addCountry(containerId, countryKeyPrefix, dateKeyPrefix, labelText) {
+            const container = document.getElementById(containerId);
+            const countryIndex = container.children.length;
+
+            const countryDiv = document.createElement('div');
+            countryDiv.className = 'form-section';
+
+            const countryLabel = document.createElement('label');
+            countryLabel.setAttribute('for', `${countryKeyPrefix}${countryIndex}`);
+            countryLabel.textContent = labelText;
+            countryDiv.appendChild(countryLabel);
+
+            const countrySelect = document.createElement('select');
+            countrySelect.id = `${countryKeyPrefix}${countryIndex}`;
+            countrySelect.name = `${countryKeyPrefix}${countryIndex}`;
+            countrySelect.innerHTML = document.getElementById('countryOptions').innerHTML;
+            countryDiv.appendChild(countrySelect);
+
+            const dateLabel = document.createElement('label');
+            dateLabel.setAttribute('for', `${dateKeyPrefix}${countryIndex}`);
+            dateLabel.textContent = 'When did you return from this country?';
+            countryDiv.appendChild(dateLabel);
+
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.id = `${dateKeyPrefix}${countryIndex}`;
+            dateInput.name = `${dateKeyPrefix}${countryIndex}`;
+            countryDiv.appendChild(dateInput);
+
+            container.appendChild(countryDiv);
+        }
+
+        function validateForm(event) {
             const formData = document.forms['travelForm'];
-            const question3 = formData['question3'];
+            const question1 = formData['question1'].value;
             const currentDate = new Date();
             const twelveMonthsAgo = new Date();
             twelveMonthsAgo.setFullYear(currentDate.getFullYear() - 1);
 
-            const selectedDate = new Date(question3.value);
+            if (question1 === 'Yes') {
+                const countryDivs = document.getElementById('countriesContainer1').children;
+                for (let i = 0; i < countryDivs.length; i++) {
+                    const dateInput = countryDivs[i].querySelector('input[type="date"]');
+                    const selectedDate = new Date(dateInput.value);
 
-            if (selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
-                alert('Please enter a date within the last 12 months and not in the future.');
-                question3.value = '';
+                    if (selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
+                        alert('Please enter a date within the last 12 months.');
+                        event.preventDefault(); // Prevent form submission
+                        return;
+                    }
+                }
             }
         }
     </script>
 </head>
 <body>
 <h1>Travel Form</h1>
-<form name="travelForm" th:action="@{/submit-travel-form}" th:object="${formData}" method="post" oninput="toggleConditionalQuestions()">
+<form name="travelForm" th:action="@{/submit-travel-form}" th:object="${formData}" method="post" oninput="toggleConditionalQuestions()" onsubmit="validateForm(event)">
     <input type="hidden" th:name="donorId" th:value="${donorId}" />
     <div class="form-section">
         <label for="question1">Have you travelled abroad in the past 12 months?</label>
@@ -41,20 +80,9 @@
             <option value="No">No</option>
         </select>
     </div>
-    <div id="conditional1" class="form-section conditional">
-        <div>
-            <label for="question2">Where have you travelled in the last 12 months?</label>
-            <select id="question2" name="question2" th:field="*{question2}">
-                <option value="">Select a country</option>
-                <th:block th:each="country : ${countries}">
-                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
-                </th:block>
-            </select>
-        </div>
-        <div>
-            <label for="question3">When did you return from this country?</label>
-            <input type="date" id="question3" name="question3" th:field="*{question3}" onchange="validateQuestion3()" />
-        </div>
+    <div id="conditional1" class="form-section conditional" style="display: none;">
+        <div id="countriesContainer1"></div>
+        <button type="button" onclick="addCountry('countriesContainer1', 'question2_', 'question3_', 'Where have you travelled in the last 12 months?')">Add Country</button>
     </div>
     <div class="form-section">
         <label for="question4">Have you lived abroad for more than 6 months?</label>
@@ -64,24 +92,21 @@
             <option value="No">No</option>
         </select>
     </div>
-    <div id="conditional2" class="form-section conditional">
-        <div>
-            <label for="question5">Where have you lived abroad?</label>
-            <select id="question5" name="question5" th:field="*{question5}">
-                <option value="">Select a country</option>
-                <th:block th:each="country : ${countries}">
-                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
-                </th:block>
-            </select>
-        </div>
-        <div>
-            <label for="question6">When did you return from this country?</label>
-            <input type="date" id="question6" name="question6" th:field="*{question6}" />
-        </div>
+    <div id="conditional2" class="form-section conditional" style="display: none;">
+        <div id="countriesContainer2"></div>
+        <button type="button" onclick="addCountry('countriesContainer2', 'question5_', 'question6_', 'Where have you lived abroad?')">Add Country</button>
     </div>
     <div class="form-section">
         <button type="submit">Submit</button>
     </div>
 </form>
+
+<!-- Hidden div to store country options for JavaScript use -->
+<div id="countryOptions" style="display: none;">
+    <option value="">Select a country</option>
+    <th:block th:each="country : ${countries}">
+        <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+    </th:block>
+</div>
 </body>
 </html>
