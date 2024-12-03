@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public record CountryDiseaseDTO(
         String countryName,
+        String regionName, // Added region
         String diseaseName,
         String diseaseNote,
         LocalDate diseaseStart,

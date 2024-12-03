@@ -202,7 +202,7 @@ INSERT INTO countries (country_name) VALUES
                                          ('Belize'),  -- Country ID 190
                                          ('Benin');  -- Country ID 191
 
-
+select * from countries where country_name = 'Australia';
 -- Original data split into multiple records for 3NF
 INSERT INTO regions (region_name, country_id)
 VALUES
@@ -256,7 +256,7 @@ VALUES
     ('US Virgin Islands (St Choix)', 180),
     ('US Virgin Islands (St John)', 180),
     ('US Virgin Islands (St Thomas)', 180);
-
+select * from regions where country_id = 180;
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
                                         ('Malaria'),  -- Disease ID 1
@@ -266,9 +266,6 @@ INSERT INTO diseases (disease_name) VALUES
                                         ('Zika Virus'),  -- Disease ID 5
                                         ('Chikungunya'),  -- Disease ID 6
                                         ('Yellow Fever');  -- Disease ID 7
-
-
-
 
 
 INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
@@ -509,7 +506,7 @@ INSERT INTO country_disease (country_id, region_id,  disease_id, note, start_dat
         (170, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Tonga
         (171, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
         (178, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- United Arab Emirates
-        (180, 47, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
+       (180, 47, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
         (181, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Uruguay
         (183, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
         (184, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
@@ -699,63 +696,33 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_dat
                                                                                         (3, 10, null, '2020-01-15'),  -- Mary traveled to Guatemala
                                                                                         (3, 12, null, '2017-07-31'), -- Mary traveled to India
                                                                                         -- inserts for donor 5 alice
-                                                                                        (5, 51, null, '2024-03-08'), -- Alice went to ethiopia
-                                                                                        (5, 68, null, '2024-09-26'); -- alice went to iceland
+                                                                                        (5, 6, 2, '2024-03-08'), --
+                                                                                       (5, 180,47 , '2024-09-26'); --
 
 
 
 
+select * from regions where country_id = 6;
 
 
 INSERT INTO questions (question) VALUES
-                                                       ('Have you travelled to a country within the last 12 months?'),
+                                                       ('Have you travelled abroad in the past 12 months?'),
                                                        ('Where have you travelled in the last 12 months?'),
-                                                       ('When did you go to this country?'),
                                                        ('When did you return from this country?'),
-                                                       ('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
-                                                       ('Where did they travel to?'),
-                                                       ('When did they go to this country?'),
-                                                       ('When did they return from this country?'),
                                                        ('Have you lived abroad for more than 6 months?'),
                                                        ('Where have you lived abroad?'),
-                                                       ('When did you go abroad?'),
-                                                       ('When did you return from abroad?'),
-                                                       ('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
-                                                       ('Where did they live abroad?'),
-                                                       ('When did they live abroad?'),
-                                                       ('When did they return from abroad?'),
-                                                       ('Have you travelled through multiple countries whilst travelling abroad?'),
-                                                       ('Which countries have you travelled through?'),
-                                                       ('When did you go to these countries?'),
-                                                       ('When did you return from these countries?'),
-                                                       ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?'),
-                                                       ('Which countries did they travel through?'),
-                                                       ('When did they go to these countries?'),
-                                                       ('When did they return from these countries?');
+                                                       ('When did you return from this country?');
 
 
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
 VALUES
-    (5, 1, 'Yes'),  -- Donor 1 travelled in the last 12 months.
-    (5, 5, 'No'),   -- Donor 1 has not been in contact with recent travellers.
-    (5, 6, 'Yes'),  -- Donor 1 lived abroad for more than 6 months.
-    (5, 7, 'India'), -- Donor 1 lived in India.
-    (5, 8, '2019-01-01'), -- Donor 1 went to India on 1st January 2019.
-    (5, 9, '2020-01-01'), -- Donor 1 returned from India on 1st January 2020.
-    (5, 10, 'Yes'), -- Donor 1 has been in contact with someone who lived abroad for more than 6 months.
-    (5, 11, 'Yes'), -- Donor 1 travelled through multiple countries.
-    (5, 15, 'Yes'), -- Donor 1 has been in contact with someone who travelled through multiple countries.
-    (2, 1, 'No'),   -- Donor 2 did not travel in the last 12 months.
-    (2, 5, 'Yes'),  -- Donor 2 has been in contact with recent travellers.
-    (2, 6, 'No'),   -- Donor 2 has not lived abroad for more than 6 months.
-    (2, 11, 'No'),  -- Donor 2 did not travel through multiple countries.
-    (2, 15, 'No'),  -- Donor 2 has not been in contact with someone who travelled through multiple countries.
-    (3, 1, 'Yes'),  -- Donor 3 travelled in the last 12 months.
-    (3, 5, 'No'),   -- Donor 3 has not been in contact with recent travellers.
-    (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
-    (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
-    (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
+    (5, 1, 'Yes'),  -- Donor 5 travelled in the last 12 months.
+    (5, 2, 'India'), -- Donor 5 travelled to India.
+    (5, 3, '2020-01-01'), -- Donor 5 returned from India on 1st January 2020.
+    (5, 4, 'Yes'), -- Donor 5 lived abroad for more than 6 months.
+    (5, 5, 'India'), -- Donor 5 lived in India.
+    (5, 6, '2024-03-08') -- Donor 5 returned from India on 1st January 2020.
 ;
 
 
