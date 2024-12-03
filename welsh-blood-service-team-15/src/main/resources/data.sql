@@ -202,7 +202,6 @@ INSERT INTO countries (country_name) VALUES
                                          ('Belize'),  -- Country ID 190
                                          ('Benin');  -- Country ID 191
 
-select * from countries where country_name = 'Australia';
 -- Original data split into multiple records for 3NF
 INSERT INTO regions (region_name, country_id)
 VALUES
@@ -255,8 +254,11 @@ VALUES
     ('Hawaii', 180),
     ('US Virgin Islands (St Choix)', 180),
     ('US Virgin Islands (St John)', 180),
-    ('US Virgin Islands (St Thomas)', 180);
-select * from regions where country_id = 180;
+    ('US Virgin Islands (St Thomas)', 180),
+    ('Ihrir TEST 2 (Illizi Department)', 3);
+
+
+select * from regions where country_id = 3;
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
                                         ('Malaria'),  -- Disease ID 1
@@ -684,12 +686,14 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
         (169, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Togo
         (171, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
         (176, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-        (184, NULL, 7, 'N/A','1976-11-26','2024-11-26'); -- Venezuela
+        (184, NULL, 7, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
+        (3, 51, 7, 'is a mad one','1976-11-26','2024-11-26');
+
 
 
 INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_date) VALUES
-                                                                                        (1, 4, null,  '2017-02-10'),  -- John traveled to Cameroon
-                                                                                        (1, 3, null, '2018-07-15'),  -- John traveled to Bolivia
+                                                                                        (1, 3, 1,  '2024-02-10'),  -- John traveled to Cameroon
+                                                                                        -- (1, 3, null, '2018-07-15'),  -- John traveled to Bolivia
                                                                                         (2, 5, null, '2016-06-01'),  -- Jane traveled to Chad
                                                                                         (2, 7, null, '2019-04-01'),  -- Jane traveled to Colombia
                                                                                         (3, 15, null,  '2018-06-15'),  -- Mary traveled to Myanmar
@@ -701,8 +705,6 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_dat
 
 
 
-
-select * from regions where country_id = 6;
 
 
 INSERT INTO questions (question) VALUES
