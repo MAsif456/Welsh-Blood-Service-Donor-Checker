@@ -1,4 +1,5 @@
 USE WelshBlood;
+
 DROP TABLE IF EXISTS donor_travelled_to_country;
 DROP TABLE IF EXISTS country_disease;
 DROP TABLE IF EXISTS travel_questionnaire;
@@ -7,6 +8,8 @@ DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
+
+
 
 
 CREATE TABLE IF NOT EXISTS donor
@@ -80,6 +83,9 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
 );
+
+
+
 
 
 
