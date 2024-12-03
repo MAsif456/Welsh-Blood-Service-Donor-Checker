@@ -36,7 +36,7 @@ public class TravelFormController {
     public String showTravelForm(@PathVariable Long donorId, Model model) {
         List<String> questions = List.of(
                 "Have you travelled abroad in the past 12 months?",
-                "Where have you travelled in the last 12 months?",
+                "Where have you travelled in the past 12 months?",
                 "When did you return from this country?",
                 "Have you lived abroad for more than 6 months?",
                 "Where have you lived abroad?",

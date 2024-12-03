@@ -19,6 +19,7 @@
 
             const countryDiv = document.createElement('div');
             countryDiv.className = 'form-section';
+            countryDiv.id = `${containerId}_div_${countryIndex}`;
 
             const countryLabel = document.createElement('label');
             countryLabel.setAttribute('for', `${countryKeyPrefix}${countryIndex}`);
@@ -42,12 +43,21 @@
             dateInput.name = `${dateKeyPrefix}${countryIndex}`;
             countryDiv.appendChild(dateInput);
 
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function() {
+                container.removeChild(countryDiv);
+            };
+            countryDiv.appendChild(deleteButton);
+
             container.appendChild(countryDiv);
         }
 
         function validateForm(event) {
             const formData = document.forms['travelForm'];
             const question1 = formData['question1'].value;
+            const question4 = formData['question4'].value;
             const currentDate = new Date();
             const twelveMonthsAgo = new Date();
             twelveMonthsAgo.setFullYear(currentDate.getFullYear() - 1);
@@ -55,11 +65,26 @@
             if (question1 === 'Yes') {
                 const countryDivs = document.getElementById('countriesContainer1').children;
                 for (let i = 0; i < countryDivs.length; i++) {
+                    const countrySelect = countryDivs[i].querySelector('select');
                     const dateInput = countryDivs[i].querySelector('input[type="date"]');
                     const selectedDate = new Date(dateInput.value);
 
-                    if (selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
-                        alert('Please enter a date within the last 12 months.');
+                    if (!countrySelect.value || !dateInput.value || selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
+                        alert('Please fill out all fields for the countries you have travelled to in the last 12 months.');
+                        event.preventDefault(); // Prevent form submission
+                        return;
+                    }
+                }
+            }
+
+            if (question4 === 'Yes') {
+                const countryDivs = document.getElementById('countriesContainer2').children;
+                for (let i = 0; i < countryDivs.length; i++) {
+                    const countrySelect = countryDivs[i].querySelector('select');
+                    const dateInput = countryDivs[i].querySelector('input[type="date"]');
+
+                    if (!countrySelect.value || !dateInput.value) {
+                        alert('Please fill out all fields for the countries you have lived in.');
                         event.preventDefault(); // Prevent form submission
                         return;
                     }
