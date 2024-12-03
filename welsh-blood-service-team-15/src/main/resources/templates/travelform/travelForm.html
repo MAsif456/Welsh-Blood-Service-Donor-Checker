@@ -3,95 +3,6 @@
 <head>
     <title>Travel Form</title>
     <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
-    <script>
-        function toggleConditionalQuestions() {
-            const formData = document.forms['travelForm'];
-            const question1 = formData['question1'].value;
-            document.getElementById('conditional1').style.display = question1 === 'Yes' ? 'block' : 'none';
-
-            const question4 = formData['question4'].value;
-            document.getElementById('conditional2').style.display = question4 === 'Yes' ? 'block' : 'none';
-        }
-
-        function addCountry(containerId, countryKeyPrefix, dateKeyPrefix, labelText) {
-            const container = document.getElementById(containerId);
-            const countryIndex = container.children.length;
-
-            const countryDiv = document.createElement('div');
-            countryDiv.className = 'form-section';
-            countryDiv.id = `${containerId}_div_${countryIndex}`;
-
-            const countryLabel = document.createElement('label');
-            countryLabel.setAttribute('for', `${countryKeyPrefix}${countryIndex}`);
-            countryLabel.textContent = labelText;
-            countryDiv.appendChild(countryLabel);
-
-            const countrySelect = document.createElement('select');
-            countrySelect.id = `${countryKeyPrefix}${countryIndex}`;
-            countrySelect.name = `${countryKeyPrefix}${countryIndex}`;
-            countrySelect.innerHTML = document.getElementById('countryOptions').innerHTML;
-            countryDiv.appendChild(countrySelect);
-
-            const dateLabel = document.createElement('label');
-            dateLabel.setAttribute('for', `${dateKeyPrefix}${countryIndex}`);
-            dateLabel.textContent = 'When did you return from this country?';
-            countryDiv.appendChild(dateLabel);
-
-            const dateInput = document.createElement('input');
-            dateInput.type = 'date';
-            dateInput.id = `${dateKeyPrefix}${countryIndex}`;
-            dateInput.name = `${dateKeyPrefix}${countryIndex}`;
-            countryDiv.appendChild(dateInput);
-
-            const deleteButton = document.createElement('button');
-            deleteButton.type = 'button';
-            deleteButton.textContent = 'Delete';
-            deleteButton.onclick = function() {
-                container.removeChild(countryDiv);
-            };
-            countryDiv.appendChild(deleteButton);
-
-            container.appendChild(countryDiv);
-        }
-
-        function validateForm(event) {
-            const formData = document.forms['travelForm'];
-            const question1 = formData['question1'].value;
-            const question4 = formData['question4'].value;
-            const currentDate = new Date();
-            const twelveMonthsAgo = new Date();
-            twelveMonthsAgo.setFullYear(currentDate.getFullYear() - 1);
-
-            if (question1 === 'Yes') {
-                const countryDivs = document.getElementById('countriesContainer1').children;
-                for (let i = 0; i < countryDivs.length; i++) {
-                    const countrySelect = countryDivs[i].querySelector('select');
-                    const dateInput = countryDivs[i].querySelector('input[type="date"]');
-                    const selectedDate = new Date(dateInput.value);
-
-                    if (!countrySelect.value || !dateInput.value || selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
-                        alert('Please fill out all fields for the countries you have travelled to in the last 12 months.');
-                        event.preventDefault(); // Prevent form submission
-                        return;
-                    }
-                }
-            }
-
-            if (question4 === 'Yes') {
-                const countryDivs = document.getElementById('countriesContainer2').children;
-                for (let i = 0; i < countryDivs.length; i++) {
-                    const countrySelect = countryDivs[i].querySelector('select');
-                    const dateInput = countryDivs[i].querySelector('input[type="date"]');
-
-                    if (!countrySelect.value || !dateInput.value) {
-                        alert('Please fill out all fields for the countries you have lived in.');
-                        event.preventDefault(); // Prevent form submission
-                        return;
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body>
 <h1>Travel Form</h1>
@@ -126,12 +37,22 @@
     </div>
 </form>
 
-<!-- Hidden div to store country options for JavaScript use -->
+<!-- Hidden divs to store options for JavaScript use -->
 <div id="countryOptions" style="display: none;">
     <option value="">Select a country</option>
     <th:block th:each="country : ${countries}">
         <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
     </th:block>
 </div>
+
+<div id="regionOptions" style="display: none;">
+    <option value="">Select a region</option>
+    <th:block th:each="region : ${regions}">
+        <option th:value="${region.regionId}" th:text="${region.regionName}"></option>
+    </th:block>
+</div>
+
+<!-- Link to external JavaScript file -->
+<script th:src="@{/js/travelForm/travelForm.js}"></script>
 </body>
 </html>
