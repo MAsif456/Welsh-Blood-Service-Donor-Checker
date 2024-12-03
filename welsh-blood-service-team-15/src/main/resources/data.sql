@@ -665,53 +665,31 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, end_date) VALUES
 
 
 
+
 INSERT INTO questions (question) VALUES
-                                                       ('Have you travelled to a country within the last 12 months?'),
-                                                       ('Where have you travelled in the last 12 months?'),
-                                                       ('When did you go to this country?'),
+                                                       ('Have you travelled abroad in the past 12 months?'),
+                                                       ('Where have you travelled in the past 12 months?'),
                                                        ('When did you return from this country?'),
-                                                       ('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
-                                                       ('Where did they travel to?'),
-                                                       ('When did they go to this country?'),
-                                                       ('When did they return from this country?'),
                                                        ('Have you lived abroad for more than 6 months?'),
                                                        ('Where have you lived abroad?'),
-                                                       ('When did you go abroad?'),
-                                                       ('When did you return from abroad?'),
-                                                       ('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
-                                                       ('Where did they live abroad?'),
-                                                       ('When did they live abroad?'),
-                                                       ('When did they return from abroad?'),
-                                                       ('Have you travelled through multiple countries whilst travelling abroad?'),
-                                                       ('Which countries have you travelled through?'),
-                                                       ('When did you go to these countries?'),
-                                                       ('When did you return from these countries?'),
-                                                       ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?'),
-                                                       ('Which countries did they travel through?'),
-                                                       ('When did they go to these countries?'),
-                                                       ('When did they return from these countries?');
+                                                       ('When did you return from this country?');
+
+
 
 
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
 VALUES
-    (5, 1, 'Yes'),  -- Donor 1 travelled in the last 12 months.
-    (5, 5, 'No'),   -- Donor 1 has not been in contact with recent travellers.
-    (5, 6, 'Yes'),  -- Donor 1 lived abroad for more than 6 months.
-    (5, 7, 'India'), -- Donor 1 lived in India.
-    (5, 8, '2019-01-01'), -- Donor 1 went to India on 1st January 2019.
-    (5, 9, '2020-01-01'), -- Donor 1 returned from India on 1st January 2020.
-    (5, 10, 'Yes'), -- Donor 1 has been in contact with someone who lived abroad for more than 6 months.
-    (5, 11, 'Yes'), -- Donor 1 travelled through multiple countries.
-    (5, 15, 'Yes'), -- Donor 1 has been in contact with someone who travelled through multiple countries.
+    (5, 1, 'Yes'),  -- Donor 5 travelled in the last 12 months.
+    (5, 2, 'India'), -- Donor 5 travelled to India.
+    (5, 3, '2020-01-01'), -- Donor 5 returned from India on 1st January 2020.
+    (5, 4, 'Yes'), -- Donor 5 lived abroad for more than 6 months.
+    (5, 5, 'India'), -- Donor 5 lived in India.
+    (5, 6, '2020-01-01'), -- Donor 5 returned from India on 1st January 2020.
     (2, 1, 'No'),   -- Donor 2 did not travel in the last 12 months.
-    (2, 5, 'Yes'),  -- Donor 2 has been in contact with recent travellers.
-    (2, 6, 'No'),   -- Donor 2 has not lived abroad for more than 6 months.
-    (2, 11, 'No'),  -- Donor 2 did not travel through multiple countries.
-    (2, 15, 'No'),  -- Donor 2 has not been in contact with someone who travelled through multiple countries.
-    (3, 1, 'Yes'),  -- Donor 3 travelled in the last 12 months.
-    (3, 5, 'No'),   -- Donor 3 has not been in contact with recent travellers.
-    (3, 6, 'No'),  -- Donor 3 lived abroad for more than 6 months.
-    (3, 11, 'No'),  -- Donor 3 did not travel through multiple countries.
-    (3, 15, 'No')  -- Donor 3 has not been in contact with someone who travelled through multiple countries.
-;
+    (2, 4, 'No');   -- Donor 2 has not lived abroad for more than 6 months.
+
+
+
+
+
