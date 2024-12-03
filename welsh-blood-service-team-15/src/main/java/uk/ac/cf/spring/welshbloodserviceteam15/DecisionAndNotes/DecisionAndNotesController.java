@@ -19,6 +19,8 @@ public class DecisionAndNotesController {
         try {
             DonorDetails donorDetails = decisionAndNotesService.getDonorInfo(donorId);
             modelAndView.addObject("donor", donorDetails);
+            modelAndView.addObject("decision", donorDetails.getDecision());
+            modelAndView.addObject("notes", donorDetails.getNotes());
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
             modelAndView.addObject("donor", null);  // Set donor as null if not found

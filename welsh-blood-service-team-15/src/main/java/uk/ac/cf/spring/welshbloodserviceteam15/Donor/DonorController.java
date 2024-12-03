@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
@@ -110,4 +111,31 @@ public class DonorController {
             return modelAndView;
         }
     }
+
+    @GetMapping("/donor-records")
+    public ModelAndView showDonorRecords() {
+        List<Donor> donors = donorService.getAllDonors();
+        ModelAndView modelAndView = new ModelAndView("Donor/donorRecords");
+        modelAndView.addObject("donors", donors);
+        return modelAndView;
+    }
+
+    @GetMapping("/search-donor")
+    public String searchDonor(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        if (id == null) {
+            model.addAttribute("error", "An ID is required to search.");
+            model.addAttribute("donors", donorService.getAllDonors());
+        } else {
+            Donor donor = donorService.searchDonorById(id);
+            if (donor == null) {
+                model.addAttribute("error", "No donor found with the provided ID.");
+                model.addAttribute("donors", donorService.getAllDonors());
+            } else {
+                model.addAttribute("donors", List.of(donor));
+            }
+        }
+        return "Donor/donorRecords";
+    }
+
+
 }

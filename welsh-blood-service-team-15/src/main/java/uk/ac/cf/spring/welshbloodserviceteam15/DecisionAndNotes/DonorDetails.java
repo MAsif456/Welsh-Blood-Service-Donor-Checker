@@ -19,5 +19,11 @@ public class DonorDetails {
     private String donorNote;
 
 
+    public String getNotes() {
+        return this.donorNote;
+    }
 
+    public String getDecision() {
+        return this.donorDecision;
+    }
 }
