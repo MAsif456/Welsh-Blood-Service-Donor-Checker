@@ -1,13 +1,11 @@
 
 -- Inserting donors (donor_id will be auto-incremented)
-INSERT INTO donor (first_name, last_name, donor_dob, donor_risk, donor_decision, donor_note) VALUES
-                                                                                                 ('John', 'Doe', '1985-06-15', 'Low', 'nul', 'No known health risks'),
-                                                                                                 ('Jane', 'Smith', '1990-11-22', 'Moderate', 'nul', 'Recent travel to malaria-endemic areas'),
-                                                                                                 ('Mary', 'Johnson', '1978-04-09', 'High', 'nul', 'Clear of any diseases'),
-                                                                                                ('Tom', 'Brown', '1980-01-01', 'Low', 'nul', 'No known health risks'),
-                                                                                                ('Alice', 'Williams', '1995-03-30', 'Moderate', 'nul', 'Recent travel to malaria-endemic areas');
-
-
+INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note) VALUES
+                                                                                                 ('John', 'Doe', '1985-06-15','Eligible to donate today', 'No known health risks'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22','Eligible to donate but further testing needed', 'Recent travel to malaria-endemic areas'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09','Eligible to donate but must wait 6 months', 'Clear of any diseases'),
+                                                                                                 ('Tom', 'Brown', '1980-01-01','Not Eligible to donate at all', 'No known health risks'),
+                                                                                                 ('Alice', 'Williams', '1995-03-30','Eligible to donate today', 'Recent travel to malaria-endemic areas');
 -- Inserting all countries
 INSERT INTO countries (country_name) VALUES
                                          ('Afghanistan'),
@@ -31,7 +29,7 @@ INSERT INTO countries (country_name) VALUES
                                          ('Brazil'),
                                          ('Brunei'),
                                          ('Bulgaria'),  -- Country ID 21
-                                         ('Burkina Faso'),  -- Not done, Country ID 22
+                                         ('Burkina Faso'),  -- Country ID 22
                                          ('Burundi'),
                                          ('Cabo Verde'),
                                          ('Cambodia'), -- Country ID 25
@@ -39,22 +37,22 @@ INSERT INTO countries (country_name) VALUES
                                          ('Chad'),
                                          ('Chile'),
                                          ('China'),
-                                         ('Clipperton Island'), -- Not done, Country ID 30
-                                         ('Cocos Island'), -- Not done, Country ID 31
+                                         ('Clipperton Island'), -- Country ID 30
+                                         ('Cocos Island'), -- Country ID 31
                                          ('Colombia'), -- Country ID 32
-                                         ('Comoros'), -- Not done, Country ID 33
-                                         ('Congo'), -- Not done, Country ID 34
+                                         ('Comoros'), -- Country ID 33
+                                         ('Congo'), --  Country ID 34
                                          ('Costa Rica'),
-                                         ('Croatia'), -- Not done, Country ID 36
-                                         ('Cuba'), -- Not done, Country ID 37
-                                         ('Cyprus'), -- Not done, Country ID 38
-                                         ('Czechia (Czech Republic)'), -- Not done, Country ID 39
+                                         ('Croatia'), -- Country ID 36
+                                         ('Cuba'), -- Country ID 37
+                                         ('Cyprus'), -- Country ID 38
+                                         ('Czechia (Czech Republic)'), -- Country ID 39
                                          ('Denmark'),
                                          ('Djibouti'),
                                          ('Dominica'),
                                          ('Dominican Republic'),
                                          ('Ecuador'),
-                                         ('Egypt'),
+                                         ('Egypt'), -- Country ID 45
                                          ('El Salvador'),
                                          ('Equatorial Guinea'),
                                          ('Eritrea'),
@@ -71,10 +69,12 @@ INSERT INTO countries (country_name) VALUES
                                          ('Ghana'),
                                          ('Guatemala'),
                                          ('Guinea'),
-                                         ('Guinea-Bissau'), -- Not done, Country ID 62
-                                         ('Guyana'),  -- Not done, Country ID 63
-                                         ('Haiti'),  -- Country ID 64
-                                         ('Holy See'),  -- Not done, Country ID 65
+                                         ('Guinea-Bissau'), -- Country ID 62
+                                         ('Guyana'),  -- Country ID 63
+                                         ('Guernsey'),
+                                         ('Heard Island and McDonald Islands'),
+                                         ('Haiti'),  -- Country ID 66
+                                         ('Holy See'),  -- Country ID 67
                                          ('Honduras'),
                                          ('Hungary'),
                                          ('Iceland'),  -- Country ID 68
@@ -126,6 +126,7 @@ INSERT INTO countries (country_name) VALUES
                                          ('Netherlands'),
                                          ('New Zealand'),
                                          ('Nicaragua'),
+                                         ('Niger'),
                                          ('Nigeria'),
                                          ('North Korea'),
                                          ('North Macedonia (formerly Macedonia)'),
@@ -144,14 +145,14 @@ INSERT INTO countries (country_name) VALUES
                                          ('Qatar'),
                                          ('Romania'),
                                          ('Russia'),
-                                         ('Rwanda'), -- Country ID 136
-                                         ('Saint Kitts and Nevis'), -- Country ID 137
-                                         ('Saint Lucia'),  -- Not done, Country ID 138
-                                         ('Saint Vincent and the Grenadines'),  -- Not done, Country ID 139
-                                         ('Samoa'), -- Not done, Country ID 140
-                                         ('San Marino'),  -- Not done, Country ID 141
-                                         ('Sao Tome and Principe'),  -- Not done, Country ID 142
-                                         ('Saudi Arabia'), -- Country ID 143 + Region Check needed when implemented
+                                         ('Rwanda'), -- Country ID 138
+                                         ('Saint Kitts and Nevis'), -- Country ID 139
+                                         ('Saint Lucia'),  -- Country ID 140
+                                         ('Saint Vincent and the Grenadines'),  -- Country ID 141
+                                         ('Samoa'), -- Country ID 142
+                                         ('San Martin'),  -- Country ID 143
+                                         ('Sao Tome and Principe'),  -- Country ID 144
+                                         ('Saudi Arabia'), -- Country ID 145 + Region Check needed when implemented
                                          ('Senegal'),
                                          ('Serbia'),
                                          ('Seychelles'),
@@ -195,9 +196,10 @@ INSERT INTO countries (country_name) VALUES
                                          ('Yemen'),
                                          ('Zambia'),
                                          ('Zimbabwe'),
-                                         ('Antigua and Barbuda'),  -- Not done, Country ID 187
-                                         ('Belize'),  -- Not done, Country ID 188
-                                         ('Benin');  -- Not done, Country ID 189
+                                         ('Antigua and Barbuda'),  -- Country ID 189
+                                         ('Belize'),  -- Country ID 190
+                                         ('Benin');  -- Country ID 191
+
 
 
 
@@ -225,6 +227,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (13,1,'Yes all year whole country until Sept 2015','1976-09-01','2015-11-30'),  -- Bangladesh
                                                                (18,1,'Risk exists throughout the year but especially from November to June in the northern parts of the country','1996-02-01','2024-11-26'),  -- Botswana
                                                                (19,1, 'All year in Amazonia, urban areas (e.g., Manaus), Amazon cruises, rural areas near Iguaçu Falls.', '1996-02-01', '2024-11-26'), -- Brazil
+                                                               (22,1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Burkina Faso
                                                                (20,1, 'All year round','1976-11-01','2024-11-26'), -- Brunei
                                                                (25,1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '1996-02-01', '2024-11-26'), -- Cambodia
                                                                (26,1, 'all year round', '1976-11-26', '2024-11-26'), -- Cameroon
@@ -232,6 +235,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (29,1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Chad
                                                                (31,1, 'Was at previous risk in multiple provinces ', '1996-02-01', '2021-06-30'), -- China
                                                                (32,1,'Yes all year whole country until Feb 2015','2015-01-01','2015-02-28'), -- Colombia
+                                                               (33,1,'All year in whole country','1976-11-26','2024-11-26'), -- Comoros
                                                                (35,1,'All year in whole country','1976-11-26','2024-11-26'), -- Costa Rica
                                                                (41,1,'All year in whole country','1976-11-26','2024-11-26'), -- Djibouti
                                                                (43,1,'All year in whole country','1976-11-26','2024-11-26'), -- Dominican Republic
@@ -249,10 +253,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (62,1, 'All year in the whole country up until December 2011','2011-01-01','2011-12-31'), -- Guatemala
                                                                (63,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Guinea
                                                                (66,1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Haiti
-
-                                                               -- TEST
                                                                (68,1,'All year in the whole country','2024-10-26', '2024-11-26'), -- Iceland
-
                                                                (71,1,'All year in the whole country until May 2012','2012-01-01','2012-05-30'), -- India
                                                                (72,1,'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
                                                                (73,1,'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
@@ -306,10 +307,15 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (173,1,'Yes all year whole country until Feb 1996','1996-02-01','1996-02-28'), -- Turkey
                                                                (174,1,'Yes Jun – Oct in South Eastern border regions until Sept 2015','2015-06-01','2015-09-30'), -- Turkmenistan
                                                                (176,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Uganda
-                                                               (178,1,'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain','1976-11-26','2024-11-26'), -- United Arab Emirates
+                                                               (177,1,'Yes in East of country until Dec 2011 with no risk in the cities of Abu Dhabi, Dubai, Sharjah, Ajman and Umm al Qaiwain','1976-11-26','2024-11-26'), -- United Arab Emirates
                                                                (183,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Vanuatu
                                                                (184,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Venezuela
                                                                (185,1,'Yes all year whole country until May 2012','2012-01-01','2012-05-30'), -- Vietnam
+                                                               (144, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Sao Tome and Principe
+                                                               (62,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Guinea-Bissau
+                                                               (63,1,'There is a risk of malaria all year for most of the country, visitors to the coast and Georgetown only, accept.','1976-11-26','2024-11-26'), -- Guyana
+                                                               (190,1,'Malaria risk is low in Stan Creek but negligible elsewhere','1976-11-26','2024-11-26'), -- Belize
+                                                               (191,1,'All year in the whole country','1976-11-26','2024-11-26'), -- Benin
                                                                (186,1,'Yes all year whole country until May 2012','2012-01-01','2012-05-30'); -- Yemen
 
 INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
@@ -352,7 +358,9 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                 (158,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Spain
                                                                 (173,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Turkey
                                                                 (177,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Ukraine
-                                                                (180,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'); -- United States of America
+                                                                (180,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- United States of America
+                                                                (38,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Cyprus
+                                                                (36,3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'); -- Croatia
 
 INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
                                                                 -- Dengue Virus occurrences
@@ -361,6 +369,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                 (6, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Argentina
                                                                 (13, 4, 'N/A', '1976-11-26','2024-11-26'), -- Bangladesh
                                                                 (14, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Barbados
+                                                                (22, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Burkina Faso
                                                                 (25, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
                                                                 (29, 4, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
                                                                 (31, 4, 'N/A', '1976-11-26', '2024-11-26'), -- China
@@ -433,6 +442,13 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                 (184, 4, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
                                                                 (185, 4, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
                                                                 (186, 4, 'N/A','1976-11-26','2024-11-26'), -- Yemen
+                                                                (37, 4, 'N/A','1976-11-26','2024-11-26'), -- Cuba
+                                                                (140, 4, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+                                                                (141, 4, 'N/A','1976-11-26','2024-11-26'), -- Saint Vincent and the Grenadines
+                                                                (142, 4, 'N/A','1976-11-26','2024-11-26'), -- Samoa
+                                                                (143, 4, 'N/A','1976-11-26','2024-11-26'), -- San Martin
+                                                                (144, 4, 'N/A','1976-11-26','2024-11-26'), -- Sao Tome and Principe
+                                                                (191, 4, 'N/A','1976-11-26','2024-11-26'), -- Benin
                                                                 (187, 4, 'N/A','1976-11-26','2024-11-26'); -- Zambia
 
 INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
@@ -443,6 +459,7 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (13, 5, 'N/A','1976-11-26','2024-11-26'),  -- Bangladesh
                                                                (14, 5, 'N/A','1976-11-26','2024-11-26'),  -- Barbados
                                                                (20, 5, 'N/A','1976-11-26','2024-11-26'),  -- Brunei
+                                                               (22, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Burkina Faso
                                                                (25, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
                                                                (26, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
                                                                (28, 5, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
@@ -490,18 +507,29 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (180, 5, 'Zika virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands).','1976-11-26','2024-11-26'), -- United States of America
                                                                (183, 5, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
                                                                (184, 5, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
+                                                               (37, 5, 'N/A','1976-11-26','2024-11-26'), -- Cuba
+                                                               (140, 5, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+                                                               (141, 5, 'N/A','1976-11-26','2024-11-26'), -- Saint Vincent and the Grenadines
+                                                               (142, 5, 'N/A','1976-11-26','2024-11-26'), -- Samoa
+                                                               (143, 5, 'N/A','1976-11-26','2024-11-26'), -- San Martin
+                                                               (62, 5, 'N/A','1976-11-26','2024-11-26'), -- Guinea-Bissau
+                                                               (63, 5, 'N/A','1976-11-26','2024-11-26'), -- Guyana
+                                                               (189, 5, 'N/A','1976-11-26','2024-11-26'), -- Antigua and Barbuda
+                                                               (190, 5, 'N/A','1976-11-26','2024-11-26'), -- Beliza
                                                                (185, 5, 'N/A','1976-11-26','2024-11-26'); -- Vietnam
 
 INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
                                                                 -- Chikungunya occurrences
                                                                (6, 6, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
                                                                (13, 6, 'N/A','1976-11-26','2024-11-26'),  -- Bangladesh
+                                                               (22, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Burkina Faso
                                                                (25, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Cambodia
                                                                (26, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
                                                                (28, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
                                                                (29, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
                                                                (31, 6, 'N/A', '1976-11-26', '2024-11-26'), -- China
                                                                (32, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Colombia
+                                                               (33, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Comoros
                                                                (35, 6, 'N/A', '1976-11-26', '2024-11-26'), -- Costa Rica
                                                                (42, 6,'N/A','1976-11-26','2024-11-26'), -- Dominica
                                                                (43, 6,'N/A','1976-11-26','2024-11-26'), -- Dominican Republic
@@ -567,12 +595,21 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                (184, 6, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
                                                                (185, 6, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
                                                                (186, 6, 'N/A','1976-11-26','2024-11-26'), -- Yemen
+                                                               (140, 6, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+                                                               (141, 6, 'N/A','1976-11-26','2024-11-26'), -- Saint Vincent and the Grenadines
+                                                               (142, 6, 'N/A','1976-11-26','2024-11-26'), -- Samoa
+                                                               (143, 6, 'N/A','1976-11-26','2024-11-26'), -- San Martin
+                                                               (63, 6, 'N/A','1976-11-26','2024-11-26'), -- Guyana
+                                                               (189, 6, 'N/A','1976-11-26','2024-11-26'), -- Antigua and Barbuda
+                                                               (190,7,'N/A','1976-11-26','2024-11-26'), -- Belize
+                                                               (191,7,'N/A','1976-11-26','2024-11-26'), -- Benin
                                                                (187, 6, 'N/A','1976-11-26','2024-11-26'); -- Zambia
 
 INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date) VALUES
                                                                 -- Yellow Fever occurrences
                                                                 (5,  7, 'N/A', '1976-11-26','2024-11-26'), -- Angola
                                                                 (6,  7, 'N/A', '1976-11-26','2024-11-26'),  -- Argentina
+                                                                (22, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Burkina Faso
                                                                 (26, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Cameroon
                                                                 (27, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Central African Republic
                                                                 (29, 7, 'N/A', '1976-11-26', '2024-11-26'), -- Chad
@@ -602,10 +639,14 @@ INSERT INTO country_disease (country_id, disease_id, note, start_date, end_date)
                                                                 (169,7, 'N/A','1976-11-26','2024-11-26'), -- Togo
                                                                 (171,7, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
                                                                 (176,7, 'N/A','1976-11-26','2024-11-26'), -- Uganda
+                                                                (62, 7, 'N/A','1976-11-26','2024-11-26'), -- Guinea-Bissau
+                                                                (63, 7, 'N/A','1976-11-26','2024-11-26'), -- Guyana
+                                                                (191,7,'N/A','1976-11-26','2024-11-26'), -- Benin
                                                                 (184,7, 'N/A','1976-11-26','2024-11-26'); -- Venezuela
 
-SELECT * FROM country_disease;
-
+UPDATE country_disease
+SET end_date = '2024-12-12'
+WHERE end_date = '2024-11-26';
 
 INSERT INTO donor_travelled_to_country (donor_id, country_id, end_date) VALUES
                                                                                         (1, 4,  '2017-02-10'),  -- John traveled to Cameroon
@@ -624,6 +665,7 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, end_date) VALUES
 
 
 
+
 INSERT INTO questions (question, no_risk_response) VALUES
                                                        ('Have you travelled abroad in the past 12 months?', 'No'),
                                                        ('Where have you travelled in the last 12 months?', '0'),
@@ -631,6 +673,33 @@ INSERT INTO questions (question, no_risk_response) VALUES
                                                        ('Have you lived abroad for more than 6 months?', 'No'),
                                                        ('Where have you lived abroad?', '0'),
                                                        ('When did you return from this country?', '0');
+
+INSERT INTO questions (question) VALUES
+                                                       ('Have you travelled to a country within the last 12 months?'),
+                                                       ('Where have you travelled in the last 12 months?'),
+                                                       ('When did you go to this country?'),
+                                                       ('When did you return from this country?'),
+                                                       ('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
+                                                       ('Where did they travel to?'),
+                                                       ('When did they go to this country?'),
+                                                       ('When did they return from this country?'),
+                                                       ('Have you lived abroad for more than 6 months?'),
+                                                       ('Where have you lived abroad?'),
+                                                       ('When did you go abroad?'),
+                                                       ('When did you return from abroad?'),
+                                                       ('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
+                                                       ('Where did they live abroad?'),
+                                                       ('When did they live abroad?'),
+                                                       ('When did they return from abroad?'),
+                                                       ('Have you travelled through multiple countries whilst travelling abroad?'),
+                                                       ('Which countries have you travelled through?'),
+                                                       ('When did you go to these countries?'),
+                                                       ('When did you return from these countries?'),
+                                                       ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?'),
+                                                       ('Which countries did they travel through?'),
+                                                       ('When did they go to these countries?'),
+                                                       ('When did they return from these countries?');
+
 
 
 

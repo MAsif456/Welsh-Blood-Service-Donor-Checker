@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donor Records</title>
+    <link rel="stylesheet" th:href="@{/css/Donor/donor-records.css}" />
+</head>
+<body>
+<h1>Donor Records</h1>
+
+<form th:action="@{/search-donor}" method="get">
+    <input type="number" name="id" placeholder="Search by ID">
+    <button type="submit">Search</button>
+</form>
+
+<div th:if="${error != null}" class="error-message">
+    <p th:text="${error}"></p>
+</div>
+
+<table class = "Donor-Table">
+    <thead>
+    <tr>
+        <th>Donor ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>View Summary</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="donor : ${donors}">
+        <td th:text="${donor.getDonorId()}">Donor ID</td>
+        <td th:text="${donor.getFirstName()}">First Name</td>
+        <td th:text="${donor.getLastName()}">Last Name</td>
+        <td th:text="${donor.getDonorDob()}">Date of Birth</td>
+        <td><a th:href="@{/donor/summary/{donorId}(donorId=${donor.getDonorId()})}">View Summary</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${donors == null || donors.isEmpty()}" class="no-records-found">
+    <p>No donor records found.</p>
+</div>
+
+</body>
+</html>

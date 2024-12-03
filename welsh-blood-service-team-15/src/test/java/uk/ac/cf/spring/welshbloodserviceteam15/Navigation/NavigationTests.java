@@ -123,7 +123,6 @@ public class NavigationTests {
 
     @Test
     public void testNavigationFromTravelFormToDonorSummary() throws Exception {
-
         // Mock Donor
         Donor mockDonor = new Donor();
         mockDonor.setDonorId(6); // Example donor ID
@@ -153,7 +152,6 @@ public class NavigationTests {
                     Questions question = new Questions();
                     question.setQuestion_id(questionId.intValue());
                     question.setQuestion("Question " + questionId);
-                    question.setNoRiskResponse("No");
                     return question;
                 })
                 .collect(Collectors.toList());
@@ -197,8 +195,7 @@ public class NavigationTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("Donor/donorSummary"))
                 .andExpect(model().attribute("donor", mockDonor))
-                .andExpect(model().attribute("donorsAnswers", mockAnswers))
-                .andExpect(model().attributeExists("questionMap", "noRiskResponseMap"));
+                .andExpect(model().attribute("donorsAnswers", mockAnswers));
     }
 
 // I will now test the navigation from the Donor Summary Page to the Decision and Notes Page
@@ -233,7 +230,6 @@ public class NavigationTests {
                     Questions question = new Questions();
                     question.setQuestion_id(questionId.intValue());
                     question.setQuestion("Question " + questionId);
-                    question.setNoRiskResponse("No");
                     return question;
                 })
                 .collect(Collectors.toList());
@@ -252,8 +248,7 @@ public class NavigationTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("Donor/donorSummary"))
                 .andExpect(model().attribute("donor", mockDonor))
-                .andExpect(model().attribute("donorsAnswers", mockAnswers))
-                .andExpect(model().attributeExists("questionMap", "noRiskResponseMap"));
+                .andExpect(model().attribute("donorsAnswers", mockAnswers));
 
         // Step 2: Navigate to Decision and Notes Page
         MvcResult decisionAndNotesResult = mvc.perform(get("/decisionAndNotes/6")
