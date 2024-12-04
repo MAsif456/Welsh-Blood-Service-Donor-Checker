@@ -266,9 +266,6 @@ INSERT INTO diseases (disease_name) VALUES
                                         ('Yellow Fever');  -- Disease ID 7
 
 
-
-
-
 INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
                                                                (1, null, 1, 'Yes whole country below 2000m (May-Nov) until Sept 2015','1996-02-01','2015-09-30'),  -- Afghanistan
                                                                (3, 1, 1, 'From March 1996 to May 2019: desert oasis of Ihrir (Illizi Department) only','1996-03-01','2019-05-30'),  -- Algeria
@@ -603,6 +600,50 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
 -- TEST
                                                                                                 (68, NULL, 6, 'N/A','2024-07-26', '2024-8-26'), -- Honduras
 
+                                                                                                (71, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- India
+                                                                                                (72, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Indonesia
+                                                                                                (77, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Jamaica
+                                                                                                (81, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Kenya
+                                                                                                (82, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Kiribati
+                                                                                                (86, NULL, 6, 'N/A','1976-11-26', '2024-11-26'), -- Laos
+                                                                                                (90, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Liberia
+                                                                                                (95, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Madagascar
+                                                                                                (96, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Malawi
+                                                                                                (97, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Malaysia
+                                                                                                (98, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Maldives
+                                                                                                (99, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Mali
+                                                                                                (101, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Marshall Islands
+                                                                                                (102, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Martinique
+                                                                                                (104, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Mauritius
+                                                                                                (105, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Mexico
+                                                                                                (112, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Myanmar
+                                                                                                (114, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Naura
+                                                                                                (118, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Nicaragua
+                                                                                                (120, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Nigeria
+                                                                                                (125, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Pakistan
+                                                                                                (126, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Palau
+                                                                                                (128, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Panama
+                                                                                                (130, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Paraguay
+                                                                                                (131, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Peru
+                                                                                                (132, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Philippines
+                                                                                                (139, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Saint Kitts and Nevis
+                                                                                                (139, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Saint Lucia
+                                                                                                (146, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Senegal
+                                                                                                (148, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Seychelles
+                                                                                                (149, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Sierra Leone
+                                                                                                (150, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Singapore
+                                                                                                (154, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Somalia
+                                                                                                (155, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- South Africa
+                                                                                                (157, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- South Sudan
+                                                                                                (159, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Sri Lanka
+                                                                                                (160, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Sudan
+                                                                                                (161, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Suriname
+                                                                                                (166, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
+                                                                                                (170, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tonga
+                                                                                                (176, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Uganda
+                                                                                                (180, 48, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+                                                                                                (180, 49, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
+                                                                                                (180, 50, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
 
                                                                                                 (184, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
                                                                                                 (185, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Vietnam
@@ -653,16 +694,36 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_dat
                                                                                         (3, 10, null, '2020-01-15'),  -- Mary traveled to Guatemala
                                                                                         (3, 12, null, '2017-07-31'), -- Mary traveled to India
                                                                                         -- inserts for donor 5 alice
-                                                                                        (5, 51, null, '2024-03-08'), -- Alice went to ethiopia
-                                                                                        (5, 68, null, '2024-09-26'); -- alice went to iceland
+                                                                                        (5, 6, 2, '2024-03-08'), --
+                                                                                       (5, 180,47 , '2024-09-26'); --
 
 INSERT INTO questions (question) VALUES
-                                                       ('Have you travelled abroad in the past 12 months?'),
-                                                       ('Where have you travelled in the past 12 months?'),
+                                                       ('Have you travelled to a country within the last 12 months?'),
+                                                       ('Where have you travelled in the last 12 months?'),
+                                                       ('When did you go to this country?'),
                                                        ('When did you return from this country?'),
+                                                       ('Have you been in contact with anyone who has travelled to a country within the last 12 months?'),
+                                                       ('Where did they travel to?'),
+                                                       ('When did they go to this country?'),
+                                                       ('When did they return from this country?'),
                                                        ('Have you lived abroad for more than 6 months?'),
                                                        ('Where have you lived abroad?'),
-                                                       ('When did you return from this country?');
+                                                       ('When did you go abroad?'),
+                                                       ('When did you return from abroad?'),
+                                                       ('Have you been in contact with anyone who has lived abroad for more than 6 months?'),
+                                                       ('Where did they live abroad?'),
+                                                       ('When did they live abroad?'),
+                                                       ('When did they return from abroad?'),
+                                                       ('Have you travelled through multiple countries whilst travelling abroad?'),
+                                                       ('Which countries have you travelled through?'),
+                                                       ('When did you go to these countries?'),
+                                                       ('When did you return from these countries?'),
+                                                       ('Have you been in contact with anyone who has travelled through multiple countries whilst travelling abroad?'),
+                                                       ('Which countries did they travel through?'),
+                                                       ('When did they go to these countries?'),
+                                                       ('When did they return from these countries?');
+
+
 
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
 VALUES

@@ -24,7 +24,7 @@ public class DonorService {
     }
     public List<CountryDiseaseDTO> getRelevantDiseasesForDonor(Integer donorId) {
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
-        return countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo);
+        return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
     }
     public List<Donor> getAllDonors() {
         return donorRepository.findAll();
