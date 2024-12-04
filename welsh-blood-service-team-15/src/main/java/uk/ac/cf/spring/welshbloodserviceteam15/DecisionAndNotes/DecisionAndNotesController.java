@@ -1,8 +1,10 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.DecisionAndNotes;
 
+import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,7 +13,6 @@ public class DecisionAndNotesController {
 
     @Autowired
     private DecisionAndNotesService decisionAndNotesService;
-
 
     @GetMapping("/decisionAndNotes/{donorId}")
     public ModelAndView decisionAndNotes(@PathVariable int donorId) {
@@ -30,14 +31,31 @@ public class DecisionAndNotesController {
     }
 
     @PostMapping("/submit-decisions")
-    public String submitDecisions(@RequestParam("donorId") int donorId,
-                                  @RequestParam("decision") String decision,
-                                  @RequestParam("notes") String notes) {
+    public ModelAndView submitDecisions(@Valid @ModelAttribute("donor") DonorDetails donorDetails,
+                                        BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("decisionAndNotesPage");
+            try {
+                DonorDetails existingDonorDetails = decisionAndNotesService.getDonorInfo(donorDetails.getDonorId());
+                modelAndView.addObject("donor", existingDonorDetails);
+                modelAndView.addObject("decision", existingDonorDetails.getDecision());
+                modelAndView.addObject("notes", existingDonorDetails.getNotes());
+            } catch (Exception ex) {
+                System.out.println("Error: " + ex.getMessage());
+                modelAndView.addObject("donor", null);  // Set donor as null if not found
+                modelAndView.addObject("error", "No donor found for ID: " + donorDetails.getDonorId());
+            }
+            modelAndView.addObject("errors", bindingResult.getAllErrors());
+            return modelAndView;
+        }
+
         // Update the database with the decision and notes
-        decisionAndNotesService.updateDonorDecisionAndNotes(donorId, decision, notes);
+        decisionAndNotesService.updateDonorDecisionAndNotes(donorDetails.getDonorId(), donorDetails.getDecision(), donorDetails.getNotes());
 
         // Redirect to confirmation page with donorId as a query parameter
-        return "redirect:/confirmation?donorId=" + donorId;
+        modelAndView.setViewName("redirect:/confirmation?donorId=" + donorDetails.getDonorId());
+        return modelAndView;
     }
 
     @GetMapping("/confirmation")
