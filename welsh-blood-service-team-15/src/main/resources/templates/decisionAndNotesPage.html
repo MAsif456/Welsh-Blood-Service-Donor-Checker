@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/DecisionAndNotes/forms.css}">
     <title>Decisions Page</title>
 </head>
 <body>
-<form th:action="@{/submit-decisions}" method="post">
-    <input type="hidden" name="donorId" th:value="${donor.donorId}"/>
+<form th:action="@{/submit-decisions}" th:object="${donor}" method="post">
+    <input type="hidden" th:field="*{donorId}"/>
 
     <div class="container">
         <div class="donor-details">
@@ -18,22 +18,24 @@
         <div class="decision-container">
             <h3>Decisions</h3>
             <label>
-                <input type="radio" class="radio" value="Eligible to donate today" name="donorDecision" th:checked="${donor.donorDecision == 'Eligible to donate today'}"> Eligible to donate today
+                <input type="radio" class="radio" value="Eligible to donate today" th:field="*{donorDecision}" th:attr="checked=${donor.donorDecision == 'Eligible to donate today'}"> Eligible to donate today
             </label>
             <label>
-                <input type="radio" class="radio" value="Eligible to donate but further testing needed" name="donorDecision" th:checked="${donor.donorDecision == 'Eligible to donate but further testing needed'}"> Eligible to donate but further testing needed
+                <input type="radio" class="radio" value="Eligible to donate but further testing needed" th:field="*{donorDecision}" th:attr="checked=${donor.donorDecision == 'Eligible to donate but further testing needed'}"> Eligible to donate but further testing needed
             </label>
             <label>
-                <input type="radio" class="radio" value="Eligible to donate but must wait 6 months" name="donorDecision" th:checked="${donor.donorDecision == 'Eligible to donate but must wait 6 months'}"> Eligible to donate but must wait 6 months
+                <input type="radio" class="radio" value="Eligible to donate but must wait 6 months" th:field="*{donorDecision}" th:attr="checked=${donor.donorDecision == 'Eligible to donate but must wait 6 months'}"> Eligible to donate but must wait 6 months
             </label>
             <label>
-                <input type="radio" class="radio" value="Not Eligible to donate at all" name="donorDecision" th:checked="${donor.donorDecision == 'Not Eligible to donate at all'}"> Not Eligible to donate at all
+                <input type="radio" class="radio" value="Not Eligible to donate at all" th:field="*{donorDecision}" th:attr="checked=${donor.donorDecision == 'Not Eligible to donate at all'}"> Not Eligible to donate at all
             </label>
+            <div class="alert alert-warning" th:errors="*{donorDecision}" th:if="${#fields.hasErrors('donorDecision')}">Decision Error</div>
         </div>
 
         <div class="notes-container">
             <h3>Notes</h3>
-            <textarea id="notes" name="donorNote" placeholder="Enter notes here" rows="4" cols="50" th:text="${donor.donorNote}"></textarea>
+            <textarea id="notes" th:field="*{donorNote}" placeholder="Enter notes here" rows="4" cols="50"></textarea>
+            <div class="alert alert-warning" th:errors="*{donorNote}" th:if="${#fields.hasErrors('donorNote')}">Note Error</div>
         </div>
 
         <div class="submit-container">
