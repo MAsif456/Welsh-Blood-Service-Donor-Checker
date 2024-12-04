@@ -8,6 +8,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DonorService {
@@ -25,4 +26,16 @@ public class DonorService {
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
         return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
     }
+    public List<Donor> getAllDonors() {
+        return donorRepository.findAll();
+    }
+
+    public Donor searchDonorById(Integer id) {
+        Optional<Donor> donor = donorRepository.findById(id);
+        return donor.orElse(null);
+    }
+
+
+
+
 }

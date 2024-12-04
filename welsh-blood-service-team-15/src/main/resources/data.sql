@@ -1,13 +1,11 @@
 
 -- Inserting donors (donor_id will be auto-incremented)
 INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note) VALUES
-                                                                                                 ('John', 'Doe', '1985-06-15', null, 'No known health risks'),
-                                                                                                 ('Jane', 'Smith', '1990-11-22', null, 'Recent travel to malaria-endemic areas'),
-                                                                                                 ('Mary', 'Johnson', '1978-04-09', null, 'Clear of any diseases'),
-                                                                                                ('Tom', 'Brown', '1980-01-01', null, 'No known health risks'),
-                                                                                                ('Alice', 'Williams', '1995-03-30', null, 'Recent travel to malaria-endemic areas');
-
-
+                                                                                                 ('John', 'Doe', '1985-06-15','Eligible to donate today', 'No known health risks'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22','Eligible to donate but further testing needed', 'Recent travel to malaria-endemic areas'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09','Eligible to donate but must wait 6 months', 'Clear of any diseases'),
+                                                                                                 ('Tom', 'Brown', '1980-01-01','Not Eligible to donate at all', 'No known health risks'),
+                                                                                                 ('Alice', 'Williams', '1995-03-30','Eligible to donate today', 'Recent travel to malaria-endemic areas');
 -- Inserting all countries
 INSERT INTO countries (country_name) VALUES
                                          ('Afghanistan'),
@@ -258,6 +256,7 @@ VALUES
     ('Ihrir TEST 2 (Illizi Department)', 3);
 
 
+
 select * from regions where country_id = 3;
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
@@ -301,6 +300,7 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (50, 15, 1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
                                                                (50, 16, 1,'All year in most of the country, Visitors to airport of Manzine and western half of country only accept','1976-11-26','2024-11-26'), -- Eswatini
 
+
                                                                (51, null, 1,'All year in whole country. Visitors to city of Addis Ababa only accept','1976-11-26','2024-11-26'), -- Ethiopia
                                                                (55, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gabon
                                                                (56, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Gambia
@@ -311,12 +311,10 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (66, null, 1,'All year in the whole country','1976-11-26', '2024-11-26'), -- Haiti
                                                                -- TEST
                                                                (68, null, 1, 'All year in the whole country','2024-10-26', '2024-11-26'), -- Iceland
-
                                                                (71, null, 1, 'All year in the whole country until May 2012','2012-01-01','2012-05-30'), -- India
                                                                (72, 18, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
                                                                (72, 19, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
                                                                (72, 20, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
-
                                                                (73, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
                                                                (74, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iraq
                                                                (77, NULL, 1, 'In the whole country during Dec 2006 - May 2012','2006-12-01','2012-05-30'), -- Jamaica
@@ -325,7 +323,6 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (86, 22, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
                                                                (86, 23, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
                                                                (86, 24, 1, 'All year in most of the country, Visitors to Vientiane, Bokeo, Houaphanh only accept','1976-11-26','2024-11-26'), -- Laos
-
                                                                (90, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Liberia
                                                                (91, 25, 1, 'South-West of the country during February 1996 up until September 2006','1996-02-01','2006-09-30'), -- Libya,
                                                                (95, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'), -- Madagascar
@@ -334,7 +331,6 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (97, 27, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
                                                                (97, 28, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
                                                                (97, 29, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
-
                                                                (98, NULL, 1, 'All years in whole country up until October 2009','1976-10-01', '2009-10-31'), -- Maldives
                                                                (99, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'); -- Mali
 
@@ -410,6 +406,7 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
 
 INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
                                                                 -- West Nile Virus Risk occurrences
+
                                                                 (2, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Albania
                                                                 (3, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Algeria
                                                                 (7, null, 3,'Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.','2024-05-01', '2024-11-30'), -- Armenia
@@ -691,6 +688,9 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
 
 
 
+
+
+
 INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_date) VALUES
                                                                                         (1, 3, 1,  '2024-02-10'),  -- John traveled to Cameroon
                                                                                         -- (1, 3, null, '2018-07-15'),  -- John traveled to Bolivia
@@ -698,10 +698,15 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_dat
                                                                                         (2, 7, null, '2019-04-01'),  -- Jane traveled to Colombia
                                                                                         (3, 15, null,  '2018-06-15'),  -- Mary traveled to Myanmar
                                                                                         (3, 10, null, '2020-01-15'),  -- Mary traveled to Guatemala
-                                                                                        (3, 12, null, '2017-07-31'), -- Mary traveled to India
-                                                                                        -- inserts for donor 5 alice
-                                                                                        (5, 6, 2, '2024-03-08'), --
-                                                                                       (5, 180,47 , '2024-09-26'); --
+                                                                                        (3, 12, null, '2017-07-31'); -- Mary traveled to India
+
+
+
+UPDATE country_disease
+SET end_date = '2024-12-12'
+WHERE end_date = '2024-11-26';
+
+
 
 
 
