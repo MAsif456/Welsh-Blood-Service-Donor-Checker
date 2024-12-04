@@ -28,7 +28,9 @@
         <ul>
             <li th:each="travel : ${donor.travelHistory}">
                 <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                <!-- No more start date -->
+                <p th:if="${travel.region != null}">
+                    <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+                </p>
                 <p><strong>Return Date:</strong> <span th:text="${travel.getEndDate}"></span>
             </li>
         </ul>

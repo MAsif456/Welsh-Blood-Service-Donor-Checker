@@ -257,8 +257,7 @@ VALUES
 
 
 
-select * from country_disease where country_id = 180
-;
+
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
                                         ('Malaria'),  -- Disease ID 1
@@ -316,6 +315,7 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (72, 18, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
                                                                (72, 19, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
                                                                (72, 20, 1, 'Only Accept visitors of the islands of Bali, Java and the city of Jakarta','1976-11-26', '2024-11-26'), -- Indonesia
+
                                                                (73, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iran
                                                                (74, NULL, 1, 'All year in the whole country up until February 1996','1976-02-01','1996-02-28'), -- Iraq
                                                                (77, NULL, 1, 'In the whole country during Dec 2006 - May 2012','2006-12-01','2012-05-30'), -- Jamaica
@@ -506,7 +506,7 @@ INSERT INTO country_disease (country_id, region_id,  disease_id, note, start_dat
         (170, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Tonga
         (171, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Trinidad and Tobago
         (178, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- United Arab Emirates
-       (180, 47, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
+        (180, 47, 4, 'In Hawaii Only','1976-11-26','2024-11-26'), -- United States of America
         (181, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Uruguay
         (183, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Vanuatu
         (184, NULL, 4, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
@@ -699,7 +699,12 @@ INSERT INTO donor_travelled_to_country (donor_id, country_id, region_id, end_dat
                                                                                         (2, 7, null, '2019-04-01'),  -- Jane traveled to Colombia
                                                                                         (3, 15, null,  '2018-06-15'),  -- Mary traveled to Myanmar
                                                                                         (3, 10, null, '2020-01-15'),  -- Mary traveled to Guatemala
-                                                                                        (3, 12, null, '2017-07-31'); -- Mary traveled to India
+
+                                                                                         (3, 12, null, '2017-07-31'), -- Mary traveled to India
+                                                                                        -- inserts for donor 5 alice
+                                                                                        (5, 6, 2, '2024-03-08'), --
+                                                                                        (5, 180,47 , '2024-09-26'); --
+
 
 
 
@@ -713,13 +718,15 @@ WHERE end_date = '2024-11-26';
 
 
 
+
 INSERT INTO questions (question) VALUES
-                                                       ('Have you travelled abroad in the past 12 months?'),
+                                                       ('Have you travelled to a country within the last 12 months?'),
                                                        ('Where have you travelled in the last 12 months?'),
                                                        ('When did you return from this country?'),
                                                        ('Have you lived abroad for more than 6 months?'),
                                                        ('Where have you lived abroad?'),
                                                        ('When did you return from this country?');
+
 
 
 
@@ -730,8 +737,11 @@ VALUES
     (5, 3, '2020-01-01'), -- Donor 5 returned from India on 1st January 2020.
     (5, 4, 'Yes'), -- Donor 5 lived abroad for more than 6 months.
     (5, 5, 'India'), -- Donor 5 lived in India.
-    (5, 6, '2024-03-08') -- Donor 5 returned from India on 1st January 2020.
-;
+    (5, 6, '2020-01-01'), -- Donor 5 returned from India on 1st January 2020.
+    (2, 1, 'No'),   -- Donor 2 did not travel in the last 12 months.
+    (2, 4, 'No');   -- Donor 2 has not lived abroad for more than 6 months.
+
+
 
 
 

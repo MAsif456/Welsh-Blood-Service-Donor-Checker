@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
 
@@ -20,15 +21,15 @@ import java.util.Map;
 public class TravelFormController {
 
     private final TravelQuestionnaireService travelQuestionnaireService;
-    private final DonorTravelledToCountryService donorTravelledToCountryService;
+    private final TravelFormService travelFormService;
     private final CountryService countryService;
 
     @Autowired
     public TravelFormController(TravelQuestionnaireService travelQuestionnaireService,
-                                DonorTravelledToCountryService donorTravelledToCountryService,
+                                TravelFormService travelFormService,
                                 CountryService countryService) {
         this.travelQuestionnaireService = travelQuestionnaireService;
-        this.donorTravelledToCountryService = donorTravelledToCountryService;
+        this.travelFormService = travelFormService;
         this.countryService = countryService;
     }
 
@@ -77,39 +78,14 @@ public class TravelFormController {
 
         // Save conditional answers to donor_travelled_to_country
         if ("Yes".equals(formData.get("question1"))) {
-            saveDonorTravel(formData, donorId, "question2_", "question3_");
+            travelFormService.saveDonorTravel(formData, donorId, "question2_", "question3_", "region_");
         }
         if ("Yes".equals(formData.get("question4"))) {
-            saveDonorTravel(formData, donorId, "question5", "question6");
+            travelFormService.saveDonorTravel(formData, donorId, "question5", "question6", "region_");
         }
 
         model.addAttribute("donorId", donorId);
 
         return "redirect:/donor/summary/" + donorId;
-    }
-
-    private void saveDonorTravel(Map<String, String> formData, Long donorId, String countryKeyPrefix, String endDateKeyPrefix) {
-        List<DonorTravelledToCountry> travelHistory = new ArrayList<>();
-
-        formData.forEach((key, value) -> {
-            if (key.startsWith(countryKeyPrefix)) {
-                String index = key.substring(countryKeyPrefix.length());
-                String endDateStr = formData.get(endDateKeyPrefix + index);
-
-                if (value != null && endDateStr != null) {
-                    DonorTravelledToCountry donorTravel = new DonorTravelledToCountry();
-                    Donor donor = new Donor();
-                    donor.setDonorId(donorId.intValue()); // Convert Long to Integer
-                    donorTravel.setDonor(donor);
-                    Country country = new Country();
-                    country.setCountryId(Integer.parseInt(value));
-                    donorTravel.setCountry(country);
-                    donorTravel.setEndDate(LocalDate.parse(endDateStr));
-                    travelHistory.add(donorTravel);
-                }
-            }
-        });
-
-        travelHistory.forEach(donorTravelledToCountryService::saveDonorTravel);
     }
 }
