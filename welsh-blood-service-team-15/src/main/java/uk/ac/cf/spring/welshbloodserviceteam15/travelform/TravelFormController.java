@@ -1,5 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class TravelFormController {
@@ -55,9 +57,11 @@ public class TravelFormController {
 
     @PostMapping("/submit-travel-form")
     public String submitTravelForm(@RequestParam Map<String, String> formData, @RequestParam Long donorId, Model model) {
-
         // List of general question IDs
         List<Long> generalQuestionIds = List.of(1L, 4L);
+
+        // List of region IDs
+        List<Long> regionIds = new ArrayList<>();
 
         // Save general answers to travel_questionnaire
         for (Map.Entry<String, String> entry : formData.entrySet()) {
@@ -74,18 +78,62 @@ public class TravelFormController {
                     travelQuestionnaireService.saveQuestionnaire(questionnaire);
                 }
             }
+
+            if (key.startsWith("regions")) {
+                // Remove the brackets and quotes
+                value = value.substring(1, value.length() - 1) // Remove outer square brackets
+                        .replace("\"", "");             // Remove double quotes
+
+                // Split the string by commas
+                String[] splitValues = value.split(",");
+
+                // Iterate through the value array and add doubles to the list
+                for (String val : splitValues) {
+                    try {
+                        long number = Long.parseLong(val);
+                        regionIds.add(number);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number: " + val);
+                    }
+                }
+            }
         }
 
-        // Save conditional answers to donor_travelled_to_country
-        if ("Yes".equals(formData.get("question1"))) {
-            travelFormService.saveDonorTravel(formData, donorId, "question2_", "question3_", "region_");
+        // loop through the regionIds and save them to the database
+        if (regionIds.isEmpty()) {
+            // Save conditional answers to donor_travelled_to_country for question 1
+            if ("Yes".equals(formData.get("question1"))) {
+                String countryPrefix = "question2_";
+                String datePrefix = "question3_";
+                String regionPrefix = "region_";
+                travelFormService.saveDonorTravel(formData, donorId, countryPrefix, datePrefix, regionPrefix);
+            }
         }
+
+        else {
+
+            // loop through the regionIds and save them to the database
+            regionIds.forEach(regionId -> {
+                System.out.println(regionId);
+                String countryPrefix = "question2_";
+                String datePrefix = "question3_";
+                travelFormService.saveDonorTravelRegion(formData, donorId, countryPrefix, datePrefix, regionId);
+            });
+        }
+
+        // Save conditional answers to donor_travelled_to_country for question 4
         if ("Yes".equals(formData.get("question4"))) {
-            travelFormService.saveDonorTravel(formData, donorId, "question5", "question6", "region_");
+            String countryPrefix = "question5";
+            String datePrefix = "question6";
+            String regionPrefix = "region_";
+            travelFormService.saveDonorTravel(formData, donorId, countryPrefix, datePrefix, regionPrefix);
         }
 
         model.addAttribute("donorId", donorId);
-
         return "redirect:/donor/summary/" + donorId;
     }
+
+
+
+
 }

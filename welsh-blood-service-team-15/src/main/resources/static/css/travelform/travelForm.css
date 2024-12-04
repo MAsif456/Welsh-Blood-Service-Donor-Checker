@@ -60,3 +60,32 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+select[multiple] {
+    height: auto; /* Set a height that fits the content */
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Remove default styling */
+    cursor: pointer;
+    overflow: auto; /* Add scroll if needed */
+}
+
+select[multiple] option {
+    padding: 4px;
+    cursor: pointer;
+}
+
+/* Add a hover effect for options */
+select[multiple] option:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Styling for selected options */
+select[multiple] option:checked {
+    background-color: #0056b3;
+    color: #fff;
+}

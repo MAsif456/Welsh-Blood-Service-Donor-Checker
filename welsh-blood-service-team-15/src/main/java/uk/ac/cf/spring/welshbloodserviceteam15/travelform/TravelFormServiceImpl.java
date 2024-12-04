@@ -55,4 +55,35 @@ public class TravelFormServiceImpl implements TravelFormService{
 
         travelHistory.forEach(donorTravelledToCountryService::saveDonorTravel);
     }
+
+    public void saveDonorTravelRegion(Map<String, String> formData, Long donorId, String countryKeyPrefix, String endDateKeyPrefix, long regionId) {
+        List<DonorTravelledToCountry> travelHistory = new ArrayList<>();
+
+        formData.forEach((key, value) -> {
+            if (key.startsWith(countryKeyPrefix)) {
+                String index = key.substring(countryKeyPrefix.length());
+                String endDateStr = formData.get(endDateKeyPrefix + index);
+
+                if (value != null && endDateStr != null) {
+                    DonorTravelledToCountry donorTravel = new DonorTravelledToCountry();
+                    Donor donor = new Donor();
+                    donor.setDonorId(donorId.intValue()); // Convert Long to Integer
+                    donorTravel.setDonor(donor);
+                    Country country = new Country();
+                    country.setCountryId(Integer.parseInt(value));
+                    donorTravel.setCountry(country);
+
+                    Region region = new Region();
+                    region.setRegionId((int) regionId);
+                    donorTravel.setRegion(region);
+
+                    donorTravel.setEndDate(LocalDate.parse(endDateStr));
+                    travelHistory.add(donorTravel);
+                }
+            }
+        });
+
+        travelHistory.forEach(donorTravelledToCountryService::saveDonorTravel);
+    }
+
 }

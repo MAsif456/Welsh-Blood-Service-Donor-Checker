@@ -29,7 +29,7 @@ function addCountry(containerId, countryKeyPrefix, dateKeyPrefix, labelText) {
     };
     countryDiv.appendChild(countrySelect);
 
-    // Region input (hidden initially)
+    // Region input (multi-select)
     const regionDiv = document.createElement('div');
     regionDiv.id = `regionContainer_${countryIndex}`;
     regionDiv.style.display = 'none'; // Hidden by default
@@ -41,7 +41,8 @@ function addCountry(containerId, countryKeyPrefix, dateKeyPrefix, labelText) {
 
     const regionSelect = document.createElement('select');
     regionSelect.id = `region_${countryIndex}`;
-    regionSelect.name = `region_${countryIndex}`;
+    regionSelect.name = `region[]`; // Changed to allow array-style submission
+    regionSelect.multiple = true; // Allow multiple selections
     regionDiv.appendChild(regionSelect);
 
     countryDiv.appendChild(regionDiv);
@@ -68,6 +69,33 @@ function addCountry(containerId, countryKeyPrefix, dateKeyPrefix, labelText) {
 
     container.appendChild(countryDiv);
 }
+
+function gatherRegionData() {
+    // Collect all selected region values from the form as an array
+    const regionData = [];
+    document.querySelectorAll('[name="region[]"]').forEach(regionSelect => {
+        Array.from(regionSelect.options).forEach(option => {
+            if (option.selected) {
+                regionData.push(option.value);
+            }
+        });
+    });
+    return regionData;
+}
+
+// Call this function before submitting the form to include region data in the payload
+document.forms['travelForm'].onsubmit = function(event) {
+    const regionData = gatherRegionData();
+    console.log('Collected Region Data:', regionData);
+
+    // Add the collected region data to the form as a hidden input if needed
+    const hiddenRegionInput = document.createElement('input');
+    hiddenRegionInput.type = 'hidden';
+    hiddenRegionInput.name = 'regions';
+    hiddenRegionInput.value = JSON.stringify(regionData);
+    this.appendChild(hiddenRegionInput);
+};
+
 
 async function loadRegions(countrySelect, countryKey) {
     const countryId = countrySelect.value;
@@ -143,3 +171,27 @@ function validateForm(event) {
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const regionSelects = document.querySelectorAll('select[multiple]');
+
+    regionSelects.forEach(select => {
+        select.addEventListener('click', (event) => {
+            const options = select.options;
+            const isMultiSelect = select.multiple;
+
+            if (isMultiSelect) {
+                // Toggle the 'selected' state on click
+                event.preventDefault();
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].selected) {
+                        options[i].selected = false;
+                    } else {
+                        options[i].selected = true;
+                    }
+                }
+            }
+        });
+    });
+});
+
