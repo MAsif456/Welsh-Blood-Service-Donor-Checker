@@ -19,8 +19,8 @@ SELECT new uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO(
     cd.startDate,
     cd.endDate,
     CASE
-        WHEN dtc.donor.donorId IS NULL THEN 'No risk for donor'
-        WHEN dtc.endDate < cd.startDate THEN 'No risk for donor'
+        WHEN dtc.donor.donorId IS NULL THEN 'No risk for donor as he has not travelled to this region'
+        WHEN dtc.endDate < cd.startDate THEN 'No risk for donor as he has returned before the disease became active.'
         ELSE ''
     END
 )

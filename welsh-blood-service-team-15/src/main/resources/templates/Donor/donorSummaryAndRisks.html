@@ -61,13 +61,13 @@
         <li th:each="disease : ${diseases}">
             <p><strong>Country:</strong> <span th:text="${disease.countryName}"></span></p>
             <p><strong>Region:</strong> <span th:text="${disease.regionName != null ? disease.regionName : 'N/A'}"></span></p>
-            <p th:if="${disease.riskMessage == 'No risk for donor'}">
+            <p th:if="${disease.riskMessage == ''}">
                 <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
             </p>
-            <div th:if="${disease.riskMessage != 'No risk for donor'}">
+            <div th:if="${disease.riskMessage != ''}">
                 <p><strong>Disease Name:</strong> <span th:text="${disease.diseaseName}"></span></p>
                 <p><strong>Relevant Notes:</strong> <span th:text="${disease.diseaseNote}"></span></p>
-                <p><strong>Disease Active Period:</strong> <span th:text="${disease.diseaseStart}"></span> to
+                <p><strong>Disease Active Period:</strong> <span th:text="${disease.diseaseStart}"></span>
                     <span th:text="${disease.diseaseEnd}"></span>
                 </p>
             </div>

@@ -257,7 +257,8 @@ VALUES
 
 
 
-select * from regions where country_id = 3;
+select * from country_disease where country_id = 180
+;
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
                                         ('Malaria'),  -- Disease ID 1
