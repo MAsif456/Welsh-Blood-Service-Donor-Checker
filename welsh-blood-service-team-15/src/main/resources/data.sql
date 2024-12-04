@@ -690,6 +690,8 @@ VALUES
     (2, 4, 'No');   -- Donor 2 has not lived abroad for more than 6 months.
 
 
-
-
-
+INSERT INTO users (username, password, enabled, role)
+VALUES
+    ('admin', '$2a$12$R4zbttj5T8epCIeJkUi36OAcU0pabLVIW8kryWCiOHHul99Wan2aO', true, 'ROLE_ADMIN'),
+    ('clinician', '$2a$12$YR.Ldv.Wb23iuS3UbsdMnuvUahF91k4npEkuQh.Hr0PVuE2Ojpk8C
+', true, 'ROLE_CLINICIAN');
