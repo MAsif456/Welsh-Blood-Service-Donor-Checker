@@ -7,8 +7,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class DonorService {
@@ -34,8 +33,4 @@ public class DonorService {
         Optional<Donor> donor = donorRepository.findById(id);
         return donor.orElse(null);
     }
-
-
-
-
 }

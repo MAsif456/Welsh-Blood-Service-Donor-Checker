@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS regions
     country_id INT,
     FOREIGN KEY(country_id) REFERENCES countries(country_id)
 );
+ALTER TABLE regions ADD CONSTRAINT unique_region_name UNIQUE (region_name);
 
 CREATE TABLE IF NOT EXISTS diseases
 (
@@ -83,7 +84,6 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
 );
-
 
 
 

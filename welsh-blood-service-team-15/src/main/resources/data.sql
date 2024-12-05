@@ -238,11 +238,11 @@ VALUES
     ('Taza', 110),
     ('Northern regions', 113),
     ('Managua', 118),
-    ('De-militarized zone between North and South Korea (Kyunggi-do)', 121),
-    ('De-militarized zone between North and South Korea (Gangwon-do)', 121),
+    ('De-militarized zone between North and South Korea (Kyunggi-do) 1 ', 121),
+    ('De-militarized zone between North and South Korea (Gangwon-do) 1', 121),
     ('All year in the country up until February 1996', 131),
-    ('De-militarized zone between North and South Korea (Kyunggi-do)', 156),
-    ('De-militarized zone between North and South Korea (Gangwon-do)', 156),
+    ('De-militarized zone between North and South Korea (Kyunggi-do) 2 ', 156),
+    ('De-militarized zone between North and South Korea (Gangwon-do) 2', 156),
     ('South Eastern border regions', 174),
     ('East of country', 178),
     ('Abu Dhabi', 178),
@@ -279,7 +279,7 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (18, 4, 1,'Risk exists throughout the year but especially from November to June in the northern parts of the country','1996-02-01','2024-11-26'),  -- Botswana
                                                                (19, 5, 1, 'All year in Amazonia, urban areas (e.g., Manaus), Amazon cruises, rural areas near Iguaçu Falls.', '1996-02-01', '2024-11-26'), -- Brazil
                                                                (20, null, 1, 'All year round','1976-11-01','2024-11-26'), -- Brunei
-                                                               (25, 6, 1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '1996-02-01', '2024-11-26'), -- Cambodia
+                                                               (25, 6, 1, 'All year in most of the country, except Phnom Penh, Siem Reap, and Angkor Wat.', '2024-05-01', '2024-11-26'), -- Cambodia
                                                                (26, null, 1, 'all year round', '1976-11-26', '2024-11-26'), -- Cameroon
                                                                (28, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Central African Republic
                                                                (29, null, 1, 'all year in the whole country', '1976-11-26', '2024-11-26'), -- Chad
@@ -334,7 +334,6 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                (97, 29, 1, 'All year in central Peninsular Malaysia and the Taman Negara National Park and all provinces of Sabah and Sarawak (on the island of Borneo)','1976-11-26','2024-11-26'), -- Malaysia
                                                                (98, NULL, 1, 'All years in whole country up until October 2009','1976-10-01', '2009-10-31'), -- Maldives
                                                                (99, NULL, 1, 'All year in the whole country','1976-11-26','2024-11-26'); -- Mali
-
 INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date)
 VALUES
     (103, NULL, 1, 'All year in the whole country', '1976-11-26', '2024-11-26'), -- Mauritania
