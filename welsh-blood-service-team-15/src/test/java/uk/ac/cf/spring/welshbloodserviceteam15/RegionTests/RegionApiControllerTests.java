@@ -27,7 +27,7 @@ public class RegionApiControllerTests {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
+    @MockBean
     private RegionRepository regionRepository;
 
     private Region makeRegion() {
