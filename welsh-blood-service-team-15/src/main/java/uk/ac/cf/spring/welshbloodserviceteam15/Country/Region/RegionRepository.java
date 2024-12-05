@@ -6,4 +6,9 @@ import java.util.List;
 
 public interface RegionRepository extends JpaRepository<Region, Integer> {
 
-    List<Region> findByCountry_CountryId(Integer countryId);}
+    List<Region> findByCountry_CountryId(Integer countryId);
+
+    Region findByRegionId(Integer id);
+}
+
+

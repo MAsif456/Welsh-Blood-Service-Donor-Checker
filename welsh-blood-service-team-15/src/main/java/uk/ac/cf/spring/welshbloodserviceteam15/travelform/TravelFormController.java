@@ -98,6 +98,14 @@ public class TravelFormController {
                 }
             }
         }
+        // Save conditional answers to donor_travelled_to_country for question 4
+        if ("Yes".equals(formData.get("question4"))) {
+            String countryPrefix = "question5";
+            String datePrefix = "question6";
+            String regionPrefix = "region_";
+            travelFormService.saveDonorTravel(formData, donorId, countryPrefix, datePrefix, regionPrefix);
+        }
+
 
         // loop through the regionIds and save them to the database
         if (regionIds.isEmpty()) {
@@ -109,9 +117,7 @@ public class TravelFormController {
                 travelFormService.saveDonorTravel(formData, donorId, countryPrefix, datePrefix, regionPrefix);
             }
         }
-
         else {
-
             // loop through the regionIds and save them to the database
             regionIds.forEach(regionId -> {
                 System.out.println(regionId);
@@ -119,14 +125,6 @@ public class TravelFormController {
                 String datePrefix = "question3_";
                 travelFormService.saveDonorTravelRegion(formData, donorId, countryPrefix, datePrefix, regionId);
             });
-        }
-
-        // Save conditional answers to donor_travelled_to_country for question 4
-        if ("Yes".equals(formData.get("question4"))) {
-            String countryPrefix = "question5";
-            String datePrefix = "question6";
-            String regionPrefix = "region_";
-            travelFormService.saveDonorTravel(formData, donorId, countryPrefix, datePrefix, regionPrefix);
         }
 
         model.addAttribute("donorId", donorId);
