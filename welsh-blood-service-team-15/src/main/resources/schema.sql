@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
+DROP TABLE IF EXISTS users;
 
 
 
@@ -83,6 +84,15 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
     answer VARCHAR(50),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
+);
+
+CREATE TABLE users
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    enabled BOOLEAN NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
 
 
