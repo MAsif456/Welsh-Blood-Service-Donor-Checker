@@ -1,6 +1,5 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +25,14 @@ public class SecurityConfig {
     }
 
     @Bean
-
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
+                        // Allow access to CSS and image resources
+                        .requestMatchers("/css/**", "/images/**").permitAll()
+                        // Allow public access to these endpoints
                         .requestMatchers("/", "/login", "/public/**").permitAll()
+                        // Restrict access based on roles
                         .requestMatchers("/clinician/**").hasRole("CLINICIAN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
