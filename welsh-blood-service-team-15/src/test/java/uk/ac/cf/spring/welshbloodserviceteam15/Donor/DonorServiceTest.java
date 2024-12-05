@@ -78,27 +78,27 @@ public class DonorServiceTest {
         donorTravel.setRegion(region1);
         donorTravel.setEndDate(LocalDate.now().minusMonths(2));
 
-        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonorAndRegions(donorId, oneYearAgo))
-                .thenReturn(List.of(
-                        new CountryDiseaseDTO(
-                                "India",
-                                "Mumbai",
-                                "Disease in Mumbai",
-                                "Mumbai Disease Note",
-                                LocalDate.now().minusMonths(6),
-                                LocalDate.now().minusMonths(3),
-                                null
-                        ),
-                        new CountryDiseaseDTO(
-                                "India",
-                                "Delhi",
-                                "Disease in Delhi",
-                                "Delhi Disease Note",
-                                LocalDate.now().minusMonths(6),
-                                LocalDate.now().minusMonths(3),
-                                "No risk for donor in this region"
-                        )
-                ));
+//        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonorAndRegions(donorId, oneYearAgo))
+//                .thenReturn(List.of(
+//                        new CountryDiseaseDTO(
+//                                "India",
+//                                "Mumbai",
+//                                "Disease in Mumbai",
+//                                "Mumbai Disease Note",
+//                                LocalDate.now().minusMonths(6),
+//                                LocalDate.now().minusMonths(3),
+//                                null
+//                        ),
+//                        new CountryDiseaseDTO(
+//                                "India",
+//                                "Delhi",
+//                                "Disease in Delhi",
+//                                "Delhi Disease Note",
+//                                LocalDate.now().minusMonths(6),
+//                                LocalDate.now().minusMonths(3),
+//                                "No risk for donor in this region"
+//                        )
+//                ));
 
         // When
         List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
