@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dateSection = document.getElementById('date-section');
     const submitButton = document.getElementById('submit-button');
     const reloadButton = document.getElementById('reload-button');
+    const finishButton = document.getElementById('finish-button');
 
     function toggleConditionalQuestions() {
         const showExtraFields = (question1.value === 'Yes' || question4.value === 'Yes');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dateSection.style.display = 'block';
             submitButton.style.display = 'block';
             reloadButton.style.display = 'block';
+            finishButton.style.display = 'none';
         } else {
             question1Section.style.display = 'block';
             question4Section.style.display = 'block';
@@ -29,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dateSection.style.display = 'none';
             submitButton.style.display = 'none';
             reloadButton.style.display = 'none';
+            finishButton.style.display = 'block';
         }
     }
 
@@ -76,56 +79,49 @@ async function loadRegions(countrySelect, countryKey) {
     }
 }
 
-
 function validateForm(event) {
     const formData = document.forms['travelForm'];
     const question1 = formData['question1'].value;
     const question4 = formData['question4'].value;
+    const countryId = formData['country'].value;
+    const regionId = formData['region'].value;
+    const date = formData['date'].value;
     const currentDate = new Date();
     const twelveMonthsAgo = new Date();
     twelveMonthsAgo.setFullYear(currentDate.getFullYear() - 1);
 
-    // Validate "Travelled Abroad in the Last 12 Months" section
+    //check country and date are provided
+    if (!countryId || !date) {
+        alert('Country and date fields are required. Please fill them out before submitting.');
+        event.preventDefault(); // Prevent form submission
+        return false;
+    }
+
+    //if question 1 is yes:
     if (question1 === 'Yes') {
-        const countriesContainer1 = document.getElementById('countriesContainer1');
-        if (countriesContainer1) {
-            const countryDivs = countriesContainer1.children;
-            for (let i = 0; i < countryDivs.length; i++) {
-                const countrySelect = countryDivs[i].querySelector('select');
-                const dateInput = countryDivs[i].querySelector('input[type="date"]');
-                const selectedDate = new Date(dateInput.value);
-
-                if (
-                    !countrySelect || !countrySelect.value ||
-                    !dateInput || !dateInput.value ||
-                    selectedDate > currentDate || selectedDate < twelveMonthsAgo
-                ) {
-                    alert('Please ensure all fields are filled for countries visited in the last 12 months. Dates must be within the past year.');
-                    event.preventDefault(); // Prevent form submission
-                    return false;
-                }
-            }
+        //date has to be within last 12 months
+        //check if the date is within the last 12 months
+        const selectedDate = new Date(date);
+        if (isNaN(selectedDate.getTime()) || selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
+            alert('The date must be within the last 12 months. Please provide a valid date.');
+            event.preventDefault(); // Prevent form submission
+            return false;
         }
     }
 
-    // Validate "Lived in Another Country" section
     if (question4 === 'Yes') {
-        const countriesContainer2 = document.getElementById('countriesContainer2');
-        if (countriesContainer2) {
-            const countryDivs = countriesContainer2.children;
-            for (let i = 0; i < countryDivs.length; i++) {
-                const countrySelect = countryDivs[i].querySelector('select');
-                const dateInput = countryDivs[i].querySelector('input[type="date"]');
-
-                if (!countrySelect || !countrySelect.value || !dateInput || !dateInput.value) {
-                    alert('Please ensure all fields are filled for countries you have lived in.');
-                    event.preventDefault(); // Prevent form submission
-                    return false;
-                }
-            }
+        //date doesn't have to be within last 12 months
+        //check date is valid
+        const selectedDate = new Date(date);
+        if (isNaN(selectedDate.getTime())) {
+            alert('The date must be valid. Please provide a valid date.');
+            event.preventDefault(); // Prevent form submission
+            return false;
         }
     }
 
-    // If everything is valid, allow form submission
+    // If all validations pass, allow form submission
     return true;
 }
+
+

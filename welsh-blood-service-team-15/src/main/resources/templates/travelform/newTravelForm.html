@@ -9,7 +9,7 @@
 <script th:src="@{/js/travelForm/newTravelForm.js}"></script>
 
 <h1>Travel Form</h1>
-<form name="travelForm" th:action="@{/new-travel-form/submit}" method="post" oninput="toggleConditionalQuestions()" onsubmit="return validateForm(event)">
+<form name="travelForm" th:action="@{/new-travel-form/submit}" method="post" oninput="toggleConditionalQuestions()" onsubmit="validateForm(event)">
     <input type="hidden" name="donorId" th:value="${donorId}" />
 
     <div class="form-section">
@@ -55,13 +55,16 @@
         <input type="date" id="date" name="date"/>
     </div>
 
-    <div id="submit-button" style="display: none;">
-        <button type="submit">Submit</button>
+    <div class="buttons">
+        <div id="submit-button">
+            <button type="submit">Submit</button>
+        </div>
+        <div id="reload-button">
+            <button type="button" onclick="window.location.reload()">Back</button>
+        </div>
     </div>
 
-    <div id="reload-button" style="display: none;">
-        <button type="button" onclick="window.location.reload()">Back</button>
-    </div>
+
 
 </form>
 
