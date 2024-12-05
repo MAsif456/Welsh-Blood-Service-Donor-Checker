@@ -7,6 +7,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.RegionRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class DonorDonorTravelledToCountryServiceImpl implements DonorDonorTravelledToCountryService {
@@ -45,5 +46,9 @@ public class DonorDonorTravelledToCountryServiceImpl implements DonorDonorTravel
         donorTravelledToCountry.setCountry(country);
         donorTravelledToCountry.setEndDate(LocalDate.parse(Date));
         donorTravelledToCountryRepository.save(donorTravelledToCountry);
+    }
+
+    public List<DonorTravelledToCountry> findByDonorId(int donorId) {
+        return donorTravelledToCountryRepository.findByDonor_DonorId(donorId);
     }
 }

@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorDonorTravelledToCountryService;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountryRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
 import uk.ac.cf.spring.welshbloodserviceteam15.travelform.CountryService;
@@ -29,15 +32,17 @@ public class TestController {
     }
 
     @RequestMapping("/new-travel-form/{donorId}")
-    public ModelAndView showTravelForm(@PathVariable long donorId) {
+    public ModelAndView showTravelForm(@PathVariable int donorId) {
         ModelAndView mv =  new ModelAndView("travelform/newTravelForm");
 
         List<Questions> questions = questionService.getQuestions();
         List<Country> countries = countryService.getAllCountries();
+        List<DonorTravelledToCountry> donorTravelledToCountries = donorTravelledToCountryService.findByDonorId(donorId);
 
         mv.addObject("questions", questions);
         mv.addObject("countries", countries);
         mv.addObject("donorId", donorId);
+        mv.addObject("donorTravelledToCountries", donorTravelledToCountries);
         return mv;
     }
 
@@ -49,7 +54,8 @@ public class TestController {
             @RequestParam("country") String countryId,
             @RequestParam(value = "region", required = false) List<String> regionIds, // Optional parameter
             @RequestParam("date") String date,
-            Model model) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
         int donorIdInt = 0;
         int countryIdInt = 0;
@@ -88,7 +94,8 @@ public class TestController {
             }
         }
 
-        return "redirect:/new-travel-form/1";
+        redirectAttributes.addAttribute("donorId", donorIdInt);
+        return "redirect:/new-travel-form/{donorId}";
     }
 
 
