@@ -48,6 +48,7 @@ input[type="date"] {
     border-radius: 4px;
     background-color: #f8f9fa;
     font-size: 1rem;
+    box-sizing: border-box; /* Ensures padding is included within width */
 }
 
 /* Submit button styling */
