@@ -106,17 +106,14 @@ select[multiple] option {
     cursor: pointer;
 }
 
-select[multiple] option:hover,
-select[multiple] option:checked {
+select[multiple] option:hover {
     background-color: #007bff;
     color: #fff;
 }
 
-/* Buttons */
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+select[multiple] option:checked {
+    background-color: #0056b3;
+    color: #fff;
 }
 
 button {
@@ -127,7 +124,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    flex: 1; /* Ensures buttons are equally sized */
+    display: inline-block;
 }
 
 button:hover {
@@ -142,13 +139,46 @@ button#back:hover {
     background-color: #5a6268;
 }
 
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2%; /* Creates a 10% space between the buttons */
+}
+
+#submit-button{
+    width: 68%; /* Each button takes up 40% of the form width */
+    display: inline-block;
+    text-align: right; /* Right-aligns the button */
+}
+
+#reload-button {
+    width: 28%;
+    display: inline-block;
+    text-align: right; /* Right-aligns the button */
+}
+
+#reload-button button {
+    background-color: #6c757d; /* Gray color */
+    color: #fff; /* White text for contrast */
+}
+
+#reload-button button:hover {
+    background-color: #5a6268; /* Darker gray for hover effect */
+}
+
+#submit-button button, #reload-button button {
+    width: 100%; /* Ensures buttons fill their containers */
+}
+
 #finish-button a {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #28a745; /* Green color */
     color: #fff;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 12px; /* More rounded edges */
     font-size: 16px;
     text-align: center;
 }
@@ -156,3 +186,4 @@ button#back:hover {
 #finish-button a:hover {
     background-color: #218838;
 }
+
