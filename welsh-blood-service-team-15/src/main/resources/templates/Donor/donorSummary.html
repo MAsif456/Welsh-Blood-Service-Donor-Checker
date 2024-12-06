@@ -22,14 +22,14 @@
     </span>
     </p>
 
-
-
-
     <h2>Travel History</h2>
     <div class="travel-history">
         <ul>
             <li th:each="travel : ${donor.travelHistory}">
                 <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                <p th:if="${travel.region != null}">
+                    <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+                </p>
                 <p><strong>Return Date:</strong> <span th:text="${travel.endDate}"></span>
             </li>
         </ul>

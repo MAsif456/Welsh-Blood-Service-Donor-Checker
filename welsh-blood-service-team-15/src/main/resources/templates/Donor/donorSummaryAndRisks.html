@@ -28,7 +28,9 @@
         <ul>
             <li th:each="travel : ${donor.travelHistory}">
                 <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                <!-- No more start date -->
+                <p th:if="${travel.region != null}">
+                    <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+                </p>
                 <p><strong>Return Date:</strong> <span th:text="${travel.getEndDate}"></span>
             </li>
         </ul>
@@ -60,13 +62,16 @@
     <ul>
         <li th:each="disease : ${diseases}">
             <p><strong>Country:</strong> <span th:text="${disease.countryName}"></span></p>
-            <p th:if="${disease.riskMessage == 'No risk for donor'}"><strong>Message:</strong> <span th:text="${disease.riskMessage}"></span></p>
+            <p><strong>Region:</strong> <span th:text="${disease.regionName != null ? disease.regionName : 'N/A'}"></span></p>
+            <p th:if="${disease.riskMessage == 'No risk for donor'}">
+                <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+            </p>
             <div th:if="${disease.riskMessage != 'No risk for donor'}">
                 <p><strong>Disease Name:</strong> <span th:text="${disease.diseaseName}"></span></p>
                 <p><strong>Relevant Notes:</strong> <span th:text="${disease.diseaseNote}"></span></p>
                 <p><strong>Disease Active Period:</strong> <span th:text="${disease.diseaseStart}"></span> to
-                    <span th:text="${disease.diseaseEnd}"></span></p>
-                <!--<p><strong>Donor Return Date:</strong> <span th:text="${disease.donorReturnDate}"></span></p>-->
+                    <span th:text="${disease.diseaseEnd}"></span>
+                </p>
             </div>
         </li>
     </ul>
