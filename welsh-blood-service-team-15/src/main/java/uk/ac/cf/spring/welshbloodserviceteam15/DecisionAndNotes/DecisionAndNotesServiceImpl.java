@@ -21,7 +21,7 @@ public class DecisionAndNotesServiceImpl implements DecisionAndNotesService {
     }
 
     @Override
-    public void updateDonorDecisionAndNotes(int donorId, String decision, String notes) {
-        decisionAndNotesRepository.updateDonorRecord(donorId, decision, notes);
+    public void updateDonorDecisionAndNotes(int donorId, String decision, String notes, String username) {
+        decisionAndNotesRepository.updateDonorRecord(donorId, decision, notes, username);
     }
 }

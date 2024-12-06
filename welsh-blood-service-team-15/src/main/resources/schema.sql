@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS donor
     last_name VARCHAR(50),
     donor_dob DATE,
     donor_decision VARCHAR(50),
-    donor_note VARCHAR(50)
+    donor_note VARCHAR(50),
+    decision_made_by VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS countries

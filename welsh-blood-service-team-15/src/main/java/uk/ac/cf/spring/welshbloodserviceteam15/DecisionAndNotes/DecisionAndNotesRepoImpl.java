@@ -35,12 +35,12 @@ public class DecisionAndNotesRepoImpl implements DecisionAndNotesRepository {
 
     @Transactional
     @Override
-    public void updateDonorRecord(int donorId, String decision, String notes) {
-        String sql = "UPDATE donor SET donor_decision = ?, donor_note = ? WHERE donor_id = ?";
+    public void updateDonorRecord(int donorId, String decision, String notes, String username) {
+        String sql = "UPDATE donor SET donor_decision = ?, donor_note = ?, decision_made_by = ? WHERE donor_id = ?";
         System.out.println("Executing SQL: " + sql);
-        System.out.println("Parameters: donorId=" + donorId + ", decision=" + decision + ", notes=" + notes);
+        System.out.println("Parameters: donorId=" + donorId + ", decision=" + decision + ", notes=" + notes + ", username=" + username);
         try {
-            int rowsUpdated = jdbcTemplate.update(sql, decision, notes, donorId);
+            int rowsUpdated = jdbcTemplate.update(sql, decision, notes, username, donorId);
             System.out.println("Rows updated: " + rowsUpdated);
             if (rowsUpdated == 0) {
                 throw new RuntimeException("No record found for donorId=" + donorId);

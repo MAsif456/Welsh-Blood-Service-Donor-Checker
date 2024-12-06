@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Donor Records</title>
     <link rel="stylesheet" th:href="@{/css/Donor/donor-records.css}" />
@@ -16,7 +16,7 @@
     <p th:text="${error}"></p>
 </div>
 
-<table class = "Donor-Table">
+<table class="Donor-Table">
     <thead>
     <tr>
         <th>Donor ID</th>
@@ -24,6 +24,7 @@
         <th>Last Name</th>
         <th>Date of Birth</th>
         <th>View Summary</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')">Decision Made By</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
         <td th:text="${donor.getLastName()}">Last Name</td>
         <td th:text="${donor.getDonorDob()}">Date of Birth</td>
         <td><a th:href="@{/donor/summary/{donorId}(donorId=${donor.getDonorId()})}">View Summary</a></td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${donor.getDecisionMade()}"></td>
     </tr>
     </tbody>
 </table>

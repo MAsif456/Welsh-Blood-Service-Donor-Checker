@@ -16,6 +16,8 @@ public class Donor {
     private LocalDate donorDob;
     private String donorDecision;
     private String donorNote;
+
+    private String decisionMadeBy;
     @OneToMany(mappedBy = "donor", fetch = FetchType.LAZY)
     private List<DonorTravelledToCountry> travelHistory;
 
@@ -61,6 +63,10 @@ public class Donor {
     }
     public void setTravelHistory(List<DonorTravelledToCountry> travelHistory) {
         this.travelHistory = travelHistory;
+    }
+
+    public String getDecisionMade() {
+        return decisionMadeBy;
     }
 
 

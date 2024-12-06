@@ -1,6 +1,7 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.DecisionAndNotes;
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,8 +51,11 @@ public class DecisionAndNotesController {
             return modelAndView;
         }
 
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+
         // Update the database with the decision and notes
-        decisionAndNotesService.updateDonorDecisionAndNotes(donorDetails.getDonorId(), donorDetails.getDecision(), donorDetails.getNotes());
+        decisionAndNotesService.updateDonorDecisionAndNotes(donorDetails.getDonorId(), donorDetails.getDecision(), donorDetails.getNotes(), username);
 
         // Redirect to confirmation page with donorId as a query parameter
         modelAndView.setViewName("redirect:/confirmation?donorId=" + donorDetails.getDonorId());
