@@ -17,7 +17,7 @@ public class DecisionAndNotesController {
 
     @GetMapping("/decisionAndNotes/{donorId}")
     public ModelAndView decisionAndNotes(@PathVariable int donorId) {
-        ModelAndView modelAndView = new ModelAndView("decisionAndNotesPage");
+        ModelAndView modelAndView = new ModelAndView("DecisionAndNotes/decisionAndNotesPage");
         try {
             DonorDetails donorDetails = decisionAndNotesService.getDonorInfo(donorId);
             modelAndView.addObject("donor", donorDetails);
@@ -36,7 +36,7 @@ public class DecisionAndNotesController {
                                         BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("decisionAndNotesPage");
+            modelAndView.setViewName("DecisionAndNotes/decisionAndNotesPage");
             try {
                 DonorDetails existingDonorDetails = decisionAndNotesService.getDonorInfo(donorDetails.getDonorId());
                 modelAndView.addObject("donor", existingDonorDetails);
@@ -66,7 +66,7 @@ public class DecisionAndNotesController {
     public String confirmationPage(@RequestParam("donorId") int donorId, Model model) {
         // Add donorId to the model
         model.addAttribute("donorId", donorId);
-        return "confirmation";
+        return "DecisionAndNotes/confirmation";
     }
 }
 

@@ -69,5 +69,13 @@ public class Donor {
         return decisionMadeBy;
     }
 
+    public String getStatus() {
+        if (this.donorDecision == null && this.donorNote == null) {
+            return "Pending";
+        } else {
+            return "Completed";
+        }
+    }
+
 
 }

@@ -252,7 +252,7 @@ public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception 
                     .param("donorId", "6"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(view().name("decisionAndNotesPage"))
+            .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
             .andExpect(model().attribute("donor", mockDonorDetails))
             .andReturn();
 }

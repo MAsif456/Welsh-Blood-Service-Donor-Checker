@@ -33,6 +33,7 @@ public class DonorDetails {
     @NotEmpty(message = "Please enter a note")
     @Size(min = 10, max = 500, message = "Please enter a note between 10 - 500 characters")
     private String donorNote;
+    private String decisionMadeBy;
 
     public String getNotes() {
         return this.donorNote;
