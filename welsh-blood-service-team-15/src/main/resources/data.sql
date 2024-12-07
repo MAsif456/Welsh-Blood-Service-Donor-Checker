@@ -256,8 +256,6 @@ VALUES
     ('Ihrir TEST 2 (Illizi Department)', 3);
 
 
-
-
 -- Inserting diseases
 INSERT INTO diseases (disease_name) VALUES
                                         ('Malaria'),  -- Disease ID 1
@@ -642,9 +640,6 @@ INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date
                                                                                                 (166, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tanzania
                                                                                                 (170, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Tonga
                                                                                                 (176, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Uganda
-                                                                                                (180, 48, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
-                                                                                                (180, 49, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
-                                                                                                (180, 50, 6, 'Chikungunya Virus in the US Virgin Islands (St Choix, St John and St Thomas in the Leeward Islands)','1976-11-26','2024-11-26'), -- United States of America
 
                                                                                                 (184, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Venezuela
                                                                                                 (185, NULL, 6, 'N/A','1976-11-26','2024-11-26'), -- Vietnam

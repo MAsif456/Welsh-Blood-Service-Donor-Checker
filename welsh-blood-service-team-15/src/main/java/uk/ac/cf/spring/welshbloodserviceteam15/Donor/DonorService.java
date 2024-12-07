@@ -33,4 +33,9 @@ public class DonorService {
         Optional<Donor> donor = donorRepository.findById(id);
         return donor.orElse(null);
     }
+
+    // Testing methods
+    public List<CountryDiseaseDTO> getDonorDiseaseRisks(Integer donorId, LocalDate oneYearAgo) {
+        return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
+    }
 }

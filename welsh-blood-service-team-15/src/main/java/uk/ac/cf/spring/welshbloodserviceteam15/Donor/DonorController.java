@@ -42,38 +42,20 @@ public class DonorController {
 
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
-        // Fetch donor details
         Donor donor = donorService.getDonorSummary(donorId);
-        System.out.println("Donor: " + donor);
 
-        // Fetch diseases for the donor
         List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donorId);
-        if (diseases != null && !diseases.isEmpty()) {
-            System.out.println("Diseases before sorting: " + diseases);
-            for (CountryDiseaseDTO disease : diseases) {
-                System.out.println("Disease details: " + disease);
-            }
 
-            // Use a Set to handle duplicates
-            Set<CountryDiseaseDTO> uniqueDiseases = new HashSet<>(diseases);
-            List<CountryDiseaseDTO> sortedDiseases = diseaseService.sortDiseasesByRisk(new ArrayList<>(uniqueDiseases));
-            System.out.println("Diseases after sorting: " + sortedDiseases);
+        // Set to handle duplicates
+        Set<CountryDiseaseDTO> uniqueDiseases = new HashSet<>(diseases);
+        List<CountryDiseaseDTO> sortedDiseases = diseaseService.sortDiseasesByRisk(new ArrayList<>(uniqueDiseases));
 
-            // Add sorted diseases to the model
-            model.addAttribute("diseases", sortedDiseases);
-        } else {
-            model.addAttribute("error", "No diseases found for this donor.");
-        }
+        model.addAttribute("diseases", sortedDiseases);
 
-        // Fetch the donor's answers
+
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
-        System.out.println("Donor's Answers: " + donorsAnswers);
-
-        // Get the list of all questions
         List<Questions> questions = questionService.getQuestions();
-        System.out.println("Questions: " + questions);
 
-        // Ensure that the questions list is not null and that donorsAnswers are available
         ModelUtils.addCommonAttributesToModel(model, donor, donorsAnswers, questions);
 
         return "Donor/donorSummaryAndRisks";

@@ -8,16 +8,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class DiseaseService {
-
-    // This method sorts the list of diseases such that risks containing "No risk for donor" or "No linked"
-    // messages are placed at the end of the list, with  a value of 1.
     public List<CountryDiseaseDTO> sortDiseasesByRisk(List<CountryDiseaseDTO> diseases) {
-
-        List<CountryDiseaseDTO> sortedDiseases = diseases.stream()
+        return diseases.stream()
                 .sorted(Comparator.comparing(disease ->
-                        disease.getRiskMessage().contains("No risk for donor") || disease.getRiskMessage().contains("No linked") ? 1 : 0))
+                        disease.getRiskMessage().startsWith("No risk") || disease.getRiskMessage().contains("No linked") ? 1 : 0))
                 .collect(Collectors.toList());
-
-        return sortedDiseases;
     }
 }

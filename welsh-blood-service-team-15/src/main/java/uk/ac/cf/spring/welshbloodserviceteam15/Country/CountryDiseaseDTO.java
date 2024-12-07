@@ -5,7 +5,7 @@ import java.util.Map;
 
 public record CountryDiseaseDTO(
         String countryName,
-        String regionName, // Added region
+        String regionName,
         String diseaseName,
         String diseaseNote,
         LocalDate diseaseStart,

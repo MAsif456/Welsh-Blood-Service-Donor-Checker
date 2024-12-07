@@ -85,8 +85,8 @@
             </p>
 
             <!-- At-risk diseases and relevant details (Only show these fields if diseaseName is not empty) -->
-            <div th:if="${disease.diseaseName != null && disease.diseaseName != ''
-                         && (disease.riskMessage == null || disease.riskMessage == '')}">
+
+            <div th:if="${disease.riskMessage == null || disease.riskMessage == ''}">
                 <p><strong>Disease Name:</strong> <span th:text="${disease.diseaseName}"></span></p>
                 <p><strong>Relevant Notes:</strong> <span th:text="${disease.diseaseNote}"></span></p>
                 <p><strong>Disease Active Period:</strong>

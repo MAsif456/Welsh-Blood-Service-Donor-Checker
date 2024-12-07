@@ -29,6 +29,18 @@ public class DonorTravelledToCountry {
 
     private LocalDate endDate;
 
+    // No-argument constructor
+    public DonorTravelledToCountry() {
+    }
+
+    public DonorTravelledToCountry(int id, Donor donor, Country country, Region region, LocalDate endDate) {
+        this.id = id;
+        this.donor = donor;
+        this.country = country;
+        this.region = region;
+        this.endDate = endDate;
+    }
+
 
     public Integer getId() {
         return id;
