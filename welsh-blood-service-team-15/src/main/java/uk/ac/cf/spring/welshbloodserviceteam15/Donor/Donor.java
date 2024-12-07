@@ -78,4 +78,7 @@ public class Donor {
     }
 
 
+    public void setDecisionMade(String User) {
+        this.decisionMadeBy = User;
+    }
 }
