@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS regions
     country_id INT,
     FOREIGN KEY(country_id) REFERENCES countries(country_id)
 );
+ALTER TABLE regions ADD CONSTRAINT unique_region_name UNIQUE (region_name);
 
 CREATE TABLE IF NOT EXISTS diseases
 (
@@ -93,7 +94,6 @@ CREATE TABLE users
     enabled BOOLEAN NOT NULL,
     role VARCHAR(50) NOT NULL
 );
-
 
 
 
