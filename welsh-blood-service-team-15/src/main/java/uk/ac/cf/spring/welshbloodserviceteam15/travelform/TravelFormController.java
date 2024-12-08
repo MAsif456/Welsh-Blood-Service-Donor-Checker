@@ -1,91 +1,98 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
-import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorDonorTravelledToCountryService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class TravelFormController {
-
-    private final TravelQuestionnaireService travelQuestionnaireService;
-    private final TravelFormService travelFormService;
+    private final QuestionService questionService;
     private final CountryService countryService;
+    private final DonorDonorTravelledToCountryService donorTravelledToCountryService;
 
-    @Autowired
-    public TravelFormController(TravelQuestionnaireService travelQuestionnaireService,
-                                TravelFormService travelFormService,
-                                CountryService countryService) {
-        this.travelQuestionnaireService = travelQuestionnaireService;
-        this.travelFormService = travelFormService;
+    public TravelFormController(QuestionService questionService, CountryService countryService, DonorDonorTravelledToCountryService donorTravelledToCountryService) {
+        this.questionService = questionService;
         this.countryService = countryService;
+        this.donorTravelledToCountryService = donorTravelledToCountryService;
     }
 
-    @GetMapping("/travel-form/{donorId}")
-    public String showTravelForm(@PathVariable Long donorId, Model model) {
-        List<String> questions = List.of(
-                "Have you travelled abroad in the past 12 months?",
-                "Where have you travelled in the past 12 months?",
-                "When did you return from this country?",
-                "Have you lived abroad for more than 6 months?",
-                "Where have you lived abroad?",
-                "When did you return from this country?"
-        );
+    @RequestMapping("/travel-form/{donorId}")
+    public ModelAndView showTravelForm(@PathVariable int donorId) {
+        ModelAndView mv =  new ModelAndView("travelform/travelForm");
 
-        List<Country> countries = countryService.getAllCountries(); // Fetch countries
+        List<Questions> questions = questionService.getQuestions();
+        List<Country> countries = countryService.getAllCountries();
+        List<DonorTravelledToCountry> donorTravelledToCountries = donorTravelledToCountryService.findByDonorId(donorId);
 
-        model.addAttribute("questions", questions);
-        model.addAttribute("countries", countries);
-        model.addAttribute("formData", new FormData());
-        model.addAttribute("donorId", donorId);
-        return "travelform/travelForm";
+        mv.addObject("questions", questions);
+        mv.addObject("countries", countries);
+        mv.addObject("donorId", donorId);
+        mv.addObject("donorTravelledToCountries", donorTravelledToCountries);
+        return mv;
     }
 
-    @PostMapping("/submit-travel-form")
-    public String submitTravelForm(@RequestParam Map<String, String> formData, @RequestParam Long donorId, Model model) {
+    @RequestMapping("/submit-travel-form")
+    public String submitNewTravelForm(
+            @RequestParam("donorId") String donorId,
+            @RequestParam("question1") String question1,
+            @RequestParam("question4") String question4,
+            @RequestParam("country") String countryId,
+            @RequestParam(value = "region", required = false) List<String> regionIds, // Optional parameter
+            @RequestParam("date") String date,
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
-        // List of general question IDs
-        List<Long> generalQuestionIds = List.of(1L, 4L);
+        int donorIdInt = 0;
+        int countryIdInt = 0;
+        List<Integer> regionIdInts = new ArrayList<>();
 
-        // Save general answers to travel_questionnaire
-        for (Map.Entry<String, String> entry : formData.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
+        try {
+            donorIdInt = Integer.parseInt(donorId); // Manually parse donorId
+            countryIdInt = Integer.parseInt(countryId); // Manually parse countryId
 
-            if (key.startsWith("question") && !key.contains("_")) {
-                Long questionId = Long.parseLong(key.replace("question", ""));
-                if (generalQuestionIds.contains(questionId)) {
-                    TravelQuestionnaire questionnaire = new TravelQuestionnaire();
-                    questionnaire.setDonorId(donorId);
-                    questionnaire.setQuestionId(questionId);
-                    questionnaire.setAnswer(value);
-                    travelQuestionnaireService.saveQuestionnaire(questionnaire);
+            // If regionIds isn't sent in the form, it will be null. Initialize it if necessary.
+            if (regionIds != null) {
+                for (String regionId : regionIds) {
+                    regionIdInts.add(Integer.parseInt(regionId)); // Manually parse regionId
                 }
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid donorId format: " + donorId);
+            // Handle the error (e.g., return an error message or redirect)
+        }
+
+        if (question1.equals("Yes")) {
+            // has travelled in the last 12 months
+            if (regionIdInts.isEmpty()) {
+                // No regions selected
+                donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, date);
+            }
+            for (int regionIdInt : regionIdInts) {
+                donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, regionIdInt, date);
+            }
+
+        } else if (question4.equals("Yes")) {
+            // has lived abroad for more than 6 months
+            for (int regionIdInt : regionIdInts) {
+                donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, regionIdInt, date);
             }
         }
 
-        // Save conditional answers to donor_travelled_to_country
-        if ("Yes".equals(formData.get("question1"))) {
-            travelFormService.saveDonorTravel(formData, donorId, "question2_", "question3_", "region_");
-        }
-        if ("Yes".equals(formData.get("question4"))) {
-            travelFormService.saveDonorTravel(formData, donorId, "question5", "question6", "region_");
-        }
-
-        model.addAttribute("donorId", donorId);
-
-        return "redirect:/donor/summary/" + donorId;
+        redirectAttributes.addAttribute("donorId", donorIdInt);
+        return "redirect:/travel-form/{donorId}";
     }
+
 }

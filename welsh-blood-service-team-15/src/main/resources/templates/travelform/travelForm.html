@@ -1,58 +1,89 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <title>Travel Form</title>
     <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
 </head>
 <body>
-<h1>Travel Form</h1>
-<form name="travelForm" th:action="@{/submit-travel-form}" th:object="${formData}" method="post" oninput="toggleConditionalQuestions()" onsubmit="validateForm(event)">
-    <input type="hidden" th:name="donorId" th:value="${donorId}" />
-    <div class="form-section">
-        <label for="question1">Have you travelled abroad in the past 12 months?</label>
-        <select id="question1" name="question1" th:field="*{question1}">
-            <option value="">Select an option</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
-    </div>
-    <div id="conditional1" class="form-section conditional" style="display: none;">
-        <div id="countriesContainer1"></div>
-        <button type="button" onclick="addCountry('countriesContainer1', 'question2_', 'question3_', 'Where have you travelled in the last 12 months?')">Add Country</button>
-    </div>
-    <div class="form-section">
-        <label for="question4">Have you lived abroad for more than 6 months?</label>
-        <select id="question4" name="question4" th:field="*{question4}">
-            <option value="">Select an option</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
-    </div>
-    <div id="conditional2" class="form-section conditional" style="display: none;">
-        <div id="countriesContainer2"></div>
-        <button type="button" onclick="addCountry('countriesContainer2', 'question5_', 'question6_', 'Where have you lived abroad?')">Add Country</button>
-    </div>
-    <div class="form-section">
-        <button type="submit">Submit</button>
-    </div>
-</form>
 
-<!-- Hidden divs to store options for JavaScript use -->
-<div id="countryOptions" style="display: none;">
-    <option value="">Select a country</option>
-    <th:block th:each="country : ${countries}">
-        <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
-    </th:block>
-</div>
-
-<div id="regionOptions" style="display: none;">
-    <option value="">Select a region</option>
-    <th:block th:each="region : ${regions}">
-        <option th:value="${region.regionId}" th:text="${region.regionName}"></option>
-    </th:block>
-</div>
-
-<!-- Link to external JavaScript file -->
 <script th:src="@{/js/travelForm/travelForm.js}"></script>
+
+<!-- Sidebar for Donor Travelled To Countries -->
+<aside class="travel-history">
+    <h1>Travel History</h1>
+    <ul>
+        <li th:each="travel : ${donorTravelledToCountries}">
+            <span><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></span><br>
+            <span th:if="${travel.region != null}">
+                <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+            </span><br>
+            <span><strong>Return Date:</strong> <span th:text="${travel.endDate}"></span></span>
+        </li>
+    </ul>
+</aside>
+
+<!-- Main Form -->
+<main class="travel-form">
+    <h1>Travel Form</h1>
+    <form name="travelForm" th:action="@{/submit-travel-form}" method="post"
+          oninput="toggleConditionalQuestions()" onsubmit="validateForm(event)">
+        <input type="hidden" name="donorId" th:value="${donorId}" />
+
+        <div class="form-section">
+            <label for="question1" th:text="${questions[0].question}"></label>
+            <select id="question1" name="question1">
+                <option value="">Select an option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="question4" th:text="${questions[3].question}"></label>
+            <select id="question4" name="question4">
+                <option value="">Select an option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <!-- Hidden sections for country, region, date, and submit button -->
+        <div id="country-section" class="form-section" style="display: none;">
+            <label for="country">Country:</label>
+            <select id="country" name="country" onchange="loadRegions(this)">
+                <option value="">Select a country</option>
+                <th:block th:each="country : ${countries}">
+                    <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <div id="region-section" class="form-section" style="display: none;">
+            <label for="region">Region:</label>
+            <select id="region" name="region[]" multiple>
+                <option value="">Select a region</option>
+            </select>
+        </div>
+
+        <div id="date-section" class="form-section" style="display: none;">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" />
+        </div>
+
+        <div class="buttons">
+            <div id="submit-button">
+                <button type="submit">Submit</button>
+            </div>
+            <div id="reload-button">
+                <button type="button" onclick="window.location.reload()">Back</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="finish-button">
+        <a th:href="@{/donor/summary/{donorId}(donorId=${donorId})}">Finish</a>
+    </div>
+</main>
+
 </body>
 </html>

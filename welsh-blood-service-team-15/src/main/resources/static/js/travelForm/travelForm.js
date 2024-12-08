@@ -1,145 +1,126 @@
-function toggleConditionalQuestions() {
-    const formData = document.forms['travelForm'];
-    const question1 = formData['question1'].value;
-    document.getElementById('conditional1').style.display = question1 === 'Yes' ? 'block' : 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    const question1 = document.getElementById('question1');
+    const question4 = document.getElementById('question4');
+    const question1Section = question1.parentElement;
+    const question4Section = question4.parentElement;
+    const countrySection = document.getElementById('country-section');
+    const regionSection = document.getElementById('region-section');
+    const dateSection = document.getElementById('date-section');
+    const submitButton = document.getElementById('submit-button');
+    const reloadButton = document.getElementById('reload-button');
+    const finishButton = document.getElementById('finish-button');
 
-    const question4 = formData['question4'].value;
-    document.getElementById('conditional2').style.display = question4 === 'Yes' ? 'block' : 'none';
-}
+    function toggleConditionalQuestions() {
+        const showExtraFields = (question1.value === 'Yes' || question4.value === 'Yes');
 
-function addCountry(containerId, countryKeyPrefix, dateKeyPrefix, labelText) {
-    const container = document.getElementById(containerId);
-    const countryIndex = container.children.length;
+        // Show/hide the extra fields and the submit button based on the condition
+        if (showExtraFields) {
+            question1Section.style.display = 'none';
+            question4Section.style.display = 'none';
+            countrySection.style.display = 'block';
+            regionSection.style.display = 'block';
+            dateSection.style.display = 'block';
+            submitButton.style.display = 'block';
+            reloadButton.style.display = 'block';
+            finishButton.style.display = 'none';
+        } else {
+            question1Section.style.display = 'block';
+            question4Section.style.display = 'block';
+            countrySection.style.display = 'none';
+            regionSection.style.display = 'none';
+            dateSection.style.display = 'none';
+            submitButton.style.display = 'none';
+            reloadButton.style.display = 'none';
+            finishButton.style.display = 'block';
+        }
+    }
 
-    const countryDiv = document.createElement('div');
-    countryDiv.className = 'form-section';
-    countryDiv.id = `${containerId}_div_${countryIndex}`;
+    // Initial check to set visibility based on current values
+    toggleConditionalQuestions();
 
-    const countryLabel = document.createElement('label');
-    countryLabel.setAttribute('for', `${countryKeyPrefix}${countryIndex}`);
-    countryLabel.textContent = labelText;
-    countryDiv.appendChild(countryLabel);
+    // Add event listeners for change events
+    question1.addEventListener('change', toggleConditionalQuestions);
+    question4.addEventListener('change', toggleConditionalQuestions);
+});
 
-    const countrySelect = document.createElement('select');
-    countrySelect.id = `${countryKeyPrefix}${countryIndex}`;
-    countrySelect.name = `${countryKeyPrefix}${countryIndex}`;
-    countrySelect.innerHTML = document.getElementById('countryOptions').innerHTML;
-    countrySelect.onchange = function() {
-        loadRegions(this, `${countryKeyPrefix}${countryIndex}`);
-    };
-    countryDiv.appendChild(countrySelect);
 
-    // Region input (hidden initially)
-    const regionDiv = document.createElement('div');
-    regionDiv.id = `regionContainer_${countryIndex}`;
-    regionDiv.style.display = 'none'; // Hidden by default
-
-    const regionLabel = document.createElement('label');
-    regionLabel.setAttribute('for', `region_${countryIndex}`);
-    regionLabel.textContent = 'Select a region';
-    regionDiv.appendChild(regionLabel);
-
-    const regionSelect = document.createElement('select');
-    regionSelect.id = `region_${countryIndex}`;
-    regionSelect.name = `region_${countryIndex}`;
-    regionDiv.appendChild(regionSelect);
-
-    countryDiv.appendChild(regionDiv);
-
-    // Date input
-    const dateLabel = document.createElement('label');
-    dateLabel.setAttribute('for', `${dateKeyPrefix}${countryIndex}`);
-    dateLabel.textContent = 'When did you return from this country?';
-    countryDiv.appendChild(dateLabel);
-
-    const dateInput = document.createElement('input');
-    dateInput.type = 'date';
-    dateInput.id = `${dateKeyPrefix}${countryIndex}`;
-    dateInput.name = `${dateKeyPrefix}${countryIndex}`;
-    countryDiv.appendChild(dateInput);
-
-    const deleteButton = document.createElement('button');
-    deleteButton.type = 'button';
-    deleteButton.textContent = 'Delete';
-    deleteButton.onclick = function() {
-        container.removeChild(countryDiv);
-    };
-    countryDiv.appendChild(deleteButton);
-
-    container.appendChild(countryDiv);
-}
-
-async function loadRegions(countrySelect, countryKey) {
+async function loadRegions(countrySelect) {
     const countryId = countrySelect.value;
-    const regionContainer = document.getElementById(`regionContainer_${countryKey.split('_')[1]}`);
-    const regionSelect = document.getElementById(`region_${countryKey.split('_')[1]}`);
+    const regionSelect = document.getElementById('region');
+    const regionSection = document.getElementById('region-section');
 
     if (countryId) {
-        fetch(`/api/region/get-region?countryId=${countryId}`)
-            .then(response => response.json())
-            .then(data => {
-                // Clear the region select options
-                regionSelect.innerHTML = '<option value="">Select a region</option>';
+        try {
+            const response = await fetch(`/api/region/get-region?countryId=${countryId}`);
+            const data = await response.json();
 
-                if (data.length > 0) {
-                    // Populate region options if data is available
-                    data.forEach(region => {
-                        const option = document.createElement('option');
-                        option.value = region.regionId;
-                        option.textContent = region.regionName;
-                        regionSelect.appendChild(option);
-                    });
-                    regionContainer.style.display = 'block'; // Show the region section
-                } else {
-                    // If no regions are returned, hide the region section
-                    regionContainer.style.display = 'none';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching regions:', error);
-                regionContainer.style.display = 'none'; // Hide the region section on error
-            });
+            // Clear existing options and set a default option
+            regionSelect.innerHTML = '<option value="">Select a region</option>';
+
+            if (data.length > 0) {
+                // Populate region options if data is available
+                data.forEach(region => {
+                    const option = document.createElement('option');
+                    option.value = region.regionId;
+                    option.textContent = region.regionName;
+                    regionSelect.appendChild(option);
+                });
+                regionSection.style.display = 'block'; // Show the region section
+            } else {
+                // Hide the region section if no regions are returned
+                regionSection.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error fetching regions:', error);
+            regionSection.style.display = 'none'; // Hide the region section on error
+        }
     } else {
-        regionContainer.style.display = 'none'; // Hide if no country is selected
+        regionSection.style.display = 'none'; // Hide if no country is selected
     }
 }
-
-
 
 function validateForm(event) {
     const formData = document.forms['travelForm'];
     const question1 = formData['question1'].value;
     const question4 = formData['question4'].value;
+    const countryId = formData['country'].value;
+    const date = formData['date'].value;
     const currentDate = new Date();
     const twelveMonthsAgo = new Date();
     twelveMonthsAgo.setFullYear(currentDate.getFullYear() - 1);
 
-    if (question1 === 'Yes') {
-        const countryDivs = document.getElementById('countriesContainer1').children;
-        for (let i = 0; i < countryDivs.length; i++) {
-            const countrySelect = countryDivs[i].querySelector('select');
-            const dateInput = countryDivs[i].querySelector('input[type="date"]');
-            const selectedDate = new Date(dateInput.value);
+    //check country and date are provided
+    if (!countryId || !date) {
+        alert('Country and date fields are required. Please fill them out before submitting.');
+        event.preventDefault(); // Prevent form submission
+        return false;
+    }
 
-            if (!countrySelect.value || !dateInput.value || selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
-                alert('Please fill out all fields for the countries you have travelled to in the last 12 months.');
-                event.preventDefault(); // Prevent form submission
-                return;
-            }
+    //if question 1 is yes:
+    if (question1 === 'Yes') {
+        //date has to be within last 12 months
+        //check if the date is within the last 12 months
+        const selectedDate = new Date(date);
+        if (isNaN(selectedDate.getTime()) || selectedDate > currentDate || selectedDate < twelveMonthsAgo) {
+            alert('The date must be within the last 12 months. Please provide a valid date.');
+            event.preventDefault(); // Prevent form submission
+            return false;
         }
     }
 
     if (question4 === 'Yes') {
-        const countryDivs = document.getElementById('countriesContainer2').children;
-        for (let i = 0; i < countryDivs.length; i++) {
-            const countrySelect = countryDivs[i].querySelector('select');
-            const dateInput = countryDivs[i].querySelector('input[type="date"]');
-
-            if (!countrySelect.value || !dateInput.value) {
-                alert('Please fill out all fields for the countries you have lived in.');
-                event.preventDefault(); // Prevent form submission
-                return;
-            }
+        //date doesn't have to be within last 12 months
+        //check date is valid
+        const selectedDate = new Date(date);
+        if (isNaN(selectedDate.getTime())) {
+            alert('The date must be valid. Please provide a valid date.');
+            event.preventDefault(); // Prevent form submission
+            return false;
         }
     }
+
+    // If all validations pass, allow form submission
+    return true;
 }
+
+
