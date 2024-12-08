@@ -76,7 +76,7 @@ public class DonorServiceTest {
         assertTrue(result.get(1).getRiskMessage().isEmpty() || !result.get(1).getRiskMessage().startsWith("No risk"));
         assertTrue(result.get(2).getRiskMessage().startsWith("No risk") || result.get(2).getRiskMessage().contains("No linked"));
     }
-    
+
     /**
      * This method ensures that a donor who has not traveled to a region with an active disease
      * receives a message indicating no risk.
