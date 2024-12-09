@@ -45,4 +45,22 @@ public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, 
     List<CountryDiseaseDTO> findAllRegionsAndDiseasesForDonor(@Param("donorId") Integer donorId, @Param("oneYearAgo") LocalDate oneYearAgo);
 
     List<CountryDisease> findAll();
+
+    @Query("""
+    SELECT new uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO(
+        c.countryName,
+        COALESCE(r.regionName, 'N/A - Disease Applies to the whole country'),
+        d.diseaseName,
+        cd.note,
+        cd.startDate,
+        cd.endDate,
+        ''
+    )
+    FROM CountryDisease cd
+    JOIN Country c ON c.countryId = cd.country.countryId
+    LEFT JOIN Region r ON r.regionId = cd.region.regionId
+    LEFT JOIN Disease d ON d.diseaseId = cd.disease.diseaseId
+    WHERE c.countryId = :countryId
+""")
+    List<CountryDiseaseDTO> findDiseasesByCountry(@Param("countryId") Integer countryId);
 }

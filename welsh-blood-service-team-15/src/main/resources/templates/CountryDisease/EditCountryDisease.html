@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
+</head>
+<body>
+<script th:src="@{/js/travelForm/travelForm.js}"></script>
+
+
+<h1>Edit Country Disease</h1>
+<!-- Dropdown to select a country -->
+<form th:action="@{/edit-disease/view}" method="get">
+    <label for="country">Country:</label>
+    <select name="countryId" id="country">
+        <option value="" disabled selected>Select a country</option>
+        <option th:each="country : ${countries}" th:value="${country.countryId}" th:text="${country.countryName}" th:selected="${selectedCountry == country.countryId}"></option>
+    </select>
+    <button type="submit">View Disease Risks</button>
+</form>
+
+<!-- Display the results -->
+<div th:if="${diseaseRisks}">
+    <h2>Disease Risks</h2>
+    <ul>
+        <li th:each="risk : ${diseaseRisks}">
+            <p><strong>Country:</strong> <span th:text="${risk.countryName}"></span></p>
+            <p><strong>Region:</strong> <span th:text="${risk.regionName}"></span></p>
+            <p th:if="${risk.diseaseName}"><strong>Disease Name:</strong> <span th:text="${risk.diseaseName}"></span></p>
+            <p th:if="${risk.diseaseNote}"><strong>Relevant Notes:</strong> <span th:text="${risk.diseaseNote}"></span></p>
+            <p th:if="${risk.diseaseStart != null and risk.diseaseEnd != null}">
+                <strong>Disease Active Period:</strong> <span th:text="${risk.diseaseStart}"></span> to <span th:text="${risk.diseaseEnd}"></span>
+            </p>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

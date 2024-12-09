@@ -24,6 +24,4 @@ public class Country {
         this.countryName = countryName;
     }
 
-
-
 }
