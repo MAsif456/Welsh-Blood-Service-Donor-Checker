@@ -3,8 +3,23 @@
 <head>
     <title>New Donor</title>
     <link rel="stylesheet" th:href="@{/css/Donor/donor-form.css}" />
+    <link rel="stylesheet" th:href="@{/css/Global/globalStyles.css}" />
 </head>
 <body>
+
+<div class="container">
+
+<div class="squiggly-border top-right">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,0 100,0 100,100 50,90 25,95 0,100" fill="#b22222" />
+    </svg>
+</div>
+<div class="squiggly-border bottom-left">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,0 25,5 50,10 100,0 100,100 0,100" fill="#b22222" />
+    </svg>
+</div>
+
 <h1>Add A New Donor</h1>
 <form action="#" th:action="@{/donor-form}" th:object="${donorForm}" method="post">
     <div>
@@ -34,5 +49,9 @@
 
     </div>
 </form>
+
+</div>
+
+
 </body>
 </html>

@@ -5,27 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welsh Blood Home Page</title>
     <link rel="stylesheet" th:href="@{/css/Home/home.css}">
+    <link rel="stylesheet" th:href="@{/css/Gloabl/gloablStyles.css}">
 </head>
 <body>
-<div class="grid-container">
-    <div class="grid-item">
-        <h2>Welcome to Welsh Blood</h2>
-        <p>Join thousands of generous donors in helping save lives across Wales. Your donation can make a real difference to those in need.</p>
+<div class="container">
+    <div class="squiggly-border top-right">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon points="0,0 100,0 100,100 50,90 25,95 0,100" fill="#b22222" />
+        </svg>
     </div>
-    <div class="grid-item">
-        <h2>We Need Your Donations</h2>
-        <p>Every blood donation helps save lives. Welsh Blood provides essential support to hospitals and patients who rely on blood transfusions. Whether it's for surgeries, trauma care, or treating serious illnesses, your contribution is vital.</p>
-        <p><a href="/donate">Donate now</a> to help us reach our target.</p>
+    <div class="squiggly-border bottom-left">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon points="0,0 25,5 50,10 100,0 100,100 0,100" fill="#b22222" />
+        </svg>
     </div>
-    <div class="grid-item">
-        <h2>Check Your Eligibility</h2>
-        <p>Are you eligible to donate? Most healthy adults can give blood. Find out if you meet the criteria by answering a few simple questions on our eligibility checker.</p>
-        <p><a href="/donor-form">Check Eligibility</a></p>
+
+    <div class="box small-box">
+        <div class="text">
+            <h3>What we do</h3>
+            <p>At WelshBlood</p>
+        </div>
     </div>
-    <div class="grid-item">
-        <h2>Volunteer Opportunities</h2>
-        <p>Want to do more? Welsh Blood relies on volunteers to help with donor events, community outreach, and administrative support. Your time and effort can help us make a bigger impact.</p>
-        <p><a href="/volunteer">Sign up to volunteer</a></p>
+
+    <div class="box large-box">
+        <div class="text">
+            <h3>Where your donations go to</h3>
+            <div class="text-right">
+                <p>Person story</p>
+            </div>
+        </div>
+        <div class="picture">
+            <img th:src="@{/images/Home/Red.png}" alt="heart">
+        </div>
     </div>
 </div>
 </body>

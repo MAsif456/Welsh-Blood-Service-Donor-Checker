@@ -12,6 +12,9 @@ body {
 
 /* Main Form */
 .travel-form {
+    position: absolute;
+    left: 42.5%;
+    top: 10%;
     width: 60%; /* Wider form */
     max-width: 700px;
     padding: 20px;
@@ -24,6 +27,9 @@ body {
 
 /* Travel History */
 .travel-history {
+    position: absolute;
+    left: 10%;
+    top: 10%;
     width: 30%; /* Takes up less width than the form */
     max-width: 400px;
     padding: 20px;

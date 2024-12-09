@@ -1,0 +1,29 @@
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.squiggly-border {
+    position: absolute;
+    pointer-events: none;
+    background-color: transparent; /* Ensure the background is transparent */
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 60%;
+    width: 60%;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30%;
+    width: 30%;
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
