@@ -31,6 +31,7 @@ public class DecisionAndNotesController {
         return modelAndView;
     }
 
+
     @PostMapping("/submit-decisions")
     public ModelAndView submitDecisions(@Valid @ModelAttribute("donor") DonorDetails donorDetails,
                                         BindingResult bindingResult) {
@@ -50,10 +51,7 @@ public class DecisionAndNotesController {
             modelAndView.addObject("errors", bindingResult.getAllErrors());
             return modelAndView;
         }
-
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-
         // Update the database with the decision and notes
         decisionAndNotesService.updateDonorDecisionAndNotes(donorDetails.getDonorId(), donorDetails.getDecision(), donorDetails.getNotes(), username);
 
@@ -61,6 +59,7 @@ public class DecisionAndNotesController {
         modelAndView.setViewName("redirect:/confirmation?donorId=" + donorDetails.getDonorId());
         return modelAndView;
     }
+
 
     @GetMapping("/confirmation")
     public String confirmationPage(@RequestParam("donorId") int donorId, Model model) {
