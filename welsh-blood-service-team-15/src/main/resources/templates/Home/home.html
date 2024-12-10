@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welsh Blood Home Page</title>
     <link rel="stylesheet" th:href="@{/css/Home/home.css}">
-    <link rel="stylesheet" th:href="@{/css/Gloabl/gloablStyles.css}">
+    <link rel="stylesheet" th:href="@{/css/Global/globalStyles.css}" />
+
 </head>
 <body>
 <div class="container">
@@ -23,7 +24,12 @@
     <div class="box small-box">
         <div class="text">
             <h3>What we do</h3>
-            <p>At WelshBlood</p>
+            <p>At WelshBlood, we are dedicated to saving lives and supporting our community by ensuring a steady and reliable blood supply. Here's how we make an impact:</p>
+            <ul>
+                <li><strong>Collecting Blood Donations</strong>: We organize regular blood drives and maintain donor centers where individuals can contribute blood to help those in need.</li>
+                <li><strong>Blood Processing and Storage</strong>: Our expert team processes and stores blood donations to ensure they meet safety and quality standards, making them available for hospitals and clinics.</li>
+                <li><strong>Matching and Distribution</strong>: We coordinate with medical facilities to ensure that donated blood is efficiently matched and distributed to patients who require it most.</li>
+            </ul>
         </div>
     </div>
 
@@ -35,7 +41,7 @@
             </div>
         </div>
         <div class="picture">
-            <img th:src="@{/images/Home/Red.png}" alt="heart">
+            <img th:src="@{/images/Home/Heart.png}" alt="heart">
         </div>
     </div>
 </div>

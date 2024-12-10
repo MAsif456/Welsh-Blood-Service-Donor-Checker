@@ -52,7 +52,6 @@ public class DonorController {
 
         model.addAttribute("diseases", sortedDiseases);
 
-
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
         List<Questions> questions = questionService.getQuestions();
 

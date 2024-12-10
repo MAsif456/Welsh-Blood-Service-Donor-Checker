@@ -1,29 +1,49 @@
+/* Container setup */
 .container {
     position: relative;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
+/* Corner SVG Styling */
 .squiggly-border {
     position: absolute;
     pointer-events: none;
-    background-color: transparent; /* Ensure the background is transparent */
+    background-color: transparent;
 }
 
 .top-right {
-    position: absolute;
     top: 0;
     right: 0;
-    height: 60%;
-    width: 60%;
+    width: 50%;
+    height: auto; /* Maintain aspect ratio */
     clip-path: polygon(100% 0, 0 0, 100% 100%);
+
 }
 
 .bottom-left {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 30%;
+    height: auto;
     width: 30%;
     clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .top-right {
+        width: 45%;
+    }
+    .bottom-left {
+        width: 25%;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-right,
+    .bottom-left {
+        width: 30%;
+    }
 }

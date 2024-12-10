@@ -11,7 +11,7 @@
 <body>
 <div class="donor-summary">
     <h1>Donor Summary</h1>
-    <p><strong>Name:</strong> <span th:text="${donor.firstName} + ' ' + ${donor.lastName}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${donor.firstName + ' ' + donor.lastName}"></span></p>
     <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
     <p><strong>Decision:</strong>
         <span class="decision"
@@ -23,6 +23,12 @@
               th:text="${donor.donorDecision != null ? donor.donorDecision : 'Awaiting decision'}">
     </span>
     </p>
+
+    <form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
+        <input type="hidden" name="donorId" th:value="${donorId}" />
+        <button type="submit" class="navigation-button">View Decision and Notes</button>
+    </form>
+
     <h2>Travel History</h2>
     <div class="travel-history">
         <ul>
@@ -57,6 +63,7 @@
 <div class="disease-risk-summary">
     <h2>Relevant Disease Risk</h2>
     <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
+    <br>
 
     <ul>
         <li th:each="disease : ${diseases}">
@@ -102,16 +109,6 @@
         This donor has not travelled to any country in the last 12 months.
     </p>
 </div>
-
-
-
-
-
-<form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
-    <input type="hidden" name="donorId" th:value="${donor.donorId}" />
-    <button type="submit" class="navigation-button">View Decision and Notes</button>
-</form>
-
 </body>
 </html>
 
