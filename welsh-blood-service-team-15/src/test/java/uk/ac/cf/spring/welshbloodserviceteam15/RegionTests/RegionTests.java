@@ -27,7 +27,7 @@ public class RegionTests {
     }
 
     @Test
-    public void testRegion() {
+    public void testRegionCreation() {
         Region region = makeRegion();
         Country country = makeCountry();
         region.setCountry(country);
