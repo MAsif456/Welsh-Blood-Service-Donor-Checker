@@ -32,6 +32,17 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.disease-risk-summary li.no-risk {
+    background-color: #d3d3d3;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.disease-risk-summary li.no-risk:hover {
+    background-color: #c0c0c0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .disease-risk-summary li:hover {
     background-color: #ff9999;
     border-color: #ccc;

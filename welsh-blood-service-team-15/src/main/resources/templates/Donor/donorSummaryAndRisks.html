@@ -66,7 +66,11 @@
     <br>
 
     <ul>
-        <li th:each="disease : ${diseases}">
+        <li th:each="disease : ${diseases}"
+            th:classappend="${disease.riskMessage != null && (disease.riskMessage ==
+            'No risk for donor as donor has returned before the disease start date.' || disease.riskMessage ==
+            'No risk for donor as donor has not travelled to this region.') ? ' no-risk' : ''}">
+
             <p><strong>Country:</strong> <span th:text="${disease.countryName}"></span></p>
 
             <!-- Case: No linked diseases for country/region -->

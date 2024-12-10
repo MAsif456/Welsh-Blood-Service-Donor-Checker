@@ -32,8 +32,8 @@
         </svg>
     </div>
 
-<h1>Add A New Donor</h1>
 <form action="#" th:action="@{/donor-form}" th:object="${donorForm}" method="post">
+    <h1>Add A New Donor</h1>
     <div>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" th:field="*{firstName}" />
