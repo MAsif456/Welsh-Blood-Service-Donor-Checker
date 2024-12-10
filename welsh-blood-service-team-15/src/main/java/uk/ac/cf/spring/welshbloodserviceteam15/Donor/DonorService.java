@@ -7,8 +7,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class DonorService {
@@ -24,7 +23,7 @@ public class DonorService {
     }
     public List<CountryDiseaseDTO> getRelevantDiseasesForDonor(Integer donorId) {
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
-        return countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo);
+        return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
     }
     public List<Donor> getAllDonors() {
         return donorRepository.findAll();
@@ -35,7 +34,8 @@ public class DonorService {
         return donor.orElse(null);
     }
 
-
-
-
+    // Testing methods
+    public List<CountryDiseaseDTO> getDonorDiseaseRisks(Integer donorId, LocalDate oneYearAgo) {
+        return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
+    }
 }

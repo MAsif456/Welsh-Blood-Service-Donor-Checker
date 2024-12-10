@@ -47,6 +47,6 @@ public class HomeControllerTests {
         String content = result.getResponse().getContentAsString();
 
         // Then
-        assertTrue(content.contains("<title>Home Page</title>"));
+        assertTrue(content.contains("<title>Welsh Blood Home Page</title>"));
     }
 }

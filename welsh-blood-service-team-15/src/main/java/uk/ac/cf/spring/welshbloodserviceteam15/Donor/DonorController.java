@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO;
+import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
+import uk.ac.cf.spring.welshbloodserviceteam15.Utils.ModelUtils;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -28,65 +29,56 @@ public class DonorController {
 
     @Autowired
     private DonorService donorService;
+
     @Autowired
     private QuestionnaireService questionnaireService;
 
     @Autowired
     private QuestionService questionService;
 
-
     @Autowired
     private DonorRepository donorRepository;
+
+    @Autowired
+    private DiseaseService diseaseService;
 
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
         Donor donor = donorService.getDonorSummary(donorId);
+
         List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donorId);
-        model.addAttribute("donor", donor);
-        model.addAttribute("diseases", diseases);
 
-        // Get the donor's answers
+        // Set to handle duplicates
+        Set<CountryDiseaseDTO> uniqueDiseases = new HashSet<>(diseases);
+        List<CountryDiseaseDTO> sortedDiseases = diseaseService.sortDiseasesByRisk(new ArrayList<>(uniqueDiseases));
+
+        model.addAttribute("diseases", sortedDiseases);
+
+
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
-        model.addAttribute("donorsAnswers", donorsAnswers);
-
-        // Get the list of all questions
         List<Questions> questions = questionService.getQuestions();
 
-        // Ensure the questions list is not null
-        if (questions != null) {
-            // Map question ID to question text for easy lookup in Thymeleaf
-            Map<Integer, String> questionMap = questions.stream()
-                    .filter(q -> q.getQuestion_id() != null && q.getQuestion() != null)
-                    .collect(Collectors.toMap(Questions::getQuestion_id, Questions::getQuestion));
-
-            model.addAttribute("questionMap", questionMap);
-        }
+        ModelUtils.addCommonAttributesToModel(model, donor, donorsAnswers, questions);
 
         return "Donor/donorSummaryAndRisks";
     }
+
 
     @GetMapping("/donor/summary/{donorId}")
     public String getDonorSummary(@PathVariable Integer donorId, Model model) {
         // Get the donor summary
         Donor donor = donorService.getDonorSummary(donorId);
-        model.addAttribute("donor", donor);
+        //model.addAttribute("donor", donor);
 
         // Get the donor's answers
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
-        model.addAttribute("donorsAnswers", donorsAnswers);
 
         // Get the list of all questions
         List<Questions> questions = questionService.getQuestions();
 
         // Ensure the questions list is not null
-        if (questions != null) {
-            // Map question ID to question text for easy lookup in Thymeleaf
-            Map<Integer, String> questionMap = questions.stream()
-                    .filter(q -> q.getQuestion_id() != null && q.getQuestion() != null)
-                    .collect(Collectors.toMap(Questions::getQuestion_id, Questions::getQuestion));
+        ModelUtils.addCommonAttributesToModel(model, donor, donorsAnswers, questions);
 
-            model.addAttribute("questionMap", questionMap);
-        }
 
         return "Donor/donorSummary";
     }

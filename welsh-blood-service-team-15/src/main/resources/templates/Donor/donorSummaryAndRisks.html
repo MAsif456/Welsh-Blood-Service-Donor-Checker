@@ -28,7 +28,9 @@
         <ul>
             <li th:each="travel : ${donor.travelHistory}">
                 <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
-                <!-- No more start date -->
+                <p th:if="${travel.region != null}">
+                    <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+                </p>
                 <p><strong>Return Date:</strong> <span th:text="${travel.getEndDate}"></span>
             </li>
         </ul>
@@ -52,7 +54,6 @@
         </ul>
     </div>
 </div>
-
 <div class="disease-risk-summary">
     <h2>Relevant Disease Risk</h2>
     <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
@@ -60,18 +61,49 @@
     <ul>
         <li th:each="disease : ${diseases}">
             <p><strong>Country:</strong> <span th:text="${disease.countryName}"></span></p>
-            <p th:if="${disease.riskMessage == 'No risk for donor'}"><strong>Message:</strong> <span th:text="${disease.riskMessage}"></span></p>
-            <div th:if="${disease.riskMessage != 'No risk for donor'}">
+
+            <!-- Case: No linked diseases for country/region -->
+            <p th:if="${disease.riskMessage == 'No linked diseases found for this country/region.'}">
+                <strong>Message:</strong>
+                <span th:text="${disease.riskMessage}"></span>
+            </p>
+
+            <!-- Show Region only if diseaseName is not empty, or disease applies to the whole country -->
+            <p th:if="${disease.diseaseName != null && disease.diseaseName != ''}">
+                <strong>Region:</strong>
+                <span th:text="${disease.regionName != null ? disease.regionName : 'N/A - Disease Applies to the whole country'}"></span>
+            </p>
+
+            <!-- Case: No risk for donor (Returned before disease start date) -->
+            <p th:if="${disease.riskMessage == 'No risk for donor as donor has returned before the disease start date.'}">
+                <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+            </p>
+
+            <!-- Case: No risk for donor (No travel to the region) -->
+            <p th:if="${disease.riskMessage == 'No risk for donor as donor has not travelled to this region.'}">
+                <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+            </p>
+
+            <!-- At-risk diseases and relevant details (Only show these fields if diseaseName is not empty) -->
+
+            <div th:if="${disease.riskMessage == null || disease.riskMessage == ''}">
                 <p><strong>Disease Name:</strong> <span th:text="${disease.diseaseName}"></span></p>
                 <p><strong>Relevant Notes:</strong> <span th:text="${disease.diseaseNote}"></span></p>
-                <p><strong>Disease Active Period:</strong> <span th:text="${disease.diseaseStart}"></span> to
-                    <span th:text="${disease.diseaseEnd}"></span></p>
-                <!--<p><strong>Donor Return Date:</strong> <span th:text="${disease.donorReturnDate}"></span></p>-->
+                <p><strong>Disease Active Period:</strong>
+                    <span th:text="${disease.diseaseStart}"></span> to
+                    <span th:text="${disease.diseaseEnd}"></span>
+                </p>
             </div>
         </li>
     </ul>
-    <p th:if="${#lists.isEmpty(diseases)}">This donor has not travelled to any country in the last 12 months.</p>
+
+    <!-- Fallback for no diseases -->
+    <p th:if="${#lists.isEmpty(diseases)}">
+        This donor has not travelled to any country in the last 12 months.
+    </p>
 </div>
+
+
 
 
 
@@ -82,3 +114,60 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+p th:if="${disease.diseaseName != null && disease.diseaseName != ''}">
+<strong>Region:</strong>
+<span th:text="${disease.regionName != null ? disease.regionName : 'N/A - Disease Applies to the whole country'}"></span>
+</p>
+
+<-- Case: No travel to the region --
+<p th:if="${disease.riskMessage == 'No risk for donor as he has not travelled to this region.'}">
+    <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+</p>
+
+-- Case: Returned before disease start date --
+<p th:if="${disease.riskMessage == 'No risk for donor as he has returned before the disease start date.'}">
+    <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+</p>
+
+!-- Case: No linked diseases --
+<p th:if="${disease.diseaseName == null || disease.diseaseName == '' }">
+    <strong>Message:</strong>
+    <span th:text="'No linked diseases found for this country/region.'"></span>
+</p>-->

@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.*;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
@@ -15,6 +16,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireServic
 import java.time.LocalDate;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,319 +25,267 @@ public class DonorServiceTest {
     @Autowired
     private DonorService donorService;
 
-    @Autowired
-    private DonorRepository donorRepository;
-
     @MockBean
     private CountryDiseaseRepository countryDiseaseRepository;
 
     @MockBean
     private DonorTravelledToCountryRepository donorTravelledToCountryRepository;
 
-
-
-
     /**
-     * This method tests whether the risks for a country are correctly returned
-     * when a donor who has traveled abroad in the last 12 months and returned from
-     * a country after a disease has been active.
-     */
-    @Test
-    public void testGetRelevantDiseasesForDonor() {
-        // Given a donor has travelled abroad in the last 12 months,
-        // and they return from a country after a disease has been active,
-        Integer donorId = 1;
-        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
-        LocalDate diseaseStartDate = LocalDate.now().minusMonths(6);
-        LocalDate diseaseEndDate = LocalDate.now().minusMonths(3);
-        LocalDate travelEndDate = LocalDate.now().minusMonths(2);
-
-        Country country = new Country();
-        country.setCountryName("Test Country");
-
-        Disease disease = new Disease();
-        disease.setDiseaseName("Test Disease");
-
-        CountryDisease countryDisease = new CountryDisease();
-        countryDisease.setCountry(country);
-        countryDisease.setDisease(disease);
-        countryDisease.setStartDate(diseaseStartDate);
-        countryDisease.setEndDate(diseaseEndDate);
-        countryDisease.setNote("Test Note");
-
-        DonorTravelledToCountry donorTravelledToCountry = new DonorTravelledToCountry();
-        donorTravelledToCountry.setCountry(country);
-        donorTravelledToCountry.setEndDate(travelEndDate);
-
-        List<CountryDiseaseDTO> expectedDiseases = List.of(new CountryDiseaseDTO(
-                country.getCountryName(),
-                disease.getDiseaseName(),
-                countryDisease.getNote(),
-                countryDisease.getStartDate(),
-                countryDisease.getEndDate(),
-                null
-        ));
-
-        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
-                .thenReturn(expectedDiseases);
-
-        // When checking for relevant risks for the donor,
-        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
-
-        // Then the risks for that country should be returned.
-        assertEquals(expectedDiseases, actualDiseases);
-    }
-
-
-
-    /**
-     * This method tests whether the country is returned with a message
-     * displaying no risks when a donor has traveled abroad in the last
-     * 12 months and returned from a country before a disease has been active.
+     * This method checks that donor disease risks are sorted such that entries with a "No risk for donor"
+     * message appear last, while risks from region-specific and country-wide diseases are listed first.
      */
 
     @Test
-    public void testDonorTravelBeforeDiseaseActive() {
-        // Given a donor has travelled abroad in the last 12 months,
-        // and they return from a country before a disease has been active,
-        Integer donorId = 1;
-        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
-        LocalDate diseaseStartDate = LocalDate.now().minusMonths(3);
-        LocalDate travelEndDate = LocalDate.now().minusMonths(6);
-
-        Country country = new Country();
-        country.setCountryName("Test Country");
-
-        Disease disease = new Disease();
-        disease.setDiseaseName("Test Disease");
-
-        CountryDisease countryDisease = new CountryDisease();
-        countryDisease.setCountry(country);
-        countryDisease.setDisease(disease);
-        countryDisease.setStartDate(diseaseStartDate);
-        countryDisease.setEndDate(diseaseStartDate.plusMonths(1));
-        countryDisease.setNote("Test Note");
-
-        DonorTravelledToCountry donorTravelledToCountry = new DonorTravelledToCountry();
-        donorTravelledToCountry.setCountry(country);
-        donorTravelledToCountry.setEndDate(travelEndDate);
-
-        List<CountryDiseaseDTO> expectedDiseases = List.of(new CountryDiseaseDTO(
-                country.getCountryName(),
-                disease.getDiseaseName(),
-                countryDisease.getNote(),
-                countryDisease.getStartDate(),
-                countryDisease.getEndDate(),
-                "No risk for donor"
-        ));
-
-        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
-                .thenReturn(expectedDiseases);
-
-        // When checking for relevant risks for the donor,
-        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
-
-        // Then that country should be returned with a message displaying no risks.
-        assertEquals(expectedDiseases, actualDiseases);
-    }
-
-
-    /**
-     * This method tests whether multiple countries are returned with a message
-     * displaying a risk message, after the donor has returned from multiple countries,
-     * after the active disease dates.
-     */
-
-    @Test
-    public void testDonorWithMultipleTravelAndReturnAfterActiveDiseases() {
-        // Given a donor has travelled to 2 countries in the last 12 months
-        // and returned after the active dates of the diseases in both countries
+    public void testDiseaseRisksSortedWithNoRiskMessageLast() {
+        // Given a donor has traveled to a country with a region-specific disease and a country-wide disease
+        // and another country without any linked diseases
         Integer donorId = 1;
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
 
-        // Disease and travel dates for Country 1
-        LocalDate diseaseStartDate1 = LocalDate.now().minusMonths(6);
-        LocalDate diseaseEndDate1 = LocalDate.now().minusMonths(3);
-        LocalDate travelEndDate1 = LocalDate.now().minusMonths(2);
-
-        LocalDate diseaseStartDate2 = LocalDate.now().minusMonths(8);
-        LocalDate diseaseEndDate2 = LocalDate.now().minusMonths(4);
-        LocalDate travelEndDate2 = LocalDate.now().minusMonths(1);
-
+        Donor donor = new Donor();
         Country country1 = new Country();
-        country1.setCountryName("Country1");
-
+        Region region1 = new Region();
         Country country2 = new Country();
-        country2.setCountryName("Country2");
+        Region region2 = new Region();
 
-        Disease disease1 = new Disease();
-        disease1.setDiseaseName("Disease1");
+        List<DonorTravelledToCountry> travelHistory = List.of(
+                new DonorTravelledToCountry(1, donor, country1, region1, LocalDate.of(2024, 1, 1)),
+                new DonorTravelledToCountry(2, donor, country2, region2, LocalDate.of(2024, 11, 11))
+        );
+        when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
-        Disease disease2 = new Disease();
-        disease2.setDiseaseName("Disease2");
+        List<CountryDiseaseDTO> diseaseRisks = List.of(
+                new CountryDiseaseDTO("United States of America", "California", "Zika Virus",
+                        "Zika virus detected in California.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 9, 30), ""),
+                new CountryDiseaseDTO("United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk",
+                        "West Nile Virus applies to the entire United States.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), ""),
+                new CountryDiseaseDTO("CountryWithoutDiseases", "RegionWithoutDiseases", null, null, null, null,
+                        "No risk for donor as donor has returned before the disease start date.")
+        );
+        when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
+                .thenReturn(diseaseRisks);
 
-        CountryDisease countryDisease1 = new CountryDisease();
-        countryDisease1.setCountry(country1);
-        countryDisease1.setDisease(disease1);
-        countryDisease1.setStartDate(diseaseStartDate1);
-        countryDisease1.setEndDate(diseaseEndDate1);
-        countryDisease1.setNote("Note1");
+        // When the disease risks are returned
+        List<CountryDiseaseDTO> result = donorService.getDonorDiseaseRisks(donorId, oneYearAgo);
 
-        CountryDisease countryDisease2 = new CountryDisease();
-        countryDisease2.setCountry(country2);
-        countryDisease2.setDisease(disease2);
-        countryDisease2.setStartDate(diseaseStartDate2);
-        countryDisease2.setEndDate(diseaseEndDate2);
-        countryDisease2.setNote("Note2");
+        // Then there should be three disease risks, with the "no risk for donor" message sorter
+        // and at the end of the list.
+        assertEquals(3, result.size());
+        assertTrue(result.get(0).getRiskMessage().isEmpty() || !result.get(0).getRiskMessage().startsWith("No risk"));
+        assertTrue(result.get(1).getRiskMessage().isEmpty() || !result.get(1).getRiskMessage().startsWith("No risk"));
+        assertTrue(result.get(2).getRiskMessage().startsWith("No risk") || result.get(2).getRiskMessage().contains("No linked"));
+    }
 
-        DonorTravelledToCountry donorTravel1 = new DonorTravelledToCountry();
-        donorTravel1.setCountry(country1);
-        donorTravel1.setEndDate(travelEndDate1);
+    /**
+     * This method ensures that a donor who has not traveled to a region with an active disease
+     * receives a message indicating no risk.
+     */
+    @Test
+    public void testNoRiskIfReturnedBeforeDiseaseStartDate() {
+        // Given a donor has returned from a country region before a disease's start date in that region
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
 
-        DonorTravelledToCountry donorTravel2 = new DonorTravelledToCountry();
-        donorTravel2.setCountry(country2);
-        donorTravel2.setEndDate(travelEndDate2);
+        Donor donor = new Donor();
+        Country country1 = new Country();
+        country1.setCountryName("United States of America");
+        Region region1 = new Region();
+        region1.setRegionName("California");
 
-        List<CountryDiseaseDTO> expectedDiseases = List.of(
-                new CountryDiseaseDTO(
-                        country1.getCountryName(),
-                        disease1.getDiseaseName(),
-                        countryDisease1.getNote(),
-                        countryDisease1.getStartDate(),
-                        countryDisease1.getEndDate(),
-                        null
-                ),
-                new CountryDiseaseDTO(
-                        country2.getCountryName(),
-                        disease2.getDiseaseName(),
-                        countryDisease2.getNote(),
-                        countryDisease2.getStartDate(),
-                        countryDisease2.getEndDate(),
-                        null
-                )
+        List<DonorTravelledToCountry> travelHistory = List.of(
+                new DonorTravelledToCountry(1, donor, country1, region1, LocalDate.of(2024, 1, 1))
         );
 
-        Mockito.when(donorTravelledToCountryRepository.findAll())
-                .thenReturn(List.of(donorTravel1, donorTravel2));
+        when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
-        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
-                .thenReturn(expectedDiseases);
+        List<CountryDiseaseDTO> diseaseRisks = List.of(
+                new CountryDiseaseDTO("United States of America", "California", "West Nile Virus Risk",
+                        "Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.",
+                        LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30),
+                        "No risk for donor as donor has returned before the disease start date.")
+        );
+        when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
+                .thenReturn(diseaseRisks);
 
-        // When checking for relevant risks for the donor
-        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
+        // When the disease risks are returned
+        List<CountryDiseaseDTO> result = donorService.getDonorDiseaseRisks(donorId, oneYearAgo);
 
-        // Then country risks for both countries should be returned.
-        assertEquals(2, actualDiseases.size());
-
-        CountryDiseaseDTO actualCountry1 = actualDiseases.get(0);
-        assertEquals("Country1", actualCountry1.countryName());
-        assertNull(actualCountry1.riskMessage());
-
-        CountryDiseaseDTO actualCountry2 = actualDiseases.get(1);
-        assertEquals("Country2", actualCountry2.countryName());
-        assertNull(actualCountry2.riskMessage());
+        // Then there should be no disease risk and a message should state there is no risk for the donor as they returned
+        // before the disease start date
+        assertEquals("No risk for donor as donor has returned before the disease start date.", result.get(0).getRiskMessage());
     }
 
 
-     /**
-       * This test verifies the behavior when a donor has travelled to two countries in the last 12 months,
-       * with one country's travel ending before the active dates of the disease and the other country's
-       * travel overlapping with the active dates of the disease.
-      */
-
+    /**
+     * This method ensures no disease risk is shown if a donor returned from a country or region
+     * before the disease's start date, with an appropriate "No risk for donor" message.
+     */
     @Test
-    public void testDonorWithTwoCountriesTravelAndMixedDiseaseActiveDates() {
-        // Given a donor has travelled to 2 countries in the last 12 months,
-        // and he has returned from the first country before the active dates
-        // of  disease, and he has returned from the second country after the
-        // active dates of the disease
+    public void testDonorWithMultipleCountriesAndDiseaseRisks() {
+        // Given a donor has returned from one country before the disease start date in that country
+        // and has returned from another country during the disease active dates in that country
         Integer donorId = 1;
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
-        LocalDate diseaseStartDate1 = LocalDate.now().minusMonths(6);
 
-        // Before disease active dates
-        LocalDate diseaseEndDate1 = LocalDate.now().minusMonths(3);
-        LocalDate travelEndDate1 = LocalDate.now().minusMonths(7);
-
-        LocalDate diseaseStartDate2 = LocalDate.now().minusMonths(8);
-
-        // After disease active dates
-        LocalDate diseaseEndDate2 = LocalDate.now().minusMonths(4);
-        LocalDate travelEndDate2 = LocalDate.now().minusMonths(2);
-
+        Donor donor = new Donor();
         Country country1 = new Country();
-        country1.setCountryName("Country1");
-
+        Region region1 = new Region();
         Country country2 = new Country();
-        country2.setCountryName("Country2");
+        Region region2 = new Region();
 
-        Disease disease1 = new Disease();
-        disease1.setDiseaseName("Disease1");
+        List<DonorTravelledToCountry> travelHistory = List.of(
+                new DonorTravelledToCountry(1, donor, country1, region1, LocalDate.of(2024, 1, 1)),
+                new DonorTravelledToCountry(2, donor, country2, region2, LocalDate.of(2024, 11, 11))
+        );
+        when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
-        Disease disease2 = new Disease();
-        disease2.setDiseaseName("Disease2");
+        List<CountryDiseaseDTO> diseaseRisks = List.of(
+                new CountryDiseaseDTO("United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk", "Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), "No risk for donor as donor has returned before the disease start date."),
+                new CountryDiseaseDTO("Bahrain", "Test-region", "Malaria", "Bad disease", LocalDate.of(1976, 11, 26), LocalDate.of(2024, 12, 6), "At risk because donor visited region with active disease.")
+        );
+        when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
+                .thenReturn(diseaseRisks);
 
-        CountryDisease countryDisease1 = new CountryDisease();
-        countryDisease1.setCountry(country1);
-        countryDisease1.setDisease(disease1);
-        countryDisease1.setStartDate(diseaseStartDate1);
-        countryDisease1.setEndDate(diseaseEndDate1);
-        countryDisease1.setNote("Note1");
+        // When the disease risks are returned
+        List<CountryDiseaseDTO> result = donorService.getDonorDiseaseRisks(donorId, oneYearAgo);
 
-        CountryDisease countryDisease2 = new CountryDisease();
-        countryDisease2.setCountry(country2);
-        countryDisease2.setDisease(disease2);
-        countryDisease2.setStartDate(diseaseStartDate2);
-        countryDisease2.setEndDate(diseaseEndDate2);
-        countryDisease2.setNote("Note2");
+        // Then disease risks for one country should be returned, and for the other country
+        // a no risk message should be returned
+        assertEquals("United States of America", result.get(0).countryName());
+        assertEquals("N/A - Disease Applies to the whole country", result.get(0).regionName());
+        assertEquals("West Nile Virus Risk", result.get(0).diseaseName());
+        assertEquals("No risk for donor as donor has returned before the disease start date.", result.get(0).getRiskMessage());
 
-        DonorTravelledToCountry donorTravel1 = new DonorTravelledToCountry();
-        donorTravel1.setCountry(country1);
-        donorTravel1.setEndDate(travelEndDate1);
+        assertEquals("Bahrain", result.get(1).countryName());
+        assertEquals("Test-region", result.get(1).regionName());
+        assertEquals("At risk because donor visited region with active disease.", result.get(1).getRiskMessage());
+    }
 
-        DonorTravelledToCountry donorTravel2 = new DonorTravelledToCountry();
-        donorTravel2.setCountry(country2);
-        donorTravel2.setEndDate(travelEndDate2);
+    /**
+     * Verifies that both region-specific and country-wide diseases are correctly listed
+     * when a donor travels to a region with its own disease and a country-wide disease applies.
+     */
+    @Test
+    public void testDiseaseAppliesToEntireCountry() {
+        // Given a donor has travelled to one region that has its own specific disease and that same country
+        // has a country-wide disease
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
 
-        List<CountryDiseaseDTO> expectedDiseases = List.of(
-                new CountryDiseaseDTO(
-                        country1.getCountryName(),
-                        disease1.getDiseaseName(),
-                        countryDisease1.getNote(),
-                        countryDisease1.getStartDate(),
-                        countryDisease1.getEndDate(),
-                        "No risk for donor"
-                ),
-                new CountryDiseaseDTO(
-                        country2.getCountryName(),
-                        disease2.getDiseaseName(),
-                        countryDisease2.getNote(),
-                        countryDisease2.getStartDate(),
-                        countryDisease2.getEndDate(),
-                        null
-                )
+        Donor donor = new Donor();
+        Country country1 = new Country();
+        Region region1 = new Region();
+
+        List<DonorTravelledToCountry> travelHistory = List.of(
+                new DonorTravelledToCountry(1, donor, country1, region1, LocalDate.of(2024, 8, 1))
         );
 
-        Mockito.when(donorTravelledToCountryRepository.findAll())
-                .thenReturn(List.of(donorTravel1, donorTravel2));
+        when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
-        Mockito.when(countryDiseaseRepository.findRelevantDiseasesForDonor(donorId, oneYearAgo))
-                .thenReturn(expectedDiseases);
+        List<CountryDiseaseDTO> diseaseRisks = List.of(
+                new CountryDiseaseDTO("United States of America", "California", "Zika Virus",
+                        "Zika virus detected in California.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 9, 30), ""),
+                new CountryDiseaseDTO("United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk",
+                        "West Nile Virus applies to the entire United States.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), "")
+        );
 
-        // When checking for relevant risks for the donor
-        List<CountryDiseaseDTO> actualDiseases = donorService.getRelevantDiseasesForDonor(donorId);
+        when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
+                .thenReturn(diseaseRisks);
 
-        // Then for one country should return its country risk, and the other country should return the country with no risks
-        assertEquals(2, actualDiseases.size());
+        // When the disease risks are returned
+        List<CountryDiseaseDTO> result = donorService.getDonorDiseaseRisks(donorId, oneYearAgo);
 
-        // Assertions for first country (No risk case)
-        CountryDiseaseDTO actualCountry1 = actualDiseases.get(0);
-        assertEquals("Country1", actualCountry1.countryName());
-        assertEquals("No risk for donor", actualCountry1.riskMessage());
+        // Then there should be two disease risks, one for the whole country and one for the region.
+        assertEquals(2, result.size());
 
-        // Assertions for second country (True risk case)
-        CountryDiseaseDTO actualCountry2 = actualDiseases.get(1);
-        assertEquals("Country2", actualCountry2.countryName());
-        assertNull(actualCountry2.riskMessage());
+        // Region-specific disease
+        assertEquals("United States of America", result.get(0).countryName());
+        assertEquals("California", result.get(0).regionName());
+        assertEquals("Zika Virus", result.get(0).diseaseName());
+        assertEquals("Zika virus detected in California.", result.get(0).diseaseNote());
+
+        // Country-wide disease
+        assertEquals("United States of America", result.get(1).countryName());
+        assertEquals("N/A - Disease Applies to the whole country", result.get(1).regionName());
+        assertEquals("West Nile Virus Risk", result.get(1).diseaseName());
+        assertEquals("West Nile Virus applies to the entire United States.", result.get(1).diseaseNote());
     }
+
+
+    /**
+     * Verifies that a donor who travels to a country or region without linked diseases
+     * receives a message indicating no associated disease risks.
+     */
+    @Test
+    public void testDonorTravelledToCountryWithoutDiseases() {
+        // Given a donor has travelled to a country without any linked diseases
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+
+        Donor donor = new Donor();
+        Country country1 = new Country();
+        Region region1 = new Region();
+
+        List<DonorTravelledToCountry> travelHistory = List.of(
+                new DonorTravelledToCountry(1, donor, country1, region1, LocalDate.of(2024, 6, 15))
+        );
+
+        when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
+
+        List<CountryDiseaseDTO> diseaseRisks = List.of(
+                new CountryDiseaseDTO("CountryWithoutDiseases", "RegionWithoutDiseases", null, null, null, null,
+                        "No linked diseases found for this country/region.")
+        );
+
+        when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
+                .thenReturn(diseaseRisks);
+
+        // When the disease risks are returned
+        List<CountryDiseaseDTO> result = donorService.getDonorDiseaseRisks(donorId, oneYearAgo);
+
+
+        // Then there should be no disease risk and a message should state there are no
+        // linked diseases for the country/region
+        assertEquals("No linked diseases found for this country/region.", result.get(0).getRiskMessage());
+    }
+
+
+    /**
+     * Validates that a donor who traveled to an unaffected region within a country
+     * with an active disease in another region receives a message indicating no risk.
+     */
+    @Test
+    public void testDonorTraveledToUnaffectedRegion() {
+        // Given a donor has traveled to a country with an active disease in one region,
+        // but the donor has not traveled to the affected region and has travelled to an unaffected region
+        Integer donorId = 1;
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+
+        Donor donor = new Donor();
+        Country country = new Country();
+        country.setCountryName("CountryX");
+        Region affectedRegion = new Region();
+        affectedRegion.setRegionName("AffectedRegion");
+        Region unaffectedRegion = new Region();
+        unaffectedRegion.setRegionName("UnaffectedRegion");
+
+        List<DonorTravelledToCountry> travelHistory = List.of(
+                new DonorTravelledToCountry(1, donor, country, unaffectedRegion, LocalDate.of(2024, 6, 15))
+        );
+        when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
+
+        List<CountryDiseaseDTO> diseaseRisks = List.of(
+                new CountryDiseaseDTO("CountryX", "AffectedRegion", "DiseaseX", "DiseaseX is active in the affected region.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), "No risk for donor as donor did not travel to the affected region.")
+        );
+        when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
+                .thenReturn(diseaseRisks);
+
+        // When the disease risks are returned
+        List<CountryDiseaseDTO> result = donorService.getDonorDiseaseRisks(donorId, oneYearAgo);
+
+        // Then there should be no disease risk because the donor did not travel to the affected region
+        assertEquals("No risk for donor as donor did not travel to the affected region.", result.get(0).getRiskMessage());
+    }
+
 }

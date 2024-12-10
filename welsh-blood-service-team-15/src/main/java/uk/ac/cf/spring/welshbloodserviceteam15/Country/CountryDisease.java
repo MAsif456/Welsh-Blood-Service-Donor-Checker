@@ -1,6 +1,7 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 
 import java.time.LocalDate;
@@ -17,6 +18,10 @@ public class CountryDisease {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
 
     @ManyToOne
     @JoinColumn(name = "disease_id")
@@ -41,6 +46,13 @@ public class CountryDisease {
     }
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public Disease getDisease() {
