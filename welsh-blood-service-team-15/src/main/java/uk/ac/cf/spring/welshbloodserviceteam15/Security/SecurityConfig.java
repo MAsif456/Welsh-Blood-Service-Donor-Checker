@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/Login/login")
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll())
                 .logout(logout -> logout
