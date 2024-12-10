@@ -22,4 +22,8 @@ public class RegionServiceImpl implements RegionService {
         return regionRepository.findByCountry_CountryId(countryId);
     }
 
+    public Region saveRegion(Region region) {
+        return regionRepository.save(region);
+    }
+
 }
