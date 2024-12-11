@@ -3,6 +3,7 @@ USE WelshBlood;
 DROP TABLE IF EXISTS donor_travelled_to_country;
 DROP TABLE IF EXISTS country_disease;
 DROP TABLE IF EXISTS travel_questionnaire;
+DROP TABLE IF EXISTS regions;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;

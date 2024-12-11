@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
 </head>
@@ -11,12 +11,28 @@
              class="navbar-logo">
         <ul>
             <li><a th:href="@{/home}">Home</a></li>
-            <li><a th:href="@{/check-eligibility}">Check Eligibility</a></li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/travelform/travelForm.html}">Check Eligibility</a>
+            </li>
+            <li sec:authorize="hasRole('CLINICIAN')">
+                <a th:href="@{/donorRecords}">Donor Records</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/addDisease}">Add Disease</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/editDisease}">Edit Disease</a>
+            </li>
         </ul>
     </div>
     <div class="navbar-right">
         <ul>
-            <li><a th:href="@{/logout}">Logout</a></li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Staff Login</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">Logout</a>
+            </li>
         </ul>
     </div>
 </nav>

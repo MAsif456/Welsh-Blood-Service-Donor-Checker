@@ -31,18 +31,17 @@ public class SecurityConfig {
                         // Allow access to CSS and image resources
                         .requestMatchers("/css/**", "/images/**").permitAll()
                         // Allow public access to these endpoints
-                        .requestMatchers("/", "/Login/login", "/public/**").permitAll()
+                        .requestMatchers("/", "/login", "/public/**").permitAll()
                         // Restrict access based on roles
                         .requestMatchers("/clinician/**").hasRole("CLINICIAN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/Login/login")
-                        .loginProcessingUrl("/login")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/Login/login?logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll())
                 .exceptionHandling(exception -> exception
                         .accessDeniedPage("/403"));
