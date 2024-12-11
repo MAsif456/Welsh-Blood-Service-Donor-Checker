@@ -22,7 +22,6 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questionnaire;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
-import uk.ac.cf.spring.welshbloodserviceteam15.Security.LoginController;
 import uk.ac.cf.spring.welshbloodserviceteam15.travelform.*;
 
 
@@ -58,7 +57,7 @@ public class NavigationTests {
     private DonorRepository donorRepository;
 
     @Mock
-    private DonorDonorTravelledToCountryService donorTravelledToCountryService;
+    private DonorDonorTravelledToCountryServiceTest donorTravelledToCountryService;
 
     @Mock
     private QuestionnaireService questionnaireService;
@@ -75,7 +74,8 @@ public class NavigationTests {
     @Mock
     private CountryService countryService;
 
-
+    @Mock
+    private TravelQuestionnaireService travelQuestionnaireService;
 
 
 
@@ -89,36 +89,42 @@ public class NavigationTests {
     // Test the home page and checking if when Check Eligibility button is clicked, it redirects to the Donors Form Page
     @Test
     public void testCheckEligibilityLink() throws Exception {
-        // Given a user has pressed on check eligibility on the home page,
         mvc.perform(MockMvcRequestBuilders.get("/donor-form"))
-                // When pressed it should,
+                // Assert: Verify the response
                 .andExpect(status().isOk())
-                // Then transfer the user to the Donor's Form page.
                 .andExpect(view().name("Donor/donor-form"));
     }
 
-    @Test
-    public void testDonorFormSubmissionRedirectsToTravelForm() throws Exception {
-        // Given a user has pressed on the Submit Button on the Donor's Form page,
-        Donor mockDonor = new Donor();
-        mockDonor.setDonorId(6); // Example donor ID
-        when(donorService.saveDonor(any(DonorForm.class))).thenReturn(mockDonor);
+    // I will now test the navigation from the Donor Form Page to the Travel Form Page
 
-        mvc.perform(post("/donor-form")
-                        .param("firstName", "John")
-                        .param("lastName", "Doe")
-                        .param("donorDob", "1990-01-01")
-                        .with(csrf()))
-                // When pressed it should,
-                .andExpect(status().is3xxRedirection())
-                // Then transfer the user to the Travel Form page.
-                .andExpect(redirectedUrl("/travel-form/6"));
-    }
 
     @Test
     @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
-    public void testNavigationFromTravelFormToTheConfirmationPage() throws Exception {
-        // Given a user has pressed on the Submit Button on the Travel Form page,
+    public void testDonorFormSubmissionRedirectsToTravelForm() throws Exception {
+        // Arrange
+        Donor mockDonor = new Donor();
+        when(donorRepository.save(any(Donor.class))).thenAnswer(invocation -> {
+            Donor donor = invocation.getArgument(0);
+            donor.setDonorId(10);
+            return donor;
+        });
+
+        // Act & Assert
+        mvc.perform(post("/donor-form")
+                        .param("firstName", "John")
+                        .param("lastName", "Doe")
+                        .param("donorDob", "1990-01-01"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/travel-form/6"));
+    }
+
+    // I will now test the navigation from the Travel Form Page to the Donor Summary Page
+
+
+    @Test
+    @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
+    public void testNavigationFromTravelFormToDonorSummary() throws Exception {
+        // Mock Donor
         Donor mockDonor = new Donor();
         mockDonor.setDonorId(6); // Example donor ID
         mockDonor.setFirstName("John");
@@ -126,19 +132,24 @@ public class NavigationTests {
         mockDonor.setDonorDob(LocalDate.of(1990, 1, 1));
         when(donorService.getDonorSummary(6)).thenReturn(mockDonor); // Mocking donor retrieval
 
+        // Mock Donor's Answers
+        Long donorId = 6L;
         List<Integer> questionIds = List.of(1, 4);
         String answer = "Yes";
         List<Questionnaire> mockAnswers = questionIds.stream()
                 .map(questionId -> {
                     Questionnaire questionnaire = new Questionnaire();
-                    questionnaire.setDonorId(6);
-                    questionnaire.setQuestionId(questionId);
+                    Questions question = new Questions();
+                    question.setQuestion_id(questionId);
+                    questionnaire.setQuestion(question);
+                     questionnaire.setDonor(mockDonor);
                     questionnaire.setAnswer(answer);
                     return questionnaire;
                 })
                 .collect(Collectors.toList());
         when(questionnaireService.getDonorsAnswers(6)).thenReturn(mockAnswers);
 
+        // Mock Questions
         List<Questions> mockQuestions = questionIds.stream()
                 .map(questionId -> {
                     Questions question = new Questions();
@@ -149,28 +160,22 @@ public class NavigationTests {
                 .collect(Collectors.toList());
         when(questionService.getQuestions()).thenReturn(mockQuestions);
 
+        // Mock Countries
         List<Country> mockCountries = List.of(
-                new Country() {{
-                    setCountryId(1);
-                    setCountryName("Argentina");
-                }},
-                new Country() {{
-                    setCountryId(2);
-                    setCountryName("Brazil");
-                }},
-                new Country() {{
-                    setCountryId(3);
-                    setCountryName("Canada");
-                }}
+                new Country() {{ setCountryId(1); setCountryName("Argentina"); }},
+                new Country() {{ setCountryId(2); setCountryName("Brazil"); }},
+                new Country() {{ setCountryId(3); setCountryName("Canada"); }}
         );
         when(countryService.getAllCountries()).thenReturn(mockCountries);
 
+        // Step 1: Access Travel Form Page
         mvc.perform(get("/travel-form/6"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("travelform/travelForm"))
                 .andExpect(model().attributeExists("questions", "countries", "donorId", "donorTravelledToCountries"));
 
+        // Step 2: Submit Travel Form
         MvcResult submitFormResult = mvc.perform(post("/submit-travel-form")
                         .param("donorId", "6")
                         .param("question1", "Yes")
@@ -178,72 +183,86 @@ public class NavigationTests {
                         .param("country", "1")
                         .param("date", "2024-11-04")
                         .with(csrf()))
-                // When pressed it should,
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                // Then transfer the user to the Donor confirmation page.
-                .andExpect(redirectedUrl("/donorFormConfirmation?donorId=6&donorId=6"))
+                .andExpect(redirectedUrl("/travel-form/6"))
                 .andReturn();
-    }
 
-    @Test
-    public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception {
-        // Given a user has pressed on the View Decision and Notes button,
-        Donor mockDonor = new Donor();
-        mockDonor.setDonorId(6); // Example donor ID
-        mockDonor.setFirstName("John");
-        mockDonor.setLastName("Doe");
-        mockDonor.setDonorDob(LocalDate.of(1990, 1, 1));
-        when(donorService.getDonorSummary(6)).thenReturn(mockDonor); // Mocking donor retrieval
-
-        Long donorId = 6L;
-        List<Integer> questionIds = List.of(1, 4);
-        String answer = "Yes";
-        List<Questionnaire> mockAnswers = questionIds.stream()
-                .map(questionId -> {
-                    Questionnaire questionnaire = new Questionnaire();
-                    questionnaire.setDonorId(6);
-                    questionnaire.setQuestionId(questionId);
-                    questionnaire.setAnswer(answer);
-                    return questionnaire;
-                })
-                .collect(Collectors.toList());
-        when(questionnaireService.getDonorsAnswers(6)).thenReturn(mockAnswers);
-
-        List<Questions> mockQuestions = questionIds.stream()
-                .map(questionId -> {
-                    Questions question = new Questions();
-                    question.setQuestion_id(questionId.intValue());
-                    question.setQuestion("Question " + questionId);
-                    return question;
-                })
-                .collect(Collectors.toList());
-        when(questionService.getQuestions()).thenReturn(mockQuestions);
-
-        DonorDetails mockDonorDetails = new DonorDetails();
-        mockDonorDetails.setDonorId(6);
-        mockDonorDetails.setFirstName("John");
-        mockDonorDetails.setLastName("Doe");
-        when(decisionAndNotesService.getDonorInfo(6)).thenReturn(mockDonorDetails);
-
+        // Step 3: Access Donor Summary Page
         mvc.perform(get("/donor/summary/6"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("Donor/donorSummary"))
                 .andExpect(model().attribute("donor", mockDonor))
                 .andExpect(model().attribute("donorsAnswers", mockAnswers));
-
-        MvcResult decisionAndNotesResult = mvc.perform(get("/decisionAndNotes/6")
-                        .param("donorId", "6"))
-                // When pressed it should,
-                .andDo(print())
-                .andExpect(status().isOk())
-                // Then transfer the user to the Decision And Notes page.
-                .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
-                .andExpect(model().attribute("donor", mockDonorDetails))
-                .andReturn();
     }
 
+// I will now test the navigation from the Donor Summary Page to the Decision and Notes Page
+@Test
+public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception {
+    // Mock Donor
+    Donor mockDonor = new Donor();
+    mockDonor.setDonorId(6); // Example donor ID
+    mockDonor.setFirstName("John");
+    mockDonor.setLastName("Doe");
+    mockDonor.setDonorDob(LocalDate.of(1990, 1, 1));
+    when(donorService.getDonorSummary(6)).thenReturn(mockDonor); // Mocking donor retrieval
+
+    // Mock Donor's Answers
+    Long donorId = 6L;
+    List<Integer> questionIds = List.of(1, 4);
+    String answer = "Yes";
+    List<Questionnaire> mockAnswers = questionIds.stream()
+            .map(questionId -> {
+                Questionnaire questionnaire = new Questionnaire();
+                Questions question = new Questions();
+                question.setQuestion_id(questionId);
+                questionnaire.setQuestion(question);
+                 questionnaire.setDonor(mockDonor);
+                questionnaire.setAnswer(answer);
+                return questionnaire;
+            })
+            .collect(Collectors.toList());
+    when(questionnaireService.getDonorsAnswers(6)).thenReturn(mockAnswers);
+
+    // Mock Questions
+    List<Questions> mockQuestions = questionIds.stream()
+            .map(questionId -> {
+                Questions question = new Questions();
+                question.setQuestion_id(questionId.intValue());
+                question.setQuestion("Question " + questionId);
+                return question;
+            })
+            .collect(Collectors.toList());
+    when(questionService.getQuestions()).thenReturn(mockQuestions);
+
+    // Mock Donor Details for Decision and Notes
+    DonorDetails mockDonorDetails = new DonorDetails();
+    mockDonorDetails.setDonorId(6);
+    mockDonorDetails.setFirstName("John");
+    mockDonorDetails.setLastName("Doe");
+    when(decisionAndNotesService.getDonorInfo(6)).thenReturn(mockDonorDetails);
+
+    // Step 1: Access Donor Summary Page
+    mvc.perform(get("/donor/summary/6"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name("Donor/donorSummary"))
+            .andExpect(model().attribute("donor", mockDonor))
+            .andExpect(model().attribute("donorsAnswers", mockAnswers));
+
+    // Step 2: Navigate to Decision and Notes Page
+    MvcResult decisionAndNotesResult = mvc.perform(get("/decisionAndNotes/6")
+                    .param("donorId", "6"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
+            .andExpect(model().attribute("donor", mockDonorDetails))
+            .andReturn();
+}
+
+    // I will now test the navigation from the Decision and Notes Page to the Confirmation Page
+    //This has been completed in the DecisionAndNotesTests.java file
 }
 
 

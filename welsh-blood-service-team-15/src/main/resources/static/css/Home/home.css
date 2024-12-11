@@ -1,76 +1,85 @@
-/* Base Styling */
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #b22222;
+    overflow: hidden;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5; /* Neutral light gray background */
-    height: 100vh;
+.box {
+    position: absolute;
+    background-color: #fff;
+    border: 2px solid red;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-box {
+    top: 5%;
+    left: 10%;
+    width: 35%;
+    height: auto;
+    max-height: 50%;
+}
+
+.large-box {
+    top: 60%;
+    left: 10%;
+    width: 65%;
+    height: auto;
+    min-height: 30%;
+    max-height: 33%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Aligns text and image vertically centered */
 }
 
-/* Grid Container */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-template-rows: repeat(2, 1fr); /* 2 rows */
-    gap: 1rem;
-    width: 90vw; /* Slightly narrower than full viewport */
-    height: 90vh; /* Slightly shorter than full viewport */
-    padding: 2rem;
-    background-color: #ffe5e5; /* Light red-tinted background */
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-}
-
-/* Grid Items */
-.grid-item {
-    background-color: rgba(255, 82, 82, 0.9); /* Slightly transparent bright red */
-    color: white; /* White text for contrast */
-    padding: 1.5rem;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+.picture {
+    width: 50%;
+    max-height: 90%;
+    min-height: 90%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    font-weight: 500; /* Medium weight for better legibility */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle shadow for better text visibility */
+    justify-content: flex-end; /* Aligns image to the right */
+    align-items: center; /* Centers image vertically */
+    border: 10px solid #b22222;
 }
 
-.grid-item h2 {
-    font-size: 1.8rem;
-    color: white; /* Keep headings white for contrast */
-    margin-bottom: 0.5rem;
+.picture img {
+    width: 100%;
+    height: auto;
+    max-height: 100%; /* Ensures the image is responsive */
+    align-content: center;
 }
 
-.grid-item p {
-    font-size: 1.2rem;
-    color: #fefefe; /* Slightly lighter white for a softer look */
+.text {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 18px;
+    color: #b22222;
+    line-height: 1.6;
 }
 
-/* Hover Effects */
-.grid-item:hover {
-    background-color: #b71c1c; /* Darker solid red on hover */
-    transform: scale(1.05); /* Subtle zoom effect */
-    cursor: pointer;
+h3 {
+    margin-top: 0;
+    color: #b22222;
+    font-size: 24px;
+    border-bottom: 2px solid #b22222;
+    padding-bottom: 8px;
 }
 
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: 1fr; /* Single column layout */
-        grid-template-rows: auto; /* Auto rows for content height */
-    }
+ul {
+    padding-left: 20px;
+    list-style-type: disc;
+    margin: 10px 0;
+}
 
-    .grid-item {
-        font-size: 1rem;
-    }
+li {
+    margin-bottom: 10px;
+}
+
+li strong {
+    color: #b22222;
 }

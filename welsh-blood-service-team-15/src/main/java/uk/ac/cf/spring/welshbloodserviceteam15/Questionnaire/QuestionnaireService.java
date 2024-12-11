@@ -7,4 +7,6 @@ public interface QuestionnaireService {
 
     List<Questionnaire> getDonorsAnswers(Integer donorId);
 
+    void saveFromForm(Integer donorId, Integer questionId, String answer);
+
 }

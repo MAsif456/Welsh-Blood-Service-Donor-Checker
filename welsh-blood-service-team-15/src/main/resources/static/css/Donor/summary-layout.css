@@ -1,28 +1,41 @@
-/* General body styling */
-/* Layout for summaries */
+/* Main layout for summaries */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
     display: flex; /* Use flexbox for side-by-side layout */
-    justify-content: center; /* Center summaries horizontally */
-    align-items: flex-start; /* Align summaries to the top */
-    gap: 20px; /* Add spacing between summaries */
+    justify-content: center; /* Center the containers horizontally */
+    align-items: flex-start; /* Align containers to the top */
+    gap: 20px; /* Add spacing between the two containers */
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    height: 100%; /* Ensure body fills the viewport */
+    min-height: 100vh; /* Ensure body fills the viewport */
 }
 
+/* Style for the two main containers */
 .donor-summary,
-.disease-risk-summary,
-.redirect-button-tile{
-    max-width: 500px;
-    width: 45%; /* Adjust width for side-by-side alignment */
-    margin: 0; /* Remove any margins since flexbox handles spacing */
+.disease-risk-summary {
+    flex: 1 1 45%; /* Each container takes up ~45% width, allowing space between them */
+    width: 100%;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.donor-summary {
+    max-width: 600px;
+}
 
-/* Page Title */
-h1 {
-    text-align: center;
+.disease-risk-summary {
+    max-width: 1100px; /* Adjusted width to fit two columns */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .donor-summary,
+    .disease-risk-summary {
+        flex: 1 1 100%; /* Stack containers vertically on smaller screens */
+        max-width: 100%;
+    }
 }

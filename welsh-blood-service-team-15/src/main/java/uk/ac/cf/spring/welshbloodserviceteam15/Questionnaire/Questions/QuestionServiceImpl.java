@@ -8,14 +8,13 @@ import java.util.List;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    @Autowired
-    private QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
+
+    public QuestionServiceImpl(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
     public List<Questions> getQuestions() {
         return questionRepository.findAll();
-    }
-
-    public Questions getQuestion(Integer questionId) {
-        return questionRepository.findById(questionId).orElse(null);
     }
 }

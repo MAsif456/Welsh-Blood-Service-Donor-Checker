@@ -4,6 +4,7 @@
     <title>Donor Summary</title>
     <link rel="stylesheet" th:href="@{/css/Donor/donor-summary.css}" />
     <link rel="stylesheet" th:href="@{/css/Donor/summary-layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/disease-summary.css}" />
     <script th:src="@{/js/donor/summary.js}" defer></script>
 </head>
 <body>
@@ -21,6 +22,11 @@
               th:text="${donor.donorDecision != null ? donor.donorDecision : 'Awaiting decision'}">
     </span>
     </p>
+
+    <form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
+        <input type="hidden" name="donorId" th:value="${donorId}" />
+        <button type="submit" class="navigation-button">View Decision and Notes</button>
+    </form>
 
     <h2>Travel History</h2>
     <div class="travel-history">
@@ -43,7 +49,7 @@
             <li th:each="answer : ${donorsAnswers}">
                 <p>
                     <strong>Question:</strong>
-                    <span th:text="${questionMap[answer.questionId]}"></span>
+                    <span th:text="${questionMap[answer.question.question_id]}"></span>
                 </p>
                 <p>
                     <strong>Answer:</strong>
@@ -52,6 +58,8 @@
             </li>
         </ul>
     </div>
+
+
 
     <div th:if="${showRisks}">
         <h2>Disease Risk</h2>
@@ -65,12 +73,10 @@
     </div>
 
 </div>
-<div class="redirect-button-tile">
-    <a th:href="@{/donor/summary-risks/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Show Risks</a></div>
+<div class="disease-risk-summary">
+    <a th:href="@{/donor/summary-risks/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Show Risks</a>
+</div>
 </body>
-<form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
-    <input type="hidden" name="donorId" th:value="${donorId}" />
-    <button type="submit" class="navigation-button">View Decision and Notes</button>
-</form>
+
 
 </html>
