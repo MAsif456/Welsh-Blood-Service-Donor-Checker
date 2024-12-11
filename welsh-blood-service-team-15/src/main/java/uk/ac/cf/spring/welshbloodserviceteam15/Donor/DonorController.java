@@ -2,7 +2,6 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,20 +26,17 @@ import java.util.stream.Collectors;
 @Controller
 public class DonorController {
 
-    @Autowired
-    private DonorService donorService;
+    private final DonorService donorService;
+    private final QuestionnaireService questionnaireService;
+    private final QuestionService questionService;
+    private final DiseaseService diseaseService;
 
-    @Autowired
-    private QuestionnaireService questionnaireService;
-
-    @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private DonorRepository donorRepository;
-
-    @Autowired
-    private DiseaseService diseaseService;
+    public DonorController(DonorService donorService, QuestionnaireService questionnaireService, QuestionService questionService, DiseaseService diseaseService) {
+        this.donorService = donorService;
+        this.questionnaireService = questionnaireService;
+        this.questionService = questionService;
+        this.diseaseService = diseaseService;
+    }
 
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
@@ -54,7 +50,6 @@ public class DonorController {
 
         model.addAttribute("diseases", sortedDiseases);
 
-
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
         List<Questions> questions = questionService.getQuestions();
 
@@ -63,12 +58,10 @@ public class DonorController {
         return "Donor/donorSummaryAndRisks";
     }
 
-
     @GetMapping("/donor/summary/{donorId}")
     public String getDonorSummary(@PathVariable Integer donorId, Model model) {
         // Get the donor summary
         Donor donor = donorService.getDonorSummary(donorId);
-        //model.addAttribute("donor", donor);
 
         // Get the donor's answers
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
@@ -76,12 +69,24 @@ public class DonorController {
         // Get the list of all questions
         List<Questions> questions = questionService.getQuestions();
 
+        // Create a map of questionId to question text or any other desired property
+        Map<Integer, String> questionMap = questions.stream()
+                .collect(Collectors.toMap(Questions::getQuestion_id, Questions::getQuestion));
+
+        System.out.println(questionMap);
+        for (Questionnaire questionnaire : donorsAnswers) {
+            System.out.println(questionnaire.getAnswer());
+        }
+
+        // Add the questionMap to the model
+        model.addAttribute("questionMap", questionMap);
+
         // Ensure the questions list is not null
         ModelUtils.addCommonAttributesToModel(model, donor, donorsAnswers, questions);
-
-
         return "Donor/donorSummary";
     }
+
+
     @GetMapping("/donor-form")
     public String showDonorForm(Model model) {
         model.addAttribute("donorForm", new DonorForm());
@@ -93,17 +98,13 @@ public class DonorController {
         ModelAndView modelAndView;
         if (bindingResult.hasErrors()) {
             modelAndView = new ModelAndView("Donor/donor-form",model.asMap());
-            return modelAndView;
         }
         else {
-            Donor donor = new Donor();
-            donor.setFirstName(donorForm.getFirstName());
-            donor.setLastName(donorForm.getLastName());
-            donor.setDonorDob(donorForm.getDonorDob());
-            Donor savedDonor = donorRepository.save(donor);
+
+            Donor savedDonor = donorService.saveDonor(donorForm);
             modelAndView = new ModelAndView("redirect:/travel-form/" + savedDonor.getDonorId());
-            return modelAndView;
         }
+        return modelAndView;
     }
 
     @GetMapping("/donor-records")

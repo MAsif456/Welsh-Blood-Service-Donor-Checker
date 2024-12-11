@@ -1,8 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
 
@@ -12,11 +10,15 @@ import java.util.*;
 @Service
 public class DonorService {
 
-    @Autowired
-    private DonorRepository donorRepository;
+    private final DonorRepository donorRepository;
 
-    @Autowired
-    private CountryDiseaseRepository countryDiseaseRepository;
+    private final CountryDiseaseRepository countryDiseaseRepository;
+
+    public DonorService(DonorRepository donorRepository, CountryDiseaseRepository countryDiseaseRepository) {
+        this.donorRepository = donorRepository;
+        this.countryDiseaseRepository = countryDiseaseRepository;
+    }
+
 
     public Donor getDonorSummary(Integer donorId) {
         return donorRepository.findByDonorId(donorId);
@@ -37,5 +39,14 @@ public class DonorService {
     // Testing methods
     public List<CountryDiseaseDTO> getDonorDiseaseRisks(Integer donorId, LocalDate oneYearAgo) {
         return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
+    }
+
+    public Donor saveDonor(DonorForm donorForm) {
+        Donor donor = new Donor();
+        donor.setFirstName(donorForm.getFirstName());
+        donor.setLastName(donorForm.getLastName());
+        donor.setDonorDob(donorForm.getDonorDob());
+        donorRepository.save(donor);
+        return donor;
     }
 }

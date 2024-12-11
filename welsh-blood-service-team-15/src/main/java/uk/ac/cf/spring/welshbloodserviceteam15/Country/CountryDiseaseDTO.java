@@ -1,7 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 public record CountryDiseaseDTO(
         String countryName,

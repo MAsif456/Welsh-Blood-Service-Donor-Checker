@@ -58,7 +58,7 @@ public class NavigationTests {
     private DonorRepository donorRepository;
 
     @Mock
-    private DonorDonorTravelledToCountryService donorTravelledToCountryService;
+    private DonorDonorTravelledToCountryServiceTest donorTravelledToCountryService;
 
     @Mock
     private QuestionnaireService questionnaireService;
@@ -100,12 +100,13 @@ public class NavigationTests {
 
 
     @Test
+    @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
     public void testDonorFormSubmissionRedirectsToTravelForm() throws Exception {
         // Arrange
         Donor mockDonor = new Donor();
         when(donorRepository.save(any(Donor.class))).thenAnswer(invocation -> {
             Donor donor = invocation.getArgument(0);
-            donor.setDonorId(6);
+            donor.setDonorId(10);
             return donor;
         });
 
@@ -139,8 +140,10 @@ public class NavigationTests {
         List<Questionnaire> mockAnswers = questionIds.stream()
                 .map(questionId -> {
                     Questionnaire questionnaire = new Questionnaire();
-                    questionnaire.setDonorId(6);
-                    questionnaire.setQuestionId(questionId);
+                    Questions question = new Questions();
+                    question.setQuestion_id(questionId);
+                    questionnaire.setQuestion(question);
+                     questionnaire.setDonor(mockDonor);
                     questionnaire.setAnswer(answer);
                     return questionnaire;
                 })
@@ -213,8 +216,10 @@ public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception 
     List<Questionnaire> mockAnswers = questionIds.stream()
             .map(questionId -> {
                 Questionnaire questionnaire = new Questionnaire();
-                questionnaire.setDonorId(6);
-                questionnaire.setQuestionId(questionId);
+                Questions question = new Questions();
+                question.setQuestion_id(questionId);
+                questionnaire.setQuestion(question);
+                 questionnaire.setDonor(mockDonor);
                 questionnaire.setAnswer(answer);
                 return questionnaire;
             })
