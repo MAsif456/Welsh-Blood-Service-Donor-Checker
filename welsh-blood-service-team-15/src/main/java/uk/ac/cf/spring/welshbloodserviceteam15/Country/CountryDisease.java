@@ -33,6 +33,7 @@ public class CountryDisease {
     @JoinColumn(name = "disease_id")
     private Disease disease;
 
+    @NotEmpty(message = "Note must not be empty")
     private String note;
 
     @NotNull(message = "Start Date must not be null")
