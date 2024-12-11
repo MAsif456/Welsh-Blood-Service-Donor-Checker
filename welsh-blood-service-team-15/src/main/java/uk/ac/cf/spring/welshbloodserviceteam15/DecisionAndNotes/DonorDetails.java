@@ -3,9 +3,7 @@ package uk.ac.cf.spring.welshbloodserviceteam15.DecisionAndNotes;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -15,6 +13,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uk.ac.cf.spring.welshbloodserviceteam15.Security.ValidDonorAge;
 
 import java.time.LocalDate;
 
@@ -25,6 +24,7 @@ public class DonorDetails {
     private int donorId;
     private String firstName;
     private String lastName;
+
     private LocalDate donorDob;
 
     @NotBlank(message = "Please enter a decision")
@@ -33,6 +33,7 @@ public class DonorDetails {
     @NotEmpty(message = "Please enter a note")
     @Size(min = 10, max = 500, message = "Please enter a note between 10 - 500 characters")
     private String donorNote;
+    private String decisionMadeBy;
 
     public String getNotes() {
         return this.donorNote;
@@ -41,4 +42,5 @@ public class DonorDetails {
     public String getDecision() {
         return this.donorDecision;
     }
+
 }

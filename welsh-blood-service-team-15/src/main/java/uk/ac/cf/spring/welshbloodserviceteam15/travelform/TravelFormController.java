@@ -1,5 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorDonorTravelledToCountryService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.QuestionnaireService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
 
@@ -20,12 +22,15 @@ import java.util.List;
 public class TravelFormController {
     private final QuestionService questionService;
     private final CountryService countryService;
+    private final QuestionnaireService questionnaireService;
+
     private final DonorDonorTravelledToCountryService donorTravelledToCountryService;
 
-    public TravelFormController(QuestionService questionService, CountryService countryService, DonorDonorTravelledToCountryService donorTravelledToCountryService) {
+    public TravelFormController(QuestionService questionService, CountryService countryService, DonorDonorTravelledToCountryService donorTravelledToCountryService, QuestionnaireService questionnaireService) {
         this.questionService = questionService;
         this.countryService = countryService;
         this.donorTravelledToCountryService = donorTravelledToCountryService;
+        this.questionnaireService = questionnaireService;
     }
 
     @RequestMapping("/travel-form/{donorId}")
@@ -83,6 +88,8 @@ public class TravelFormController {
             for (int regionIdInt : regionIdInts) {
                 donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, regionIdInt, date);
             }
+            // save to travel_questionnaire table
+            questionnaireService.saveFromForm(donorIdInt, 1, "Yes");
 
         } else if (question4.equals("Yes")) {
             // has travelled in the last 12 months
@@ -93,6 +100,14 @@ public class TravelFormController {
             for (int regionIdInt : regionIdInts) {
                 donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, regionIdInt, date);
             }
+            // save to travel_questionnaire table
+            questionnaireService.saveFromForm(donorIdInt, 4, "Yes");
+
+        } else if (question1.equals("No") && question4.equals("No")) {
+            // has not travelled in the last 12 months
+            // save to travel_questionnaire table
+            questionnaireService.saveFromForm(donorIdInt, 1, "No");
+            questionnaireService.saveFromForm(donorIdInt, 4, "No");
         }
 
         redirectAttributes.addAttribute("donorId", donorIdInt);

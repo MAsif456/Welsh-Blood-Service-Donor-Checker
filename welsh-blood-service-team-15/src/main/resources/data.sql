@@ -1,11 +1,12 @@
 
 -- Inserting donors (donor_id will be auto-incremented)
-INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note) VALUES
-                                                                                                 ('John', 'Doe', '1985-06-15','Eligible to donate today', 'No known health risks'),
-                                                                                                 ('Jane', 'Smith', '1990-11-22','Eligible to donate but further testing needed', 'Recent travel to malaria-endemic areas'),
-                                                                                                 ('Mary', 'Johnson', '1978-04-09','Eligible to donate but must wait 6 months', 'Clear of any diseases'),
-                                                                                                 ('Tom', 'Brown', '1980-01-01','Not Eligible to donate at all', 'No known health risks'),
-                                                                                                 ('Alice', 'Williams', '1995-03-30','Eligible to donate today', 'Recent travel to malaria-endemic areas');
+INSERT INTO donor (first_name, last_name, donor_dob, donor_decision, donor_note, decision_made_by) VALUES
+                                                                                                 ('John', 'Doe', '1985-06-15','Eligible to donate today', 'No known health risks', 'Dr. Smith'),
+                                                                                                 ('Jane', 'Smith', '1990-11-22','Eligible to donate but further testing needed', 'Recent travel to malaria-endemic areas','Nurse Johnson'),
+                                                                                                 ('Mary', 'Johnson', '1978-04-09','Eligible to donate but must wait 6 months', 'Clear of any diseases','Dr. Smith'),
+                                                                                                 ('Tom', 'Brown', '1980-01-01','Not Eligible to donate at all', 'No known health risks','Nurse Johnson'),
+                                                                                                 ('Alice', 'Williams', '1995-03-30','Eligible to donate today', 'Recent travel to malaria-endemic areas','Dr. Smith'),
+                                                                                                 ('Yu','Hwang','2000-07-26',NULL,NULL,NULL);
 -- Inserting all countries
 INSERT INTO countries (country_name) VALUES
                                          ('Afghanistan'),
