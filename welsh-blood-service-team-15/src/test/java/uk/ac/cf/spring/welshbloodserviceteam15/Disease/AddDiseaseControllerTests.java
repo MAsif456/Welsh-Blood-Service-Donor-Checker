@@ -44,6 +44,10 @@ public class AddDiseaseControllerTests {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test to see if the Add Disease form is displayed correctly
+     */
+
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testShowAddDiseaseForm() {
@@ -60,6 +64,11 @@ public class AddDiseaseControllerTests {
         verify(model).addAttribute("regions", Collections.emptyList());
         assertEquals("Disease/add-disease", viewName);
     }
+
+    /**
+     * Test to see if a disease added to a
+     * new region is added correctly
+     */
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
@@ -87,6 +96,11 @@ public class AddDiseaseControllerTests {
         verify(diseaseService).saveDisease(diseaseDTO);
         assertEquals("redirect:/Disease/submission-confirmation", viewName);
     }
+
+    /**
+     * Test to see if a disease added to an existing
+     * region is added correctly
+     */
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})

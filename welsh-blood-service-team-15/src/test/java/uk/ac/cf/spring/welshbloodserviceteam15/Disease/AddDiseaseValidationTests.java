@@ -23,6 +23,11 @@ public class AddDiseaseValidationTests {
         validator = factory.getValidator();
     }
 
+    /**
+     * Test to check if the DiseaseDTO is valid
+     * based on the valid data that is given
+     */
+
     @Test
     public void testValidDiseaseDTO() {
         // Given
@@ -38,6 +43,11 @@ public class AddDiseaseValidationTests {
         // Then
         assertTrue(violations.isEmpty());
     }
+
+    /**
+     * Test to check if the DiseaseDTO is invalid based on
+     * invalid data that is given
+     */
 
     @Test
     public void testInvalidDiseaseDTO() {
