@@ -1,0 +1,17 @@
+package uk.ac.cf.spring.welshbloodserviceteam15.Country.Validation;
+
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDisease;
+
+public class EndDateValidator implements ConstraintValidator<ValidEndDate, CountryDisease> {
+
+    @Override
+    public boolean isValid(CountryDisease countryDisease, ConstraintValidatorContext context) {
+        if (countryDisease.getStartDate() == null || countryDisease.getEndDate() == null) {
+            return true;
+        }
+        return countryDisease.getEndDate().isAfter(countryDisease.getStartDate());
+    }
+}

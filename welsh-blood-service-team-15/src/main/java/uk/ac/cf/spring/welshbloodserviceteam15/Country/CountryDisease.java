@@ -1,7 +1,12 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.Validation.ValidEndDate;
+import uk.ac.cf.spring.welshbloodserviceteam15.Country.Validation.ValidStartDate;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 
 import java.time.LocalDate;
@@ -9,7 +14,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "country_disease")
-
+//At class level because it validates relationship between two fields, not a single field.
+@ValidEndDate
 public class CountryDisease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +35,13 @@ public class CountryDisease {
 
     private String note;
 
+    @NotNull(message = "Start Date must not be null")
+    @ValidStartDate
+    @Valid
     private LocalDate startDate;
 
+    @NotNull(message = "End Date must not be null")
+    @Valid
     private LocalDate endDate;
 
 
@@ -40,21 +51,18 @@ public class CountryDisease {
     public void setId(Integer id) {
         this.id = id;
     }
-
     public Country getCountry() {
         return country;
     }
     public void setCountry(Country country) {
         this.country = country;
     }
-
     public Region getRegion() {
         return region;
     }
     public void setRegion(Region region) {
         this.region = region;
     }
-
     public Disease getDisease() {
         return disease;
     }
@@ -79,5 +87,4 @@ public class CountryDisease {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
 }

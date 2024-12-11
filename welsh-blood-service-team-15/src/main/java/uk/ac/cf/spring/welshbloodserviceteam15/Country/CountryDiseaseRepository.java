@@ -14,6 +14,7 @@ public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, 
     // Refining where clause to exclude irrelevant diseases
     @Query("""
         SELECT DISTINCT new uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO(
+        cd.id,
             c.countryName,
             COALESCE(r.regionName, 'N/A - Disease Applies to the whole country'),
             d.diseaseName,
@@ -47,20 +48,12 @@ public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, 
     List<CountryDisease> findAll();
 
     @Query("""
-    SELECT new uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO(
-        c.countryName,
-        COALESCE(r.regionName, 'N/A - Disease Applies to the whole country'),
-        d.diseaseName,
-        cd.note,
-        cd.startDate,
-        cd.endDate,
-        ''
-    )
+    SELECT cd
     FROM CountryDisease cd
-    JOIN Country c ON c.countryId = cd.country.countryId
-    LEFT JOIN Region r ON r.regionId = cd.region.regionId
-    LEFT JOIN Disease d ON d.diseaseId = cd.disease.diseaseId
+    JOIN FETCH cd.country c
+    LEFT JOIN FETCH cd.region r
+    LEFT JOIN FETCH cd.disease d
     WHERE c.countryId = :countryId
-""")
-    List<CountryDiseaseDTO> findDiseasesByCountry(@Param("countryId") Integer countryId);
+    """)
+    List<CountryDisease> findByCountryCountryId(@Param("countryId") Integer countryId);
 }

@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Country Disease</title>
     <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
 </head>
 <body>
 <script th:src="@{/js/travelForm/travelForm.js}"></script>
-
 
 <h1>Edit Country Disease</h1>
 <!-- Dropdown to select a country -->
@@ -25,13 +24,14 @@
     <h2>Disease Risks</h2>
     <ul>
         <li th:each="risk : ${diseaseRisks}">
-            <p><strong>Country:</strong> <span th:text="${risk.countryName}"></span></p>
-            <p><strong>Region:</strong> <span th:text="${risk.regionName}"></span></p>
-            <p th:if="${risk.diseaseName}"><strong>Disease Name:</strong> <span th:text="${risk.diseaseName}"></span></p>
-            <p th:if="${risk.diseaseNote}"><strong>Relevant Notes:</strong> <span th:text="${risk.diseaseNote}"></span></p>
-            <p th:if="${risk.diseaseStart != null and risk.diseaseEnd != null}">
-                <strong>Disease Active Period:</strong> <span th:text="${risk.diseaseStart}"></span> to <span th:text="${risk.diseaseEnd}"></span>
-            </p>
+            <p><strong>Country:</strong> <span th:text="${risk.country.countryName}"></span></p>
+            <p><strong>Region:</strong> <span th:text="${risk.disease.diseaseName}"></span></p>
+            <p th:if="${risk.disease.diseaseName}"><strong>Disease Name:</strong> <span th:text="${risk.disease.diseaseName}"></span></p>
+            <p th:if="${risk.disease != null}"><strong>Relevant Notes:</strong><span th:if="${risk.note != null}" th:text="${risk.note}"></span></p>
+            <strong>Disease Active Period:</strong> <span th:text="${risk.startDate}"></span> to <span th:text="${risk.endDate}"></span>
+
+            <a th:href="@{/edit-disease/form(id=${risk.id})}">Edit</a>
+
         </li>
     </ul>
 </div>

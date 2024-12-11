@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public record CountryDiseaseDTO(
+        Integer id,
         String countryName,
         String regionName,
         String diseaseName,

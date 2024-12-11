@@ -724,6 +724,7 @@ INSERT INTO questions (question) VALUES
 
 
 
+select * from country_disease where country_id= 3;
 INSERT INTO travel_questionnaire (donor_id, question_id, answer)
 VALUES
     (5, 1, 'Yes'),  -- Donor 5 travelled in the last 12 months.
