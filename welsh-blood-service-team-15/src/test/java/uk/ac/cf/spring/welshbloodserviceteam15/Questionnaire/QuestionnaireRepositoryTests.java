@@ -22,44 +22,36 @@ public class QuestionnaireRepositoryTests {
     @Mock
     private QuestionnaireRepository questionnaireRepository;
 
+    private Questionnaire questionnaire;
+
     @BeforeEach
     void setUp() {
         // Initialize mocks
         MockitoAnnotations.openMocks(this);
-    }
 
-    private Questions makeMockQuestion() {
         Questions question = new Questions();
         question.setQuestion_id(1);
         question.setQuestion("Do you have any allergies?");
-        return question;
-    }
 
-    private Questionnaire makeMockQuestionnaire() {
-        Questionnaire questionnaire = new Questionnaire();
+        questionnaire = new Questionnaire();
         questionnaire.setQuestionnaireId(1);
-        Questions question = makeMockQuestion();
         questionnaire.setQuestion(question);
         questionnaire.setAnswer("No");
-        return questionnaire;
-    }
 
-    private Donor makeMockDonor() {
         Donor donor = new Donor();
         donor.setDonorId(1);
         donor.setFirstName("John");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        return donor;
+
+        questionnaire.setDonor(donor);
+
     }
 
     @Test
     public void shouldFindByDonorId() {
         // Given
-        Donor donor = makeMockDonor();
-        Questionnaire questionnaire = makeMockQuestionnaire();
-        questionnaire.setDonor(donor);
-
+        // Get variables from setUp()
         // behavior of mock methods
         when(questionnaireRepository.save(any(Questionnaire.class))).thenReturn(questionnaire);
         when(questionnaireRepository.findByDonor_DonorId(1)).thenReturn(List.of(questionnaire));

@@ -1,17 +1,23 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorRepository;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.QuestionRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -20,41 +26,51 @@ public class QuestionnaireServiceTests {
     @MockBean
     private QuestionnaireService questionnaireService;
 
-    private Questions makeMockQuestion() {
-        Questions question = new Questions();
-        question.setQuestion_id(1);
-        question.setQuestion("Do you have any allergies?");
-        return question;
-    }
+    private Questionnaire questionnaire;
+
+    @Autowired
+    private DonorRepository donorRepository;
+
+    @Autowired
+    private QuestionnaireRepository questionnaireRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    private Donor donor;
+    private Questions question;
 
 
-    private Questionnaire makeMockQuestionnaire() {
-        Questionnaire questionnaire = new Questionnaire();
-        questionnaire.setQuestionnaireId(1);
-        Questions question = makeMockQuestion();
-        questionnaire.setQuestion(question);
-        questionnaire.setAnswer("No");
-        return questionnaire;
-    }
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
 
-    private Donor makeMockDonor() {
-        Donor donor = new Donor();
+        // Initialize mock Donor and Question and Questionnaire
+        donor = new Donor();
         donor.setDonorId(1);
         donor.setFirstName("John");
         donor.setLastName("Doe");
         donor.setDonorDob(LocalDate.of(1990, 1, 1));
-        return donor;
+
+        question = new Questions();
+        question.setQuestion_id(1);
+        question.setQuestion("Do you have any allergies?");
+
+        questionnaire = new Questionnaire();
+        questionnaire.setQuestionnaireId(1);
+        questionnaire.setDonor(donor);
+        questionnaire.setQuestion(question);
+        questionnaire.setAnswer("No");
     }
+
 
     @Test
     public void shouldGetDonorsAnswers() {
         // Given
-        Donor donor = makeMockDonor();
-        Questionnaire questionnaire = makeMockQuestionnaire();
-        questionnaire.setDonor(donor);
+        // Get variables from setUp()
+        when(questionnaireService.getDonorsAnswers(1)).thenReturn(List.of(questionnaire));
 
         // When
-        when(questionnaireService.getDonorsAnswers(1)).thenReturn(List.of(questionnaire));
         List<Questionnaire> questionnaires = questionnaireService.getDonorsAnswers(1);
 
         // Then
@@ -64,4 +80,24 @@ public class QuestionnaireServiceTests {
         assertEquals(1, questionnaires.get(0).getQuestionnaireId());
         assertEquals(1, questionnaires.get(0).getDonor().getDonorId());
     }
+
+    @Test
+    public void shouldSaveFromForm() {
+        // Given: mock the return values for donor and question
+        when(donorRepository.findByDonorId(1)).thenReturn(donor);
+        when(questionRepository.findByQuestionId(1)).thenReturn(question);
+
+        // When:
+        doNothing().when(questionnaireService).saveFromForm(1, 1, "No");
+        questionnaireService.saveFromForm(1, 1, "No");
+
+        // Then: verify that the save method was called on the repository
+        verify(questionnaireRepository, times(1)).save(Mockito.any(Questionnaire.class));
+
+        // Since saveFromForm doesn't return anything, we can check the state of the `questionnaire`
+        assertEquals(1, questionnaire.getDonor().getDonorId());
+        assertEquals(1, questionnaire.getQuestion().getQuestion_id());
+        assertEquals("No", questionnaire.getAnswer());
+    }
+
 }

@@ -57,7 +57,7 @@ public class NavigationTests {
     private DonorRepository donorRepository;
 
     @Mock
-    private DonorDonorTravelledToCountryService donorTravelledToCountryService;
+    private DonorDonorTravelledToCountryServiceTest donorTravelledToCountryService;
 
     @Mock
     private QuestionnaireService questionnaireService;
@@ -99,12 +99,13 @@ public class NavigationTests {
 
 
     @Test
+    @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
     public void testDonorFormSubmissionRedirectsToTravelForm() throws Exception {
         // Arrange
         Donor mockDonor = new Donor();
         when(donorRepository.save(any(Donor.class))).thenAnswer(invocation -> {
             Donor donor = invocation.getArgument(0);
-            donor.setDonorId(6);
+            donor.setDonorId(10);
             return donor;
         });
 
