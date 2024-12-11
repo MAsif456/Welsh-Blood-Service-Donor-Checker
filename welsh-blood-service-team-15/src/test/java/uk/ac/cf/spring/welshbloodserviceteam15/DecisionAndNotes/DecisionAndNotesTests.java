@@ -37,7 +37,7 @@ public class DecisionAndNotesTests {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void CheckIfDonorIsReceivedOntoPage() throws Exception {
-        // Arrange: Set up a mock donor object and mock the service response
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(
                 3,
                 "John",
@@ -49,9 +49,9 @@ public class DecisionAndNotesTests {
         );
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a GET request to the endpoint
+        // When the staff member navigates to the decision and notes page,
         mockMvc.perform(MockMvcRequestBuilders.get("/decisionAndNotes/1"))
-                // Assert: Verify the response
+                // Then the form should display the donor's information.
                 .andExpect(status().isOk())
                 .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
                 .andExpect(model().attributeExists("donor"))
@@ -59,14 +59,13 @@ public class DecisionAndNotesTests {
                 .andExpect(model().attribute("donor", Matchers.hasProperty("firstName", Matchers.equalTo("John"))))
                 .andExpect(model().attribute("donor", Matchers.hasProperty("lastName", Matchers.equalTo("Doe"))));
 
-        // Verify that the service method was called with the correct parameter
         Mockito.verify(decisionAndNotesService).getDonorInfo(1);
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void CheckIfDonorIsUpdated() throws Exception {
-        // Arrange: Set up a mock donor object and mock the service response
+        // Given the user has selected a decision and written a note,
         DonorDetails mockDonor = new DonorDetails(
                 1,
                 "John",
@@ -78,85 +77,63 @@ public class DecisionAndNotesTests {
         );
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a GET request to retrieve the donor details
         mockMvc.perform(MockMvcRequestBuilders.get("/decisionAndNotes/1"));
 
-        // Act: Perform a POST request to update the donor's decision and notes
+        // When they submit the form,
         mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "Donor has been cleared for donation")
                         .with(csrf()))
+                // Then the system should save the final decision and note to the donor's record.
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/confirmation?donorId=" + mockDonor.getDonorId()));
 
-        // Assert: Verify that the service method was called with correct parameters
         Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(1, "Eligible to donate today", "Donor has been cleared for donation", "admin");
-
-        // Assert: Additional verification of contents
-        // Use ArgumentCaptor to capture arguments passed to the method
-        ArgumentCaptor<Integer> donorIdCaptor = ArgumentCaptor.forClass(Integer.class);
-        ArgumentCaptor<String> decisionCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> notesCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> usernameCaptor = ArgumentCaptor.forClass(String.class);
-
-        Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(
-                donorIdCaptor.capture(),
-                decisionCaptor.capture(),
-                notesCaptor.capture(),
-                usernameCaptor.capture()
-        );
-
-        // Check captured values
-        assertEquals(1, donorIdCaptor.getValue());
-        assertEquals("Eligible to donate today", decisionCaptor.getValue());
-        assertEquals("Donor has been cleared for donation", notesCaptor.getValue());
-        assertEquals("admin", usernameCaptor.getValue());
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testValidDecisionOptionsAndNotes() throws Exception {
-        // Arrange: Set up a mock donor object
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(1, "John", "Doe", LocalDate.of(1985, 4, 12), null, null, null);
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a POST request with a valid decision
+        // When the staff member submits the form with valid data,
         mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "Valid note")
                         .with(csrf()))
+                // Then the data should be sent to the database without any inconsistencies.
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/confirmation?donorId=1"));
 
-        // Assert: Verify the service method was called with correct parameters
         Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(1, "Eligible to donate today", "Valid note", "admin");
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testNoteValidationIfItsEmpty() throws Exception {
-        // Arrange: Set up a mock donor object
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(1, "John", "Doe", LocalDate.of(1985, 4, 12), "Eligible to donate today", "", null);
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a GET request to set up the donor object in the model
         mockMvc.perform(MockMvcRequestBuilders.get("/decisionAndNotes/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
                 .andExpect(model().attributeExists("donor"))
                 .andExpect(model().attribute("donor", Matchers.hasProperty("donorId", Matchers.equalTo(1))));
 
-        // Act: Perform a POST request with an invalid note (empty)
+        // When the staff member enters a note,
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "")
                         .with(csrf()))
+                // Then the form should validate that the note is not empty and does not exceed a specified character limit.
                 .andReturn();
 
-        // Assert: Verify the error messages in the response content
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("Please enter a note between 10 - 500 characters"));
         assertTrue(content.contains("Please enter a note"));
@@ -165,26 +142,25 @@ public class DecisionAndNotesTests {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testNoteValidationIfItsOverCharacterCount() throws Exception {
-        // Arrange: Set up a mock donor object
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(1, "John", "Doe", LocalDate.of(1985, 4, 12), "Eligible to donate today", "", null);
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a GET request to set up the donor object in the model
         mockMvc.perform(MockMvcRequestBuilders.get("/decisionAndNotes/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
                 .andExpect(model().attributeExists("donor"))
                 .andExpect(model().attribute("donor", Matchers.hasProperty("donorId", Matchers.equalTo(1))));
 
-        // Act: Perform a POST request with a note that is over the character limit
+        // When the staff member enters a note,
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "a".repeat(501))
                         .with(csrf()))
+                // Then the form should validate that the note is not empty and does not exceed a specified character limit.
                 .andReturn();
 
-        // Assert: Verify the error messages in the response content
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("Please enter a note between 10 - 500 characters"));
     }
@@ -192,46 +168,45 @@ public class DecisionAndNotesTests {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testValidDataSubmission() throws Exception {
-        // Arrange: Set up a mock donor object
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(1, "John", "Doe", LocalDate.of(1985, 4, 12), null, null, null);
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a POST request with valid data
+        // When the staff member submits the form with valid data,
         mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "Valid note")
                         .with(csrf()))
+                // Then the data should be sent to the database without any inconsistencies.
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/confirmation?donorId=1"));
 
-        // Assert: Verify the service method was called with correct parameters
         Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(1, "Eligible to donate today", "Valid note", "admin");
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testDecisionValidation() throws Exception {
-        // Arrange: Set up a mock donor object
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(1, "John", "Doe", LocalDate.of(1985, 4, 12), "Eligible to donate today", "", null);
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a GET request to set up the donor object in the model
         mockMvc.perform(MockMvcRequestBuilders.get("/decisionAndNotes/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
                 .andExpect(model().attributeExists("donor"))
                 .andExpect(model().attribute("donor", Matchers.hasProperty("donorId", Matchers.equalTo(1))));
 
-        // Act: Perform a POST request with an unselected decision
+        // When the staff member enters a decision,
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "")
                         .param("donorNote", "Valid note")
                         .with(csrf()))
+                // Then the form should validate that the decision is one of the predefined valid options.
                 .andReturn();
 
-        // Assert: Verify the error messages in the response content
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("Please enter a decision"));
     }
@@ -239,39 +214,38 @@ public class DecisionAndNotesTests {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testRemoveErrorMessagesOnCorrection() throws Exception {
-        // Arrange: Set up a mock donor object
+        // Given a staff member is filling out the decision and notes form,
         DonorDetails mockDonor = new DonorDetails(1, "John", "Doe", LocalDate.of(1985, 4, 12), "Eligible to donate today", "", null);
         Mockito.when(decisionAndNotesService.getDonorInfo(1)).thenReturn(mockDonor);
 
-        // Act: Perform a POST request with an invalid note (empty)
+        // When the staff member enters invalid data,
         MvcResult resultWithErrors = mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "")
                         .with(csrf()))
+                // Then the form should display appropriate error messages indicating the validation issues.
                 .andReturn();
 
-        // Assert: Verify the error messages in the response content
         String contentWithErrors = resultWithErrors.getResponse().getContentAsString();
         assertTrue(contentWithErrors.contains("Please enter a note between 10 - 500 characters"));
         assertTrue(contentWithErrors.contains("Please enter a note"));
 
-        // Act: Perform a POST request with a valid note
+        // When the staff member corrects the invalid data,
         MvcResult resultWithoutErrors = mockMvc.perform(MockMvcRequestBuilders.post("/submit-decisions")
                         .param("donorId", "1")
                         .param("donorDecision", "Eligible to donate today")
                         .param("donorNote", "Valid note")
                         .with(csrf()))
+                // Then the form should remove the error messages and allow the form to be submitted successfully.
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/confirmation?donorId=1"))
                 .andReturn();
 
-        // Assert: Verify that the error messages are not present in the response content
         String contentWithoutErrors = resultWithoutErrors.getResponse().getContentAsString();
         assertFalse(contentWithoutErrors.contains("Please enter a note between 10 - 500 characters"));
         assertFalse(contentWithoutErrors.contains("Please enter a note"));
 
-        // Verify the service method was called with correct parameters
         Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(1, "Eligible to donate today", "Valid note", "admin");
     }
 }

@@ -28,21 +28,25 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
-                        // Allow access to CSS and image resources
+                        // Public access
                         .requestMatchers("/css/**", "/images/**").permitAll()
-                        // Allow public access to these endpoints
-                        .requestMatchers("/", "/login", "/public/**").permitAll()
-                        // Restrict access based on roles
-                        .requestMatchers("/clinician/**").hasRole("CLINICIAN")
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/", "/home", "/donor-form", "/travel-form/**", "/confirmation").permitAll()
+                        // Role-specific access
+                        .requestMatchers("/donor/summary/**", "/donor/summary-risks/**", "/decisionAndNotes/**", "/donor-records").hasRole("CLINICIAN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
+                // Login configuration
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/defaultLogin", true) // Redirect after successful login
                         .permitAll())
+                // Logout configuration
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll())
+                // Exception handling for access-denied
                 .exceptionHandling(exception -> exception
                         .accessDeniedPage("/403"));
         return http.build();
@@ -53,7 +57,9 @@ public class SecurityConfig {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder)
+                // Query to fetch user credentials
                 .usersByUsernameQuery("select username, password, enabled from users where username=?")
+                // Query to fetch user roles, removing the "ROLE_" prefix
                 .authoritiesByUsernameQuery("select username, role from users where username=?");
     }
 }

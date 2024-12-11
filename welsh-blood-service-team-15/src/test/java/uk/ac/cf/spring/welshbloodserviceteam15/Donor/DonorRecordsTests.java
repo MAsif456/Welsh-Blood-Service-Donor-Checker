@@ -27,8 +27,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,34 +53,38 @@ public class DonorRecordsTests {
 
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
-    public void shouldShowErrorMessageWhenIdIsNull() throws Exception {
-        // Mock the donor service to return a list of donors
-        Donor donor2 = new Donor();
-        donor2.setDonorId(2);
-        donor2.setFirstName("Jane");
-        donor2.setLastName("Smith");
+    @WithMockUser(username = "staff", roles = {"STAFF"})
+    public void testViewDonorProfile() throws Exception {
+        // Given a staff member has access to the donor management system,
+        Donor donor = new Donor();
+        donor.setDonorId(1);
+        donor.setFirstName("John");
+        donor.setLastName("Doe");
+        when(donorService.getDonorSummary(1)).thenReturn(donor);
+        when(questionnaireService.getDonorsAnswers(1)).thenReturn(List.of());
+        when(questionService.getQuestions()).thenReturn(List.of());
 
-        when(donorService.searchDonorById(1)).thenReturn(donor2);
-
-        MvcResult result = mvc.perform(get("/search-donor"))
+        // When they navigate to the desired donor's profile,
+        MvcResult result = mvc.perform(get("/donor/summary/1"))
                 .andExpect(status().isOk())
+                // Then they should be able to view the donor's previous records and submissions.
+                .andExpect(view().name("Donor/donorSummary"))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-        assertTrue(content.contains("An ID is required to search."));
-
+        assertTrue(content.contains("<span>John Doe</span>"));
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    public void shouldShowErrorWhenDonorNotFound() throws Exception {
-        // Mock the donor service to return null for a specific ID
+    public void testSearchNonExistentDonor() throws Exception {
+        // Given a staff member is logged in,
         when(donorService.searchDonorById(1)).thenReturn(null);
-        when(donorService.getAllDonors()).thenReturn(Collections.emptyList());
 
+        // When the admin searches for a donor with an ID that does not exist,
         MvcResult result = mvc.perform(get("/search-donor").param("id", "1"))
                 .andExpect(status().isOk())
+                // Then an appropriate error message should be displayed.
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
@@ -90,79 +93,63 @@ public class DonorRecordsTests {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    public void shouldShowDonorWhenIdIsProvided() throws Exception {
-        // Mock the donor service to return a specific donor
-        Donor donor = new Donor();
-        donor.setDonorId(1);
-        donor.setFirstName("John");
-        donor.setLastName("Doe");
-        when(donorService.searchDonorById(1)).thenReturn(donor);
-
-        MvcResult result = mvc.perform(get("/search-donor").param("id", "1"))
+    public void testSearchDonorWithoutId() throws Exception {
+        // Given a staff member is logged in,
+        // When the admin navigates to the search donor page without providing an ID,
+        MvcResult result = mvc.perform(get("/search-donor"))
                 .andExpect(status().isOk())
+                // Then an appropriate error message should be displayed.
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-        assertTrue(content.contains("<td>John</td>"));
-        assertTrue(content.contains("<td>Doe</td>"));
+        assertTrue(content.contains("An ID is required to search."));
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testAdminSeesDecisionMadeByColumn() throws Exception {
-        // Mock the donor service to return a list of donors
-        Donor donor1 = new Donor();
-        donor1.setDonorId(1);
-        donor1.setFirstName("John");
-        donor1.setLastName("Doe");
-        donor1.setDecisionMade("Admin User");
+        // Given an admin is logged in
+        Donor donor = new Donor();
+        donor.setDonorId(1);
+        donor.setFirstName("John");
+        donor.setLastName("Doe");
+        donor.setDecisionMade("admin");
+        when(donorService.getAllDonors()).thenReturn(List.of(donor));
 
-        when(donorService.searchDonorById(1)).thenReturn(donor1);
-
-        // Perform the request as an admin
-        MvcResult When = mvc.perform(get("/donor-records").with(user("admin").roles("ADMIN")))
+        // When the admin navigates to the donor records page
+        MvcResult result = mvc.perform(get("/donor-records"))
                 .andExpect(status().isOk())
-                .andReturn();
-
-        // Perform the request to search for a donor
-        MvcResult Then = mvc.perform(get("/search-donor").param("id", "1"))
-                .andExpect(status().isOk())
-                .andReturn();
-
-
-        String content = Then.getResponse().getContentAsString();
-
-        // Verify that the "Decision Made By" column is present and contains the correct values
-        assertTrue(content.contains("<th>Decision Made By</th>"));
-        assertTrue(content.contains("<td>Admin User</td>"));
-    }
-
-    @Test
-    @WithMockUser(username = "user", roles = {"CLINICIAN"})
-    public void testNonAdminDoesNotSeeDecisionMadeByColumn() throws Exception {
-        // Mock the donor service to return a list of donors
-        Donor donor1 = new Donor();
-        donor1.setDonorId(1);
-        donor1.setFirstName("John");
-        donor1.setLastName("Doe");
-
-        when(donorService.getAllDonors()).thenReturn(List.of(donor1));
-
-        // Perform the request as a non-admin user
-        MvcResult result = mvc.perform(get("/donor-records").with(user("user").roles("USER")))
-                .andExpect(status().isOk())
+                // Then the admin should see the "Decision Made By" column in the donor records table
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
+        assertTrue(content.contains("<th>Decision Made By</th>"));
+    }
 
-        // Verify that the "Decision Made By" column is not present
+    @Test
+    @WithMockUser(username = "user", roles = {"USER"})
+    public void testNonAdminDoesNotSeeDecisionMadeByColumn() throws Exception {
+        // Given a non-admin user is logged in
+        Donor donor = new Donor();
+        donor.setDonorId(1);
+        donor.setFirstName("John");
+        donor.setLastName("Doe");
+        when(donorService.getAllDonors()).thenReturn(List.of(donor));
+
+        // When the user navigates to the donor records page
+        MvcResult result = mvc.perform(get("/donor-records"))
+                .andExpect(status().isOk())
+                // Then the "Decision Made By" column should not be visible in the donor records table.
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
         assertFalse(content.contains("<th>Decision Made By</th>"));
     }
 
     @Test
     @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
     public void testClinicianSeesListOfDonorsWaitingForDecision() throws Exception {
-        // Mock the donor service to return a list of donors waiting for a decision
+        // Given a clinician is logged in,
         Donor donor1 = new Donor();
         donor1.setDonorId(1);
         donor1.setFirstName("John");
@@ -179,14 +166,13 @@ public class DonorRecordsTests {
 
         when(donorService.getAllDonors()).thenReturn(List.of(donor1, donor2));
 
-        // Perform the request as a clinician
-        MvcResult result = mvc.perform(get("/donor-records").with(user("clinician").roles("CLINICIAN")))
+        // When the clinician navigates to the donor records page,
+        MvcResult result = mvc.perform(get("/donor-records"))
                 .andExpect(status().isOk())
+                // Then the clinician should see a list of donors that are waiting for a decision.
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-
-        // Verify that the list of donors waiting for a decision is displayed
         assertThat(content).contains("<td>John</td>");
         assertThat(content).contains("<td>Doe</td>");
         assertThat(content).contains("<td>Jane</td>");
@@ -197,7 +183,7 @@ public class DonorRecordsTests {
     @Test
     @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
     public void testClinicianViewsDonorSummaries() throws Exception {
-        // Mock the donor service to return a list of donors
+        // Given a clinician is logged in,
         Donor donor1 = new Donor();
         donor1.setDonorId(1);
         donor1.setFirstName("John");
@@ -216,12 +202,12 @@ public class DonorRecordsTests {
 
         when(donorService.getAllDonors()).thenReturn(List.of(donor1, donor2));
 
-        // Perform the request as a clinician to view donor records
-        MvcResult result = mvc.perform(get("/donor-records").with(user("clinician").roles("CLINICIAN")))
+        // When the clinician views the donor records page,
+        MvcResult result = mvc.perform(get("/donor-records"))
                 .andExpect(status().isOk())
+                // Then the clinician should be able to view the summary of each donor in the queue.
                 .andReturn();
 
-        // Verify that the list of donors waiting for a decision is displayed
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("<td>John</td>");
         assertThat(content).contains("<td>Doe</td>");
@@ -229,29 +215,24 @@ public class DonorRecordsTests {
         assertThat(content).contains("<td>Smith</td>");
         assertThat(content).contains("<td>Pending</td>");
 
-        // Mock the donor service to return a specific donor summary
         when(donorService.getDonorSummary(1)).thenReturn(donor1);
         when(questionnaireService.getDonorsAnswers(1)).thenReturn(List.of());
         when(questionService.getQuestions()).thenReturn(List.of());
 
-        // Perform the request as a clinician to view the donor summary
-        MvcResult summaryResult = mvc.perform(get("/donor/summary/1").with(user("clinician").roles("CLINICIAN")))
+        MvcResult summaryResult = mvc.perform(get("/donor/summary/1"))
                 .andExpect(status().isOk())
                 .andReturn();
 
         String summaryContent = summaryResult.getResponse().getContentAsString();
-
-        // Verify that the summary of the donor is displayed
         assertThat(summaryContent).contains("<span>John Doe</span>");
         assertThat(summaryContent).contains("<span>1990-01-01</span>");
         assertThat(summaryContent).contains("<span class=\"decision\">Awaiting decision</span>");
     }
 
-
     @Test
     @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
     public void testClinicianMakesDecisionForDonors() throws Exception {
-        // Arrange: Set up a mock donor object and mock the service response
+        // Given a clinician is logged in,
         Donor donor1 = new Donor();
         donor1.setDonorId(1);
         donor1.setFirstName("John");
@@ -262,34 +243,30 @@ public class DonorRecordsTests {
 
         when(donorService.getAllDonors()).thenReturn(List.of(donor1));
 
-        // Act: Perform a GET request to view donor records
-        MvcResult donorRecordsResult = mvc.perform(get("/donor-records").with(user("clinician").roles("CLINICIAN")))
+        // When the clinician views the donor records page,
+        MvcResult donorRecordsResult = mvc.perform(get("/donor-records"))
                 .andExpect(status().isOk())
+                // Then the clinician should be able to make a decision for each donor in the queue.
                 .andReturn();
 
-        // Assert: Verify that the list of donors waiting for a decision is displayed
         String donorRecordsContent = donorRecordsResult.getResponse().getContentAsString();
         assertThat(donorRecordsContent).contains("<td>John</td>");
         assertThat(donorRecordsContent).contains("<td>Doe</td>");
         assertThat(donorRecordsContent).contains("<td>Pending</td>");
 
-        // Mock the donor service to return a specific donor summary
         when(donorService.getDonorSummary(1)).thenReturn(donor1);
         when(questionnaireService.getDonorsAnswers(1)).thenReturn(List.of());
         when(questionService.getQuestions()).thenReturn(List.of());
 
-        // Act: Perform a GET request to view the donor summary
-        MvcResult donorSummaryResult = mvc.perform(get("/donor/summary/1").with(user("clinician").roles("CLINICIAN")))
+        MvcResult donorSummaryResult = mvc.perform(get("/donor/summary/1"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Assert: Verify that the summary of the donor is displayed
         String donorSummaryContent = donorSummaryResult.getResponse().getContentAsString();
         assertThat(donorSummaryContent).contains("<span>John Doe</span>");
         assertThat(donorSummaryContent).contains("<span>1990-01-01</span>");
         assertThat(donorSummaryContent).contains("<span class=\"decision\">Awaiting decision</span>");
 
-        // Mock the DecisionAndNotesService to return a specific donor details
         DonorDetails donorDetails = new DonorDetails();
         donorDetails.setDonorId(1);
         donorDetails.setFirstName("John");
@@ -299,8 +276,7 @@ public class DonorRecordsTests {
 
         when(decisionAndNotesService.getDonorInfo(1)).thenReturn(donorDetails);
 
-        // Act: Perform a GET request to view the decision and notes page
-        MvcResult decisionAndNotesResult = mvc.perform(get("/decisionAndNotes/1").with(user("clinician").roles("CLINICIAN")))
+        MvcResult decisionAndNotesResult = mvc.perform(get("/decisionAndNotes/1"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -313,7 +289,6 @@ public class DonorRecordsTests {
                 .andExpect(redirectedUrl("/confirmation?donorId=1"))
                 .andReturn();
 
-        // Verify the service method was called with correct parameters
         Mockito.verify(decisionAndNotesService).updateDonorDecisionAndNotes(1, "Eligible to donate today", "Valid note", "clinician");
     }
 

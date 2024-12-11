@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/DecisionAndNotes/confirmation.css}">
+  <title>Confirmation Page</title>
+</head>
+<body>
+<div class="confirmation-container">
+  <h1>Submission Successful</h1>
+  <p>Thank you for your application, your donorID is <span th:text="${donorId}"></span>.</p>
+  <p>Please wait as a clinician will be with you shortly.</p>
+
+  <a th:href="@{/home}" class="home-link">Return to the Home Page</a>
+</div>
+
+<script>
+  // Redirect to the home page after 5 seconds
+  setTimeout(function() {
+    window.location.href = document.querySelector('.home-link').href;
+  }, 5000);
+</script>
+</body>
+</html>
