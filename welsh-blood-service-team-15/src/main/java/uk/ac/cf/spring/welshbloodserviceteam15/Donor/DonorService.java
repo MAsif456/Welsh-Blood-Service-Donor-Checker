@@ -38,4 +38,12 @@ public class DonorService {
     public List<CountryDiseaseDTO> getDonorDiseaseRisks(Integer donorId, LocalDate oneYearAgo) {
         return countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
     }
+
+    public Donor saveDonor(DonorForm donorForm) {
+        Donor donor = new Donor();
+        donor.setFirstName(donorForm.getFirstName());
+        donor.setLastName(donorForm.getLastName());
+        donor.setDonorDob(donorForm.getDonorDob());
+        return donorRepository.save(donor);
+    }
 }

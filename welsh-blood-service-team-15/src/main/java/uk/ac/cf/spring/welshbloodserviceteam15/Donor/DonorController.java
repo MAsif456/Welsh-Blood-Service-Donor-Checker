@@ -92,15 +92,10 @@ public class DonorController {
     public ModelAndView submitDonorForm(@Valid DonorForm donorForm, BindingResult bindingResult, Model model) {
         ModelAndView modelAndView;
         if (bindingResult.hasErrors()) {
-            modelAndView = new ModelAndView("Donor/donor-form",model.asMap());
+            modelAndView = new ModelAndView("Donor/donor-form", model.asMap());
             return modelAndView;
-        }
-        else {
-            Donor donor = new Donor();
-            donor.setFirstName(donorForm.getFirstName());
-            donor.setLastName(donorForm.getLastName());
-            donor.setDonorDob(donorForm.getDonorDob());
-            Donor savedDonor = donorRepository.save(donor);
+        } else {
+            Donor savedDonor = donorService.saveDonor(donorForm);
             modelAndView = new ModelAndView("redirect:/travel-form/" + savedDonor.getDonorId());
             return modelAndView;
         }
