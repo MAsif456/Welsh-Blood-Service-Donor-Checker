@@ -7,7 +7,7 @@ public interface RegionService {
 
     List<Region> getRegionByCountry(Integer countryId);
 
-    Region saveRegion(Region region);
+    Region saveRegion(String regionName, Integer countryId);
 
 
 }

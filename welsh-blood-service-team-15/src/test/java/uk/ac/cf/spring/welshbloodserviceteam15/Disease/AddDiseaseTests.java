@@ -86,13 +86,13 @@ public class AddDiseaseTests {
         newRegion.setRegionId(1);
 
         when(countryService.getCountryById(1)).thenReturn(country);
-        when(regionService.saveRegion(any(Region.class))).thenReturn(newRegion);
+        when(regionService.saveRegion(anyString(), anyInt())).thenReturn(newRegion);
 
         // When
         String viewName = addDiseaseController.addDisease(diseaseDTO, bindingResult, model);
 
         // Then
-        verify(regionService).saveRegion(any(Region.class));
+        verify(regionService).saveRegion(anyString(), anyInt());
         verify(diseaseService).saveDisease(diseaseDTO);
         assertEquals("redirect:/Disease/submission-confirmation", viewName);
     }
@@ -114,7 +114,7 @@ public class AddDiseaseTests {
         String viewName = addDiseaseController.addDisease(diseaseDTO, bindingResult, model);
 
         // Then
-        verify(regionService, never()).saveRegion(any(Region.class));
+        verify(regionService, never()).saveRegion(anyString(), anyInt());
         verify(diseaseService).saveDisease(diseaseDTO);
         assertEquals("redirect:/Disease/submission-confirmation", viewName);
     }
