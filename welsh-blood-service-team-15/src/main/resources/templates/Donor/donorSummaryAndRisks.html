@@ -50,7 +50,7 @@
             <li th:each="answer : ${donorsAnswers}">
                 <p>
                     <strong>Question:</strong>
-                    <span th:text="${questionMap[answer.questionId]}"></span>
+                    <span th:text="${questionMap[answer.question.question_id]}"></span>
                 </p>
                 <p>
                     <strong>Answer:</strong>
@@ -59,6 +59,7 @@
             </li>
         </ul>
     </div>
+
 </div>
 <div class="disease-risk-summary">
     <h2>Relevant Disease Risk</h2>

@@ -139,7 +139,7 @@ public class NavigationTests {
                 .map(questionId -> {
                     Questionnaire questionnaire = new Questionnaire();
                     Questions question = new Questions();
-                    question.setQuestionId(questionId);
+                    question.setQuestion_id(questionId);
                     questionnaire.setQuestion(question);
                      questionnaire.setDonor(mockDonor);
                     questionnaire.setAnswer(answer);
@@ -152,7 +152,7 @@ public class NavigationTests {
         List<Questions> mockQuestions = questionIds.stream()
                 .map(questionId -> {
                     Questions question = new Questions();
-                    question.setQuestionId(questionId.intValue());
+                    question.setQuestion_id(questionId.intValue());
                     question.setQuestion("Question " + questionId);
                     return question;
                 })
@@ -215,7 +215,7 @@ public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception 
             .map(questionId -> {
                 Questionnaire questionnaire = new Questionnaire();
                 Questions question = new Questions();
-                question.setQuestionId(questionId);
+                question.setQuestion_id(questionId);
                 questionnaire.setQuestion(question);
                  questionnaire.setDonor(mockDonor);
                 questionnaire.setAnswer(answer);
@@ -228,7 +228,7 @@ public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception 
     List<Questions> mockQuestions = questionIds.stream()
             .map(questionId -> {
                 Questions question = new Questions();
-                question.setQuestionId(questionId.intValue());
+                question.setQuestion_id(questionId.intValue());
                 question.setQuestion("Question " + questionId);
                 return question;
             })
