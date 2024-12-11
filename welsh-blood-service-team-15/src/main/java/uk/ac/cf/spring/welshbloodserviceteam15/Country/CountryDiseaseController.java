@@ -13,6 +13,8 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseService;
 import java.util.List;
 
+
+
 @Controller
 @RequestMapping("/edit-disease")
 public class CountryDiseaseController {
@@ -62,14 +64,14 @@ public class CountryDiseaseController {
 
 
     @PostMapping("/save")
-    public String saveDisease(@ModelAttribute @Valid CountryDisease countryDisease, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+    public String saveDisease(@ModelAttribute @Valid CountryDisease countryDisease, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("countryDisease", countryDisease);
-            return "CountryDisease/EditDiseaseForm";
+            return "CountryDisease/EditDiseaseForm";  // Return the form view with errors
         }
 
         if (countryDisease.getCountry() == null) {
-            result.rejectValue("country", "error.countryDisease", "Country must not be null");
+            bindingResult.rejectValue("country", "error.countryDisease", "Country must not be null");
             logger.error("Country is null for CountryDisease: {}", countryDisease);
             model.addAttribute("countryDisease", countryDisease);
             return "CountryDisease/EditDiseaseForm";
@@ -82,5 +84,11 @@ public class CountryDiseaseController {
 
         countryDiseaseService.save(countryDisease);
 
-        return "CountryDisease/SuccessfulEdit";    }
+        return "redirect:/edit-disease/SuccessfulEdit";  // Ensure this matches the test    }
+    }
+
+    @GetMapping("/SuccessfulEdit")
+    public String showSuccessPage() {
+        return "CountryDisease/SuccessfulEdit"; // View template name
+    }
 }

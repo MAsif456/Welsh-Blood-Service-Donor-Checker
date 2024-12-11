@@ -12,10 +12,10 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
 import java.time.LocalDate;
 import java.util.Date;
 
+@ValidEndDate
 @Entity
 @Table(name = "country_disease")
 //At class level because it validates relationship between two fields, not a single field.
-@ValidEndDate
 public class CountryDisease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +37,9 @@ public class CountryDisease {
 
     @NotNull(message = "Start Date must not be null")
     @ValidStartDate
-    @Valid
     private LocalDate startDate;
 
     @NotNull(message = "End Date must not be null")
-    @Valid
     private LocalDate endDate;
 
 

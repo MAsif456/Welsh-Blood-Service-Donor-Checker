@@ -23,13 +23,13 @@
     </div>
     <div>
         <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" th:field="*{startDate}" />
-        <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+        <input type="date" id="startDate" name="startDate" value="${countryDisease.startDate}">
+        <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start Date Error</div>
     </div>
     <div>
         <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" th:field="*{endDate}" />
-        <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
+        <input type="date" id="endDate" name="endDate" value="${countryDisease.endDate}">
+        <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End Date Error</div>
     </div>
     <input type="hidden" th:field="*{country.countryId}" />
     <button type="submit">Save</button>

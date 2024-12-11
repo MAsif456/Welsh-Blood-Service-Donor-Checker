@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Successful Edit</title>
 </head>
 <body>
-<H1>Edit confirmed</H1>
+<h1>Successful Edit</h1>
+<p>The disease information has been successfully updated.</p>
+<a th:href="@{/edit-disease}">Back to Edit Page</a>
 </body>
 </html>

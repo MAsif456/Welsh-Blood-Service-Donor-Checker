@@ -26,9 +26,7 @@ public class DiseaseService {
     }
 
     public void save(CountryDisease countryDisease) {
-        System.out.println("Saving country disease: " + countryDisease);
         countryDiseaseRepository.save(countryDisease);
-        System.out.println("Saved country disease: " + countryDisease);
     }
 
     public void save(Disease disease) {
