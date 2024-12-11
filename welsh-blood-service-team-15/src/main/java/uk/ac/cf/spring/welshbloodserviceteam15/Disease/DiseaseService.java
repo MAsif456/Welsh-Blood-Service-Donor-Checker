@@ -36,7 +36,6 @@ public class DiseaseService {
                         disease.getRiskMessage().startsWith("No risk") || disease.getRiskMessage().contains("No linked") ? 1 : 0))
                 .collect(Collectors.toList());
     }
-
     public void saveDisease(DiseaseDTO diseaseDTO) {
         if (diseaseDTO.getCountryId() == null) {
             throw new IllegalArgumentException("Country ID must not be null");
@@ -73,4 +72,6 @@ public class DiseaseService {
 
         countryDiseaseRepository.save(countryDisease);
     }
+
 }
+
