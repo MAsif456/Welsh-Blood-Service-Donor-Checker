@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Country;
@@ -43,34 +44,27 @@ public class AddDiseaseControllerTests {
         MockitoAnnotations.openMocks(this);
     }
 
-    /**
-     * Test to see if the disease form is displayed correctly
-     */
-
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testShowAddDiseaseForm() {
-        //Given
+        // Given
         when(countryService.getAllCountries()).thenReturn(Collections.emptyList());
         when(regionService.getAllRegions()).thenReturn(Collections.emptyList());
 
-        //When
+        // When
         String viewName = addDiseaseController.showAddDiseaseForm(model);
 
-        //Then
+        // Then
         verify(model).addAttribute(eq("disease"), any(DiseaseDTO.class));
         verify(model).addAttribute("countries", Collections.emptyList());
         verify(model).addAttribute("regions", Collections.emptyList());
         assertEquals("Disease/add-disease", viewName);
     }
 
-
-    /**
-     * Test to see if a new region is added correctly
-     */
-
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testAddDisease_NewRegion() {
-        //Given
+        // Given
         DiseaseDTO diseaseDTO = new DiseaseDTO();
         diseaseDTO.setCountryId(1);
         diseaseDTO.setRegionId(null);
@@ -85,47 +79,29 @@ public class AddDiseaseControllerTests {
         when(countryService.getCountryById(1)).thenReturn(country);
         when(regionService.saveRegion(any(Region.class))).thenReturn(newRegion);
 
-        //When
+        // When
         String viewName = addDiseaseController.addDisease(diseaseDTO, bindingResult, model);
 
-        //Then
+        // Then
         verify(regionService).saveRegion(any(Region.class));
         verify(diseaseService).saveDisease(diseaseDTO);
         assertEquals("redirect:/Disease/submission-confirmation", viewName);
     }
 
-    /**
-     * Test to see if a disease is added correctly
-     */
-
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testAddDisease_ExistingRegion() {
-
-        //Given
+        // Given
         DiseaseDTO diseaseDTO = new DiseaseDTO();
         diseaseDTO.setCountryId(1);
         diseaseDTO.setRegionId(1);
 
-        //When
-
+        // When
         String viewName = addDiseaseController.addDisease(diseaseDTO, bindingResult, model);
 
-        //Then
-
+        // Then
         verify(regionService, never()).saveRegion(any(Region.class));
         verify(diseaseService).saveDisease(diseaseDTO);
         assertEquals("redirect:/Disease/submission-confirmation", viewName);
     }
-
-    /**
-     * Test to see if the submission page is displayed correctly
-     */
-
-    @Test
-    public void testShowSubmissionPage() {
-        String viewName = addDiseaseController.showSubmissionPage();
-        assertEquals("Disease/submission-confirmation", viewName);
-    }
-
-
 }

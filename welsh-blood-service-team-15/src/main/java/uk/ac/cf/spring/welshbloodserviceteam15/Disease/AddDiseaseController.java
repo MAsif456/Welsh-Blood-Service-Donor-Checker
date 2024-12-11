@@ -35,7 +35,7 @@ public class AddDiseaseController {
 
     @PostMapping("/disease/add")
     public String addDisease(@Valid @ModelAttribute("disease") DiseaseDTO diseaseDTO, BindingResult result, Model model) {
-        // Check if the region is new and insert it into the regions table
+        // Checks if the region is new and insert it into the regions table and gives it a new regionId
         if (diseaseDTO.getRegionId() == null || "add-new".equals(diseaseDTO.getRegionId().toString())) {
             if (diseaseDTO.getNewRegionName() != null && !diseaseDTO.getNewRegionName().isEmpty()) {
                 Region newRegion = new Region();
