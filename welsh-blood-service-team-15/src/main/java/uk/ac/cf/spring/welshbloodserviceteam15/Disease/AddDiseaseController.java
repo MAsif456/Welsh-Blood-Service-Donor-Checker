@@ -1,5 +1,6 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Disease;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,15 +34,19 @@ public class AddDiseaseController {
     }
 
     @PostMapping("/disease/add")
-    public String addDisease(@ModelAttribute("disease") DiseaseDTO diseaseDTO, BindingResult result, Model model) {
+    public String addDisease(@Valid @ModelAttribute("disease") DiseaseDTO diseaseDTO, BindingResult result, Model model) {
         // Check if the region is new and insert it into the regions table
         if (diseaseDTO.getRegionId() == null || "add-new".equals(diseaseDTO.getRegionId().toString())) {
-            Region newRegion = new Region();
-            newRegion.setRegionName(diseaseDTO.getNewRegionName());
-            Country country = countryService.getCountryById(diseaseDTO.getCountryId());
-            newRegion.setCountry(country);
-            newRegion = regionService.saveRegion(newRegion);
-            diseaseDTO.setRegionId(newRegion.getRegionId()); // Set as Integer
+            if (diseaseDTO.getNewRegionName() != null && !diseaseDTO.getNewRegionName().isEmpty()) {
+                Region newRegion = new Region();
+                newRegion.setRegionName(diseaseDTO.getNewRegionName());
+                Country country = countryService.getCountryById(diseaseDTO.getCountryId());
+                newRegion.setCountry(country);
+                newRegion = regionService.saveRegion(newRegion);
+                diseaseDTO.setRegionId(newRegion.getRegionId()); // Set as Integer
+            } else {
+                diseaseDTO.setRegionId(null); // Set regionId to null if no region is specified
+            }
         }
 
         diseaseService.saveDisease(diseaseDTO);

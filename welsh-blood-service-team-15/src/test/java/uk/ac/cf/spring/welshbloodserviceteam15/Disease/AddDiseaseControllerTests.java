@@ -49,11 +49,14 @@ public class AddDiseaseControllerTests {
 
     @Test
     public void testShowAddDiseaseForm() {
+        //Given
         when(countryService.getAllCountries()).thenReturn(Collections.emptyList());
         when(regionService.getAllRegions()).thenReturn(Collections.emptyList());
 
+        //When
         String viewName = addDiseaseController.showAddDiseaseForm(model);
 
+        //Then
         verify(model).addAttribute(eq("disease"), any(DiseaseDTO.class));
         verify(model).addAttribute("countries", Collections.emptyList());
         verify(model).addAttribute("regions", Collections.emptyList());
@@ -67,6 +70,7 @@ public class AddDiseaseControllerTests {
 
     @Test
     public void testAddDisease_NewRegion() {
+        //Given
         DiseaseDTO diseaseDTO = new DiseaseDTO();
         diseaseDTO.setCountryId(1);
         diseaseDTO.setRegionId(null);
@@ -81,8 +85,10 @@ public class AddDiseaseControllerTests {
         when(countryService.getCountryById(1)).thenReturn(country);
         when(regionService.saveRegion(any(Region.class))).thenReturn(newRegion);
 
+        //When
         String viewName = addDiseaseController.addDisease(diseaseDTO, bindingResult, model);
 
+        //Then
         verify(regionService).saveRegion(any(Region.class));
         verify(diseaseService).saveDisease(diseaseDTO);
         assertEquals("redirect:/Disease/submission-confirmation", viewName);
@@ -94,11 +100,17 @@ public class AddDiseaseControllerTests {
 
     @Test
     public void testAddDisease_ExistingRegion() {
+
+        //Given
         DiseaseDTO diseaseDTO = new DiseaseDTO();
         diseaseDTO.setCountryId(1);
         diseaseDTO.setRegionId(1);
 
+        //When
+
         String viewName = addDiseaseController.addDisease(diseaseDTO, bindingResult, model);
+
+        //Then
 
         verify(regionService, never()).saveRegion(any(Region.class));
         verify(diseaseService).saveDisease(diseaseDTO);
@@ -114,4 +126,6 @@ public class AddDiseaseControllerTests {
         String viewName = addDiseaseController.showSubmissionPage();
         assertEquals("Disease/submission-confirmation", viewName);
     }
+
+
 }

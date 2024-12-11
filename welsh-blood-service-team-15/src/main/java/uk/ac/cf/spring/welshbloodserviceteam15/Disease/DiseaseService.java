@@ -12,6 +12,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,9 +44,16 @@ public class DiseaseService {
 
         CountryDisease countryDisease = new CountryDisease();
 
-        Disease disease = new Disease();
-        disease.setDiseaseName(diseaseDTO.getDiseaseName());
-        disease = diseaseRepository.save(disease);
+        // Check if the disease already exists
+        Optional<Disease> existingDisease = diseaseRepository.findByDiseaseName(diseaseDTO.getDiseaseName());
+        Disease disease;
+        if (existingDisease.isPresent()) {
+            disease = existingDisease.get();
+        } else {
+            disease = new Disease();
+            disease.setDiseaseName(diseaseDTO.getDiseaseName());
+            disease = diseaseRepository.save(disease);
+        }
 
         Country country = countryRepository.findById(diseaseDTO.getCountryId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid country ID: " + diseaseDTO.getCountryId()));

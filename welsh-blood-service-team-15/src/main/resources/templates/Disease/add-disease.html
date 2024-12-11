@@ -9,10 +9,10 @@
 <script th:src="@{/js/disease/addDisease.js}"></script>
 
 <h1>Add Disease</h1>
-<form th:action="@{/disease/add}" th:object="${disease}" method="post">
+<form th:action="@{/disease/add}" th:object="${disease}" method="post" onsubmit="return validateForm()">
     <div id="country-section" class="form-section">
         <label for="country">Country:</label>
-        <select id="country" name="countryId" onchange="loadRegions(this)">
+        <select id="country" name="countryId" onchange="loadRegions(this)" required title="Please select a country from this list">
             <option value="">Select a country</option>
             <th:block th:each="country : ${countries}">
                 <option th:value="${country.countryId}" th:text="${country.countryName}"></option>

@@ -47,3 +47,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function validateForm() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    if (startDate > currentDate || endDate > currentDate) {
+        alert('Please enter a valid date.');
+        return false;
+    }
+    else if (startDate > endDate) {
+        alert('End date must be after start date.');
+        return false;
+    }
+    return true;
+}

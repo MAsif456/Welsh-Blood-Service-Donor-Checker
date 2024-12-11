@@ -1,14 +1,29 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Disease;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class DiseaseDTO {
+
+    @NotNull
     private Integer countryId;
+
     private Integer regionId;
+
     private String newRegionName;
+
+    @NotNull
     private String diseaseName;
+
     private String note;
+
+    @NotNull
+    @PastOrPresent
     private LocalDate startDate;
+
+    @NotNull
+    @PastOrPresent
     private LocalDate endDate;
 
     // Getters and setters
