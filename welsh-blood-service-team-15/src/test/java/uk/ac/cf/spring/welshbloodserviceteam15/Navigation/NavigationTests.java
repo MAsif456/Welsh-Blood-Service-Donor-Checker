@@ -138,8 +138,8 @@ public class NavigationTests {
         List<Questionnaire> mockAnswers = questionIds.stream()
                 .map(questionId -> {
                     Questionnaire questionnaire = new Questionnaire();
-                    questionnaire.setDonorId(6);
-                    questionnaire.setQuestionId(questionId);
+                    // questionnaire.setDonorId(6);
+                    // questionnaire.setQuestionId(questionId);
                     questionnaire.setAnswer(answer);
                     return questionnaire;
                 })
@@ -213,8 +213,8 @@ public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception 
     List<Questionnaire> mockAnswers = questionIds.stream()
             .map(questionId -> {
                 Questionnaire questionnaire = new Questionnaire();
-                questionnaire.setDonorId(6);
-                questionnaire.setQuestionId(questionId);
+                // questionnaire.setDonorId(6);
+                // questionnaire.setQuestionId(questionId);
                 questionnaire.setAnswer(answer);
                 return questionnaire;
             })

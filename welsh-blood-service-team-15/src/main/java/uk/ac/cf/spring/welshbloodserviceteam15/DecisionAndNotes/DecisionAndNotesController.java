@@ -2,7 +2,6 @@ package uk.ac.cf.spring.welshbloodserviceteam15.DecisionAndNotes;
 
 import jakarta.validation.Valid;
 import org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DecisionAndNotesController {
 
-    @Autowired
-    private DecisionAndNotesService decisionAndNotesService;
+    private final DecisionAndNotesService decisionAndNotesService;
+
+    public DecisionAndNotesController(DecisionAndNotesService decisionAndNotesService) {
+        this.decisionAndNotesService = decisionAndNotesService;
+    }
 
     @GetMapping("/decisionAndNotes/{donorId}")
     public ModelAndView decisionAndNotes(@PathVariable int donorId) {

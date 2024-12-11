@@ -1,6 +1,5 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,12 +7,15 @@ import java.util.List;
 @Service
 public class QuestionnaireServiceImpl implements QuestionnaireService{
 
-    @Autowired
-    private QuestionnaireRepository questionnaireRepository;
+    private final QuestionnaireRepository questionnaireRepository;
+
+    public QuestionnaireServiceImpl(QuestionnaireRepository questionnaireRepository) {
+        this.questionnaireRepository = questionnaireRepository;
+    }
     // Questionnaire table has the answers in it
 
     public List<Questionnaire> getDonorsAnswers(Integer donorId) {
-        return questionnaireRepository.findByDonorId(donorId);
+        return questionnaireRepository.findByDonor_DonorId(donorId);
     }
 
 }

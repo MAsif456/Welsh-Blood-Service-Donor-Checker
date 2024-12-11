@@ -2,56 +2,32 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.Donor;
+import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "travel_questionnaire")
 public class Questionnaire {
 
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "questionnaire_id")
     private Integer questionnaireId;
 
-    @Column(name = "donor_id")
-    private Integer donorId;
+    @ManyToOne
+    @JoinColumn(name = "donor_id")
+    private Donor donor;
 
-    @Column(name = "question_id")
-    private Integer questionId;
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Questions question;
 
     @Column(name = "answer")
     private String answer;
-
-    // Getters and Setters
-    public Integer getQuestionnaireId() {
-        return questionnaireId;
-    }
-
-    public void setQuestionnaireId(Integer questionnaireId) {
-        this.questionnaireId = questionnaireId;
-    }
-
-    public Integer getDonorId() {
-        return donorId;
-    }
-
-    public void setDonorId(Integer donorId) {
-        this.donorId = donorId;
-    }
-
-    public Integer getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 }
 

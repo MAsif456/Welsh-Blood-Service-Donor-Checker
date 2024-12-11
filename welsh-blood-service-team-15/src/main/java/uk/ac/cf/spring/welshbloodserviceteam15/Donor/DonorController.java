@@ -2,7 +2,6 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,25 +19,22 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Questionnaire.Questions.Questions
 import uk.ac.cf.spring.welshbloodserviceteam15.Utils.ModelUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class DonorController {
 
-    @Autowired
-    private DonorService donorService;
+    private final DonorService donorService;
+    private final QuestionnaireService questionnaireService;
+    private final QuestionService questionService;
+    private final DiseaseService diseaseService;
 
-    @Autowired
-    private QuestionnaireService questionnaireService;
+    public DonorController(DonorService donorService, QuestionnaireService questionnaireService, QuestionService questionService, DiseaseService diseaseService) {
+        this.donorService = donorService;
+        this.questionnaireService = questionnaireService;
+        this.questionService = questionService;
+        this.diseaseService = diseaseService;
+    }
 
-    @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private DonorRepository donorRepository;
-
-    @Autowired
-    private DiseaseService diseaseService;
 
     @GetMapping("/donor/summary-risks/{donorId}")
     public String getDonorSummaryWthRisks(@PathVariable Integer donorId, Model model) {
@@ -60,12 +56,10 @@ public class DonorController {
         return "Donor/donorSummaryAndRisks";
     }
 
-
     @GetMapping("/donor/summary/{donorId}")
     public String getDonorSummary(@PathVariable Integer donorId, Model model) {
         // Get the donor summary
         Donor donor = donorService.getDonorSummary(donorId);
-        //model.addAttribute("donor", donor);
 
         // Get the donor's answers
         List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
@@ -75,9 +69,8 @@ public class DonorController {
 
         // Ensure the questions list is not null
         ModelUtils.addCommonAttributesToModel(model, donor, donorsAnswers, questions);
-
-
         return "Donor/donorSummary";
+
     }
     @GetMapping("/donor-form")
     public String showDonorForm(Model model) {
@@ -90,17 +83,13 @@ public class DonorController {
         ModelAndView modelAndView;
         if (bindingResult.hasErrors()) {
             modelAndView = new ModelAndView("Donor/donor-form",model.asMap());
-            return modelAndView;
         }
         else {
-            Donor donor = new Donor();
-            donor.setFirstName(donorForm.getFirstName());
-            donor.setLastName(donorForm.getLastName());
-            donor.setDonorDob(donorForm.getDonorDob());
-            Donor savedDonor = donorRepository.save(donor);
+
+            Donor savedDonor = donorService.saveDonor(donorForm);
             modelAndView = new ModelAndView("redirect:/travel-form/" + savedDonor.getDonorId());
-            return modelAndView;
         }
+        return modelAndView;
     }
 
     @GetMapping("/donor-records")
@@ -127,6 +116,5 @@ public class DonorController {
         }
         return "Donor/donorRecords";
     }
-
 
 }
