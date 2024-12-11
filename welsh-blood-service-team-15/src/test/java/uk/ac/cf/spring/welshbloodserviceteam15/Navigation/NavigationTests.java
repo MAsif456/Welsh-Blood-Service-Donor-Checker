@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -56,7 +58,7 @@ public class NavigationTests {
     private DonorRepository donorRepository;
 
     @Mock
-    private DonorTravelledToCountryService donorTravelledToCountryService;
+    private DonorDonorTravelledToCountryService donorTravelledToCountryService;
 
     @Mock
     private QuestionnaireService questionnaireService;
@@ -120,6 +122,7 @@ public class NavigationTests {
 
 
     @Test
+    @WithMockUser(username = "clinician", roles = {"CLINICIAN"})
     public void testNavigationFromTravelFormToDonorSummary() throws Exception {
         // Mock Donor
         Donor mockDonor = new Donor();
@@ -168,24 +171,23 @@ public class NavigationTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("travelform/travelForm"))
-                .andExpect(model().attributeExists("questions", "countries", "formData", "donorId"));
+                .andExpect(model().attributeExists("questions", "countries", "donorId", "donorTravelledToCountries"));
 
         // Step 2: Submit Travel Form
         MvcResult submitFormResult = mvc.perform(post("/submit-travel-form")
                         .param("donorId", "6")
                         .param("question1", "Yes")
-                        .param("question2_1", "1") // Use country ID instead of name
-                        .param("question3_1", "2024-11-04")
                         .param("question4", "Yes")
-                        .param("question5", "2") // Use country ID instead of name
-                        .param("question6", "2024-11-11"))
+                        .param("country", "1")
+                        .param("date", "2024-11-04")
+                        .with(csrf()))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/donor/summary/6"))
+                .andExpect(redirectedUrl("/travel-form/6"))
                 .andReturn();
 
         // Step 3: Access Donor Summary Page
-        mvc.perform(get(submitFormResult.getResponse().getRedirectedUrl()))
+        mvc.perform(get("/donor/summary/6"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("Donor/donorSummary"))
@@ -250,7 +252,7 @@ public void testNavigationFromDonorSummaryToDecisionAndNotes() throws Exception 
                     .param("donorId", "6"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(view().name("decisionAndNotesPage"))
+            .andExpect(view().name("DecisionAndNotes/decisionAndNotesPage"))
             .andExpect(model().attribute("donor", mockDonorDetails))
             .andReturn();
 }

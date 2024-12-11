@@ -3,6 +3,8 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -105,29 +107,40 @@ public class DonorController {
     }
 
     @GetMapping("/donor-records")
-    public ModelAndView showDonorRecords() {
-        List<Donor> donors = donorService.getAllDonors();
+    public ModelAndView showDonorRecords(@RequestParam(value = "search", required = false)String search) {
         ModelAndView modelAndView = new ModelAndView("Donor/donorRecords");
-        modelAndView.addObject("donors", donors);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String role = authentication.getAuthorities().iterator().next().getAuthority();
+        boolean isSearchPerformed = search != null;
+
+        if (role.equals("ROLE_CLINICIAN")) {
+            List<Donor> pendingDonors = donorService.getAllDonors().stream()
+                    .filter(donor -> donor.getDonorDecision() == null && donor.getDonorNote() == null)
+                    .collect(Collectors.toList());
+            modelAndView.addObject("donors", pendingDonors);
+        } else if (role.equals("ROLE_ADMIN")) {
+            modelAndView.addObject("donors", List.of()); // Empty list for admins
+        }
+        modelAndView.addObject("isSearchPerformed", isSearchPerformed);
+        modelAndView.addObject("noRecordsFound", isSearchPerformed && donorService.getAllDonors().isEmpty());
         return modelAndView;
     }
 
     @GetMapping("/search-donor")
     public String searchDonor(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        boolean isSearchPerformed = id != null;
         if (id == null) {
             model.addAttribute("error", "An ID is required to search.");
-            model.addAttribute("donors", donorService.getAllDonors());
         } else {
             Donor donor = donorService.searchDonorById(id);
             if (donor == null) {
                 model.addAttribute("error", "No donor found with the provided ID.");
-                model.addAttribute("donors", donorService.getAllDonors());
             } else {
                 model.addAttribute("donors", List.of(donor));
             }
         }
+        model.addAttribute("isSearchPerformed", isSearchPerformed);
         return "Donor/donorRecords";
     }
-
 
 }
