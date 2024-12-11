@@ -8,7 +8,6 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer countryId;
-
     private String countryName;
 
     public Integer getCountryId() {
@@ -23,7 +22,5 @@ public class Country {
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }
-
-
 
 }
