@@ -3,6 +3,7 @@ package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,7 +95,14 @@ public class TravelFormController {
         }
 
         redirectAttributes.addAttribute("donorId", donorIdInt);
-        return "redirect:/travel-form/{donorId}";
+        return "redirect:/donorFormConfirmation?donorId=" + donorIdInt;
+    }
+
+    @GetMapping("/donorFormConfirmation")
+    public String donorConfirmationPage(@RequestParam("donorId") int donorId, Model model) {
+        // Add donorId to the model
+        model.addAttribute("donorId", donorId);
+        return "Home/donorConfirmationPage";
     }
 
 }
