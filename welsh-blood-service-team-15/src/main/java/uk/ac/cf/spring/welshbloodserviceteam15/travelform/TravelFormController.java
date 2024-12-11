@@ -85,7 +85,11 @@ public class TravelFormController {
             }
 
         } else if (question4.equals("Yes")) {
-            // has lived abroad for more than 6 months
+            // has travelled in the last 12 months
+            if (regionIdInts.isEmpty()) {
+                // No regions selected
+                donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, date);
+            }
             for (int regionIdInt : regionIdInts) {
                 donorTravelledToCountryService.saveFromForm(donorIdInt, countryIdInt, regionIdInt, date);
             }
