@@ -15,6 +15,9 @@
                 <a th:href="@{/donor-form}">Check Eligibility</a>
             </li>
             <li sec:authorize="hasRole('CLINICIAN')">
+                <a th:href="@{/donor-form}">Check Eligibility</a>
+            </li>
+            <li sec:authorize="hasRole('CLINICIAN')">
                 <a th:href="@{/donor-records}">Donor Records</a>
             </li>
             <li sec:authorize="hasRole('ADMIN')">

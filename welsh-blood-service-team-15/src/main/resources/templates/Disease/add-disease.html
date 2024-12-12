@@ -3,10 +3,16 @@
 <head>
     <title>Add Disease</title>
     <link rel="stylesheet" th:href="@{/css/Disease/addDisease.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+
 </head>
 <body>
 
 <script th:src="@{/js/disease/addDisease.js}"></script>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="addDiseaseForm">
 
 <h1>Add Disease</h1>
 <form th:action="@{/disease/add}" th:object="${disease}" method="post" onsubmit="return validateForm()">
@@ -54,5 +60,6 @@
         <button type="submit">Add Disease</button>
     </div>
 </form>
+</div>
 </body>
 </html>
