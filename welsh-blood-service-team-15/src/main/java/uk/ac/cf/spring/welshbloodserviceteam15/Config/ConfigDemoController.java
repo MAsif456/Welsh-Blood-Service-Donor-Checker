@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 // Controller used to debug the application property values
 
 @RestController
-public class ConfigTestController {
+public class ConfigDemoController {
 
     @Value("${spring.application.name}")
     private String applicationName;

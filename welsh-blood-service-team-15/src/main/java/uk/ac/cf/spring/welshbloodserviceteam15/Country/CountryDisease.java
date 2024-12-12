@@ -47,6 +47,13 @@ public class CountryDisease {
     public void setCountry(Country country) {
         this.country = country;
     }
+    public Region getRegion() {
+        return region;
+    }
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
 
     public Disease getDisease() {
         return disease;
