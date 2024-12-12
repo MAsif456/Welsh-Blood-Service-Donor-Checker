@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #b22222;
+    /* Remove overflow hidden */
+}
+
+.box {
+    position: absolute;
+    background-color: #fff;
+    border: 2px solid red;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.small-box {
+    top: 5%;
+    left: 10%;
+    width: 35%;
+    height: auto;
+    max-height: 50%;
+}
+
+.large-box {
+    top: 60%;
+    left: 10%;
+    width: 65%;
+    height: auto;
+    min-height: 30%;
+    max-height: 33%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Aligns text and image vertically centered */
+}
+
+.picture {
+    width: 50%;
+    max-width: 200px;
+    max-height: 90%;
+    min-height: 90%;
+    display: flex;
+    justify-content: flex-end; /* Aligns image to the right */
+    align-items: center; /* Centers image vertically */
+    border: 10px solid #b22222;
+}
+
+.picture img {
+    width: 100%;
+    height: auto;
+    max-height: 100%; /* Ensures the image is responsive */
+    align-content: center;
+}
+
+.text {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 18px;
+    color: #b22222;
+    line-height: 1.6;
+}
+
+h3 {
+    margin-top: 0;
+    color: #b22222;
+    font-size: 24px;
+    border-bottom: 2px solid #b22222;
+    padding-bottom: 8px;
+}
+
+ul {
+    padding-left: 20px;
+    list-style-type: disc;
+    margin: 10px 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+li strong {
+    color: #b22222;
+}

@@ -1,0 +1,83 @@
+/* General styles for the add disease form page */
+body .addDiseaseForm {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header styles */
+body .addDiseaseForm h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2rem;
+    color: #4CAF50;
+}
+
+/* Form container styles */
+body .addDiseaseForm form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body .addDiseaseForm label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+body .addDiseaseForm input[type="text"],
+body .addDiseaseForm input[type="date"],
+body .addDiseaseForm textarea,
+body .addDiseaseForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+
+body .addDiseaseForm textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Conditional section styles */
+body .addDiseaseForm #new-region-section {
+    display: none;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Button styles */
+body .addDiseaseForm button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+body .addDiseaseForm button:hover {
+    background-color: #45a049;
+}
+
+/* Error messages */
+body .addDiseaseForm div[th\:if] {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donor Summary</title>
+    <link rel="stylesheet" th:href="@{/css/Donor/donor-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/summary-layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/disease-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+    <script th:src="@{/js/donor/summary.js}" defer></script>
+</head>
+<body>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="summaries">
+
+<div class="donor-summary">
+    <h1>Donor Summary</h1>
+    <p><strong>Name:</strong> <span th:text="${donor.firstName + ' ' + donor.lastName}"></span></p>
+    <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
+    <p><strong>Decision:</strong>
+        <span class="decision"
+              th:classappend="
+              ${donor.donorDecision == 'Eligible to donate today'} ? 'today' :
+              (${donor.donorDecision == 'Eligible to donate but further testing needed'} ? 'today-test' :
+              (${donor.donorDecision == 'Eligible to donate but must wait 6 months'} ? 'wait' :
+              (${donor.donorDecision == 'Not Eligible to donate at all'} ? 'never' : '')))"
+              th:text="${donor.donorDecision != null ? donor.donorDecision : 'Awaiting decision'}">
+    </span>
+    </p>
+
+    <form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
+        <input type="hidden" name="donorId" th:value="${donorId}" />
+        <button type="submit" class="navigation-button">View Decision and Notes</button>
+    </form>
+
+    <h2>Travel History</h2>
+    <div class="travel-history">
+        <ul>
+            <li th:each="travel : ${donor.travelHistory}">
+                <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                <p th:if="${travel.region != null}">
+                    <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+                </p>
+                <p><strong>Return Date:</strong> <span th:text="${travel.endDate}"></span>
+            </li>
+        </ul>
+        <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
+    </div>
+
+    <h2>Questionnaire Answers</h2>
+    <button id="toggle-questionnaire">Show Questionnaire Answers</button>
+    <div class="questionnaire-answers hidden">
+        <ul>
+            <li th:each="answer : ${donorsAnswers}">
+                <p>
+                    <strong>Question:</strong>
+                    <span th:text="${questionMap[answer.question.question_id]}"></span>
+                </p>
+                <p>
+                    <strong>Answer:</strong>
+                    <span th:text="${answer.answer}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div th:if="${showRisks}">
+        <h2>Disease Risk</h2>
+        <ul>
+            <li th:each="disease : ${diseases}">
+                <p><strong>Country:</strong> <span th:text="${disease.country.countryName}"></span></p>
+                <p><strong>Disease Name:</strong> <span th:text="${disease.disease.diseaseName}"></span></p>
+                <p><strong>Relevant Notes:</strong> <span th:text="${disease.note}"></span></p>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div class="disease-risk-summary">
+    <a th:href="@{/donor/summary-risks/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Show Risks</a>
+</div>
+</div>
+
+</body>
+
+
+</html>

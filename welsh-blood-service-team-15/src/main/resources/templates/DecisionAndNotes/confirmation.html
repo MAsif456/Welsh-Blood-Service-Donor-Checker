@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/DecisionAndNotes/confirmation.css}">
+    <title>Confirmation Page</title>
+</head>
+<body>
+<div class="confirmation-container">
+    <h1>Submission Successful</h1>
+    <p>The decisions and notes for donor ID <span th:text="${donorId}"></span> have been successfully added to the database.</p>
+    <p>You will be redirected to the summary page shortly.</p>
+
+    <a th:href="@{/donor/summary-risks/{donorId}(donorId=${donorId})}" class="summary-link">Go to Summary Now</a>
+</div>
+
+<script>
+    // Redirect to the summary page after 5 seconds
+    setTimeout(function() {
+        window.location.href = document.querySelector('.summary-link').href;
+    }, 5000);
+</script>
+</body>
+</html>

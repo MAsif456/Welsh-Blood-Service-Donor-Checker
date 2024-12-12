@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Disease</title>
+    <link rel="stylesheet" th:href="@{/css/editDisease/diseaseForm.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+</head>
+<body>
+<script th:src="@{/js/travelForm/travelForm.js}"></script>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="editForm">
+<h1>Edit Disease</h1>
+<form th:action="@{/edit-disease/save}" th:object="${countryDisease}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label for="disease">Disease:</label>
+        <input type="text" id="disease" th:field="*{disease.diseaseName}" />
+        <div th:if="${#fields.hasErrors('disease.diseaseName')}" th:errors="*{disease.diseaseName}"></div>
+    </div>
+    <div>
+        <label for="note">Relevant Notes:</label>
+        <textarea id="note" th:field="*{note}"></textarea>
+        <div th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
+    </div>
+    <div>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" value="${countryDisease.startDate}">
+        <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start Date Error</div>
+    </div>
+    <div>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" value="${countryDisease.endDate}">
+        <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End Date Error</div>
+    </div>
+    <input type="hidden" th:field="*{country.countryId}" />
+    <button type="submit">Save</button>
+</form>
+</div>
+</body>
+</html>

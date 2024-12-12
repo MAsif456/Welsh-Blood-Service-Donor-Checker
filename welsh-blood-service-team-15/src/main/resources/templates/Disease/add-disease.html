@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Disease</title>
+    <link rel="stylesheet" th:href="@{/css/Disease/addDisease.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+
+</head>
+<body>
+
+<script th:src="@{/js/disease/addDisease.js}"></script>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="addDiseaseForm">
+
+<h1>Add Disease</h1>
+<form th:action="@{/disease/add}" th:object="${disease}" method="post" onsubmit="return validateForm()">
+    <div id="country-section" class="form-section">
+        <label for="country">Country:</label>
+        <select id="country" name="countryId" onchange="loadRegions(this)" required title="Please select a country from this list">
+            <option value="">Select a country</option>
+            <th:block th:each="country : ${countries}">
+                <option th:value="${country.countryId}" th:text="${country.countryName}"></option>
+            </th:block>
+        </select>
+    </div>
+
+    <div id="region-section" class="form-section">
+        <label for="region">Region:</label>
+        <select id="region" name="regionId">
+            <option value="">Select a region</option>
+            <th:block th:each="region : ${regions}">
+                <option th:value="${region.regionId}" th:text="${region.regionName}"></option>
+            </th:block>
+            <option value="add-new">Add new region</option>
+        </select>
+    </div>
+    <div id="new-region-section" class="form-section" style="display: none;">
+        <label for="newRegionName">New Region Name:</label>
+        <input type="text" id="newRegionName" name="newRegionName">
+    </div>
+    <div>
+        <label for="diseaseName">Disease Name:</label>
+        <input type="text" id="diseaseName" name="diseaseName" th:field="*{diseaseName}" required>
+    </div>
+    <div>
+        <label for="note">Note:</label>
+        <textarea id="note" name="note" th:field="*{note}" required></textarea>
+    </div>
+    <div>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
+    </div>
+    <div>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
+    </div>
+    <div>
+        <button type="submit">Add Disease</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

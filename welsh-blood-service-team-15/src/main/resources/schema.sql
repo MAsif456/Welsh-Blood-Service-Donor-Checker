@@ -1,10 +1,17 @@
+USE WelshBlood;
+
 DROP TABLE IF EXISTS donor_travelled_to_country;
 DROP TABLE IF EXISTS country_disease;
 DROP TABLE IF EXISTS travel_questionnaire;
+DROP TABLE IF EXISTS regions;
 DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
+DROP TABLE IF EXISTS countries;
+DROP TABLE IF EXISTS users;
+
+
+
 
 CREATE TABLE IF NOT EXISTS donor
 (
@@ -12,9 +19,9 @@ CREATE TABLE IF NOT EXISTS donor
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     donor_dob DATE,
-    donor_risk VARCHAR(50),
     donor_decision VARCHAR(50),
-    donor_note VARCHAR(50)
+    donor_note VARCHAR(50),
+    decision_made_by VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS countries
@@ -22,6 +29,15 @@ CREATE TABLE IF NOT EXISTS countries
     country_id INT AUTO_INCREMENT PRIMARY KEY,
     country_name VARCHAR(50)
 );
+
+CREATE TABLE IF NOT EXISTS regions
+(
+    region_id INT AUTO_INCREMENT PRIMARY KEY,
+    region_name VARCHAR(200),
+    country_id INT,
+    FOREIGN KEY(country_id) REFERENCES countries(country_id)
+);
+ALTER TABLE regions ADD CONSTRAINT unique_region_name UNIQUE (region_name);
 
 CREATE TABLE IF NOT EXISTS diseases
 (
@@ -31,22 +47,27 @@ CREATE TABLE IF NOT EXISTS diseases
 
 CREATE TABLE IF NOT EXISTS donor_travelled_to_country
 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     donor_id INT,
     country_id INT,
-    start_date DATE,
+    region_id INT,
     end_date DATE,
-    PRIMARY KEY(donor_id, country_id),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
-    FOREIGN KEY(country_id) REFERENCES countries(country_id)
+    FOREIGN KEY(country_id) REFERENCES countries(country_id),
+    FOREIGN KEY(region_id) REFERENCES regions(region_id)
 );
 
 CREATE TABLE IF NOT EXISTS country_disease
 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     country_id INT,
+    region_id INT,
     disease_id INT,
-    note VARCHAR(50),
-    PRIMARY KEY(country_id, disease_id),
+    note VARCHAR(200),
+    start_date DATE,
+    end_date DATE,
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
+    FOREIGN KEY(region_id) REFERENCES regions(region_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
 );
 
@@ -64,7 +85,19 @@ CREATE TABLE IF NOT EXISTS travel_questionnaire
     answer VARCHAR(50),
     FOREIGN KEY(donor_id) REFERENCES donor(donor_id),
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
-
 );
+
+CREATE TABLE users
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    enabled BOOLEAN NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+
+
+
 
 
