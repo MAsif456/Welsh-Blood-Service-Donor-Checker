@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
+package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
 

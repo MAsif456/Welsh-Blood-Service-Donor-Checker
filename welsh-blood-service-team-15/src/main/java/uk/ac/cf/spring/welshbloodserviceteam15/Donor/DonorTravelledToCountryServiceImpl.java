@@ -1,4 +1,4 @@
-package uk.ac.cf.spring.welshbloodserviceteam15.travelform;
+package uk.ac.cf.spring.welshbloodserviceteam15.Donor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountry;
 
 import java.util.List;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountryRepository;
+import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorTravelledToCountryService;
 
 @Service
 public class DonorTravelledToCountryServiceImpl implements DonorTravelledToCountryService {
