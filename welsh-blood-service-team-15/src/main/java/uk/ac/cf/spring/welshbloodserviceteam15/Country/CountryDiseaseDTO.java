@@ -3,6 +3,7 @@ package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 import java.time.LocalDate;
 
 public record CountryDiseaseDTO(
+        Integer id,
         String countryName,
         String regionName,
         String diseaseName,
