@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/DecisionAndNotes/forms.css}">
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+
     <title>Decisions Page</title>
 </head>
 <body>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+
 <form th:action="@{/submit-decisions}" th:object="${donor}" method="post">
     <input type="hidden" th:field="*{donorId}"/>
 

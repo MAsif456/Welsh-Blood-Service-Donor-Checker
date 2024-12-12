@@ -16,6 +16,11 @@ body .navbar{
     color: white; /* White text on dark background */
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4); /* Soft shadow */
     animation: glow 1.5s ease-in-out infinite alternate; /* Glow effect */
+    position: fixed; /* Make the navbar fixed to the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the navbar span the full width of the page */
+    z-index: 1000; /* Ensure the navbar is above other content */
 }
 
 /* Glow effect animation */
@@ -83,4 +88,9 @@ body .navbar{
 
 .navbar-right li {
     margin: 0 0.75rem;
+}
+
+/* Adjust body padding to account for the fixed navbar height */
+body {
+    padding-top: calc(1.5rem + 2rem); /* Match the navbar's vertical padding */
 }
