@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Country Disease</title>
-    <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
+    <link rel="stylesheet" th:href="@{/css/editDisease/form.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+
 </head>
 <body>
 <script th:src="@{/js/travelForm/travelForm.js}"></script>
 
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="editForm">
 <h1>Edit Country Disease</h1>
 <!-- Dropdown to select a country -->
 <form th:action="@{/edit-disease/view}" method="get">
@@ -34,6 +39,8 @@
 
         </li>
     </ul>
+</div>
+
 </div>
 
 </body>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+</head>
+<body>
+<nav class="navbar" th:fragment="navbar">
+    <div class="navbar-left">
+        <img src="/images/wbs.png"
+             alt="Logo"
+             class="navbar-logo">
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/donor-form}">Check Eligibility</a>
+            </li>
+            <li sec:authorize="hasRole('CLINICIAN')">
+                <a th:href="@{/donor-form}">Check Eligibility</a>
+            </li>
+            <li sec:authorize="hasRole('CLINICIAN')">
+                <a th:href="@{/donor-records}">Donor Records</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/disease/add}">Add Disease</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/edit-disease}">Edit Disease</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-right">
+        <ul>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Staff Login</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/login}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

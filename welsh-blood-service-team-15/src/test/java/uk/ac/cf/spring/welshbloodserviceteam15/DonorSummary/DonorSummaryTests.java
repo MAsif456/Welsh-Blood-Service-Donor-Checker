@@ -36,7 +36,8 @@ public class DonorSummaryTests {
 
     @MockBean
     private DonorRepository donorRepository;
-    @Autowired
+
+    @MockBean
     private QuestionnaireRepository questionnaireRepository;
 
     private Donor makeMockDonor() {
@@ -174,6 +175,7 @@ public class DonorSummaryTests {
         String content = result.getResponse().getContentAsString();
 
         // Then
-        assertTrue(content.contains("<h2>Donor Questionnaire</h2>"));
+        assertTrue(content.contains("<h2>Questionnaire Answers</h2>"));
+        assertTrue(content.contains("<span>Have you travelled to a country within the last 12 months?</span>"));
     }
 }

@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Disease</title>
-    <link rel="stylesheet" th:href="@{/css/travelform/travelForm.css}" />
+    <link rel="stylesheet" th:href="@{/css/editDisease/diseaseForm.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
 </head>
 <body>
 <script th:src="@{/js/travelForm/travelForm.js}"></script>
 
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="editForm">
 <h1>Edit Disease</h1>
 <form th:action="@{/edit-disease/save}" th:object="${countryDisease}" method="post">
     <input type="hidden" th:field="*{id}" />
@@ -34,5 +38,6 @@
     <input type="hidden" th:field="*{country.countryId}" />
     <button type="submit">Save</button>
 </form>
+</div>
 </body>
 </html>

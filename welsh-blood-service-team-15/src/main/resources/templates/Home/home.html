@@ -6,9 +6,12 @@
     <title>Welsh Blood Home Page</title>
     <link rel="stylesheet" th:href="@{/css/Home/home.css}">
     <link rel="stylesheet" th:href="@{/css/Global/globalStyles.css}" />
-
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
 </head>
 <body>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
 <div class="container">
 
     <div class="squiggly-border top-right">

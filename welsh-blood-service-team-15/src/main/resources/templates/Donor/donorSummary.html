@@ -5,9 +5,15 @@
     <link rel="stylesheet" th:href="@{/css/Donor/donor-summary.css}" />
     <link rel="stylesheet" th:href="@{/css/Donor/summary-layout.css}" />
     <link rel="stylesheet" th:href="@{/css/Donor/disease-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
     <script th:src="@{/js/donor/summary.js}" defer></script>
 </head>
 <body>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="summaries">
+
 <div class="donor-summary">
     <h1>Donor Summary</h1>
     <p><strong>Name:</strong> <span th:text="${donor.firstName + ' ' + donor.lastName}"></span></p>
@@ -76,6 +82,8 @@
 <div class="disease-risk-summary">
     <a th:href="@{/donor/summary-risks/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Show Risks</a>
 </div>
+</div>
+
 </body>
 
 

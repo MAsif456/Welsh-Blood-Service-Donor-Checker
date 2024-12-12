@@ -3,8 +3,13 @@
 <head>
     <title>Donor Records</title>
     <link rel="stylesheet" href="/css/Donor/donor-records.css" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+
 </head>
 <body>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
 <h1>Donor Records</h1>
 
 <form action="/search-donor" method="get">
