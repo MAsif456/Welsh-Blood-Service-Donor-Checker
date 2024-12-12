@@ -56,11 +56,11 @@ public class DonorServiceTest {
         when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
         List<CountryDiseaseDTO> diseaseRisks = List.of(
-                new CountryDiseaseDTO("United States of America", "California", "Zika Virus",
+                new CountryDiseaseDTO(1,"United States of America", "California", "Zika Virus",
                         "Zika virus detected in California.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 9, 30), ""),
-                new CountryDiseaseDTO("United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk",
+                new CountryDiseaseDTO(1,"United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk",
                         "West Nile Virus applies to the entire United States.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), ""),
-                new CountryDiseaseDTO("CountryWithoutDiseases", "RegionWithoutDiseases", null, null, null, null,
+                new CountryDiseaseDTO(1,"CountryWithoutDiseases", "RegionWithoutDiseases", null, null, null, null,
                         "No risk for donor as donor has returned before the disease start date.")
         );
         when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
@@ -100,7 +100,7 @@ public class DonorServiceTest {
         when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
         List<CountryDiseaseDTO> diseaseRisks = List.of(
-                new CountryDiseaseDTO("United States of America", "California", "West Nile Virus Risk",
+                new CountryDiseaseDTO(1,"United States of America", "California", "West Nile Virus Risk",
                         "Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.",
                         LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30),
                         "No risk for donor as donor has returned before the disease start date.")
@@ -141,8 +141,8 @@ public class DonorServiceTest {
         when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
         List<CountryDiseaseDTO> diseaseRisks = List.of(
-                new CountryDiseaseDTO("United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk", "Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), "No risk for donor as donor has returned before the disease start date."),
-                new CountryDiseaseDTO("Bahrain", "Test-region", "Malaria", "Bad disease", LocalDate.of(1976, 11, 26), LocalDate.of(2024, 12, 6), "At risk because donor visited region with active disease.")
+                new CountryDiseaseDTO(1,"United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk", "Donors who have visited between 1st May to 30th November must have the WNV Donor Selection Guideline applied.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), "No risk for donor as donor has returned before the disease start date."),
+                new CountryDiseaseDTO(1,"Bahrain", "Test-region", "Malaria", "Bad disease", LocalDate.of(1976, 11, 26), LocalDate.of(2024, 12, 6), "At risk because donor visited region with active disease.")
         );
         when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
                 .thenReturn(diseaseRisks);
@@ -184,9 +184,9 @@ public class DonorServiceTest {
         when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
         List<CountryDiseaseDTO> diseaseRisks = List.of(
-                new CountryDiseaseDTO("United States of America", "California", "Zika Virus",
+                new CountryDiseaseDTO(1,"United States of America", "California", "Zika Virus",
                         "Zika virus detected in California.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 9, 30), ""),
-                new CountryDiseaseDTO("United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk",
+                new CountryDiseaseDTO(1,"United States of America", "N/A - Disease Applies to the whole country", "West Nile Virus Risk",
                         "West Nile Virus applies to the entire United States.", LocalDate.of(2024, 5, 1), LocalDate.of(2024, 11, 30), "")
         );
 
@@ -234,7 +234,7 @@ public class DonorServiceTest {
         when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
         List<CountryDiseaseDTO> diseaseRisks = List.of(
-                new CountryDiseaseDTO("CountryWithoutDiseases", "RegionWithoutDiseases", null, null, null, null,
+                new CountryDiseaseDTO(1,"CountryWithoutDiseases", "RegionWithoutDiseases", null, null, null, null,
                         "No linked diseases found for this country/region.")
         );
 
@@ -276,7 +276,7 @@ public class DonorServiceTest {
         when(donorTravelledToCountryRepository.findAll()).thenReturn(travelHistory);
 
         List<CountryDiseaseDTO> diseaseRisks = List.of(
-                new CountryDiseaseDTO("CountryX", "AffectedRegion", "DiseaseX", "DiseaseX is active in the affected region.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), "No risk for donor as donor did not travel to the affected region.")
+                new CountryDiseaseDTO(1,"CountryX", "AffectedRegion", "DiseaseX", "DiseaseX is active in the affected region.", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), "No risk for donor as donor did not travel to the affected region.")
         );
         when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(Mockito.eq(donorId), Mockito.any(LocalDate.class)))
                 .thenReturn(diseaseRisks);
