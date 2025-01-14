@@ -26,6 +26,10 @@ public class DiseaseDTO {
     @PastOrPresent
     private LocalDate endDate;
 
+    private Integer deferralPeriodDays;
+
+    private String deferralNote;
+
     // Getters and setters
     public Integer getCountryId() {
         return countryId;
@@ -81,5 +85,21 @@ public class DiseaseDTO {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public Integer getDeferralPeriodDays() {
+        return deferralPeriodDays;
+    }
+
+    public void setDeferralPeriodDays(Integer deferralPeriodDays) {
+        this.deferralPeriodDays = deferralPeriodDays;
+    }
+
+    public String getDeferralNote() {
+        return deferralNote;
+    }
+
+    public void setDeferralNote(String deferralNote) {
+        this.deferralNote = deferralNote;
     }
 }

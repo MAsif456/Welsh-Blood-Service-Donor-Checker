@@ -267,6 +267,13 @@ INSERT INTO diseases (disease_name) VALUES
                                         ('Chikungunya'),  -- Disease ID 6
                                         ('Yellow Fever');  -- Disease ID 7
 
+-- Inserting the possible deferral periods
+INSERT INTO deferral_period (period_days) VALUES
+                                              (0),
+                                              (28),
+                                              (120),
+                                              (150);
+
 
 INSERT INTO country_disease (country_id, region_id, disease_id, note, start_date, end_date) VALUES
                                                                (1, null, 1, 'Yes whole country below 2000m (May-Nov) until Sept 2015','1996-02-01','2015-09-30'),  -- Afghanistan
@@ -707,7 +714,64 @@ UPDATE country_disease
 SET end_date = '2024-12-12'
 WHERE end_date = '2024-11-26';
 
+-- Adding the deferral period for each disease, different for each disease.
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 120)
+WHERE disease_id = 1;  -- Malaria
 
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 120)
+WHERE disease_id = 2;  -- Trypanosoma cruzi risk
+
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 0)
+WHERE disease_id = 3;  -- West Nile Virus
+
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 0)
+WHERE disease_id = 4;  -- Dengue Virus
+
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 28)
+WHERE disease_id = 5;  -- Zika Virus
+
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 28)
+WHERE disease_id = 6;  -- Chikungunya
+
+UPDATE country_disease
+SET deferral_period_id = (SELECT deferral_period_id FROM deferral_period WHERE period_days = 28)
+WHERE disease_id = 7;  -- Yellow Fever
+
+
+-- Adding the deferral note for each disease, so that the clinician receives a deferral recommendation for each specific disease.
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a Malaria endemic area should be deferred for 120 days.'
+WHERE disease_id = 1;
+
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a Trypanosoma cruzi risk area could be deferred for 120 days, or undertake further testing.'
+WHERE disease_id = 2;
+
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a West Nile Virus endemic area do not need to be deferred, unless they have symptoms, then a 180 day deferral is suggested.'
+WHERE disease_id = 3;
+
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a Dengue Virus endemic area do not need to be deferred, unless they have symptoms, then a 180 day deferral is suggested.'
+WHERE disease_id = 4;
+
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a Zika Virus endemic area should be deferred for 28 days, if symptoms then they should be deferred for 180 days.'
+WHERE disease_id = 5;
+
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a Chikungunya endemic area should be deferred for 28 days, if symptoms then they should be deferred for 180 days.'
+WHERE disease_id = 6;
+
+UPDATE country_disease
+SET deferral_note = 'Patients who have travelled to a Yellow Fever endemic area should be deferred for 28 days, if symptoms then they should be deferred for 180 days.'
+WHERE disease_id = 7;
 
 
 

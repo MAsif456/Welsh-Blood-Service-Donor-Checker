@@ -49,4 +49,12 @@ public class DonorService {
         donorRepository.save(donor);
         return donor;
     }
+
+    public List<CountryDiseaseDTO> getDeferralPeriodRecommendations(Integer donorId) {
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+        List<CountryDiseaseDTO> diseases = countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
+        return diseases.stream()
+                .filter(disease -> disease.deferralPeriodDays() != null)
+                .toList();
+    }
 }

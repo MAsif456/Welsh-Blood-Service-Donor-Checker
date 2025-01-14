@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS donor;
 DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS deferral_period;
 
 
 
@@ -45,6 +46,12 @@ CREATE TABLE IF NOT EXISTS diseases
     disease_name VARCHAR(50)
 );
 
+CREATE TABLE IF NOT EXISTS deferral_period
+(
+    deferral_period_id INT AUTO_INCREMENT PRIMARY KEY,
+    period_days INT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS donor_travelled_to_country
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -63,12 +70,15 @@ CREATE TABLE IF NOT EXISTS country_disease
     country_id INT,
     region_id INT,
     disease_id INT,
+    deferral_period_id INT,
+    deferral_note VARCHAR(200),
     note VARCHAR(200),
     start_date DATE,
     end_date DATE,
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
     FOREIGN KEY(region_id) REFERENCES regions(region_id),
-    FOREIGN KEY(disease_id) REFERENCES diseases(disease_id)
+    FOREIGN KEY(disease_id) REFERENCES diseases(disease_id),
+    FOREIGN KEY (deferral_period_id) REFERENCES deferral_period(deferral_period_id)
 );
 
 CREATE TABLE IF NOT EXISTS questions
@@ -95,6 +105,9 @@ CREATE TABLE users
     enabled BOOLEAN NOT NULL,
     role VARCHAR(50) NOT NULL
 );
+
+
+
 
 
 

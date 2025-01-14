@@ -1,16 +1,15 @@
 package uk.ac.cf.spring.welshbloodserviceteam15.Country;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Validation.ValidEndDate;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Validation.ValidStartDate;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Disease;
+import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Deferral.DeferralPeriod;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @ValidEndDate
 @Entity
@@ -32,6 +31,13 @@ public class CountryDisease {
     @ManyToOne
     @JoinColumn(name = "disease_id")
     private Disease disease;
+
+    @ManyToOne
+    @JoinColumn(name = "deferral_period_id")
+    private DeferralPeriod deferralPeriod;
+
+    @NotEmpty(message = "Deferral note must not be empty")
+    private String deferralNote;
 
     @NotEmpty(message = "Note must not be empty")
     private String note;
@@ -68,6 +74,10 @@ public class CountryDisease {
     public void setDisease(Disease disease) {
         this.disease = disease;
     }
+    public DeferralPeriod getDeferralPeriod() { return deferralPeriod;}
+    public void setDeferralPeriod(DeferralPeriod deferralPeriod) { this.deferralPeriod = deferralPeriod;}
+    public String getDeferralNote() { return deferralNote;}
+    public void setDeferralNote(String deferralNote) { this.deferralNote = deferralNote;}
     public String getNote() {
         return note;
     }

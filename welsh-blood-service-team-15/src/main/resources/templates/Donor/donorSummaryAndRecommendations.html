@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donor Summary</title>
+    <link rel="stylesheet" th:href="@{/css/Donor/donor-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/disease-summary.css}" />
+    <link rel="stylesheet" th:href="@{/css/Donor/summary-layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/Fragments/navigationbar.css}"/>
+    <script th:src="@{/js/donor/summary.js}" defer></script>
+</head>
+<body>
+
+<div th:replace="~{Fragments/navigationbar :: navbar}"></div>
+
+<div class="summaries">
+
+    <div class="donor-summary">
+        <h1>Donor Summary</h1>
+        <p><strong>Name:</strong> <span th:text="${donor.firstName + ' ' + donor.lastName}"></span></p>
+        <p><strong>Date of Birth:</strong> <span th:text="${donor.donorDob}"></span></p>
+        <p><strong>Decision:</strong>
+            <span class="decision"
+                  th:classappend="
+              ${donor.donorDecision == 'Eligible to donate today'} ? 'today' :
+              (${donor.donorDecision == 'Eligible to donate but further testing needed'} ? 'today-test' :
+              (${donor.donorDecision == 'Eligible to donate but must wait 6 months'} ? 'wait' :
+              (${donor.donorDecision == 'Not Eligible to donate at all'} ? 'never' : '')))"
+                  th:text="${donor.donorDecision != null ? donor.donorDecision : 'Awaiting decision'}">
+    </span>
+        </p>
+
+        <form th:action="@{/decisionAndNotes/{donorId}(donorId=${donor.donorId})}" method="get">
+            <input type="hidden" name="donorId" th:value="${donorId}" />
+            <button type="submit" class="navigation-button">View Decision and Notes</button>
+        </form>
+
+        <h2>Travel History</h2>
+        <div class="travel-history">
+            <ul>
+                <li th:each="travel : ${donor.travelHistory}">
+                    <p><strong>Country:</strong> <span th:text="${travel.country.countryName}"></span></p>
+                    <p th:if="${travel.region != null}">
+                        <strong>Region:</strong> <span th:text="${travel.region.regionName}"></span>
+                    </p>
+                    <p><strong>Return Date:</strong> <span th:text="${travel.getEndDate}"></span>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(donor.travelHistory)}">No travel history available.</p>
+        </div>
+
+        <h2>Questionnaire Answers</h2>
+        <button id="toggle-questionnaire">Show Questionnaire Answers</button>
+        <div class="questionnaire-answers hidden">
+            <ul>
+                <li th:each="answer : ${donorsAnswers}">
+                    <p>
+                        <strong>Question:</strong>
+                        <span th:text="${questionMap[answer.question.question_id]}"></span>
+                    </p>
+                    <p>
+                        <strong>Answer:</strong>
+                        <span th:text="${answer.answer}"></span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="disease-risk-summary">
+        <h2>Relevant Disease Risk</h2>
+        <a th:href="@{/donor/summary/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Hide Risks</a>
+        <br>
+
+        <ul>
+            <li th:each="disease : ${diseases}"
+                th:classappend="${disease.riskMessage != null && (disease.riskMessage ==
+            'No risk for donor as donor has returned before the disease start date.' || disease.riskMessage ==
+            'No risk for donor as donor has not travelled to this region.' || disease.riskMessage ==
+            'No linked diseases found for this country/region.') ? ' no-risk' : ''}">
+
+                <p><strong>Country:</strong> <span th:text="${disease.countryName}"></span></p>
+
+                <!-- Case: No linked diseases for country/region -->
+                <p th:if="${disease.riskMessage == 'No linked diseases found for this country/region.'}">
+                    <strong>Message:</strong>
+                    <span th:text="${disease.riskMessage}"></span>
+                </p>
+
+                <!-- Show Region only if diseaseName is not empty, or disease applies to the whole country -->
+                <p th:if="${disease.diseaseName != null && disease.diseaseName != ''}">
+                    <strong>Region:</strong>
+                    <span th:text="${disease.regionName != null ? disease.regionName : 'N/A - Disease Applies to the whole country'}"></span>
+                </p>
+
+                <!-- Case: No risk for donor (Returned before disease start date) -->
+                <p th:if="${disease.riskMessage == 'No risk for donor as donor has returned before the disease start date.'}">
+                    <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+                </p>
+
+                <!-- Case: No risk for donor (No travel to the region) -->
+                <p th:if="${disease.riskMessage == 'No risk for donor as donor has not travelled to this region.'}">
+                    <strong>Message:</strong> <span th:text="${disease.riskMessage}"></span>
+                </p>
+
+                <!-- At-risk diseases and relevant details (Only show these fields if diseaseName is not empty) -->
+
+                <div th:if="${disease.riskMessage == null || disease.riskMessage == ''}">
+                    <p><strong>Disease Name:</strong> <span th:text="${disease.diseaseName}"></span></p>
+                    <p><strong>Relevant Notes:</strong> <span th:text="${disease.diseaseNote}"></span></p>
+                    <p><strong>Disease Active Period:</strong>
+                        <span th:text="${disease.diseaseStart}"></span> to
+                        <span th:text="${disease.diseaseEnd}"></span>
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Fallback for no diseases -->
+        <p th:if="${#lists.isEmpty(diseases)}">
+            This donor has not travelled to any country in the last 12 months.
+        </p>
+
+        <div class="recommendations-summary">
+            <h2>Recommendations</h2>
+            <h2>Deferral Period Recommendations</h2>
+            <ul>
+                <li th:each="recommendation : ${recommendations}">
+                    <p><strong>Country:</strong> <span th:text="${recommendation.countryName}"></span></p>
+                    <p><strong>Disease:</strong> <span th:text="${recommendation.diseaseName}"></span></p>
+                    <p><strong>Deferral Period: (Days) </strong> <span th:text="${recommendation.deferralPeriodDays}"></span></p>
+                    <p><strong>Notes:</strong> <span th:text="${recommendation.deferralNote}"></span></p>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(recommendations)}">No deferral period recommendations available.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

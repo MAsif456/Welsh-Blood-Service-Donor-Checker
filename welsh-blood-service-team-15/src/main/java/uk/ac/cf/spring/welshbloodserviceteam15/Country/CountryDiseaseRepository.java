@@ -10,11 +10,9 @@ import java.util.List;
 
 public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, Integer> {
 
-    // Adding distinct to the query to avoid duplicates
-    // Refining where clause to exclude irrelevant diseases
     @Query("""
         SELECT DISTINCT new uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseDTO(
-        cd.id,
+            cd.id,
             c.countryName,
             COALESCE(r.regionName, 'N/A - Disease Applies to the whole country'),
             d.diseaseName,
@@ -26,7 +24,9 @@ public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, 
                 WHEN dtc.endDate < cd.startDate THEN 'No risk for donor as donor has returned before the disease start date.'
                 WHEN d.diseaseId IS NULL THEN 'No linked diseases found for this country/region.'
                 ELSE ''
-            END
+            END,
+            dp.periodDays,
+            cd.deferralNote 
         )
         FROM Country c
         LEFT JOIN CountryDisease cd ON c.countryId = cd.country.countryId
@@ -35,6 +35,7 @@ public interface CountryDiseaseRepository extends JpaRepository<CountryDisease, 
         LEFT JOIN DonorTravelledToCountry dtc ON c.countryId = dtc.country.countryId
             AND (r.regionId IS NULL OR r.regionId = dtc.region.regionId)
             AND dtc.donor.donorId = :donorId
+        LEFT JOIN DeferralPeriod dp ON cd.deferralPeriod.deferralPeriodId = dp.deferralPeriodId
         WHERE EXISTS (
             SELECT 1
             FROM DonorTravelledToCountry dtc

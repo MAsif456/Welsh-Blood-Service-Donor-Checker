@@ -10,7 +10,9 @@ public record CountryDiseaseDTO(
         String diseaseNote,
         LocalDate diseaseStart,
         LocalDate diseaseEnd,
-        String riskMessage
+        String riskMessage,
+        Integer deferralPeriodDays,
+        String deferralNote
 ) {
     // This method returns the risk message if it is not null, otherwise it returns an empty string.
     public String getRiskMessage() {

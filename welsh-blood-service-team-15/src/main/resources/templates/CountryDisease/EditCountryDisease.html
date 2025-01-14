@@ -34,6 +34,9 @@
             <p th:if="${risk.disease.diseaseName}"><strong>Disease Name:</strong> <span th:text="${risk.disease.diseaseName}"></span></p>
             <p th:if="${risk.disease != null}"><strong>Relevant Notes:</strong><span th:if="${risk.note != null}" th:text="${risk.note}"></span></p>
             <strong>Disease Active Period:</strong> <span th:text="${risk.startDate}"></span> to <span th:text="${risk.endDate}"></span>
+            <p th:if="${risk.deferralPeriod != null}"><strong>Deferral Period (days):</strong> <span th:text="${risk.deferralPeriod.periodDays}"></span></p>
+            <p th:if="${risk.deferralNote != null}"><strong>Deferral Note:</strong> <span th:text="${risk.deferralNote}"></span></p>
+
 
             <a th:href="@{/edit-disease/form(id=${risk.id})}">Edit</a>
 
