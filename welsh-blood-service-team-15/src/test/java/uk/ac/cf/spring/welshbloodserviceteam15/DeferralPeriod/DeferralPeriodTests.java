@@ -8,14 +8,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.ui.Model;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.*;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Deferral.DeferralPeriod;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Deferral.DeferralPeriodRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseDTO;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseService;
 import uk.ac.cf.spring.welshbloodserviceteam15.Disease.DiseaseRepository;
-import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorController;
 import uk.ac.cf.spring.welshbloodserviceteam15.Donor.DonorService;
 
 
@@ -71,7 +69,7 @@ public class DeferralPeriodTests {
         when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo)).thenReturn(diseases);
         when(donorService.getDeferralPeriodRecommendations(donorId)).thenReturn(recommendations);
 
-        // When the method is called
+        // When the method is called to retrieve the deferral period recommendations for the donor
         List<CountryDiseaseDTO> result = donorService.getDeferralPeriodRecommendations(donorId);
 
         // Then the deferral periods are checked to see if not empty and have deferral periods
@@ -88,7 +86,7 @@ public class DeferralPeriodTests {
         List<CountryDiseaseDTO> diseases = List.of(new CountryDiseaseDTO(1, "Country", "Region", "Disease", "Note", LocalDate.now(), LocalDate.now(), "", 30, "Deferral Note"));
         when(countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo)).thenReturn(diseases);
 
-        // When the method is called
+        // When the method is called for the donor to find the regions and diseases linked to the donor, so deferral periods can be based upon them
         List<CountryDiseaseDTO> result = countryDiseaseRepository.findAllRegionsAndDiseasesForDonor(donorId, oneYearAgo);
 
         // Then the deferral periods are checked to see if not empty and have deferral periods
