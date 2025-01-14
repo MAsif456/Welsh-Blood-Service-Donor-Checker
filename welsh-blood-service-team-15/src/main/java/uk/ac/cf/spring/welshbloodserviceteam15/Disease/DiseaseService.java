@@ -9,6 +9,8 @@ import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.Region;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.Region.RegionRepository;
 import uk.ac.cf.spring.welshbloodserviceteam15.Country.CountryDiseaseRepository;
+import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Deferral.DeferralPeriod;
+import uk.ac.cf.spring.welshbloodserviceteam15.Disease.Deferral.DeferralPeriodRepository;
 
 import java.util.Comparator;
 import java.util.List;
@@ -30,6 +32,9 @@ public class DiseaseService {
     @Autowired
     private DiseaseRepository diseaseRepository;
 
+    @Autowired
+    private DeferralPeriodRepository deferralPeriodRepository;
+
     public List<CountryDiseaseDTO> sortDiseasesByRisk(List<CountryDiseaseDTO> diseases) {
         return diseases.stream()
                 .sorted(Comparator.comparing(disease ->
@@ -44,7 +49,6 @@ public class DiseaseService {
 
         CountryDisease countryDisease = new CountryDisease();
 
-        // Check if the disease already exists
         Optional<Disease> existingDisease = diseaseRepository.findByDiseaseName(diseaseDTO.getDiseaseName());
         Disease disease;
         if (existingDisease.isPresent()) {
@@ -70,6 +74,21 @@ public class DiseaseService {
         countryDisease.setNote(diseaseDTO.getNote());
         countryDisease.setStartDate(diseaseDTO.getStartDate());
         countryDisease.setEndDate(diseaseDTO.getEndDate());
+
+        if (diseaseDTO.getDeferralPeriodDays() != null) {
+            Optional<DeferralPeriod> existingDeferralPeriod = deferralPeriodRepository.findByPeriodDays(diseaseDTO.getDeferralPeriodDays());
+            DeferralPeriod deferralPeriod;
+            if (existingDeferralPeriod.isPresent()) {
+                deferralPeriod = existingDeferralPeriod.get();
+            } else {
+                deferralPeriod = new DeferralPeriod();
+                deferralPeriod.setPeriodDays(diseaseDTO.getDeferralPeriodDays());
+                deferralPeriod = deferralPeriodRepository.save(deferralPeriod);
+            }
+            countryDisease.setDeferralPeriod(deferralPeriod);
+        }
+
+        countryDisease.setDeferralNote(diseaseDTO.getDeferralNote());
 
         countryDiseaseRepository.save(countryDisease);
     }

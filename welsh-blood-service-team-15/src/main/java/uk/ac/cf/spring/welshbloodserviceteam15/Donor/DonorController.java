@@ -144,4 +144,24 @@ public class DonorController {
         return "Donor/donorRecords";
     }
 
+    @GetMapping("/donor/deferral-periods/{donorId}")
+    public String getDonorDeferralPeriods(@PathVariable Integer donorId, Model model) {
+        Donor donor = donorService.getDonorSummary(donorId);
+
+        List<CountryDiseaseDTO> diseases = donorService.getRelevantDiseasesForDonor(donorId);
+        List<CountryDiseaseDTO> sortedDiseases = diseaseService.sortDiseasesByRisk(diseases);
+
+        model.addAttribute("diseases", sortedDiseases);
+
+        List<Questionnaire> donorsAnswers = questionnaireService.getDonorsAnswers(donorId);
+        List<Questions> questions = questionService.getQuestions();
+
+        List<CountryDiseaseDTO> recommendations = donorService.getDeferralPeriodRecommendations(donorId);
+        model.addAttribute("recommendations", recommendations);
+
+        ModelUtils.addCommonAttributesToModel(model, donor, donorsAnswers, questions);
+
+        return "Donor/donorSummaryAndRecommendations";
+    }
+
 }

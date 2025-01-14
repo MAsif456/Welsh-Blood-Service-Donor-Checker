@@ -26,6 +26,16 @@
         <div th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
     </div>
     <div>
+        <label for="deferralPeriod">Deferral Period (days):</label>
+        <input type="number" id="deferralPeriod" th:field="*{deferralPeriod.periodDays}" />
+        <div th:if="${#fields.hasErrors('deferralPeriod.periodDays')}" th:errors="*{deferralPeriod.periodDays}"></div>
+    </div>
+    <div>
+        <label for="deferralNote">Deferral Note:</label>
+        <textarea id="deferralNote" th:field="*{deferralNote}"></textarea>
+        <div th:if="${#fields.hasErrors('deferralNote')}" th:errors="*{deferralNote}"></div>
+    </div>
+    <div>
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" value="${countryDisease.startDate}">
         <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start Date Error</div>

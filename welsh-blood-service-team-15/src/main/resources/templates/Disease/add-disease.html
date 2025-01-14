@@ -49,6 +49,14 @@
         <textarea id="note" name="note" th:field="*{note}" required></textarea>
     </div>
     <div>
+        <label for="deferralPeriodDays">Deferral Period (Days):</label>
+        <input type="number" id="deferralPeriodDays" name="deferralPeriodDays" th:field="*{deferralPeriodDays}" required>
+    </div>
+    <div>
+        <label for="deferralNote">Deferral Note:</label>
+        <textarea id="deferralNote" name="deferralNote" th:field="*{deferralNote}" required></textarea>
+    </div>
+    <div>
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
     </div>

@@ -39,9 +39,9 @@ public class AddDiseaseController {
         if (diseaseDTO.getRegionId() == null || "add-new".equals(diseaseDTO.getRegionId().toString())) {
             if (diseaseDTO.getNewRegionName() != null && !diseaseDTO.getNewRegionName().isEmpty()) {
                 Region newRegion = regionService.saveRegion(diseaseDTO.getNewRegionName(), diseaseDTO.getCountryId());
-                diseaseDTO.setRegionId(newRegion.getRegionId()); // Set as Integer
+                diseaseDTO.setRegionId(newRegion.getRegionId());
             } else {
-                diseaseDTO.setRegionId(null); // Set regionId to null if no region is specified
+                diseaseDTO.setRegionId(null);
             }
         }
 

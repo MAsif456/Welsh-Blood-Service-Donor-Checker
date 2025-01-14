@@ -119,6 +119,9 @@
     <p th:if="${#lists.isEmpty(diseases)}">
         This donor has not travelled to any country in the last 12 months.
     </p>
+
+    <h2>Recommendations</h2>
+    <a th:href="@{/donor/deferral-periods/{donorId}(donorId=${donor.donorId})}" class="redirect-button">Show Recommendations</a>
 </div>
 </div>
 </body>
