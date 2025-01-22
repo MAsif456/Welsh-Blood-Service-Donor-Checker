@@ -14,6 +14,19 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    public static final String[] ENDPOINTS_WHITELIST = {
+            "/images/**",
+            "/",
+            "/403",
+            "/css/**",
+            "/home",
+            "/donor-form",
+            "/travel-form/**",
+            "/confirmation",
+            "/login",
+            "/defaultLogin"
+
+    };
 
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
@@ -29,14 +42,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(request -> request
                         // Public access
-                        .requestMatchers("/css/**", "/images/**").permitAll()
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/", "/home", "/donor-form", "/travel-form/**", "/confirmation").permitAll()
+                        .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
                         // Role-specific access
                         .requestMatchers("/donor/summary/**", "/donor/summary-risks/**", "/decisionAndNotes/**", "/donor-records").hasRole("CLINICIAN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .anyRequest().hasRole("ADMIN"))
                 // Login configuration
                 .formLogin(form -> form
                         .loginPage("/login")

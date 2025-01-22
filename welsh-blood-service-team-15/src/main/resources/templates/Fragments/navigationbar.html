@@ -26,6 +26,9 @@
             <li sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/edit-disease}">Edit Disease</a>
             </li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/donor-records}">Donor Records</a>
+            </li>
         </ul>
     </div>
     <div class="navbar-right">
