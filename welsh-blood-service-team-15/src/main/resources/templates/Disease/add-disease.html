@@ -16,6 +16,7 @@
 
 <h1>Add Disease</h1>
 <form th:action="@{/disease/add}" th:object="${disease}" method="post" onsubmit="return validateForm()">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <div id="country-section" class="form-section">
         <label for="country">Country:</label>
         <select id="country" name="countryId" onchange="loadRegions(this)" required title="Please select a country from this list">

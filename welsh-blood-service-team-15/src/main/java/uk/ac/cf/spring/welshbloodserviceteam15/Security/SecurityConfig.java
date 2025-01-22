@@ -44,7 +44,7 @@ public class SecurityConfig {
                         // Public access
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
                         // Role-specific access
-                        .requestMatchers("/donor/summary/**", "/donor/summary-risks/**", "/decisionAndNotes/**", "/donor-records").hasRole("CLINICIAN")
+                        .requestMatchers("/donor/summary/**", "/donor/summary-risks/**", "/decisionAndNotes/**", "/donor-records").hasAnyRole("CLINICIAN", "ADMIN")
                         .anyRequest().hasRole("ADMIN"))
                 // Login configuration
                 .formLogin(form -> form

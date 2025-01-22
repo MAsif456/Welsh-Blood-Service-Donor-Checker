@@ -54,6 +54,7 @@
         <form name="travelForm" th:action="@{/submit-travel-form}" method="post"
               oninput="toggleConditionalQuestions()" onsubmit="validateForm(event)">
             <input type="hidden" name="donorId" th:value="${donorId}" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <div class="form-section">
                 <label for="question1" th:text="${questions[0].question}"></label>

@@ -15,6 +15,7 @@
 <h1>Edit Disease</h1>
 <form th:action="@{/edit-disease/save}" th:object="${countryDisease}" method="post">
     <input type="hidden" th:field="*{id}" />
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <div>
         <label for="disease">Disease:</label>
         <input type="text" id="disease" th:field="*{disease.diseaseName}" />
