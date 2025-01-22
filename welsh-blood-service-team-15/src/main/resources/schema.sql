@@ -71,14 +71,14 @@ CREATE TABLE IF NOT EXISTS country_disease
     region_id INT,
     disease_id INT,
     deferral_period_id INT,
-    deferral_note VARCHAR(200),
+    deferral_note VARCHAR(200), -- Without this validation, invalid deferral notes of significant sizes could be saved
     note VARCHAR(200),
     start_date DATE,
     end_date DATE,
     FOREIGN KEY(country_id) REFERENCES countries(country_id),
     FOREIGN KEY(region_id) REFERENCES regions(region_id),
     FOREIGN KEY(disease_id) REFERENCES diseases(disease_id),
-    FOREIGN KEY (deferral_period_id) REFERENCES deferral_period(deferral_period_id)
+    FOREIGN KEY (deferral_period_id) REFERENCES deferral_period(deferral_period_id) -- without this validation, invalid deferral period id's could be saved
 );
 
 CREATE TABLE IF NOT EXISTS questions
