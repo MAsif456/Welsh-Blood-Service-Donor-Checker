@@ -63,8 +63,15 @@ jacocoTestReport {
 		csv.required = false
 	}
 
-	checkstyle{
-		toolVersion = '10.3.3'
-		configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+	checkstyle {
+		toolVersion = 9.2
+		checkstyleMain.enabled = true
+		checkstyleTest.enabled = true
 	}
+
+	checkstyleMain {
+		configFile = file("Config/checkstyle/checkstyle.xml")
+	}
+
+
 }
