@@ -71,6 +71,12 @@ jacocoTestReport {
 
 	checkstyleMain {
 		configFile = file("Config/checkstyle/checkstyle.xml")
+		maxErrors = 5000
+	}
+
+	checkstyleTest {
+		configFile = file("Config/checkstyle/checkstyle.xml")
+		maxErrors = 5000
 	}
 
 
