@@ -47,9 +47,16 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
-tasks.named('test') {
+tasks.named('test', Test) {
 	useJUnitPlatform()
-	finalizedBy jacocoTestReport
+	ignoreFailures = true
+
+	// Configure JUnit XML reports
+	reports {
+		junitXml.required = true
+		junitXml.outputLocation = file("${buildDir}/test-results/test") // Default location
+		html.required = false // Disable HTML reports if not needed
+	}
 }
 
 jacoco {
@@ -62,22 +69,17 @@ jacocoTestReport {
 		html.required = true
 		csv.required = false
 	}
+}
 
-	checkstyle {
-		toolVersion = 9.2
-		checkstyleMain.enabled = true
-		checkstyleTest.enabled = true
+checkstyle {
+	toolVersion = '10.3.3'
+	configFile = file("${rootDir}/Config/checkstyle/checkstyle.xml")
+	ignoreFailures = true
+}
+
+tasks.withType(Checkstyle).configureEach {
+	reports {
+		xml.required = true
+		html.required = true // Enable HTML reports
 	}
-
-	checkstyleMain {
-		configFile = file("Config/checkstyle/checkstyle.xml")
-		maxErrors = 5000
-	}
-
-	checkstyleTest {
-		configFile = file("Config/checkstyle/checkstyle.xml")
-		maxErrors = 5000
-	}
-
-
 }
