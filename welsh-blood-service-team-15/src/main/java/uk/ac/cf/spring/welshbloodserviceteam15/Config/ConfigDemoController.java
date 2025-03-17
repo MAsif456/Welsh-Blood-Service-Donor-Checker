@@ -1,4 +1,6 @@
+/*
 package uk.ac.cf.spring.welshbloodserviceteam15.Config;
+
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,3 +26,4 @@ public class ConfigDemoController {
                 + username + "\nPassword: " + password;
     }
 }
+*/
