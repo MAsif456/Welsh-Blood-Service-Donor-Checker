@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ConfigDemoController {
 
-    @Value("${spring.application.name}")
+    @Value("${APPLICATION_NAME}")
     private String applicationName;
 
     @Value("${DB_USERNAME}")
