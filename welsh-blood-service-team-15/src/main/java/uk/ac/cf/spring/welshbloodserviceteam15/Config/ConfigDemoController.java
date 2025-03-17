@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ConfigDemoController {
 
-    @Value("${APPLICATION_NAME}")
+    @Value("${APPLICATION_NAME:welsh-blood-service-team-15}")
     private String applicationName;
 
-    @Value("${DB_USERNAME}")
+    @Value("${DB_USERNAME:root}")
     private String username;
 
-    @Value("${DB_PASSWORD}")
+    @Value("${DB_PASSWORD:comsc}")
     private String password;
 
     @GetMapping("/config-test")

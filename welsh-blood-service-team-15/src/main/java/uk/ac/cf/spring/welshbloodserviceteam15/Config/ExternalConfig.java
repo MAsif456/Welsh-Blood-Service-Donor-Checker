@@ -10,13 +10,13 @@ import javax.sql.DataSource;
 public class ExternalConfig {
     // @Value used to access the application.properties files and get
     // the values of the variables.
-    @Value("${DB_USERNAME}")
+    @Value("${DB_USERNAME:root}")
     private String dbUsername;
 
-    @Value("${DB_PASSWORD}")
+    @Value("${DB_PASSWORD:comsc}")
     private String dbPassword;
 
-    @Value("${DB_URL}")
+    @Value("${DB_URL:jdbc:mariadb://localhost:3306/WelshBlood}")
     private String dbUrl;
 
 
